@@ -1,0 +1,509 @@
+TRABALHANDO COM SGBDS
+
+INTEGRAÇÃO DO PHP COM SGBDs (POSTGRESQL)
+
+Passos para manipulação de bancos de dados PostgreSQL:
+
+1 - Conectar a um banco de dados (pg_connect)
+2 - Executar uma consulta ao banco (pg_query)
+3 - Retornar algo da consulta (campos, registros, etc)
+
+É recomendável que após cada uma destas etapas se faça um teste
+se a mesma foi bem sucedida e seguir somente em caso positivo.
+Para maior eficiência que o teste de erro seja específico para o
+tipo de função, como por exemplo: testar a quantidade de registros
+retornada pela função pg_num_regs.
+
+
+CONEXÃO AO BANCO DE DADOS
+
+pg_connect -- Abre uma conexão PostgreSQL
+resource pg_connect ( string str_conexao )
+
+=============conexao.inc.php=================
+<?php
+$str_conexao = "host=127.0.0.1 port=5432 dbname=teste user=postgres password=postgres";
+$link_conexao = pg_connect($str_conexao);
+
+if ($link_conexao){
+}else{
+    echo "Erro na conexão ao Banco de Dados!" . pg_last_error($link_conexao);
+}
+?>
+=============================================
+
+Recomenda-se criar um script como o acima com a conexão e incluir este script sempre 
+que precisar da conexão.
+
+
+RETORNANDO O NÚMERO DE CAMPOS DE UM RECURSO
+
+pg_num_fields -- Retorna o número de campos
+int pg_num_fields ( resource result )
+
+pg_num_fields() retorna o número de campos (colunas) do recurso de resultado result. O argumento é um recurso de resultado criado a partir de pg_query(). Esta função irá retornar -1 em caso de erro.
+
+    Nota: Esta função era chamada pg_numfields(). 
+
+<?php
+   require_once("conexao.inc.php");
+
+   if (!$link_conexao) {
+       print pg_last_error($link_conexao);
+       exit;
+   }
+
+   $results = pg_query($link_conexao, "SELECT * FROM clientes");
+   // Dica: com MySQL a função mysql_query tem os parâmetros invertidos: 
+   // mysql_query($str, $link_conexao)
+
+   echo "<table border=1>\n";
+   for($lt = 0; $lt < pg_num_rows($results); $lt++) {
+       echo "<tr>\n";
+       for($gt = 0; $gt < pg_num_fields($results); $gt++) {
+           echo "<td>" . pg_result($results, $lt, $gt) . "</td>\n";
+       }
+       echo "</tr>\n";
+   }
+   echo "</table>\n";
+
+   pg_close($link_conexao);
+?>
+
+
+RETORNANDO OS NOMES DE CAMPOS DE UM RECURSO
+
+pg_field_name -- Retorna o nome de um campo
+string pg_field_name ( resource result, int field_number )
+
+pg_field_name() retorna o nome do campo ocupando o campo de número igual a field_number no recurso (resource) de resultado result. A numeração de campo inicia-se em 0. 
+
+<?php
+   require_once("conexao.inc.php");
+
+   $res = pg_query($link_conexao, "select * from authors where author = 'Orwell'");
+   $i = pg_num_fields($res);
+   for ($j = 0; $j < $i; $j++) {
+       echo "column $j\n";
+       $fieldname = pg_field_name($res, $j);
+       echo "fieldname: $fieldname\n";
+   }
+?> 
+
+
+RETORNANDO O NÚMERO DE REGISTROS DE UM RECURSO
+
+pg_num_rows -- Retorna o número de linhas
+int pg_num_rows ( resource result )
+
+pg_num_rows() irá retornar o número de linhas do recurso de resultado result. result é um recurso (resource) de resultado de consulta (query) feito por pg_query(). Esta função retornará -1 em caso de erro.
+    Nota: Esta função era chamada pg_numrows(). 
+
+$query = "SELECT * FROM atable";
+$result = pg_query($query);
+
+if (pg_num_rows($result)>0) {
+  while($row=pg_fetch_object($result) {
+   echo $row->first_column;
+   echo $row->second_column;
+   ....
+   echo $row->last_column;
+  }
+}
+else {
+  echo "The query did not return any data!";
+}
+
+----
+$sql = "select * from YOURTABLE";
+$result = pg_query($sql);
+$rows = pg_num_rows($result);
+for ($i = 0; $i < $rows; $i++)
+{
+   $data = pg_fetch_object($result, $i);
+   echo "$data->COLUMNNAME";
+}
+
+----
+$result = pg_query($link_conexao, $string);
+
+while($arr = pg_fetch_array ($result)) {
+     for ($x=0;$x<=pg_num_fields($result);$x++)
+           print $arr[$x] . " ";
+     print "\n";
+}
+
+
+EFETUAR CONSULTAS EM TABELAS
+
+pg_query -- Executa uma consulta (query)
+resource pg_query ( resource connection, string query )
+
+pg_query() retorna um recurso de resultado da consulta se a consulta pôde ser executada. Retorna FALSE em caso de falha ou se a conexão não é uma conexão válida. Detalhes sobre os erros podem ser recuperados usando a função pg_last_error() se a conexão é válida. pg_query() envia uma declaração SQL para o banco de dados PostgreSQL especificado pelo recurso de conexão connection. connection deve ser uma conexão válida que foi criado por pg_connect(). O valor de retorno dessa função é um recurso de resultado de consulta para ser usado para acessar os resultados de outras funções PostgreSQL como pg_fetch_array(). 
+
+Apesar de connection poder ser omitido, isso não é recomendado já que pode ser uma causa de erros difíceis de encontrar no script.
+
+Através do db_query podemos executar qualquer tipo de consulta ao SGBD, tanto consultas
+tipo SQL quanto executar comandos internos do SGBD, ou consultas tipo "SELECT 5*2".
+
+<?php
+  $result=pg_query($link_conexao, "SELECT COUNT(*) AS rows FROM x WHERE a=b;");
+  if  (!$result) {
+   echo "query did not execute";
+  }
+  if ($line = pg_fetch_assoc($result)) {
+   if ($line['rows'] == 0) {
+     echo "0 records"
+   }
+  }
+  else {
+   while ($row = pg_fetch_array($result)) {
+     echo $row[0];
+     echo $row[1];
+   }
+  }
+?> 
+
+<?php
+  $result=pg_query($link_conexao, "SELECT * FROM x WHERE a=b;");
+  if  (!$result) {
+   echo "query did not execute";
+  }
+  if (pg_num_rows($result) == 0) {
+   echo "0 records"
+  }
+  else {
+   while ($row = pg_fetch_array($result)) {
+     //do stuff with $row
+   }
+  }
+?>
+
+<?php
+  $result=pg_query($link_conexao, "SELECT * FROM x WHERE a=b;");
+  if  (!$result) {
+   echo "query did not execute";
+  }
+  if (pg_num_rows($result) == 0) {
+   echo "0 records"
+  }
+  else {
+   while ($row = pg_fetch_array($result) {
+     //do stuff with $row
+   }
+  }
+?>
+
+<?php
+  $result=pg_query($link_conexao, "SELECT * FROM x WHERE a=b;");
+  if  (!$result) {
+   echo "query did not execute";
+  }
+  $rs = pg_fetch_assoc($result);
+  if (!$rs) {
+   echo "0 records"
+  }
+?>
+
+RETORNANDO REGISTROS
+
+Usando as funções pg_fetch_object e pg_fetch_array
+
+pg_fetch_object -- Retorna uma linha (registro) como um objeto
+objeto pg_fetch_object ( resource result, int row [, int result_type] )
+
+pg_fetch_object() retorna um objeto com propriedades que correspondem à linha recuperada. Retorna FALSE se não existem mais linhas ou no caso de erro.
+
+pg_fetch_object() é similar a pg_fetch_array(), com uma diferença - um objeto é retornado, ao invés de um array. Indiretamente, isto significa que você pode acessar os dados somente através dos nomes de campos, e não por seus índices (números são nomes inválidos de propriedades).
+
+row é o número da linha (registro) a ser recuperada. A primeira linha é 0.
+
+Em termos de performance, a função é idêntica a pg_fetch_array(), e quase tão rápida quanto pg_fetch_row() (a diferença é insignificante).
+
+    Nota: A partir do PHP 4.1.0, row é opcional. 
+
+<?php
+
+$database = "store";
+
+require_once("conexao.inc.php");
+if (!$link_conexao) {
+   echo "Failed connecting to postgres database $database\n";
+   exit;
+}
+
+$qu = pg_query($link_conexao, "SELECT * FROM books ORDER BY author");
+
+$row = 0; // postgres needs a row counter
+
+while ($data = pg_fetch_object($qu, $row)) {
+   echo $data->author . " (";
+   echo $data->year . "): ";
+   echo $data->title . "<br />";
+   $row++;
+}
+
+pg_free_result ($qu);
+pg_close ($link_conexao);
+?> 
+
+<?php
+ @$members = pg_query($link_conexao, 'SELECT id,name FROM boards.members ORDER BY name;');
+ if ($members AND pg_num_rows($members)) {
+  while ($member = pg_fetch_object($members)) {
+   echo $member->name.' ('.$member->id.')';
+  }
+ }
+?>
+
+<?php
+// Code to connect, do query etc etc...
+
+$row = pg_fetch_object($result);
+$vars = get_object_vars($row);
+foreach ( $vars as $key => $var ){
+   $row->{$key} = stripslashes($var);
+}
+
+?>
+
+====================
+pg_fetch_array -- Retorna uma linha (registro) como um array (contendo os campos)
+array pg_fetch_array ( resource result [, int row [, int result_type]] )
+
+pg_fetch_array() retorna um array que corresponde à linha (registro). Retorna FALSE se não existem mais linhas.
+
+row é o número da linha (registro) a ser recuperado. A primeira linha é 0.
+
+result_type é um parâmetro opcional que controla como o valor de retorno é iniciado. result_type é uma constante e pode ter os seguintes valores: PGSQL_ASSOC, PGSQL_NUM, e PGSQL_BOTH. pg_fetch_array() retorna um array associativo que tem o nome de campo como chave para PGSQL_ASSOC. Índice de campo como chave com PGSQL_NUM e ambos nome/índice numérico como chave com PGSQL_BOTH. O valor padrão é PGSQL_BOTH.
+
+pg_fetch_array() NÃO é significativamente mais lenta que pg_fetch_row(), e ainda fornece uma significativa facilidade de uso. 
+
+<?php
+require_once("conexao.inc.php");
+if (!$link_conexao) {
+   echo "Um erro ocorreu.\n";
+   exit;
+}
+
+$result = pg_query($link_conexao, "SELECT * FROM autores");
+if (!$result) {
+   echo "Um erro ororreu.\n";
+   exit;
+}
+
+$arr = pg_fetch_array($result, 0, PGSQL_NUM);
+echo $arr[0] . " <- array\n";
+
+$arr = pg_fetch_array($result, 1, PGSQL_ASSOC);
+echo $arr["autor"] . " <- array\n";
+
+?> 
+
+INSERINDO REGISTROS NO BANCO VINDOS DE UM FORM
+
+--- envia.html-----
+<form name=frmInserir method=POST action=recebe.php>
+Código<input name=codigo><br>
+Nome<input name=nome><br>
+<input type=submit value=Enviar>
+</form>
+--- enviar.html-----
+
+---- recebe.php -------
+<?php
+
+require("conexao.inc.php");
+
+$codigo = $_POST['codigo'];
+$nome = $_POST['nome'];
+
+$strInsere = "INSERT INTO nometabela (codigo, nome) VALUES ($codigo, '$nome')";
+$retorno = pg_query($conexao, $strInsere);
+
+if (!$retorno){
+	echo "Erro na consulta: " . pg_last_error($conexao);
+}else{
+	echo "Registro inserido com sucesso!";
+}
+?>
+---- recebe.php -------
+
+ATUALIZANDO REGISTROS NO BANCO VINDOS DE UM FORM
+
+--- envia.html-----
+<form name=frmAtualiza method=POST action=recebe.php>
+Código<input name=codigo><br>
+Nome<input name=nome><br>
+<input type=submit value=Enviar>
+</form>
+--- envia.html-----
+
+---- recebe.php -------
+<?php
+
+require("conexao.inc.php");
+
+$codigo = $_POST['codigo'];
+$nome = $_POST['nome'];
+
+$strAtualiza = "UPDATE nometabela SET codigo=$codigo, nome='$nome'";
+$retorno = pg_query($conexao, $strAtualiza);
+
+if (!$retorno){
+	echo "Erro na consulta: " . pg_last_error($conexao);
+}else{
+	echo "Registro atualizado com sucesso!";
+}
+?>
+---- recebe.php -------
+
+EXCLUINDO REGISTROS DO BANCO
+
+--- envia.html-----
+<form name=frmInserir method=POST action=recebe.php>
+Código<input name=codigo><br>
+<input type=submit value=Enviar>
+</form>
+--- envia.html-----
+
+---- recebe.php -------
+<?php
+
+require("conexao.inc.php");
+
+$codigo = $_POST['codigo'];
+
+$strDelete = "DELETE FROM nometabela WHERE codigo=$codigo";
+$retorno = pg_query($conexao, $strDelete);
+
+if (!$retorno){
+	echo "Erro na consulta: " . pg_last_error($conexao);
+}else{
+	echo "Registro excluido com sucesso!";
+}
+?>
+---- recebe.php -------
+
+CONSULTANDO 1 REGISTRO DA TABELA
+
+--- envia.html-----
+<form name=frmInserir method=POST action=recebe.php>
+Código<input name=codigo><br>
+<input type=submit value=Enviar>
+</form>
+--- envia.html-----
+
+---- recebe.php -------
+<?php
+
+require("conexao.inc.php");
+
+$codigo = $_POST['codigo'];
+
+$strConsulta1 = "SELECT * FROM nometabela WHERE codigo=$codigo";
+$retorno = pg_query($conexao, $strConsulta1);
+
+if (!$retorno){
+	echo "Erro na consulta: " . pg_last_error($conexao);
+}else{
+	$nr = pg_num_rows($strConsulta1);
+	if ($strConsulta1 > 0){
+	if ($numregs == 0){
+		echo 'Sorry! Register not found!';
+	} else if($numregs > 0) {
+		$codigo = pg_fetch_result($cons1,0,'codigo');
+		$nome = pg_fetch_result($cons1,0,'nome');
+	}
+}
+
+?>
+<center><h2>Visualizar Registro!</h2>
+<table border='1'>
+<tr><td>codigo</td><td><? echo $codigo ?></td></tr>
+<tr><td>nome</td><td><? echo $nome ?></td></tr>
+</table></center>
+<center><a href="#" onclick="history.go(-2)">Back</a></center>
+---- recebe.php -------
+
+// Início - Mostrar todos os registros de uma Consulta 
+
+$strConsulta1 = "SELECT * FROM nometabela WHERE codigo=$codigo";
+$retorno = pg_query($conexao, $strConsulta1);
+
+// Nomes dos Campos
+	$nf=pg_num_fields($retorno);
+	echo "<table border=1><tr>";
+	for ($c = 0; $c < $nf; $c++) {	
+		if ($c < $nf - 1){
+			$fnames = pg_field_name($retorno, $c);
+			echo "<td>".$fnames."</td>";
+		}else{
+			$fnames = pg_field_name($retorno, $c);
+			echo "<td>".$fnames."</td>";
+		}
+	}
+	echo "</tr>";
+// Valores dos registros	
+	$row=0;
+	while ( $data = pg_fetch_array($retorno, $row)) {
+	echo "<tr>";
+		for($x=0;$x < $nf;$x++){
+    		echo "<td>".$data[$x]."</td>";
+		}
+   		$row++;
+	echo "</tr>";
+	}	
+	echo "</table>";
+// Final - Gerar arquivo com registros 
+
+// GERANDO ARQUIVO CSV DE REGISTROS DE CONSULTA
+
+<?php
+	include ("conexao.inc.php");
+	$row	=	0;
+	$w_rows	=	0;	
+
+	$w_sql ="SELECT * FROM clientes;"; 
+    $qu 		= @pg_query ($conexao, $w_sql);
+    $row 		= 0;
+
+// Nomes dos Campos
+	$monitoramento = "Monitoramento dos açudes do DNOCS\n";
+	$nf=@pg_num_fields($qu);	
+	for ($c = 0; $c < $nf; $c++) {	
+		if ($c < $nf - 1){
+			$fnames = @pg_field_name($qu, $c);
+			$monitoramento .= $fnames."\t";
+		}else{
+			$fnames = @pg_field_name($qu, $c);
+			$monitoramento .=$fnames;
+		}
+	}
+
+// Valores dos registros	
+	$row=0;
+	while ( $data = @pg_fetch_array($qu, $row)) {
+	$monitoramento .="\n";
+		for($x=0;$x < $nf;$x++){
+			if ($x < $nf-1){
+    			$monitoramento .= $data[$x]."\t";
+			}else{
+				$monitoramento .= $data[$x];
+			}
+		}
+   		$row++;
+	}		
+
+$fp = @fopen("../../tmp/monitoramento.csv", "w");
+@fwrite($fp, $monitoramento); // grava a string no arquivo. Se não existir será criado
+@fclose($fp);
+?>
+
+<script>
+location="../../tmp/monitoramento.csv";
+</script>
+
+
+=============
+Analisar exemplos dos aplicativos exemplo e modelo e gerados pelo Gerador, para incluir, alterar, excluir, consultar1 e consultar todos.

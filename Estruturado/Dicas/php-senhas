@@ -1,0 +1,64 @@
+string password_hash ( string $password , integer $algo [, array $options ] )
+boolean password_verify ( string $password , string $hash )
+boolean password_needs_rehash ( string $hash , integer $algo [, array $options ] )
+array password_get_info ( string $hash )
+
+<?php
+// first determine if a supplied password is valid
+if (password_verify($plaintextPassword, $hashedPassword)) {
+
+    // now determine if the existing hash was created with an algorithm that is
+    // no longer the default
+    if (password_needs_rehash($hashedPassword, PASSWORD_DEFAULT)) {
+
+        // create a new hash with the new default
+        $newHashedPassword = password_hash($plaintextPassword, PASSWORD_DEFAULT);
+
+        // and then save it to your data store
+        //$db->update(...);
+    }
+}
+?>
+
+<?php
+if (substr($hashedPassword, 0, 4) == '$2y$' && strlen($hashedPassword) == 60) {
+    echo 'Algorithm is Bcrypt';
+    // the "cost" determines how strong this version of Bcrypt is
+    preg_match('/\$2y\$(\d+)\$/', $hashedPassword, $matches);
+    $cost = $matches[1];
+    echo 'Bcrypt cost is '.$cost;
+}
+?>
+
+<?php
+if (password_verify($plaintextPassword, $hashedPassword)) {
+    echo 'Valid Password';
+} else {
+    echo 'Invalid Password.';
+}
+?>
+
+<?php
+// not guaranteed to maintain the same cryptographic strength of the full `password_hash()`
+// implementation
+if (CRYPT_BLOWFISH == 1) {
+    // `crypt()` discards all characters beyond the salt length, so we can pass in
+    // the full hashed password
+    $hashedCheck = crypt($plaintextPassword, $hashedPassword);
+
+    // this a basic constant-time comparison based on the full implementation used
+    // in `password_hash()`
+    $status = 0;
+    for ($i=0; $i<strlen($hashedCheck); $i++) {
+        $status |= (ord($hashedCheck[$i]) ^ ord($hashedPassword[$i]));
+    }
+
+    if ($status === 0) {
+        echo 'Valid Password';
+    }else {
+        echo 'Invalid Password';
+    }
+}
+?>
+
+

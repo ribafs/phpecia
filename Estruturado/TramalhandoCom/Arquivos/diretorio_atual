@@ -1,0 +1,22 @@
+Em alguns projetos eu criei dois arquivos header.php, sendo um para o raiz e outro para os arquivos das pastas internas
+Então pesquisei sobre uma função para detectar o diretório atual
+
+<?php if( basename($_SERVER['REQUEST_URI'], ".php")=='estoque'){ ?>
+    <link href="./assets/css/bootstrap.min.css" rel="stylesheet" type="text/css" />
+<?php }else{ ?> 
+    <link href="../assets/css/bootstrap.min.css" rel="stylesheet" type="text/css" />
+<?php } ?>
+
+
+    public function currentDir(){
+        return ucFirst(basename(getcwd()));
+    }
+
+Remover o s final de diretórios no plural
+
+    public function currentDirSing(){
+        $dir = basename(getcwd());
+        $dir = substr($dir, 0, -1);
+        return ucFirst($dir);
+    }
+

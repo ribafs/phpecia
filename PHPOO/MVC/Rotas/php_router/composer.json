@@ -1,0 +1,12 @@
+{
+    "autoload":
+    {
+        "psr-4":
+        {
+            "RibaFS\\" : "src/"
+        }
+    },
+    "require": {
+        "izniburak/router": "^1.5"
+    }
+}

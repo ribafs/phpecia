@@ -1,0 +1,51 @@
+TimeBucket
+
+    Introduction
+    Preset time bucket
+    Example
+
+Introduction #
+
+When you have datetime column and you want to group those date into week of year, month, quarter or year, TimeBucket process will come into play. This process will collect the datetime and put them into bucket of your choice whether year or month or other.
+
+TimeBucket is great when used with Group or Pivot process. The datetime data after categorized by TimeBucket can be aggregated by Group or Pivot process.
+
+Preset time bucket #
+
+Bucket	    description
+date	    Categorize datetime into date
+month	    Categorize datetime into month
+quarter	    Categorize dateime into quarter
+week	    Categorize datetime into week number
+year	    Categorize datetime into year
+hourofday	Categorize time into hour of day, outout value's range is [0-23]
+dayofweek	Categorize datetime into day of week, output value's range is [0-6] [Monday - Sunday]
+dayofmonth	Categorize datetime into day of month, output value's range is [1-31]
+monthofyear	Categorize datetime into month of year, output value's range is [1-12] [January - December]
+
+Example #
+
+<?php
+use \koolreport\processes\TimeBucket;
+use \koolreport\processes\Group;
+class MyReport extends \koolreport\KoolReport
+{
+    public function setup()
+    {
+        ...
+        ->pipe(new TimeBucket(array(
+            "created_time"=>"quarter"
+        )))
+        ->pipe(new Group(array(
+            "by"=>"created_time",
+            "sum"=>"amount"
+        ))
+        ...
+    }
+}
+
+Code explanation:
+
+    In above example, the created_time is chunked by quarter and then be grouped. At the end, we will get a table with Quarter and the sum of amount for particular quarter.
+
+

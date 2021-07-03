@@ -1,0 +1,5 @@
+Por conta da segurança prefira usar:
+
+POST ou GET ao invés de REQUEST
+
+REQUEST é mais abrangente e funciona tanto para GET quanto para POST

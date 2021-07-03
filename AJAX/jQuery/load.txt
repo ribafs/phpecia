@@ -1,0 +1,2 @@
+Com os métodos ajax do jQuery podemos requisitar texto, HTML, XML, JSON e JavaScript de um servidor remoto usando POST ou GET. E podemos carregar os dados externos diretamente em um elemento HTML selecionado da página.
+

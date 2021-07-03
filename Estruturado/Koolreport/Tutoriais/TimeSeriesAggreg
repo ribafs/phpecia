@@ -1,0 +1,84 @@
+ Time Series Aggregation
+
+In many cases, we have data in time series for example sales or costs. We would like to summarize them by time series such as sale by day, week, month or year. In this tutorial, I would like to show you simple way to build a sale report by quarter.
+Database table
+
+Suppose we have the table sales below:
+id	customerId	productId	amount	date
+1	1	3	120	2017-01-01
+2	2	1	150	2017-01-02
+3	2	1	200	2017-01-02
+...	...	...	...	...
+1230	223	12	200	2017-12-31
+Setup processing part
+
+require_once "../koolreport/autoload.php";
+
+use \koolreport\processes\TimeBucket;
+use \koolreport\processes\Group;
+
+class QuarterSaleReport extends \koolreport\KoolReport
+{
+    function settings()
+    {
+        return array(
+            "dataSources"=>array(
+                "mydata"=>array(
+                    'connectionString' => 'mysql:host=localhost;dbname=mydata',
+                    'username' => 'root',
+                    'password' => '',
+                    'charset' => 'utf8',
+                )
+            )
+        )
+    }
+    function setup()
+    {
+        $this->src("mydata")
+        ->query("select date,amount from sales")
+        ->pipe(new TimeBucket(array(
+            "bucket"=>"quarter"
+        )))
+        ->pipe(new Group(array(
+            "by"=>"date",
+            "sum"=>"amount"
+        )))
+        ->pipe($this->dataStore("sale_by_quarter"));
+    }
+}
+
+In above processing, we use the TimeBucket process. This special process will categorize the date into quarter in the year. In the next step, will pipe data into Group process and group by date which is now contain quarter data. The amount will be sumed by quarter is what we wanted.
+Setup view part
+
+We would like to use the Column Chart to display the sales of 4 quarter
+
+<?php 
+    use \koolreport\widgets\google\ColumnChart;
+?>
+<html>
+    <head>
+        <title>Quarter Sale Report</title>
+    </head>
+    <body>
+        <?php 
+        ColumnChart::create(array(
+            "dataStore"=>$this->dataStore("sale_by_quarter")
+        ));
+        ?>
+    </body>
+</html>
+
+Summary
+
+In above tutorial, we learn how to deal with time series data, how to divide time series into chunks and group data by them.
+
+If you have any question, you may reply to us of this email.
+
+See you in the next tutorial.
+Resources
+
+    TimeBucket
+    Group
+    TimeBucket's Example
+
+<3 koolreport team

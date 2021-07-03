@@ -1,0 +1,779 @@
+DataStore
+
+    Overview
+        Normal use
+    Aggregated Methods
+        count()
+        sum()
+        avg()
+        min()
+        max()
+        mode()
+    Filter Methods
+        filter()
+        filter($func)
+        where()
+        whereIn()
+        whereNotIn()
+        except()
+        only()
+    Join methods
+        join()
+        leftJoin()
+    Adding methods
+        push()
+        append()
+        prepend()
+    Sort methods
+        sort()
+        sortBy()
+        sortKeys()
+        sortKeysDesc()
+    Selecting Methods
+        all()
+        data()
+        top()
+        topByPercent()
+        bottom()
+        bottomByPercent()
+        first()
+        last()
+        take()
+        slice()
+        splice()
+    Other methods
+        toJson()
+        isNotEmpty()
+        isEmpty()
+        each()
+        pluck()
+        reject()
+        columnMeta()
+        toArray()
+        toTableArray()
+        makeCopy()
+        get()
+        has()
+        process()
+
+Overview #
+
+In previous section, we understand how KoolReport use DataSource to pull data and use Process to process data. Your processed data are saved to data store ready for visualization. The DataStore help us to store those data and provide some of useful methods for easily accessing, extracting and summarizing data.
+Normal use #
+
+DataStore is normally used as dataSource for widget:
+
+<?php
+ColumnChart::create(array(
+    "dataSource"=>$this->dataStore("sale_by_country")
+    ...
+));
+?>
+
+Aggregated Methods #
+count() #
+
+Return number of rows
+
+Example:
+
+echo $this->dataStore('sale_by_country')->count();
+
+sum() #
+
+Return the sum of a column
+
+->sum(string $key)
+
+Parameters
+Parameter	type	description
+$key	string	Name of column you want to get sum value
+
+Example:
+
+echo $this->dataStore('orders')->sum("amount");
+
+avg() #
+
+Return the average of a column
+
+->avg(string $key)
+
+Parameters
+Parameter	type	description
+$key	string	Name of column you want to get average value
+
+Example:
+
+echo $this->dataStore('orders')->avg("amount");
+
+min() #
+
+Return the min of a column
+
+->min(string $key)
+
+Parameters
+Parameter	type	description
+$key	string	Name of column you want to get min value
+
+Example:
+
+echo $this->dataStore('orders')->min("amount");
+
+max() #
+
+Return the max of a column
+
+->max(string $key)
+
+Parameters
+Parameter	type	description
+$key	string	Name of column you want to get max value
+
+Example:
+
+echo $this->dataStore('orders')->max("amount");
+
+mode() #
+
+Return the mode of a column
+
+->mode(string $key)
+
+Parameters
+Parameter	type	description
+$key	string	Name of column you want to get mode value
+
+Example:
+
+echo $this->dataStore('orders')->mode("amount");
+
+Filter Methods #
+filter() #
+
+Return a new DataStore containing filtered results by certain condition
+
+->filter(string $key, string $operator, mixed $value[, mixed $second_value])
+
+Parameters
+Parameter	type	description
+$key	string	Name of a column
+$operator	string	Operator, see the list below
+$value	mixed	Value to compare
+$second_value	mixed	optional Second value to spare, it will be used with between operator
+
+List of operators
+
+    "==", "=", "equal": Equal
+    "===": Strictly Equal
+    "!=": Not Equal
+    "!==": Strictly Not Equal
+    ">": Greater than
+    ">=": Greater or Equal
+    "<": Smaller than
+    "<=": Smaller or Equal
+    "between": Between two values
+    "notBetween": Not between two values
+    "contain": Contain a string
+    "notContain": Not contain a string
+    "in": Value is in an array
+    "notIn": Value is NOT in an array
+    "startWith": Value starts with a specified string
+    "notStartWith": Value NOT start with a specified string
+    "endWith": Value ends with a specified string
+    "notEndWith": Value does not end with a specified string
+
+Example:
+
+<?php
+//Show only sale with amount greater than $50,000
+Table::create(array(
+    "dataStore"=>$this->dataStore('sales')->filter("amount",">",50000)
+));
+?>
+
+filter($func) #
+
+The filter function can take function to do filter, return true on item that match your requirement.
+
+->filter($func)
+
+Parameters
+Parameter	description
+$func	function	Function that will take $row as parameter
+
+Example:
+
+<?php
+//Show only sale with amount greater than $50,000
+Table::create(array(
+    "dataStore"=>$this->dataStore('sales')->filter(function($row){
+        return $row["amount"]>50000;
+    })
+));
+?>
+
+where() #
+
+Return a new datastore containing rows that match equal condition
+
+->where(string #key,mixed $value)
+
+Parameters
+Parameter	description
+$key	string	Name of column
+$value	mixed	Value to compare with
+
+Example:
+
+$newStore = $this->dataStore('sales')->where('name','John');
+
+whereIn() #
+
+Return a new datastore containing rows with column value is in list of value
+
+->whereIn(string $key,array $values)
+
+Parameters
+Parameter	description
+$key	string	Name of column
+$values	array	Array on values
+
+Example:
+
+$newStore = $this->dataStore('sales')->whereIn('name','John');
+
+whereNotIn() #
+
+Return a new datastore containing rows with column value is NOT in list of value
+
+->whereNotIn(string $key,array $values)
+
+Parameters
+Parameter	description
+$key	string	Name of column
+$values	array	Array on values
+
+Example:
+
+$newStore = $this->dataStore('sales')->whereNotIn('name',array('John','Marry'));
+
+except() #
+
+Return new datastore with all columns except some selected columns
+
+Example:
+
+$newStore = $this->dataStore('sales')->except('extraInfo','gdate');
+
+only() #
+
+Return new datastore with some of selected columns
+
+Example:
+
+$newStore = $this->dataStore('sales')->only('customerName','amount');
+
+Join methods #
+join() #
+
+Join with another datastore with matching keys
+
+->join(DataStore $store,array $matching)
+
+Parameters
+Parameter	type	description
+$store	DataStore	Another datastore to join with
+$matching	array	Matching keys
+
+Example:
+
+$new_store = $this->dataStore('users')->join($this->dataStore('sales'),array(
+    "user_id"=>"buyer_id"
+));
+
+leftJoin() #
+
+Perform left join with another datastore with matching keys
+
+->leftJoin(DataStore $store,array $matching)
+
+Parameters
+Parameter	type	description
+$store	DataStore	Another datastore to join with
+$matching	array	Matching keys
+
+Example:
+
+$new_store = $this->dataStore('users')->leftJoin($this->dataStore('sales'),array(
+    "user_id"=>"buyer_id"
+));
+
+Adding methods #
+push() #
+
+Push a new row to dataset
+
+->push(array $row)
+
+Parameters
+Parameter	type	description
+$row	array	A row of data in associate form
+
+Example:
+
+$this->dataStore('users')->push(array("name"=>"John","age"=>35));
+
+append() #
+
+Append a new row to dataset. The methods is like push() method.
+
+->append(array $row)
+
+Parameters
+Parameter	type	description
+$row	array	A row of data in associate form
+
+Example:
+
+$this->dataStore('users')->append(array("name"=>"John","age"=>35));
+
+prepend() #
+
+Prepend a new row to dataset.
+
+->prepend(array $row)
+
+Parameters
+Parameter	type	description
+$row	array	A row of data in associate form
+
+Example:
+
+$this->dataStore('users')->prepend(array("name"=>"John","age"=>35));
+
+Sort methods #
+sort() #
+
+Sort the rows of data
+
+->sort(array $sorts)
+
+Parameters
+Parameter	type	description
+$sorts	array	List of key column and direction to sort
+
+Example:
+
+$this->dataStore('users')->sort(array(
+    "name"=>"desc",
+    "age"=>"asc"
+));
+
+sortBy() #
+
+Sort the rows of data
+
+->sortBy(string $key[, string $direction])
+
+Parameters
+Parameter	type	description
+$key	string	The key or column name
+$direction	string	Either "asc" or "desc", default value is "asc"
+
+Example:
+
+$this->dataStore('users')->sort("name"); // By name asc
+$this->dataStore('users')->sort("name","desc"); // by name desc
+
+sortKeys() #
+
+Sort the keys of datastore in ascending direction
+
+->sortKeys()
+
+Example:
+
+$this->dataStore('users')->sortKeys();
+
+sortKeysDesc() #
+
+Sort the keys of datastore in descending direction
+
+->sortKeysDesc()
+
+Example:
+
+$this->dataStore('users')->sortKeysDesc();
+
+Selecting Methods #
+all() #
+
+Return all data set
+
+->all()
+
+Example:
+
+$rows = $this->dataStore('sales_by_customer')->all();
+foreach($rows as $row)
+{
+    echo $row["customerName"];
+}
+
+data() #
+
+Get or set the data set
+
+->data([array $rows])
+
+Parameters
+Parameter	type	description
+$rows	array	optional If the parameters rows existed, the method will save it to data set
+
+Example:
+
+//Get dataset
+$rows = $this->dataStore('data')->data(); // The same like ->all();
+
+//Set dataset
+$this->dataStore('data')->data(array(
+    array("name"=>"Peter","amount"=>12000),
+    array("name"=>"Karl","amount"=>15000)
+));
+
+top() #
+
+Return new DataStore containing top number of rows
+
+->top(integer $num[, integer $offset])
+
+Parameters
+Parameter	type	description
+$num	integer	Number of rows
+$offset	integer	optional At what index you want to start getting rows
+
+Example:
+
+$store = $this->dataStore('sales')->top(20); // Top 20 rows
+$store = $this->dataStore('sales')->top(20,10); // Row from 10-30
+
+topByPercent() #
+
+Return new DataStore containing top percent number of rows. if we have 50 rows, return 10% will result in top 5 rows.
+
+->topByPercent(integer $percent)
+
+Parameters
+Parameter	type	description
+$percent	float	Percent of top rows you want to get
+
+Example:
+
+$store = $this->dataStore('sales')->topByPercent(25); // Top 25% of rows
+
+bottom() #
+
+Return new DataStore containing bottom number of rows
+
+->bottom(integer $num)
+
+Parameters
+Parameter	type	description
+$num	integer	Number of last rows
+
+Example:
+
+$bottom_rows = $this->dataStore('sales')->bottom(20); // Bottom 20 rows
+
+bottomByPercent() #
+
+Return new DataStore containing bottom number of rows
+
+->bottomByPercent(integer $percent)
+
+Parameters
+Parameter	type	description
+$num	integer	Number percent of bottom rows
+
+Example:
+
+$bottom_rows = $this->dataStore('sales')->bottom(10); // 10% of bottom rows
+
+first() #
+
+Return the first row that meet condition.
+
+->first(function $func)
+
+Parameters
+Parameter	type	description
+$func	function	Return the first row that match condition
+
+Example:
+
+$row = $this->dataStore('sales')->first(function($row){
+    return $row["amount"]=>50000;
+});
+
+last() #
+
+Return the last row that meet condition.
+
+->v(function $func)
+
+Parameters
+Parameter	type	description
+$func	function	Return the last row that match condition
+
+Example:
+
+$row = $this->dataStore('sales')->last(function($row){
+    return $row["amount"]=>50000;
+});
+
+take() #
+
+Return top number of rows
+
+->top(integer $limit)
+
+Parameters
+Parameter	type	description
+$limit	integer	Number of rows to take, the limit can be negative mean take the last number
+
+Example:
+
+$store = $this->dataStore('sales')->take(10); // Top 10 rows
+$store = $this->dataStore('sales')->top(110); // Last 10 rows
+
+slice() #
+
+Get slice of data
+
+->slice(integer $offset[, integer $length=null])
+
+Parameters
+Parameter	type	description
+$offset	integer	Starting row to get offset
+$length	integer	Number of rows to take, if not specified, all row after $offset will be returned.
+
+Example:
+
+$store = $this->dataStore('sales')->slice(50); // Get rows from 50 to the end
+$store = $this->dataStore('sales')->slice(10,20); // Get rows from 10 to 30
+
+splice() #
+
+Splice the data and replace
+
+->splice(integer $offset[, integer $length=null[, array $replacement]])
+
+Parameters
+Parameter	type	description
+$offset	integer	Starting row to get offset
+$length	integer	Number of rows to take, if not specified, all row after $offset will be returned.
+$replacement	array	Replaced rows
+
+Example:
+
+$store = $this->dataStore('customer')->splice(30,2,array(
+    array("name"=>"Peter","age"=>35),
+    array("name"=>"Karl","age"=>33)
+));
+
+Other methods #
+toJson() #
+
+Get the json representation of data set
+
+->toJson()
+
+Example:
+
+echo $this->dataStore('customer')->toJson();
+
+//[{"name"=>"Peter","age"=>35},{"name"=>"Karl","age"=>33}]
+
+isNotEmpty() #
+
+Get whether datastore is not empty
+
+->isNotEmpty()
+
+Example:
+
+if($this->dataStore('customer')->isNotEmpty())
+{
+    Table::create(array(
+        "dataSource"=>$this->dataStore('customer')
+    ));
+}
+
+isEmpty() #
+
+Get whether datastore is empty
+
+->isEmpty()
+
+Example:
+
+if($this->dataStore('customer')->isEmpty())
+{
+    echo "No data available!";
+}
+
+each() #
+
+Loop through each rows of data set
+
+->each(function $func)
+
+Parameters
+Parameter	type	description
+$func	function	A custom function receiving $row as parameter
+
+Example:
+
+$this->dataStore('customers')->each(function($row){
+    echo $row["name"];
+});
+
+pluck() #
+
+Return all value of a column in array
+
+->pluck(string $key)
+
+Parameters
+Parameter	type	description
+$key	string	The name of column that you want to get
+
+Example:
+
+$all_customer_names = $this->dataStore('customers')->pluck('name');
+
+reject() #
+
+Return a new DataStore containing all rows except for certain rows that meet a condition
+
+->reject(function $func)
+
+Parameters
+Parameter	type	description
+$func	function	A custom function receiving $row as parameter
+
+Example:
+
+$store  = $this->dataStore('customer')->reject(function($customer){
+    return $customer["age"]<30;
+});
+
+columnMeta() #
+
+Set column meta
+
+->columnMeta(array $settings)
+
+Parameters
+Parameter	type	description
+$settings	array	List of column meta
+
+Example:
+
+$this->dataStore('customer')->columnMeta(array(
+    "name"=>array(
+        "type"=>"string",
+        "label"=>"Customer Name"
+    ),
+    "age"=>array(
+        "type"=>"number",
+    )
+));
+
+toArray() #
+
+The method will return data in form of associate array
+
+->toArray()
+
+Example:
+
+$data = $this->dataStore("result")->toArray();
+//Result
+//$data = [
+//    ["name"=>"Peter","age"=>32],
+//    ["name"=>"David","age"=>33]
+//];
+
+toTableArray() #
+
+The method will return data in form of table array
+
+->toTableArray()
+
+Example:
+
+$data = $this->dataStore("result")->toTableArray();
+
+//Result
+//$data = [
+//    ["name","age"],
+//    ["Peter",32],
+//    ["David",33],
+//];
+
+makeCopy() #
+
+The method will make a copy of the datastore
+
+->makeCopy()
+
+Example:
+
+$cloned_customer_datastore = $this->dataStore("customer")->makeCopy();
+
+get() #
+
+This method will return either a data row or a value of dataStore's cell
+
+Example:
+
+$row_0 = $this->dataStore("customers")->get(0); // Return array("name"=>"Peter","age"=>35, ...)
+$age_0 = $this->dataStore("customers")->get(0,"age"); Return value at row 0 and column "age" (which is 35)
+
+has() #
+
+The method return whether a column is existed inside data store.
+
+->has(string $columnName)
+
+Parameters
+Parameter	type	description
+$columnName	string	The name of column
+
+Example:
+
+if($this->dataStore("customer")->has("address"))
+{
+    echo "The customer datastore has address field";
+}
+
+process() #
+
+Further processing data from dataStore. The function will return new dataStore with new changes.
+
+->process(Process $process)
+
+Parameters
+Parameter	type	description
+$process	Process	The process that you want data to go through
+
+Example:
+
+$newStore = $this->dataStore('customer')->process(new CalculatedColumn(array(
+    "name"=>"{firstName} {lastName}"
+)));
+
+

@@ -1,0 +1,21 @@
+O original é apenas a paginação básica com o bootpag, encontrada neste site:
+https://www.kodingmadesimple.com/2017/01/simple-ajax-pagination-in-jquery-php-pdo-mysql.html
+
+O objetivo aqui é o de criar um crud completo com PHP estruturado
+
+Numa segunda fase converter o código estruturado em OO
+
+Adicionarei os arquivos:
+- insert.php
+- update.php
+- delete.php
+- search.php
+
+Criei a pasta assets e movi para ela as pastas css, js e fonts
+
+Criei os arquivos header.php e footer.php, para que seus conteúdos não sejam repetidos
+
+Para efetuar as várias alterações eu usei este CRUD
+https://github.com/ribafs/aplicativos-php/tree/master/crud_php
+
+

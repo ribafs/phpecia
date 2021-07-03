@@ -1,0 +1,35 @@
+Usando Traits em PHP
+
+Traits em PHP são uma forma de reutilizar código e de suprir a falta de herança múltipla até a versão 5.4 do PHP.
+Eles permitem a reutilização horizontal de código através de classes independentes.
+
+Exemplo
+
+<?php
+trait Ola
+{
+    function digaOla() {
+        echo "Olá";
+    }
+}
+
+trait Mundo
+{
+    function digaMundo() {
+        echo " Mundo";
+    }
+}
+
+class MeuMundo
+{
+    use Ola, Mundo;
+}
+
+$mundo = new MeuMundo();
+echo $mundo->digaOla() . $mundo->digaMundo(); //Olá Mundo
+
+Mais detalhes:
+https://www.sitepoint.com/using-traits-in-php-5-4/
+https://pt.slideshare.net/flaviogomesdasilvalisboa/traits-no-php-54-muito-alm-da-herana
+http://www.w3programmers.com/multiple-inheritance-in-php-using-traits/
+

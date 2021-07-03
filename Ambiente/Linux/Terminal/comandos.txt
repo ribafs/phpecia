@@ -1,0 +1,4 @@
+Remover PPA (inserir -r)
+
+sudo add-apt-repository -r ppa:paulo-miguel-dias/pkppa
+

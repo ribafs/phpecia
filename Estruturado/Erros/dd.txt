@@ -1,0 +1,54 @@
+<?php
+function dd($params = [], $die = true)
+{
+    echo '<pre>';
+    print_r($params);
+    echo '</pre>';
+
+    if ($die) die();
+}
+
+https://www.youtube.com/watch?v=A1rVfAZ4hk8
+
+função d(), criada tendo a dd() como inspiração.
+
+// d($url1, $url2, $url3); os parâmetros 2 e 3 são opcionais
+function d($params1 = [],$params2 = []|null,$params3 = []|null, $die = true)
+{
+    print '<style>.pre_red{font-size: 14px;color:red;}.pre_black{font-size: 14px;}</style>';
+    print '<h3>Resultado do Debug</h3>';
+
+    if(!empty($params1)){
+        echo '<b><pre class="pre_red">$params1<br>';
+        print_r($params1);
+        echo '</pre></b>';
+    }
+
+    if(!empty($params2)){
+        echo '<pre class="pre_black"><b>$params2<br>';
+        print_r($params2);
+        echo '</b></pre>';
+    }
+
+    if(!empty($params3)){
+        echo '<pre class="pre_red"><b>$params3<br>';
+        print_r($params3);
+        echo '</b></pre>';
+    }
+
+    if(empty($params2) || empty($params3)){
+        print '<div class="preb"><b>Caso não seja mostrado o conteúdo de um parâmetro ele deve estar vazio</b></div>';
+    }
+
+    if ($die) die();
+}
+
+function dd($params = [], $die = true)
+{
+    echo '<pre>';
+    print_r($params);
+    echo '</pre>';
+
+    if ($die) die();
+}
+

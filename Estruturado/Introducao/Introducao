@@ -1,0 +1,47 @@
+Sobre o PHP
+
+História - https://www.php.net/manual/pt_BR/history.php.php
+https://king.host/blog/2018/06/historia-do-php/
+https://www.canalti.com.br/programacao/web/php/conheca-historia-do-php/
+
+Criado por Rasmus Lerdorf em 1994 para colher comentários para seu currículo no site, feito com Perl.
+
+PHP é uma linguagem interpretada. Isto significa que, quando um script PHP é executado, o intérprete analisa, compila e executa o código uma e outra vez a cada solicitação. Isto pode resultar em desperdício de recursos da CPU e tempo adicional.
+
+É aqui que entra a extensão da OPcache para jogar:
+
+    “OPcache melhora a performance do PHP ao armazenar bytecode de script pré-compilado em memória compartilhada, removendo assim a necessidade do PHP carregar e analisar scripts em cada requisição”.
+
+Com o OPcache habilitado, o intérprete PHP passa pelo processo de 4 etapas mencionado acima apenas na primeira vez que o script é executado. Como os bytecodes PHP são armazenados em memória compartilhada, eles estão imediatamente disponíveis como representação intermediária de baixo nível e podem ser executados na VM da Zend imediatamente.
+
+Pré-carga
+
+OPcache foi recentemente melhorado com a implementação do pré-carregamento, um novo recurso OPcache adicionado com o PHP 7.4. O pré-carregamento fornece uma forma de armazenar um conjunto específico de scripts na memória OPcache “antes que qualquer código de aplicação seja executado“, mas não traz melhorias tangíveis de performance para aplicações típicas baseadas na web.
+
+Em resumo, o JIT traduz as partes quentes do código intermediário em código de máquina. Ao contornar a compilação, ele seria capaz de trazer melhorias consideráveis na performance e uso de memória.
+
+Então, quando se trata de WordPress e aplicativos similares, não devemos esperar um grande impulso na velocidade de execução do PHP. No entanto, o JIT pode trazer vários benefícios para os desenvolvedores.
+https://kinsta.com/pt/blog/php-8/#jit
+
+O PHP (um acrônimo recursivo para PHP: Hypertext Preprocessor) é uma linguagem de script open source de uso geral, muito utilizada, e especialmente adequada para o desenvolvimento web e que pode ser embutida dentro do HTML. 
+
+Em vez de muitos comandos para mostrar HTML (como acontece com C ou Perl), as páginas PHP contém HTML em código mesclado que faz "alguma coisa". O código PHP é delimitado pelas instruções de processamento (tags) de início e fim <?php e ?> que permitem que você entre e saia do "modo PHP". 
+Obs.: importante: quando o script contém apenas código PHP, sem HTML, não devemos fechar o código com a tag ?>. Devemos evitá-la.
+
+Uma boa razão para não digitar a tag ?> ao final de arquivos somente PHP é para evitar que espaços em branco indesejados apareçam em nossos arquivos, que possivelmente pode causar o Erro - Cannot modify header information. Como pode ver nessa pergunta, existem diversas causas para esse tipo de erro que pode passar despercebidos pelas IDEs.
+
+Omitir a tag de fechamento em arquivos puramente PHP é também uma recomendação da PSR-2, um conjunto de regras de estilo de código seguida por Frameworks PHP amplamente utilizados, como Zend Framework, Symfony, Laravel, entre outros. Seguir um estilo de código em nosso projeto resulta em um código uniforme dentro da equipe e ter uma referencia que é utilizado em vários lugares é melhor ainda.
+
+Por fim, segue um trecho da documentação do PHP:
+
+    A tag de fechamento de um bloco PHP ao final de um arquivo é opcional, e em alguns casos omiti-la é útil ao usar include ou require, assim espaço em branco indesejado não irá aparecer ao final dos arquivos, e você ainda será capaz de adicionar cabeçalhos a resposta após. Também é útil se você usar output buffering, e você não quer ter adicionado um espaço em branco ao final das partes geradas por arquivos incluídos.
+
+ O que distingue o PHP de algo como o JavaScript no lado do cliente é que o código é executado no servidor, gerando o HTML que é então enviado para o navegador. O navegador recebe os resultados da execução desse script, mas não sabe qual era o código fonte. Você pode inclusive configurar seu servidor web para processar todos os seus arquivos HTML com o PHP, e então não há como os usuários dizerem o que você tem na sua manga.
+
+A melhor coisa em usar o PHP é que ele é extremamente simples para um iniciante, mas oferece muitos recursos avançados para um programador profissional. Não tenha medo de ler a longa lista de recursos do PHP. Pode entrar com tudo, o mais rápido que puder, e começar a escrever scripts simples em poucas horas.
+
+Apesar do desenvolvimento do PHP ser focado nos scripts do lado do servidor, você pode fazer muito mais com ele. Veja sobre isso na seção O que o PHP pode fazer?, ou vá diretamente para o tutorial introdutório se você estiver interessado apenas em programação web. 
+
+Popularidade do PHP
+https://w3techs.com/technologies/details/pl-php
+

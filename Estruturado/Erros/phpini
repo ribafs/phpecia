@@ -1,0 +1,20 @@
+Em ambientes de teste
+ini_set('display_errors', 1);
+ini_set('log_errors', 1);
+
+Em produção
+ini_set('display_errors', 0);
+ini_set('log_errors', 1);
+
+//php.ini
+
+error_reporting = E_ALL & ~E_NOTICE
+
+display_errors=On
+
+log_error=On
+
+error_log=my_file.log 
+
+Descrição das principais diretivas do php.ini 
+https://www.php.net/manual/pt_BR/ini.core.php

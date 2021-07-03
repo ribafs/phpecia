@@ -1,0 +1,219 @@
+Aplicativos em PHP/Trabalhando em PHP com/Permissões de arquivos e diretórios
+
+chmod - altera permissões de arquivos e diretórios
+
+<?php
+chmod ("/arquivo/diretorio", 755);  // decimal; provavelmente incorreto
+chmod ("/arquivo/diretorio", "u+rwx,go+rx"); // string; incorreto
+chmod ("/arquivo/diretorio", 0755);  // octal; representaÃ§Ã£o correta do modo
+?> 
+
+function permissoes($arquivo,$perms,$acao){
+	print "<form name=frm method=post action=acoes.php>";
+	print "<input name=pm value=$perms>";
+	print "<input type=hidden name=perms value=$perms>";
+	print "<input type=hidden name=ar value=$arquivo>";
+	print "<input type=hidden name=acao value=$acao>";		
+	print "<input name=ar value=$arquivo readonly style='background-color:#FAEBD7'>";
+	print "<input type=submit name=prm value=Alterar>";
+	print "</form>";
+
+	if (isset($_POST['prm'])){
+		$ar=$_POST['ar'];
+		$perms=octdec($_POST['pm']);
+		$ch = chmod($ar, $perms);
+		if(!$ch) {
+			die ("Erro ao alterar as permissÃÂµes!");
+		}else{
+			print "<script>location='index.php'</script>";
+		}
+	}
+}
+
+<?php
+// Escrita e leitura para o proprietario, nada ninguem mais
+chmod ("/somedir/somefile", 0600);
+
+// Escrita e leitura para o proprietario, leitura para todos os outros
+chmod ("/somedir/somefile", 0644);
+
+// Tudo para o proprietario, leitura e execucao para os outros
+chmod ("/somedir/somefile", 0755);
+
+// Tudo para o proprietario, leitura e execucao para o grupo do prop
+chmod ("/somedir/somefile", 0750);
+?> 
+
+Value    Permission Level
+400    Owner Read
+200    Owner Write
+100    Owner Execute
+40    Group Read
+20    Group Write
+10    Group Execute
+4    Global Read
+2    Global Write
+1    Global Execute
+
+
+<?php
+function chmodnum($mode) {
+   $mode2=$mode;
+   $realmode = "";
+   $legal =  array("","w","r","x","-");
+   $attarray = preg_split("//",$mode);
+   for($i=0;$i<count($attarray);$i++){
+       if($key = array_search($attarray[$i],$legal)){
+           $realmode .= $legal[$key];
+       }
+   }
+   $mode = str_pad($realmode,9,'-');
+   $trans = array('-'=>'0','r'=>'4','w'=>'2','x'=>'1');
+   $mode = strtr($mode,$trans);
+   $newmode = '';
+   $newmode .= $mode[0]+$mode[1]+$mode[2];
+   $newmode .= $mode[3]+$mode[4]+$mode[5];
+   $newmode .= $mode[6]+$mode[7]+$mode[8];
+   return $mode2.' = '.$newmode;
+}
+
+echo chmodnum('drwxr-xr-x');
+?>
+
+alguns exemplos:
+
+drwxr-xr-x => 755
+drwxr-xr-x => 755
+dr-xr-xr-x => 555
+drwxr-xr-x => 755
+drwxr-xr-x => 755
+drwxr-xr-x => 755
+drwxr-xr-x => 755
+drwxrwxrwt => 776
+drwxr-xr-x => 755
+drwxr-xr-x => 755
+lrwxrwxrwx => 777
+
+
+chown
+
+Esta função não trabalha com arquivos remotos
+
+<?php
+
+$file_name= "test";
+$path = "/var/www/html/test/" . $file_name ;
+
+$user_name = "root";
+
+chown($path, $user_name);
+
+?>
+
+<?php
+function recurse_chown_chgrp($mypath, $uid, $gid)
+{
+   $d = opendir ($mypath) ;
+   while(($file = readdir($d)) !== false) {
+       if ($file != "." && $file != "..") {
+
+           $typepath = $mypath . "/" . $file ;
+
+           //print $typepath. " : " . filetype ($typepath). "<BR>" ;
+           if (filetype ($typepath) == 'dir') {
+               recurse_chown_chgrp ($typepath, $uid, $gid);
+           }
+
+           chown($typepath, $uid);
+           chgrp($typepath, $gid);
+
+       }
+   }
+
+ }
+
+recurse_chown_chgrp ("uploads", "ribafs", "meugrupo") ;
+?> 
+
+<?php
+function recurse_chown_chgrp($path2dir, $uid, $gid){
+   $dir = new dir($path2dir);
+   while(($file = $dir->read()) !== false) {
+       if(is_dir($dir->path.$file)) {
+           recurse_chown_chgrp($dir->path.$file, $uid, $gid);
+       } else {
+           chown($file, $uid);
+           chgrp($file, $gid);
+       }
+   }
+   $dir->close();
+}
+?> 
+
+
+chgrp -- Modifica o grupo do arquivo
+
+filegroup -- Lê o grupo do arquivo
+
+fileperms -- Lê as permissões do arquivo
+
+fileowner -- Lê o dono (owner) do arquivo
+
+is_readable -- Diz se o arquivo/diretório é legivel (readable)
+
+<?php
+if (is_readable('my_link')) {
+  header('Location: /my_link');
+}
+?>
+
+is_writable -- Diz se pode-se escrever para o arquivo (writable)
+
+<?php
+
+$file = '/home/vincent/arquivo.sh';
+
+if(is_executable($file)) {
+   echo $file.' Ã© executÃ¡vel';
+} else {
+   echo $file.' nÃ£o Ã© executÃ¡vel';
+}
+
+?> 
+
+
+umask -- Modificar a umask atual
+
+<?php
+umask(0670);                    //- set umask
+$handle = fopen('file', 'w');  //- 0006
+mkdir("/path/dir");            //- 0107
+?>
+
+calculate the result:
+<?php
+$umask = 0670;
+umask($umask);
+//- if you are creating a new directory, $permission = 0777;
+//- if you are creating a new file, $permission = 0666.
+printf( "result: %04o", $permission & ( 0777 - $umask) );
+?>
+
+
+Permissões de arquivos
+
+    // Receber as permissões de arquivos ou pastas no formato 755, por exemplo
+    public function getFilePerms($file) {
+            $length = strlen(decoct(fileperms($file)))-3;
+            return substr(decoct(fileperms($file)),$length);
+    }
+
+Retornar apenas o primeiro dígito:
+                    $permsApp = substr($this->getFilePerms($dst),0,1);
+                    if($permsApp == '7' || $permsApp == '6'){
+                        copy($src . '/' . $file,$dst . '/' . $file); 
+                    }else{
+                        print 'O diretório "'.$dst . '" tem permissão de ' . $this->getFilePerms($dst) . '. Requer permissão de escrita para o Apache';
+                        exit;
+                    }
+

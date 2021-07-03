@@ -1,0 +1,7 @@
+Redirecionar imediatamente para a index.php
+
+header("locate: index.php");
+
+Atualiza por 4 segundos e depois redireciona para a index.php
+
+header("refresh:4;index.php");

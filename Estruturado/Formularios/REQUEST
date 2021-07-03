@@ -1,0 +1,31 @@
+$_REQUEST
+O que é?
+
+A variável $_REQUEST é uma variável com o conteúdo das variáveis $ _GET e $ _POST e $ _COOKIE.
+
+Como usá-lo?
+
+Antes de usar a variável $_REQUEST, você deve ter um formulário em html que tenha o método igual a GET e POST. Então, no php, você pode usar a variável $_REQUEST para obter os dados que deseja. Dependendo do que você escreveu para o método no formulário e usando $_REQUEST no php, $_REQUEST usará $ _Get se GET for escrito para o método e $_REQUEST usará $ POST se POST for escrito no método. A sintaxe $_REQUEST é ($_REQUEST ['nome do campo do formulário vai aqui']).
+
+<html>
+<body>
+
+<form method="post" action="<?php echo $_SERVER['PHP_SELF'];?>">
+  Name: <input type="text" name="fname">
+  <input type="submit">
+</form>
+
+<?php
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
+  // collect value of input field
+  $name = $_POST['fname'];
+  if (empty($name)) {
+    echo "Name is empty";
+  } else {
+    echo $name;
+  }
+}
+?>
+
+</body>
+</html> 

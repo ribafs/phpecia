@@ -1,0 +1,91 @@
+<h3>Exemplo de uso de formulário com PHP chamando outro script</h3>
+
+<body onLoad="document.form1.nome.focus()">
+<form name="form1" method="POST" action="forms0.php">
+Nome.<input type="text" name="nome"><br>
+E-mail<input type="text" name="email"><br>
+<input type="hidden" name="oculto" value="OK">
+Senha<input type="password" name="senha"><br>
+SenhaCript<input type="password" name="senhacript"><br>
+<input type="submit" value="Enviar"><br>
+</form>
+
+forms0.php
+<?php
+$nome=$_POST["nome"];
+$email=$_POST["email"];
+$oculto = $_POST['oculto'];
+$senha = $_POST['senha'];
+$senhacript = $_POST['senhacript'];
+
+if (isset($nome)){
+	echo "O nome digitado foi " . $nome . "<br>";
+	echo "O e-mail digitado foi " . $email . "<br>";
+	echo "O campo oculto contém " . $oculto . "<br>";
+	echo "A senha digitada foi " . $senha . "<br>";
+	echo "A senha md5 digitada foi " . md5($senhacript) . "<br>";
+}
+?>
+
+Recebendo dados via URL
+
+Se temos a seguinte situação:
+
+Temos um arquivo c:\www\teste.php, com o seguinte código:
+
+<?php
+    echo $_GET['codigo'];
+?>
+
+Queremos passar uma variável código com valor 5, fazemos:
+
+http://127.0.0.1/teste.php?codigo=5
+
+Para receber mais de uma variável ou campo usar:
+
+http://127.0.0.1/teste.php?codigo=5&nome="Antônio"&email="ribafs@yahoo.com"
+
+echo "Código = ".$_GET['codigo']." Nome = ".$_GET['nome']." E-mail = ".$_GET['email'];
+
+Também podemos passar variáveis pela URL, assim teste.php?codigo=$cod
+
+
+CSS EM TAGs HTML
+	Deixe aqui seu Comentário
+	<textarea wrap=off name=command cols=80 rows=20 
+	style="	background-color:black; 
+			color:yellow; 
+			font-family:corrier new,courier; 
+			font-weight:normal;
+			font-size:12px;"><?php echo $_POST["comentario"]; ?>
+	</textarea>
+
+Recebendo POST em arquivo php
+
+<?php
+foreach ($_POST as $key => $value) {
+    // strip whitespace from $value if not an array
+    if (!is_array($value)) {
+        $value = trim($value);
+    }
+    if (!in_array($key, $expected)) {
+        // ignore the value, it's not in $expected
+        continue;
+    }
+    if (in_array($key, $required) && empty($value)) {
+        // required value is missing
+        $missing[] = $key;
+        $$key = "";
+        continue;
+    }
+    $$key = $value;
+}
+
+Valor default em textarea em form
+
+<textarea name="comments" id="comments"><?php
+  if ($missing || $errors) {
+      echo htmlentities($comments);
+  }?></textarea>
+
+

@@ -1,0 +1,4 @@
+Wordpress is an open source blogging engine. If you are not familiar
+ with blogging, it is something like keeping a diary on the web.
+A blog stands for web log. Wordpress is totally free and
+released under the GPL.

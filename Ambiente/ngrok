@@ -1,0 +1,75 @@
+https://ngrok.com/
+
+Compartilhar o servidor web local com a internet.
+
+1. Unzip to install
+On Linux or Mac OS X you can unzip ngrok from a terminal with the following command. On Windows, just double click ngrok.zip to extract it.
+
+unzip /path/to/ngrok.zip
+
+2. Connect your account
+Running this command will add your authtoken to the default ngrok.yml configuration file. This will grant you access to more features and longer session times. Running tunnels will be listed on the status page of the dashboard.
+
+./ngrok authtoken 1knuoDEhArifFTpa3Wlz3RN3iAY_3UYBKmpznAH2dqTUVKGea
+
+Grava o 
+.ngrok2/ngrok.yml
+
+Contendo o authtoken abaixo
+
+authtoken: 1knuoDEhArifFTpa3Wlz3RN3iAY_3UYBKmpznAH2dqTUV
+
+3. Fire it up
+Read the documentation on how to use ngrok. Try it out by running it from the command line:
+
+ ./ngrok help
+
+To start a HTTP tunnel forwarding to your local port 80, run this next:
+
+./ngrok http 80
+
+Forward to the default https port on localhost
+
+./ngrok http 443
+
+                                                                                                                                           
+Session Status                online                                                                                                                  
+Account                       Ribamar (Plan: Free)                                                                                                    
+Version                       2.3.35                                                                                                                  
+Region                        United States (us)                                                                                                      
+Web Interface                 http://127.0.0.1:4040                                                                                                   
+Forwarding                    http://f4a61462e4a1.ngrok.io -> http://localhost:80                                                                     
+Forwarding                    https://f4a61462e4a1.ngrok.io -> http://localhost:80                                                                    
+                                                                                                                                                      
+Connections                   ttl     opn     rt1     rt5     p50     p90                                                                             
+                              0       0       0.00    0.00    0.00    0.00                                                                            
+                                                                            
+Mostra as URLs que podemos compartilhar
+
+https://f4a61462e4a1.ngrok.io
+
+Next, check out some tutorials
+We've written tutorials to guide you through common use cases like developing on chatbots, setting up SSH access to IoT devices or testing on mobile devices.
+
+Tutoriais
+
+
+
+Run a live demo from my machine
+
+We've always enjoyed using ngrok to give live demos without pushing code to a server (even live coding in front of large audiences)! It can be a great way to demo a feature or make a sale. Keep your app running locally and start ngrok as normal, pointing to the port where your local server is running:
+
+./ngrok http <YOUR_SERVER_PORT>
+
+The URL that's returned connects directly to your local server, so any changes will be shown live. This is especially useful if you run into any bugs or you want to impress people by making changes they can see immediately. Try it out!
+
+
+Password protecting your tunnel
+
+Anyone who can guess your tunnel URL can access your local web server unless you protect it with a password. You can make your tunnels secure with the -auth switch. This enforces HTTP Basic Auth on all requests with the username and password you specify as an argument.
+Example: Password-protect your tunnel
+
+ngrok http -auth="username:password" 8080
+
+https://ngrok.com/docs
+

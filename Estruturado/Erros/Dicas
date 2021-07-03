@@ -1,0 +1,74 @@
+
+Quando acontecer de efetuar diversas alterações e nada surtir o efeito esperado, existe uma grande chance de não estar mexendo no arquivo esperado. Verifique.
+
+
+Strings
+
+Cuidado ao trabalhar com strings. Acontece muito de ficarem espaços em branco difíceis de serem identificados.
+Uma boa providência é usar a função trim() no resultado para eliminar os espaços em branco da esquerda e da direita da string resultante.
+
+
+
+Quando usando um tipo OJB $row->campo e receber
+
+Attempt to read property "id" on array in /
+
+Mude para ASSOC
+
+$row["$campo"]
+
+
+
+Nem sempre a mensagem do erro indica a linha corretamente. Algumas vezes o erro está na linha antereior.
+
+
+Uma boa ideia é usar o navegador no modo private, para evitar cache em algumas situações.
+No Firefox use Ctrl+Shift+P.
+
+
+O erro
+
+Too few arguments to function Crud::updateReg(), 0 passed in
+
+Indica que o método Crud::updateReg() requer argumentos e não foi passado nenhum.
+
+
+Erros sem Solução
+
+Quando nos depararmos com error que não encontramos a solução, uma boa providência é limpar o cache do navegador. Como limpar o cache afeta algumas atividades do navegador, então podemos usar alternativas, como abrir um outro navegador qeu não tenha o site em cache ou também abrir no mesmo navegador em modo private.
+No firefox podemos usar Ctrl+Shift+P
+
+
+Prefira o var_dump
+Prefira o var_dump() ao print_r(), pois o var_dump usa internamente a tag <pre> do HTML, que ajuda na visualização do erro, além de mostrar informações que a print_r não mostra, como é o caso dos tipos das variáveis.
+
+
+Muitas vezes as mensagens de erro do PHP se enganam. Veja esta:
+Parse error: syntax error, unexpected token ")", expecting variable in
+
+O problema era este: 
+
+function sqlInsert($pdo,table){
+
+A v ariaǘel table acidentalmente estava sem o $.
+Cuidado com as emnsagens.
+
+
+Muito cuidado com = em ifs. Um if requer ==, >, <, etc e nunca =
+O sinal de = significa atribuição e usado em um if vai indicar sempre verdadeira, pois sempre atribuirá.
+
+if($table = 'unidades'){
+
+Esta expressão acima sempre será verdadeira.
+
+
+Cuidado ao lidar com funções que tenham dois ou mais argumentos. Os argumentos devem ser fornecidos rigorosamente na ordem que foram definidos na função.
+
+
+Cuidado ao trabalhar com parâmetros em URL
+
+index.php?id=<?=$row['id']?>&action=update
+
+Acima eu estou passando uma variável action com o valor 'update'. Não use action='update', como seria de se esperar.
+
+

@@ -1,0 +1,26 @@
+Join
+
+    Introduction
+    Examples
+
+Introduction #
+
+Join process help to join two data sources based on the matching of key columns. Imagine you may have data from different sources: some in databases, some in csv, others from excel files. You may interest in joining those sources into one to produce meanningful insight.
+
+Examples #
+
+<?php
+use \koolreport\processes\Join;
+class MyReport extends \koolreport\KoolReport
+{
+    public function setup()
+    {
+        $user_source = $this->src('user_source')->query("select id,name from users");
+        $purchase_source = $this->src('purchase_source')->query("select user_id,item,amount from purchases");
+        //Note that: user_source and purchase_source can be from different database
+        $join = new Join($user_source,$purchase_source,array("id"=>"user_id"));
+        $join->pipe($this->dataStore('together'));
+    }
+}
+
+

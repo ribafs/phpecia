@@ -1,0 +1,3 @@
+Paginação Simples com bootpag (plugin do jQuery)
+
+https://www.kodingmadesimple.com/2017/01/simple-ajax-pagination-in-jquery-php-pdo-mysql.html

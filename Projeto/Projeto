@@ -1,0 +1,48 @@
+Levantamento de Requisitos
+
+Requisitos são as necessidades que o sistema tem para existir. Estas necessidades podem ser levantadas através de solicitações, desejos ou até mesmo por exigências
+de uma lei, por exemplo.
+
+A existência de requisitos de negócio, que é o porquê um sistema deverá ser desenvolvido.
+Os requisitos do sistema, que são os requisitos de como o sistema deverá se comportar para atender os requisitos de negócios e dos usuários.
+
+Os requisitos são:
+- De negócio (por que o software é necessário)
+- De usuário (o que se espera fazer com o software)
+- De software (como o software tem que se comportar)
+
+Fases antigas:
+- Concepção - Planejamento - Design - Brainstorm - Construção - Q.A.
+
+Na concepção o cliente irá lhe apresentar o que deverá ser desenvolvido
+
+Sugestões importantes para quem colhe requisitos:
+- Ser bom ouvinte
+- Ser bom questionador
+- Bom observador
+- Ser organizado
+- Ser criativo
+- Integrar sua equipe com os requisitos
+- Consultor do cliente, podendo oferecer sugestões pertinentes
+- Conhecer bem sobre o assunto        
+- Classificar organizadamente os requisitos levantados
+- Levar para a aquipe as dificuldades encontradas
+
+Referência
+E-book Engenharia de Requisitos de Vinicius Carvalho
+
+
+Criar uma pasta com o nome do projeto
+Copiar para a pasta todo o material que tiver sobre o assunto
+Efetuar uma boa pesquisa sobre o assunto e gerar documentos com o LibreOffice Writer e guardar na pasta
+Criar um arquivo chamado
+1projeto no raiz da pasta contendo detalhes sobre o projeto e etapas de construção com
+- projeto do banco de dados, com um DER
+- projeto do aplicativo com um Wireframe das telas principais e de telas detalhadas
+- Usar evernote, trello e MindMeister?
+
+- Trabalhar mais com Windows (7), especialmente para testes e tutoriais, usando numa VM com 4GB
+- Usar mais o laravel
+- Focar nos mais populares, nos mais básicos mas sem perder de vista os complexos e menos populares, ficando atento e sensível para "sugestões", apenas priorizar os populares e básicos. Veja como foi o "seu" uso do Mint, que é a distro Linux mais popular, que atendia muito bem suas necessidades, era sua preferida e linda e agora é mais adequado o Debian! Paciência, você não precisa defender nem se apegar a nada nem a ninguém, precisa fazer seu trabalho e da melhor forma possível, isso sim!
+
+

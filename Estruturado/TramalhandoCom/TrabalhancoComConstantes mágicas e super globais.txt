@@ -1,0 +1,99 @@
+Variáveis do servidor
+
+$_SERVER
+
+Este é um array (vetor) 'superglobal', ou automaticamente global. Isto significa que ele é disponível em todos os escopos (níveis) de um script. Você não precisa fazer um: ... global $_SERVER; ... para poder acessá-lo dentro de funções ou métodos, como era necessário com $HTTP_SERVER_VARS. O array superglobal $_SERVER existe em qualquer sessão PHP e já contém um conjunto de chaves (índices) pré definidos e valorados. Os índices mais importantes são:
+
+'REQUEST_URI'
+
+O URI fornecido para acessar a página atual, por exemplo, '/index.html'.
+
+'SCRIPT_NAME'
+
+Contém o caminho completo do script atual. Útil para páginas que precisam apontar para elas mesmas (dinamicamente). A constante __FILE__ contém o caminho completo e nome do arquivo (mesmo incluído) atual.
+
+'PHP_SELF'
+
+O nome do arquivo do script atualmente em uso, relativo ao document root. Por exemplo, $_SERVER['PHP_SELF'] em um script com o endereço http://example.com/test.php/foo.bar pode ser /test.php/foo.bar. A constante __FILE__ contém o caminho completo e nome do arquivo (mesmo incluído) atual.
+
+Se estiver rodando o PHP em linha de comando, esta variável não está disponível.
+
+'SERVER_NAME'
+
+O nome host do servidor onde o script atual é executado. Se o script está rodando em um host virtual, este será o valor definido para aquele host virtual.
+
+'REQUEST_METHOD'
+
+Contém o método de request utilizando para acessar a página. Geralmente 'GET', 'HEAD', 'POST' ou 'PUT'.
+
+'QUERY_STRING'
+
+A query string (string de solicitação), se houver, pela qual a página foi acessada.
+
+'DOCUMENT_ROOT'
+
+O diretório raiz sob onde o script atual é executado, como definido no arquivos de configuração do servidor.
+
+'SCRIPT_FILENAME'
+
+O caminho absoluto o script atualmente em execução.
+
+Nota: Se o script for executado pela CLI com um caminho relativo, como file.php ou ../file.php, $_SERVER['SCRIPT_FILENAME'] irá conter o caminho relativo especificado pelo usuário.
+
+Exemplos
+
+$current_script = dirname($_SERVER['SCRIPT_NAME']);
+
+$current_path  = dirname($_SERVER['SCRIPT_FILENAME']);
+
+$request_uri = $_SERVER['REQUEST_URI'];
+
+// Pick the predefined variable that works on your server
+     return $_ENV['SCRIPT_URL'];
+
+$_SERVER['QUERY_STRING'])
+
+      $sPathPS = $_SERVER[PHP_SELF];
+       $sPathFS = __FILE__;
+
+echo 'http';
+if($_SERVER['HTTPS']=='on'){echo 's';}
+echo '://'.$_SERVER['SERVER_PORT'].$_SERVER['SCRIPT_NAME'];
+if($_SERVER['QUERY_STRING']>' '){echo '?'.$_SERVER['QUERY_STRING'];}
+
+
+Constantes Mágicas
+
+__LINE__	 A linha atual do script.
+__FILE__	O caminho completo e nome do arquivo. Se utilizado dentro de um include, o nome do arquivo incluído será retornado.
+__FUNCTION__	O nome da função (Acrescentado no PHP 4.3.0). A partir do PHP 5 esta constante retorna o nome da função como ela foi 
+   declarada (sensível a maiúsculas e minúsculas). No PHP 4 sempre retorna o nome em minúsculas.
+__CLASS__	O nome da classe (Acrescentado no PHP 4.3.0). A partir do PHP 5 esta constante retorna o nome da função como ela foi 
+   declarada (sensível a maiúsculas e minúsculas). No PHP 4 sempre retorna o nome em minúsculas.
+__METHOD__	O nome do método de classe. (Acrescentado no PHP 5.0.0). O nome do método é retornado como foi declarado (sensível a 
+   maiúsculas e minúsculas).
+
+Diretório atual
+
+echo dirname(__FILE__).'
+';  // /var/www/html/main
+echo basename(__DIR__).'
+';  // main
+
+
+if (realpath(__FILE__) == realpath($_SERVER['SCRIPT_FILENAME'])) {
+  exit;
+}
+
+---------
+<?php 
+
+$uri = $_SERVER["REQUEST_URI"];
+
+$test = $uri === "/algum_lugar/conteudo/painel.php" ? "revisor/" : "" ;
+
+?>
+
+<link rel="stylesheet" type="text/css" href="<?=$test?>estilo.css">
+<h2>formulario</h2>
+

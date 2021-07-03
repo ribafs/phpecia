@@ -1,0 +1,49 @@
+MongoDataSource
+
+    Introduction
+    Settings
+    Example
+
+Introduction #
+
+MongoDataSource helps you to connect to MongoDB to retrieve data. You need to install the MongoDB package.
+
+Settings #
+
+Name	            type	default	description
+class	            string		    Must set to '\koolreport\datasources\MongoDataSource'
+connectionString	string		    Define connection string to MongoDB. If you use connectionString, you do not need to set properties host, username and password.
+host	            string		    MongoDB host
+username	        string	    	Username
+password	        string		    Password
+database        	string		    The name of database you want to connect
+
+Example #
+
+<?php
+class MyReport extends \koolreport\KoolReport
+{
+    public function settings()
+    {
+        return array(
+            "dataSources"=>array(
+                "mongo_purchase"=>array(
+                    "class"=>'\koolreport\mongodb\MongoDataSource',
+                    "connectionString"=>"mongo://johndoe:secret_password@localhost:65432",
+                    "database"=>"dbpurchase"
+                ),
+            )
+        );
+    }
+    public function setup()
+    {
+        $this->src('mongo_purchase')
+        ->query(array("colection"=>"cPurchases"))
+        ->pipe(..)
+        ->pipe(...)
+        ...
+        ->pipe($this->dataStore('mongo_purchases'));
+    }
+}
+
+

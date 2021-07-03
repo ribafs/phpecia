@@ -1,0 +1,96 @@
+Melhorando a performance do Linux Mint 20.1 com Cinnamon
+
+Hardware (para melhorar):
+- Um disco SSD
+- Mais memória RAM
+- Processador mais rápido (Ex.: em geral intel i7 é melhor que i5 e i5 melhor que i3. As gerações também importam. Evite Celeron, caso queira desempenho, pois contam com apenas um núcleo)
+
+Caso tenha 4GB de RAM ou menos (vale também para Ubuntu)
+
+cat /proc/sys/vm/swappiness # Retorna 60
+
+Para reduzir o valor retornado
+
+xed admin:///etc/sysctl.conf
+
+Pedirá a senha duas vezes
+
+Adicionar ao final do arquivo
+
+# Improve cache management
+vm.vfs_cache_pressure=50
+
+Reiniciar o computador ou deixar para reiniciar após a próxima dica
+
+Testando
+cat /proc/sys/vm/swappiness # Retorna 20
+
+
+Melhorar gerenciamento da zswap
+
+xed admin:///etc/default/grub
+
+GRUB_CMDLINE_LINUX="zswap.max_pool_percent=40"
+
+sudo update-grub
+
+Reiniciar novamente o computador
+
+
+Melhorar desempenho do LibreOffice
+
+Desabilitar o java no libreoffice caso não use macros
+
+LibreOffice
+Ferramentas
+Opções
+Avançado
+Desmarcar "Utilizar um JRE ... "
+OK
+
+
+Desabilitar alguns aplicativos de inicialização
+
+Menu
+Preferências
+Aplicativos de inicialização
+Apenas desativar alguns aplicativos para se for o caso ativar se necessário. Evitar remover
+
+- Relatório do sistema (não necessário em desktops)
+- mintwelcome
+- Warpinator
+- SSH key agent (desativar caso não acesse sua máquina remotamente)
+- Suporte for NVIDIA (caso não tenha uma placa Nvidia)
+
+Reiniciar para remover do iniciar
+
+
+Desativar alguns efeitos gráficos
+
+Menu
+Preferências
+Efeitos
+Habilitar efeitos
+Podemos desmarcar todas
+
+Preferências
+Janelas em mosaico
+Desabilitar
+
+Desativar efitos sonoros
+
+Menu
+Preferências
+Som
+Sons
+Podemos desativar todos. Eu mantenho ativos apenas os dos dispositivos
+
+Caso se tenha uma máquina com pouca memória (4GB ou menos e com HD SATA) poderá trocar o Linux Mint para usuar outro ambiente gráfico mais leve
+
+XFCE
+Mate
+
+Não precisa reinstalar o Mint, basta instalar o ambiente gráfico (XFCE ou Mate) e na inicialziação trocar o ambiente gráfico.
+
+
+https://www.youtube.com/watch?v=7PwgVZJL9Zo

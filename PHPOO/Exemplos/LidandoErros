@@ -1,0 +1,43 @@
+Lidar com erros é muito importante
+
+Podemos ter erros em várias camadas de software:
+- Para lidar com erros do sistema operacional precisamos atualizar nossos softwares com frequência, de preferência, automaticamente
+- Apache/Nginx
+    Quando temos acessso ao apache2.conf/nginx.conf para mudanças que afetarão todos os sites e aplicativos
+    No .htaccess, para mudança no respectivo site/aplicativo somente
+- PHP
+    php.ini - para mudança em todos os sites/aplicativos
+    ini_set() - para alterações em específico site/aplicativo
+- MariaDB
+    Configurações e otimizações: 
+    mysql_secute_installation
+- Woedpress/Joomla
+    Desabilitar todos os error na administração
+    Mover o configuration.php para fora do diretório web
+    Etc.
+
+Ferramentas
+
+- Funções do PHP
+    - print_r()
+    - var_dump()
+- d()
+- Xdebug
+-     
+
+var_dump
+Imprime o conteúdo de uma variável de forma explanativa, muito comum para se
+realizar debug. Se o parâmetro for um objeto, ele imprimirá todos os seus atributos;
+se for um array de várias dimensões, imprimirá todas elas, com seus respectivos
+conteúdos e tipos de dados. Exemplo:
+$vetor = array('Palio', 'Gol', 'Fiesta', 'Corsa');
+var_dump($vetor);
+
+print_r
+Imprime o conteúdo de uma variável de forma explanativa, assim como a var_dump() ,
+mas em um formato mais legível para o programador, com os conteúdos alinhados
+e suprimindo os tipos de dados. Exemplo:
+$vetor = array('Palio', 'Gol', 'Fiesta', 'Corsa');
+print_r($vetor);
+
+

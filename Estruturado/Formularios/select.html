@@ -1,0 +1,18 @@
+<form action="select.php" method="post">
+<B>Qual seu processador?</B><br>
+<select name=processador>
+<option value=Pentium>Pentium</option>
+<option value=AMD>AMD</option>
+<option value=Celeron>Celeron</option>
+</select><BR><BR>
+<B>Livros que deseja comprar?</B><br>
+Obs: segure "CTRL" para selecionar mais de um.<BR>
+<select name="livros[]" multiple>
+<option value="Biblia do PHP 4">Biblia do PHP 4</option>
+<option value="PHP Professional">PHP Professional</option>
+<option value="Iniciando em PHP">Iniciando em PHP</option>
+<option value="Novidades do PHP 5">Novidades do PHP 5</option>
+<option value="Biblia do MySQL">Biblia do MySQL</option>
+</select><BR><BR>
+<input type=submit value="enviar">
+</form>

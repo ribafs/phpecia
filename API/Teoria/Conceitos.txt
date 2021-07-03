@@ -1,0 +1,78 @@
+O mundo das APIs tem diversos conceitos que precisam ser compreendidos
+
+API - Essas três letras formam a sigla para Application Programming Interface, que pode ser traduzido como “Interface de Programação de Aplicações”.
+De maneira simplificada, podemos dizer que as API são conjuntos de instruções e padrões de programação que servem para fornecer dados e informações relevantes de uma determinada aplicação. Elas podem ser criadas usando qualquer linguagem que permita uma interface HTTP.
+Grande parte das APIs são criadas para integração entre um software de uma empresa e produtos associados.
+Para transferir os arquivos de APIs usa-se principalmente json (mais usado	) ou xml
+
+API REST - Representational State Transfer - Estado de transferência representacional
+
+API RESTfull - 
+
+Protocolo http - APIs usam o protocopo HTTP, que é baseado em request (requisições do cliente) e response (resposta do servidor). As APIs utilizam uma rede para o tráfego de informações, de uma forma padronizada. Isso pode ser através da internet ou de uma rede local.
+
+Como API não usa views o controller não terá o método create() nem o edit(), que são forms.
+
+Métodos/Verbos do protocolo http
+
+GET - Receber/solicitar recursos
+POST - Criar e enviar novo recurso/inserir
+PUT - Atualizar recursos existentes
+PATCH - Efetuar atualização parcial em recursos
+DELETE - Excluir recursos
+OPTIONS - O método OPTIONS é usado para descrever as opções de comunicação com o recurso de destino.
+HEAD - O método HEAD solicita uma resposta de forma idêntica ao método GET, porém sem conter o corpo da resposta.
+CONNECT - O método CONNECT estabelece um túnel para o servidor identificado pelo recurso de destino.
+TRACE - O método TRACE executa um teste de chamada loop-back junto com o caminho para o recurso de destino.
+https://developer.mozilla.org/pt-BR/docs/Web/HTTP/Methods
+
+ENDPOINT
+Um endpoint é cada uma das URI que se pode acessar na API. Veja abaixo exemplos de endpoints:
+
+GET /api/produtos/
+GET /api/produtos/{id}
+POST /api/produtos/
+PUT /api/produtos/{id}
+DELETE /api/produtos/{id}
+PATCH /api/produtos/{id} - alterar somente um campo
+
+API faz vasto uso do protocolo HTTP
+API RESTfull faz uso dos verbos do HTTP
+
+
+Para detectar o método use
+
+$_SERVER['REQUEST_METHOD']
+
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+     // The request is using the POST method
+}
+
+
+Códigos de Resposta/Response
+
+Aqui estão alguns códigos de resposta HTTP, que geralmente são utilizado com REST:
+200 OK
+
+Essa resposta indica que a requisição foi bem sucedida. 
+201 criação OK
+
+Este indica que a requisição e a criação de um recurso foram bem sucedidas. É utilizado para confirmar se as requisições PUT ou POST foram bem sucedidas.
+400 solicitação inválida
+
+A requisição não foi feita corretamente. Isso acontece especialmente com requisições POST e PUT, quando as informações não são validadas, ou estão no formato errado.
+404 página não encontrada
+
+Essa resposta indica que o recurso requisitado não pode ser encontrado. Essa reposta é geralmente utilizada para as requisições que apontam para uma URL inexistente.
+401 não autorizado
+
+Esse erro indica que você precisa primeiro estar autenticado para acessar o recurso.
+405 método não permitido
+
+O método HTTP utilizado não é suportado por este recurso.
+409 conflito
+
+Este indica um conflito na requisição. Por exemplo, você está utilizando uma requisição PUT para criar o mesmo recurso duas vezes.
+500 erro interno do servidor
+
+Quando todos os outros falham; geralmente, o código de reposta 500 é apresentado quando o processamento falha devido a circunstâncias do servidor, o que causa erro no servidor.

@@ -1,0 +1,35 @@
+Custom
+
+    Introduction
+    Example
+    Remove a row
+
+Introduction #
+
+Custom is a special process which you set your own function to perform custom change to data row. Your function will receive data row as parameters. After you are done with processing, return the row data for the next process.
+
+Example #
+
+<?php
+use \koolreport\processes\Custom;
+class MyReport extends \koolreport\KoolReport
+{
+    public function setup()
+    {
+        ...
+        ->pipe(new Custom(function($row){
+            $row["name"] = strtolower($row["name"]);
+            return $row;
+        }))
+        ...
+    }
+}
+
+Code explanation:
+
+    In above example, we setup a custom process to make name in lower case.
+
+Remove a row #
+
+If you don't return in the custom function, the data row will be skipped from the datastream. You may consider it as row removal action.
+

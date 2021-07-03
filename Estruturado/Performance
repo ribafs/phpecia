@@ -1,0 +1,121 @@
+Código das Linguagens
+01. SHELL SCRIPT vim sh.sh
+
+for i in {1..1000000};
+  do
+    echo -en "${i}Ok\r"
+done
+
+    Rodar: sh sh.sh
+    Testar: time sh sh.sh
+
+02. PHP vim php.php
+
+<?php
+
+for( $i = 0; $i <= 1000000; $i++ ){
+  echo "{$i}Ok\r";
+}
+
+    Rodar: php php.php
+    Testar: time php php.php
+
+03. JAVASCRIPT vim js.js
+
+for( var i = 0; i <= 1000000; i++ ){
+  process.stdout.write( i + "Ok\r");
+}
+
+    Rodar: node js.js
+    Testar: time node js.js
+
+04. RUBY vim ruby.rb
+
+for i in 1..1000000 do
+ print "#{i}Ok\r"
+end
+
+    Rodar: ruby ruby.rb
+    Testar: time ruby ruby.rb
+
+05. PYTHON vim python.py
+
+for i in range(1000001):
+    print( str(i) + "Ok\r", end='' )
+
+    Rodar: python python.py
+    Testar: time python python.py
+
+06. JAVA vim java.java
+
+class java {
+  public static void main ( String args[] ) {
+    for ( int i = 0; i <= 1000000 ; i++ ){
+      System.out.print( i + "Ok\r" );
+    }  
+  }
+}
+
+    Rodar: javac java.java && java java
+    Testar: time java java
+
+07. GO vim go.go
+
+package main
+import (
+  "fmt"
+)
+
+func main() {
+  for i := 0; i <= 1000000; i++{
+    fmt.Printf("%vOK\r", i)
+  }
+  
+}
+
+    Rodar: go build go.go && ./go
+    Testar: time ./go
+
+08. C++ vim cpp.cpp
+
+#include <iostream>
+
+int main(){
+  for (int i = 0; i <= 1000000; i++) {
+   std::cout << i << "Ok\r"; 
+  }
+  return 0;
+}
+
+    Rodar: g++ cpp.cpp && ./a.out
+    Testar: time ./a.out
+
+09. RUST vim rust.rs
+
+fn main() {
+ for i in 0..1000001 {
+    print!("{}Ok\r", i);
+ }
+}
+
+    Rodar: rustc rust.rs && ./rust
+    Testar: time ./rust
+
+10. C vim c.c
+
+i#include <stdio.h>
+
+int main(){
+  for (int i = 0; i <= 1000000; i++) {
+    printf("%iOk\r", i);
+  }
+  return 0;
+}
+
+    Rodar: gcc c.c && ./a.out
+    Testar: time ./a.out
+
+Paz!
+
+https://www.youtube.com/watch?v=spLIBqiv2Og
+https://terminalroot.com.br/2021/03/testei-o-desempenho-de-10-linguagens-de-programacao-com-ranking.html

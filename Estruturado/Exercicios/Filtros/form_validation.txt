@@ -1,0 +1,35 @@
+
+Os atributos required e pattern garantem que se os requisitos não forem atendidos o navegador enenderá e enviará uma mensagem e barrará o envio do form.
+
+required
+O atributo required garante que o navegador não libere em caso de uma caixa de texto estar vazia.
+
+<input type="text" required>
+
+Para reforçar a segurança podemos adicionar os atributos min e max:
+<input type="text" minlength="3" maxlength="12">
+
+pattern
+O atributo pattern permite validar a entrada de um campo com expressões regulares.
+Se você quizer que um campo tipo senha exija pelo menos um algarismo, pelo menos uma minúscula e uma maiúscula:
+<input type="password" pattern="^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?!.*\s).*$" required>
+
+Se o atributo pattern também contar com um atributo title ele será mostrado juntamente com a mensagem de erro do pattern se não atendido:
+<input type="password" pattern="^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?!.*\s).*$" title="Please include at least 1 uppercase character, 1 lowercase character, and 1 number." required>
+
+Melhor ainda é combinar tudo com o minlenght:
+<input type="password" minlength="8" pattern="^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?!.*\s).*$" title="Please include at least 1 uppercase character, 1 lowercase character, and 1 number." required>
+
+number
+Este atributo exige que seja digitado um número no campo. Caso contrário pára com uma mensagem.
+<input type="number" pattern="[-+]?[0-9]">
+
+Você pode permitir floats (com decimais) com o atributo step. Este diz ao navegador qual o intervalo numérico que deve aceitar. Pode ser qualquer valor, 0.1 p.e. ou any para qualquer número.
+
+Também pode modificar o pattern para permitir decimais.
+<input type="number" step="any" pattern="[-+]?[0-9]*[.,]?[0-9]+">
+
+Também podemos adicionar os atributos max e min:
+<input type="number" min="3" max="42" pattern="[3-9]|[1-3][0-9]|4[0-2]">
+
+

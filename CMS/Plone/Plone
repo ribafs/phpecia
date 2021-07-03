@@ -1,0 +1,123 @@
+Plone
+
+Requisitos
+
+RAM - 2 GB no mínimo
+Disco - 40GB
+
+Dependências
+
+Aconselhamos fortemente a não instalação do Plone através do pacote do SO ou porte. Não há nenhuma porte .rpm, .deb ou BSD que seja suportada pela comunidade Plone. As dependências do Plone podem e devem ser instaladas via pacote ou porte - mas não o próprio Plone. 
+
+SSH, GCC, gmake, patch, tar, gunzip, bunzip2, wget.
+
+Se você usa o Python do seu sistema, deve usar o virtualenv do Python para criar um Python virtual isolado. O System Pythons pode usar bibliotecas de sites que irão de outra forma interferir com o Zope/Plone.
+
+Se o Plone puder encontrar utilitários que convertam vários formatos de documentos em texto, ele os incluirá no índice do site. Para indexar PDFs e formatos comuns de automação de escritório, adicione:
+
+     poppler-utils (PDFs)
+     wv (documentos do escritório)
+
+Eles podem ser adicionados após a instalação inicial.
+
+
+Plone 4.3 / 4.2
+Python 2.7 construído com suporte para expat (xml.parsers.expat), zlib e ssl. (O suporte Python XML pode ser um pacote separado em algumas plataformas.) *
+
+virtualenv *
+
+
+Libraries
+
+    libz (dev)
+    libjpeg (dev)*
+    readline (dev)*
+    libexpat (dev)
+    libssl or openssl (dev)
+    libxml2 >= 2.7.8 (dev)*
+    libxslt >= 1.1.26 (dev)*
+
+Construção mínima
+
+Com todos os requisitos estabelecidos, uma instalação mínima do Plone pode ser criada com algumas etapas
+
+~/$ mkdir Plone-4.3
+~/$ cd Plone-4.3
+~/Plone-4.3$ virtualenv-2.7 Python-2.7
+~/Plone-4.3$ mkdir zinstance
+~/Plone-4.3$ cd zinstance
+~/Plone-4.3/zinstance$ wget http://downloads.buildout.org/1/bootstrap.py
+~/Plone-4.3/zinstance$ echo """
+[buildout]
+extends =
+    http://dist.plone.org/release/4.3-latest/versions.cfg
+
+parts =
+    instance
+
+[instance]
+recipe = plone.recipe.zope2instance
+user = admin:admin
+http-address = 8080
+eggs =
+    Plone
+    Pillow
+
+""" > buildout.cfg
+~/Plone-4.3/zinstance$ ../Python-2.7/bin/python bootstrap.py
+~/Plone-4.3/zinstance$ bin/buildout
+
+Isso iniciará um longo processo de download e compilação ...
+
+Erros como "SyntaxError: (" 'return' fora da função "..." "podem ser ignorados.
+
+Após terminar, você pode iniciar o Plone no modo foreground com:
+
+bin/instance fg
+
+Iniciar/parar
+
+~/Plone-4.3/zinstance$ bin/instance start
+
+~/Plone-4.3/zinstance$ bin/instance stop
+
+
+Download
+
+https://plone.org/download
+
+
+Imagem docker do Plone
+
+https://github.com/plone/plone.docker
+
+Instalar o docker
+
+Escolha uma única instância do Plone ou cluster ZEO.
+
+Instância autônoma do Plone
+
+Instâncias autônomas do Plone são mais adequadas para testar o Plone e o desenvolvimento.
+
+Baixe e inicie o container Plone 5 mais recente, baseado no Debian.
+
+docker run -p 8080:8080 plone
+
+Você pode adicionar um Site Plone em http://localhost:8080
+
+O usuário e senha padrão do Zope são admin e admin.
+
+Usando as tags listadas acima, um container Plone com uma versão diferente pode ser baixado e iniciado.
+
+O seguinte comando inicia um container Plone 4.3, baseado no Alpine.
+
+docker run -p 8080:8080 plone:4.3-alpine
+
+
+Inicie o Plone em modo de depuração
+
+Você também pode iniciar o Plone no modo de depuração (fg) executando
+
+docker run -p 8080:8080 plone fg
+
+

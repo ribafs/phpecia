@@ -1,0 +1,73 @@
+CalculatedColumn
+
+    Introduction
+    Example
+        Basic
+        Use function
+        Row number
+        Set meta column
+
+Introduction #
+
+CalculatedColumn helps you to create new column from existed ones. For example, you have price and quantity column, you want to create new column named amount which is the price x quantity. CalculatedColumn will take expression to create new column.
+
+Example #
+
+Basic #
+
+<?php
+use \koolreport\processes\CalculatedColumn;
+class MyReport extends \koolreport\KoolReport
+{
+    public function setup()
+    {
+        ...
+        ->pipe(new CalculatedColumn(array(
+            "amount"=>"{price}*{quantity}",
+            "recievedAmount"=>"{amount}-{fee}",
+            "power"=>"pow({number_column},10)"
+        )))
+        ...
+    }
+}
+
+Use function #
+
+...
+->pipe(new CalculatedColumn(array(
+    "amount"=>function($data){
+        return $data["price"]*$data["quantity"];
+    },
+)))
+...
+
+Row number #
+
+Create a column name "rowNum" with value is the row number
+
+...
+->pipe(new CalculatedColumn(array(
+    "rowNum"=>"{#}"
+)))
+...
+
+Set meta column #
+
+Beside calculating value, you may set the meta data for the new column as well. In order to set meta data like type of column, you need to use the long-hand format like following:
+
+...
+->pipe(new CalculatedColumn(array(
+    "amount"=>array(
+        "exp"=>"{price}*{quantity}",
+        "type"=>"number",
+    ),
+    "name"=>array(
+        "exp"=>function($data){
+            return $data["first_name"]." ".$data["last_name"];
+        },
+        "type"=>"string",
+    )
+)))
+...
+
+

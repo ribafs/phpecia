@@ -1,0 +1,433 @@
+=== Alguns comandos do Linux, do FreeBSD e do OpenBSD
+
+A maioria dos comandos funciona de forma idêntica em Linux e BSD
+Mas existem pequenas variações especificamente em arquivos de configuração
+Linux e OpenBSD geralmente armazenam os arquivos de configuração na pasta
+/etc
+E arquivos de usuários na pasta
+/home
+
+FreeBSD armazena o arquivos de configuração do sistema na pasta
+/etc
+Mas os arquivos de programas opcionais (aqueles isntalados pelo usuário: Apache, PHP, etc) na pasta:
+/usr/local/etc
+Arquivos de usuários na psta
+/usr/home
+
+== Instalação de Pacotes
+
+As distribuições Linux cada uma tem seus gerenciadores de pacotes e comandos
+
+FreeBSD usa
+
+pkg install nome
+pkg update
+pkg upgrade
+pkg search
+
+OpenBSD
+
+pkg_add nome
+pkg_info nome
+pkg_add -u nome
+
+
+= Acertando a data e a hora (Linux e BSD)
+
+date
+[MMDDhhmm[[CC]YY][.ss]]
+
+16/03/2018 13:23
+
+sudo date 031613232018
+16/03/2018 13:23
+
+sudo date 03161323
+16/03/2018 13:23
+
+= SSH (Linux e BSD)
+
+ssh ribafs@ribafs.org
+
+Com porta diferente
+ssh -p 25522 ribafs@ribafs.sub.es
+
+Copiar para fora
+scp -P 25522 arquivo.zip user@ip_ou_dominio:/home/ribafs
+
+Copiar para cá
+scp -P 25522 user@ip_ou_dominio:/home/user/arquivo.zip /home/ribafs
+
+
+= Download continuando caso caia com wget (Linux e BSD)
+
+O wget é um software para fazer download com muitos recursos, inclusive continuar caso seja interrompido
+
+Continuar caso seja interrompido
+wget -c http://joomla.org/download/joomla3.5.2.tar.gz
+
+Baixar arquivo com wget em certo diretório
+sudo wget "http://www.adminer.org/latest.php" -O /usr/share/adminer/latest.php
+
+
+= Navegador web em modo texto (Linux e BSD)
+
+lynx http://site.com.br
+
+
+= Gerenciador de arquivos modo texto (Linux e BSD)
+
+mc /pasta1 /pasta2
+
+
+= history - mostra o histórico de comandos digitados  (Linux e OpenBSD)
+
+Muitos são comuns a todos os sabores Unix
+
+uname - mostra informações sobre o sistema. 
+uptime - informa há quanto tempo sua máquina está ligada sem reiniciar.
+arch - informa a arquitetura do computador (ex.: i346, i586, etc).
+free - exibe informações sobre a utilização de memória da máquina.
+free -m
+
+cal - mostra calendário
+cal 2010
+cal -d 2013-05
+
+pwd - mostra qual é o diretório onde estou agora
+
+ls - listagem de arquivos e diretórios
+ls -la - inclusive ocultos
+ls -lh - mostra com respectivos tamanhos
+
+mkdir - criar diretório
+mkdir -p - criar recursivo
+	mkdir -p /home/ribafs/dir1/dir2/dir3 - cria todos, mesmo que dir1 e dir2 não existam
+
+Criar dois
+mkdir -p /etc/nginx/sites-{enabled,available}
+
+Criar Vários de uma ve só
+mkdir -p diretorio/{1..100}
+
+mkdir -p Retroarch/{core/,save/}
+
+cd - muda para o diretório fornecido. cd /etc 
+cd - - volta para o diretório que estava anteriormente
+cd .. - desce um nível abaixo na ávore de diretórios
+cd ../.. - desce dois níveis
+
+
+= clear - limpar a tela (Linux e BSD)
+
+= mv origem destino - move arquivo/diretório (Linux e BSD)
+
+rm nome - remove arquivo
+rm -rf nomedir - remove diretório
+
+= Copiar arquivo/diretório da origem para o destino (Linux e BSD)
+cp origem destino
+
+Copiar recursivamente com todo o conteúdo
+cp -Ra origem destino
+
+Para copiar arquivos ou diretórios preservando suas permissões, atributos, links, basta utilizar o comando "cp" com a opção "-p":
+
+Exemplo de comando (Copiando Arquivos):
+cp -p /home/User/teste.txt /etc
+
+Exemplo de comando (Copiando Diretórios recursivamente):
+cp -rp /home/User/ /etc
+
+Obs: A opção "-r" copia recursivamente os diretórios, arquivos, links
+
+Mais informações digite: "man cp"
+
+= Cria arquivo vazio (Linux e BSD)
+
+touch arquivo.txt
+ou
+> arquivo.txt - cria o arquivo
+
+= Mostra informações sobre todas as placas de rede, IP, máscara, etc  (Linux e BSD)
+ifconfig
+
+last - histórico de usuários que acessam o sistemanome
+
+
+= Localizar arquivos (Linux e BSD)
+
+Para atualizar o banco de dados do locate:
+Linux - sudo updatedb
+BSD - sudo /usr/libexec/locate.updatedb
+
+locate nome
+
+find /etc -name 'php' -printlo
+
+locate arquivo
+Antes execute updatedb para atualizar seu banco de dados
+
+find /var/www/html -type f -name "config.php"
+
+= Procura um arquivos por um padrão, sendo um filtro muito útil e usado, por exemplo um cat a.txt | grep ola irá mostrar-nos apenas as linhas do ficheiro a.txt que contenham a palavra "ola"
+
+grep 	
+
+Lista as localizações de programas binários, fontes e documentações.
+Procurar path de arquivos binários/comandos
+whereis comando_binario
+
+Criptografar arquivos facilmente
+
+Criptografar
+gpg -c arquivo.txt
+Pedirá uma senha e gerará o arquivo arquivo.txt.gpg
+
+Guardar arquivo.txt fora ou remover
+
+Descriptografar
+gpg arquivo.txt.gpg
+Trará de volta o arquivo.txt
+
+Criar arquivo com certo tamanho. Gerará um arquivo de 10MB
+dd if=/dev/zero of=teste_arquivo.txt bs=1M count=10
+
+Criar 100 arquivos arq1, arq2, ... arq100
+touch diretorio/arq{1..100}
+
+Apagar arquivos com mais de 7 dias
+find /tmp/ -type f -mtime +7 -exec rm -f {} \; 
+
+Apagar diretórios antigos
+find /tmp/ -type d -mtime +7 -exec rm -f {} \;
+
+= Lista todos os comandos do sistema
+compgen -c
+
+compgen -c | grep find
+
+Nome da distribuição
+lsb_release -a
+ou cat /etc/issue
+
+Criar arquivo com listagem do hardware
+sudo lshw -short -html > info.txt && xdg-open info.txt
+
+Mostra arquivo texto na tela
+cat arquivo.txt
+
+Alterar permissão de arquivos e diretórios
+chmod dgo
+
+d - permissão do dono
+g - permissão de todo o grupo
+o - permissão dos outros/público
+
+Exemplos:
+chmod 664 arquivo.html
+chmod -R 644 /var/www/html
+
+Dono de arquivos e diretórios
+chown u:g
+
+u - usuário
+g - grupo
+
+Exemplo
+chown -R ribafs:www-data /var/www/html
+
+Criar arquivo vazio
+touch arquivo.txt
+
+ou
+> arquivo.txt
+
+Editores de texto
+vi ou vim
+
+mcedit - editor de texto parte do pacote mc
+
+nano - editor de texto
+
+Ver números de linhas
+nano -c arquivo.txt
+
+Comandos do nano:
+
+Ctrl+O - salvar
+Ctrl+X - sair
+
+Busca interna - F6
+Shift + Insert - colar texto que está na memória
+
+Ctrl+K - apagar a linha atual
+
+df - mostra informações das patições
+df -h - informações e espaço em MB
+
+free - informações sobre memória RAM e swap
+free -m - mostrando em MB
+
+du - mostra arquivos e diretórios com seus respectivos tamanhos
+du -sh - mostra o tamanho total do diretório atual ou indicado de forma silenciosa, sem listar
+
+Mostrar processos
+ps ax
+
+kill -9 nrprocesso	# Número da esquerda
+
+Restartar serviço sem desrrubá-lo
+sudo killall -HUP apache2
+
+Mover arquivo ou diretório da origem para destino
+mv arq_dir_origem arq_dir_destino
+
+Trocar a senha do usuário
+passwd ribafs
+
+Reiniciar
+reboot
+shutdown -r now
+
+Desligar agora
+shutdown -h now
+
+Mostrar informações de uso dos recursos de hardware: cpu, RAM, etc
+top
+
+Informações sobre o sistema operacional
+uname -a
+
+Informações sobre o usuário atual
+who
+
+Nome do usuário atual
+whoami
+
+Compactar e Descompactar
+
+tar czpvf nome.tar.gz /pasta 
+
+Descompactar
+tar zxpvf nome.tar.gz -C /pastadestino
+
+unzip nome.zip -d /pastadestino
+
+Pacotes
+
+sudo su
+apt update - Atualizar repositórios
+apt upgrade - atualizar os pacotes
+
+apt install nome - instalar um pacote
+
+apt remove nome - remover um pacote
+
+apt remove --purge nome - remover apagando configurações
+
+aptitude search nomeouparte - busca por pacotes instalados e não instalados. Os instalados são listados com i à esquerda
+
+Listagem de arquivos texto:
+more - lista todo o arquivo de uma vez
+
+less - lista pro página, podendo passar com pgdn e voltar com pgup
+
+cat - mostrar conteúdo de arquivo texto
+
+pstree - mostra os processos do sistema em árvore
+
+Bom uso do less:
+pstree | more
+
+fdisk -l - mostra partições
+
+Saber informações sobre um comando:
+
+comando --help
+
+man comando
+
+Lista de comandos - http://comandoslinux.com/
+
+
+== Comandos do Apache
+
+a2enmod nome_modulo => habilita módulo
+a2dismod nome_modulo => desabilita módulo
+a2ensite nome_site (existentes no diretório /etc/apache2/sites-available) => habiltia site
+a2dissite
+a2enconf => habiltia configuração
+a2disconf
+
+Gerenciamento do serviço
+systemctl start apache2
+systemctl status apache2.service
+journalctl -xn
+
+Verificar sintaxe da configuração
+apachectl -t
+
+
+== Gerenciamento de pacotes
+
+apt update
+apt upgrade
+apt install nome
+apt remove nome
+apt remove --purge nome # remover também as configurações
+apt install -y nome # Sem pedir confirmação
+
+aptitude
+aptitude search nome_ou_parte
+aptitude search nome_ou_parte | less
+
+
+Usuários e grupos
+
+adduser nome
+addgroup nome
+userdel nome
+groupdel nome
+adduser user group
+
+chown 	Mudar o dono ou grupo de um ficheiro ou directoria, vem de change owner
+chgrp 	Mudar o grupo de um ficheiro ou directoria
+
+ifconfig - informações sobre placas de rede
+
+passwd nome - trocar a senha de um usuário
+
+pwd - mostra diretório atual
+
+who - mostra informações sobre o usuário atual
+
+whoami - mostra usuário atual
+
+reboot - reiniciar servidor
+
+
+Hardware
+
+dmidecode -t memory
+
+free -m
+
+du -f
+
+Referências
+
+http://comandoslinux.com/
+https://www.infowester.com/comandoslinux.php
+https://www.vivaolinux.com.br/dicas/impressora.php?codigo=6935
+http://www.linuxdevcenter.com/cmd/
+https://linuxconfig.org/linux-commands
+https://www.mediacollege.com/linux/command/linux-command.html
+https://sempreupdate.com.br/5-administracao-de-sistemas-linux-comandos-uteis/
+https://sempreupdate.com.br/6-administracao-de-sistemas-linux-comandos-uteis-parte-2/
+https://sempreupdate.com.br/7-administracao-de-sistemas-linux-comandos-uteis-parte-3/
+https://sempreupdate.com.br/8-administracao-de-sistemas-linux-comandos-uteis-parte-4/
+https://sempreupdate.com.br/9-administracao-de-sistemas-linux-comandos-uteis-parte-5/
+https://sempreupdate.com.br/10-administracao-de-sistemas-linux-comandos-uteis-parte-6/
+
+

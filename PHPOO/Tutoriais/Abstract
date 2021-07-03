@@ -1,0 +1,76 @@
+Classes Abstratas
+
+Classes abstratas são classes que não podem ser instanciadas diretamente, sendo necessária a criação de uma sub-classe para conseguir utilizar suas características. Isso não quer dizer que os métodos destas classes também precisem ser abstratos, isso é opcional. Já as propriedades não podem ser definidas como abstratas.
+Aqui vemos o conceito de polimorfismo, ou seja, a possibilidade de dois ou mais objetos executarem a mesma ação. Um exemplo prático seria uma moto e um carro, os dois tem a ação em comum de Frear e Acelerar; em orientação a objetos usamos classes abstratas para dar funcionalidades iguais a objetos diferentes.
+
+Classes e métodos abstratos
+Usamos classes abstratas quando queremos comprometer o programador (ele mesmo ou outra pessoa) para escrever um determinado método de classe, mas só temos certeza sobre o nome do método, e não os detalhes de como ele deve ser escrito. Para dar um exemplo, círculos, retângulos, octógonos, etc. podem parecer diferentes, mas são todas formas 2D e, portanto, todos possuem as características de área e circunferência. Portanto, faz todo o sentido agrupar o código que eles têm em comum em uma classe pai. Nessa classe pai, teríamos as duas propriedades de área e circunferência, e podemos até considerar a adição de um método que calcula a área (o que pode ser problemático, pois formas diferentes exigem cálculos diferentes). Nesses casos, quando precisamos comprometer as classes filhas com certos métodos que elas herdam da classe pai, mas não podemos nos comprometer com o código que deve ser usado nos métodos, usamos classes abstratas.
+Usamos classes e métodos abstratos quando precisamos comprometer as classes filhas a certos métodos que elas herdam da classe pai, mas não podemos nos comprometer com o código que deve ser escrito dentro dos métodos.
+
+Uma classe abstrata é aquela que possui pelo menos um método abstrato. Os métodos abstratos podem ter apenas nomes e argumentos, e nenhum outro código. Portanto, não podemos criar objetos a partir de classes abstratas. Em vez disso, precisamos criar classes filhas que adicionam o código aos corpos dos métodos e usar essas classes filhas para criar objetos.
+
+Vamos transformar a classe Noticia em uma classe abstrata e depois herdar suas características para a sub-classe NoticiaPrincipal. Abaixo, a seqüência de exemplos para demonstrar este recurso:
+
+<?php
+# noticia_abstrata.class.php
+
+abstract class Noticia
+{
+    protected $titulo;
+    protected $texto;
+
+    public function setTitulo($valor)
+    {
+        $this->titulo = $valor;
+    }
+
+    abstract public function setTexto($valor);
+    abstract public function exibeNoticia();
+}
+
+O exemplo acima nos mostra a utilização tanto de métodos abstratos quanto de métodos comuns. Os métodos abstratos não devem conter código, apenas definição. Quando criamos um método abstrato, fazemos com que ele seja implementado em todas as classes que herdarem dessa classe abstrata.
+
+No exemplo a seguir, os métodos abstratos serão definidos na sub-classe que herdará Noticia, ou seja, NoticiaPrincipal:
+
+<?php
+// noticia_abstrata.php
+include_once('noticia_abstrata.class.php');
+
+class NoticiaPrincipal extends Noticia
+{
+    private $imagem;
+
+    public function setTexto($valor)
+    {
+        $this->texto = $valor;
+    }
+
+    public function setImagem($valor)
+    {
+        $this->imagem = $valor;
+    }
+
+    public function exibeNoticia()
+    {
+        $ret = "<center>";
+        $ret .= "<img src=\"". $this->imagem ."\"><p>";
+        $ret .= "<b>". $this->titulo ."</b><p>";
+        $ret .= $this->texto;
+        $ret .= "</center><p>";
+        return $ret;
+    }
+}
+
+$titulo = 'Vestibular da Unicamp';
+$texto = 'Um dos maiores vestibulares do país chega ao fim,';
+$texto .= 'com número recorde de inscritos';
+$imagem = 'img_unicamp.jpg';
+
+$not = new NoticiaPrincipal;
+$not->setTitulo($titulo);
+$not->setTexto($texto);
+$not->setImagem($imagem);
+$not->exibeNoticia();
+print $not;
+
+

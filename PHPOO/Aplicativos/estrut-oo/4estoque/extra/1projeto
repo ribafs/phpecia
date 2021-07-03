@@ -1,0 +1,72 @@
+Criar o aplicativo de controle de estoque simplificado partindo do crud-oo
+
+O Estoque Mínimo - também conhecido como Estoque de Segurança, é a quantidade mínima que deve existir no estoque. Ela se destina a cobrir os atrasos de reposição por parte do fornecedor, e tem a finalidade de garantir que o produto não irá faltar.
+
+Estoque máximo - O estoque máximo serve para delimitar a quantidade máxima do estoque.Grande parte dos empresários pode não se preocupar com o estoque máximo, mas conhecendo esse indicador, podemos evitar alguns problemas. Como por exemplo: espaço físico, produtos perecíveis, custo do estoque parado, produtos com cuidados especiais. A máxima quantidade de produtos que o armazem suporta.
+Para calcular o estoque máximo, basta somar o estoque mínimo com o maior lote de compra do produto.
+Essa fórmula ficaria assim:
+Estoque Máximo = Estoque mínimo + Lote de Reposição.
+
+Agora precisarei criar uma pasta para cada tabela
+Também copiei o arquivo de classe crud.php para cada tabela: compras, estoques, produtos e vendas
+
+Crio a pasta compras e movo para ela os arquivos: index, sinsert, delete, update, fetch_data e search
+Então ajusto os paths dos arquivos que ficaram fora: footer.php, header.php, assets e classes
+
+Campos como o produto_id serão trocados ao invés de caixa de texto para usar uma combo puxando da tabela de origem, no caso produtos
+
+Adicionei relacionamento entre as tabelas, pois todas tem o id de produtos.
+
+Implementar a troca de mensagens para recebê-las no index sempre que efetuar uma operação
+
+A classe connection foi incluída nas classes crud, portanto, ao instanciar a classe crud a connection também já estará disponível
+
+Tabelas
+
+produtos - tabelas básica onde são cadastrados a descrição, estoque mínimo e estoque máximo de cada produto
+
+compras - entrada de produtos. Sempre que acontecer uma compra ela será adicionada automaticamente para a quantidade no estoque
+
+vendas - saída de produtos. Sempre que for vendido um produto ele será subtraído à quantidade existente do estoque
+
+estoques - mantém os produtos existentes. Quando um produto for vendido ele será reduzido no estoque
+
+Sempre que vender algum produto precisa ir em estoques para verificar se existe a quantidade solicitada. Se sim abater a quantidade vendida no estoques. Antes de vender precisa verificar o estoque mínimo do produto para certificar que não teremos um estoque menor que o mínimo. Somente então proceder a venda.
+
+Sequência e lógica de Cadastros
+
+produtos - esta é uma tabela que contém apenas uma relação dos produtos que a empresa trabalha, juntamente com o estoque mínimo e máximo de cada produto. É a primeira tabela que deve ser cadastrada, pois todas as outras dependem dela. É cadastrada praticamente uma única vez e futuramente sofrerá apenas alguns acréscimos ou retiradas de produtos ou ajustes nos estoques máximo e mínimo de algum produto.
+
+compras - aqui começam praticamente os cadastros, onde produtos entram na empresa. Mas para comprar é necessário recorrer à tabela produtos, para que seja comprado para cada produto apenas a quantidade menor ou igual ao estoque máximo de cada um.
+
+estoques - cada vez que comprar um ou mais produtos eles devem ser copiados da tabela compras para estoques (via código). 
+
+vendas - Antes de vender cada produto, devemos verificar o estoque mínimo em produtos e também o estoque em estoques. Somente vender se a quantidade após vender ficar maior que o estoque mínimo e se existir esta quantidade para ser vendida na tabela estoques. Após vender abater a quantidade vendida de cada produto em estoques.
+
+avisos - Cada vez que for vender um produto, cuja quantidade a ser vendida for maior que estoque mínimo, impedir a venda.
+
+ e mostrar um aviso em vermelho solicitando a reposição do estoque.
+
+
+Quando cadastrar?
+
+Após concluir a codificação do aplicativo, caso tenha cadastrado alguns registros no banco para testes elimine o banco, crie novamente e importe o script, mas sem nenhum registro, a não ser de rodutos. Então cadastrar na ordem:
+
+- produtos - o cadastro de comprar consultará produtos, para se certificar de que não comprará para cada produto, mais que o estoque máximo. Também o cadastro de vendas de produtos virá na tabela produtos a cada venda para se certificar de que cada produto vendido não terá quantidade menor ou igual que o estoque mínimo
+- compras - a cada compra todos os produtos comprados serão copiados para a tabela estoques, com todos os campos exceto a data da compra.
+- estoques (este não deve ser cadastrado, seu conteúdo virá automaticamente de compras e será reduzido também automaticamente por vendas)
+- vendas - ao vender precisamos verificar cada produto em produtos, para certificar de que os produtos que vamos vender, temos a quantidade suficiente em estoques e também que após vender teremos em estoque uma quantidade maior ou igual ao estoque mínimo de cada produto.
+
+Projeto
+
+- Como este aplicativo tem a finalidade didática cadastrarei apenas uns 10 produtos inicialmente, ou seja, tipos de produtos da empresa.
+
+- Depois efetuarei o cadastro de alguns itens em compras (que serão copiados automaticamente para estoques)
+
+- Finalmente efetuarei algumas vendas
+
+Lembre que estoques não serão manualmente cadastrados nunca, mas receberão de compras e serão subtraídos pelas vendas, tudo isso via código.
+
+Não previ tudo que poderia ter previsto.
+Algo que está faltando é que a venda verifique o preço da compra de um produto e venda com certa margem de lucro.
+

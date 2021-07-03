@@ -1,0 +1,14 @@
+Umá ótima ferramenta para verificar erros em AJAX é usando o Inspecional Elemento do navegador
+Depois Console
+
+Caso receba a mensagem:
+
+Requisição cross-origin bloqueada:
+
+Isso indica que está tentando executar um exemplo fora da pasta web.
+
+Todos os exemplos com AJAX precisam ser executados no diretório web e não como arquivos mas como site:
+
+http://localhost/exemplo_ajax
+
+

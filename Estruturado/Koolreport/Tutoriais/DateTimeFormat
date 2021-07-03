@@ -1,0 +1,41 @@
+DateTimeFormat
+
+    Introduction
+    Example
+
+Introduction #
+
+DateTimeFormat process will transform to datetime of a column to another format. To transform it requires the original format of datetime and the format you want to convert to.
+
+There are two ways to format datetime. The first is short hand way, you assign the format directly like this.
+
+"last_login_time"=>"F j, Y"
+
+However there are some case, your datetime format is not in standard format, you need to enter both current format and the format you want to convert to:
+
+"created_time"=>array(
+    "from"=>"Y-m-d H:i:s",
+    "to"=>"F j, Y"
+)
+
+Example #
+
+<?php
+use \koolreport\processes\DateTimeFormat;
+class MyReport extends \koolreport\KoolReport
+{
+    public function setup()
+    {
+        ...
+        ->pipe(new DateTimeFormat(array(
+            "last_login_time"=>"F j, Y",
+            "created_time"=>array(
+                "from"=>"Y-m-d H:i:s",
+                "to"=>"F j, Y"
+            )
+        )))
+        ...
+    }
+}
+
+

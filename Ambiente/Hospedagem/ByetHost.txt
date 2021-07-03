@@ -1,0 +1,98 @@
+https://byet.host/free-hosting/
+
+Main FeaturesPHP & MySQL included with every free hosting plan
+
+    1000 MB (one gigabyte!) Disk Space
+    FTP account and File Manager
+    Control Panel
+    MySQL databases & PHP Support
+    Free tech support
+    Addon domain, Parked Domains, Sub-Domains
+    Free Community Access (Forums)
+    Clustered Servers
+    No ads!
+    Complete Features
+    Account Specification
+    	
+    File Management
+    	
+    PHP
+    1000 MB disk space 	FTP account 	Zend encoder supported
+    50 GB monthly transfer 	Online file manager 	Ion Cube support
+
+    	Free FTP software
+    Domains
+    	10 MB maximum file size
+    	
+    Statistics
+    5 addon domains 		Disk space usage stats
+    5 parked domains 	
+    Email
+    	Bandwidth usage stats
+    5 sub domains 	Custom MX records 	CPU time usage stats
+    Custom CNAME manager
+    	Custom SPF records
+    	MySQL query stats
+    MySQL
+    	
+    Other Features
+    	
+    5 MySQL databases 	Cron Jobs
+    	
+    Main Free Hosting Details
+    PhpMyAdmin 	Deny IP address manager
+    	Instant activation
+    Slow MySQL query stats 	Redirect URL manager
+    	Softaculous script installer
+
+    	Custom error page manager
+    	Free sitebuilder (with templates)
+    Support Options
+    	Password protected folders
+    	Free setup
+    Free 24/7 support 	PHP Config (alter server PHP settings)
+    	Account upgrades
+    Support ticket system
+    	Fast servers
+    	Network tools
+    Knowledge base
+    	Independently measured fasted free host servers 	Free for live never expires
+    Video tutorials 	Clustered network
+    	Free sub domain provided
+    Domain definiation guide
+    	Dedicated MySQL servers
+    	No forum posting required
+
+    	Multihomed network
+    	VistaPanel Control Panel
+
+    		
+
+    Choice of Free Domain Names
+
+    Once your account is activated you can, from within your Control Panel create extra sub-domains from a the list of attractive names below:
+        you-choose.10001mb.com
+        you-choose.22web.org
+        you-choose.2kool4u.net
+        you-choose.66ghz.com
+        you-choose.a0001.net
+        you-choose.fast-page.org
+        you-choose.html-5.me
+        you-choose.humorme.info
+        you-choose.iblogger.org
+        you-choose.is-best.net
+        you-choose.is-great.net
+        you-choose.is-great.org
+        you-choose.joomla-host.org
+        you-choose.likesyou.org
+        you-choose.loveslife.biz
+        you-choose.my-board.org
+        you-choose.my-style.in
+        you-choose.mydiscussion.net
+        you-choose.nichesite.org
+        you-choose.social-networking.me
+        you-choose.synergize.co
+        you-choose.talk4fun.net
+        you-choose.totalh.net
+        you-choose.web1337.net
+

@@ -1,0 +1,62 @@
+ Data Flow In KoolReport
+
+In this tutorial, we would like to explain the data flow in KoolReport. Basically, data flow is like flow of water starting from data sources running through pipes to series of processing points until they reaches the data stores as final destination. The processing point will modify data as data pass through it.
+Simple data flow
+
+Above is the most basic flow of data, very straight-forward.
+Example
+
+$this->src('automaker')
+->query("select * from orders")
+->pipe(new Sort(array(
+    "shipped_date"=>"desc",
+)))
+->pipe(new Limit(array(50)))
+->pipe($this->dataStore("recent_shipped_orders"));
+
+Branching data flow
+
+The data from the source will be branched to different processes and stored in separate dataStores.
+Example
+
+$this->src('automaker')
+->query("select * from orders")
+->pipe(new Sort(array(
+    "ordered_date"=>"desc",
+)))
+->saveTo($node);
+
+$node->pipe(new Limit(array(50)))
+->pipe($this->dataStore("recent_orders"));
+
+$node->pipe(new Group(array(
+    "by"=>"customerNumber",
+    "sum"=>"amount"
+)))
+->pipe($this->dataStore("sale_by_customer"));
+
+In above code, you see that we get all data from orders table of automaker datasource. Then we pipe to Sort process to sort data by ordered_date. Now the branching begins. We save the current position of pipe to $node variable for later used. The first branch is through Limit process to get only 50 first orders and save them to "recent_orders" data source. Now, the second branch starts from $node which is the Sort process, we pipe to Group to group data by customerNumber and sum the order amount. We pipe results to "sale_by_customer" data store.
+Union data flow
+
+Many times, our data is scattered in various sources and we want to bring them together to process. For example, you have orders of year 2016 in 2016_database and orders of years 2017 in 2017_database. How you can bring them together.
+Example
+
+$this->src('2016_database')
+->query("select * from orders")
+->saveTo($node);
+
+$this->src('2017_database')
+->query("select * from orders")
+->pipe($node);
+
+$node->pipe($this->dataStore("total_2016_and_2017_orders"));
+
+As you can see in above code, orders in year 2016 is saved to $node. Then the orders of year 2017 are also piped to $node. After that, the $node will pipe data to "total_2016_and_2017_orders" data store.
+
+Hope that this tutorial helps you to understand the data flow in KoolReport.
+
+If you have any question, you may reply to us of this email.
+
+See you in the next tutorial.
+
+<3 koolreport team

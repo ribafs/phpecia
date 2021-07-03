@@ -1,0 +1,481 @@
+Table
+
+    Introduction
+        Minimum settings
+        A little more settings
+    Table settings
+        Columns options
+        Custom Column
+        Format column value
+        Column cssStyle
+        Show/hide header
+        Aggregated footer
+        CssClass options
+        Table paging
+        Client events
+    Row Group
+        Basic
+        More settings
+        Calculate
+        Template
+    Sorting
+
+Introduction #
+
+Table widget help us to display data in table format. This is the most used and simplest form of data visualization. Its full class name is \koolreport\widgets\koolphp\Table.
+Minimum settings #
+
+Table::create(array(
+    "dataSource"=>$this->dataStore('sales')
+));
+
+Result:
+product	sale_amount
+iPhone X 	120,000
+iPhone Xr 	43,000
+iPhone Xs 	230,000
+iPhone Xs Max 	520,000
+A little more settings #
+
+<?php 
+Table::create(array(
+    "dataStore"=>$this->dataStore('sales'),
+    "columns"=>array(
+        "product"=>array(
+            "label"=>"Product Name"
+        ),
+        "sale_amount"=>array(
+            "type"=>"number",
+            "label"=>"Sale Amount",
+            "prefix"=>"$"
+        )
+    ),
+    "cssClass"=>array(
+        "table"=>"table table-striped table-bordered"
+    )
+));
+?>
+
+Better Result:
+Product Name	Sale Amount
+iPhone X 	$120,000
+iPhone Xr 	$43,000
+iPhone Xs 	$230,000
+iPhone Xs Max 	$520,000
+
+Code explanation:
+
+    The Table widget uses "sales" data store as its sources to populate table.
+    The table has two columns which are "product" and "sale_amount".
+    We label the "product" column as "Product Name". This name will be used as table header.
+    We define some settings for "sale_amount" in which "type" is number so that value in the column will be formatted with number. We prefix the number with dollar "$" to get column represent currency.
+    We use "cssClass" to set class for element in table. In above example we assign "table table-striped table-bordered" so that our table will have border, have alternative color for each rows. This class come from Twitter Bootstrap but you may define another class by yourself.
+
+Table settings #
+Name	type	default	description
+dataSource	mixed		Set the data source for table
+columns	array		List of columns to display and their settings
+cssClass	array		Set css class for table, row and cell
+removeDuplicate	array		List of columns that you want to remove duplicate
+paging	array		Settings for table paging
+clientEvents	array		Settings for table client events
+Columns options #
+
+"columns" options simply contain the list of column you want to show on the table. The simplest form of columns settings is array of columns name for example: array("id","name","address"). More advanced, you can add extra meta data for columns like below:
+
+<?php 
+    Table::create(array(
+        ...
+        "columns"=>array(
+            "sale_amount"=>array(
+                "type"=>"number",
+                "label"=>"Sale Amount",
+                "prefix"=>"$"
+            )
+        ),
+        ...
+    ));
+?>
+
+Table has special "{others}" columns. This mean that beside columns has been specified settings in "columns", other columns will be added and use the settings specified in "{others}". This is necessary when you want to give common settings for many columns at the same time. Or in the case that you do not know name of columns but you know the settings for them.
+
+<?php 
+    Table::create(array(
+        ...
+        "columns"=>array(
+            "item"=>array(
+                "type"=>"string",
+            ),
+            "{others}"=>array(
+                "type"=>"number",
+                "prefix"=>"$",
+            )
+        ),
+        ...
+    ));
+?>
+
+Custom Column #
+
+You may create a new column from existed column:
+
+Table::create(array(
+    "columns"=>array(
+        "name",
+        array("name"),   //Another name column
+        array("name"),   //Another name column
+    )
+))
+
+Adding custom function for value
+
+Table::create(array(
+    "dataSource"=>array(
+        array("name"=>"Peter","salary"=>32000,"investment"=>10000),
+        array("name"=>"David","salary"=>30000,"investment"=>20000),
+    )
+    "columns"=>array(
+        "name"=>array(
+            "label"=>"Name"
+        ),
+        array(
+            "label"=>"Total",
+            "value"=>function($row) {
+                return $row["salary"]+$row["investment"];
+            },
+            "type"=>"number",
+            "prefix"=>"$",
+        )
+    )
+))
+
+Format column value #
+
+One of important feature in Table is ability to format value dynamically. Normally, by settings "type" for column, the value of column will be formatted automatically. However, in some case, you may need manual format, you can do so with "formatValue" settings. "formatValue" can be a string or a function. For simple format, you may use string:
+
+<?php 
+    Table::create(array(
+        ...
+        "columns"=>array(
+            "amount"=>array(
+                'formatValue'=>'$ @value', // format to $12
+            ),
+        ),
+        ...
+    ));
+?>
+
+Or you can specify in function:
+
+<?php 
+    Table::create(array(
+        ...
+        "columns"=>array(
+            "amount"=>array(
+                'formatValue'=>function($value)
+                {
+                    return "$ ".$value;
+                }
+            ),
+        ),
+        ...
+    ));
+?>
+
+If you need information from other columns, you may add the second parameter which is $rows containing all rows and the third parameter $cKey which is the column key:
+
+<?php 
+    Table::create(array(
+        ...
+        "columns"=>array(
+            "amount"=>array(
+                'formatValue'=>function($value, $row, $cKey)
+                {
+                    if ($cKey === 'amount')
+                        return $row["currency"]." ".number_format($value);
+                    else
+                        return $value;
+                }
+            ),
+        ),
+        ...
+    ));
+?>
+
+Column cssStyle #
+
+You can specify css for a specific column. The "cssStyle" can be css string or an array of component "th", "td", "tf"
+
+<?php 
+    Table::create(array(
+        ...
+        "columns"=>array(
+            "amount"=>array(
+                "cssStyle"=>"text-align:right"
+            ),
+            "customerName"=>array(
+                "cssStyle"=>array(
+                    "th"=>"font-weight:bold;text-align:center",
+                    "tr"=>"text-align:center",
+                    "tf"=>"text-align:center",
+                )
+            )
+        ),
+        ...
+    ));
+?>
+
+Show/hide header #
+
+You can show or hide the header of table simply by setting "showHeader"=>true or "showHeader"=>false
+
+<?php
+Table::create(array(
+    "showHeader"=>false
+));
+?>
+
+Aggregated footer #
+
+Table has capability to show aggregated result of a column at footer. To do so you need to turn on footer by setting "showFooter"=>"top" or "showFooter"=>"bottom". On the column you want to aggregate, you set "footer"=>"sum". The Table support "count", "avg", "min", "max" operation as well.
+
+<?php 
+    Table::create(array(
+        ...
+        "showFooter"=>"bottom",
+        "columns"=>array(
+            "amount"=>array(
+                "footer"=>"sum"
+            ),
+            "sale"=>array(
+                "footer"=>"avg",
+                "footerText"=>"Avg Sale: @value",
+            )
+        ),
+        ...
+    ));
+?>
+
+The "footerText" can be used to set any text at footer of column, it also can act as template. In above example, the @value will be replace with average of sale.
+
+If you need more custom calculation for the footer, you may assign custom function to "footer" and do your own calculation and formatting. The custom function will receive a parameter which is the DataStore.
+
+<?php 
+    Table::create(array(
+        ...
+        "showFooter"=>"bottom",
+        "columns"=>array(
+            "amount"=>array(
+                "footer"=>function($store)
+                {
+                    return "$".number_format($store->sum("amount"));
+                },
+                "footerText"=>"Amount: @value",
+            ),
+        ),
+        ...
+    ));
+?>
+
+CssClass options #
+Name	type	default	description
+"table"	string		List class for table
+"tr"	string/function		List classes for tr
+"th"	string/function		List classes for th
+"td"	string/function		List classes for td
+"tf"	string/function		List classes for td in footer
+
+Example:
+
+//Use string
+Table::create(array(
+    "cssClass"=>array(
+        "table"=>"table table-bordered",
+        "tr"=>"row-css-class",
+        "th"=>"header-css-class",
+        "td"=>"cell-css-class",
+        "tf"=>"footer-cell-css-class",
+    )
+))
+
+//Use function
+Table::create(array(
+    "cssClass"=>array(
+        "table"=>"table table-bordered",
+        "tr"=>function($row){
+            return "row-css-class";
+        },
+        "th"=>function($columnName){
+            return "header-css-class";
+        },
+        "td"=>function($row,$columnName){
+            return "cell-css-class";
+        },
+        "tf"=>function($columnName){
+            return "footer-cell-css-class";
+        }
+    )
+))
+
+Table paging #
+
+Table can be paginated with following settings:
+
+<?php 
+    Table::create(array(
+        ...
+        "paging"=>array(
+            "pageSize"=>7,
+            "pageIndex"=>0,
+            "align"=>"center"
+        )
+    ));
+?>
+
+Client events #
+
+Table supports the following client events
+Name	description
+rowClick or rowSelect	Triggered when table row is clicked
+
+Example:
+
+<?php 
+Table::create(array(
+    ...
+    "clientEvents"=>array(
+        "rowClick"=>"function(e){
+            console.log(e.rowIndex);
+            console.log(e.rowData);
+            console.log(e.table);
+        }"
+    ));
+?>
+
+Row Group #
+
+Table widget is able to put rows into predefined group.
+Basic #
+
+In the shortest settings, you may just enter the list of columns you want Table to group into "grouping" property like below.
+
+Table::create(array(
+    ...
+    "grouping"=>array("country","city")
+));
+
+The Table will group rows by first level is country and the second level is city.
+More settings #
+
+Now you may add a little more settings to each column that Table will groups. For example, you want to group by year and show the total year sale or you want to show group header on top and put total at the bottom. Here comes the example:
+
+<?php
+Table::create(array(
+    ...
+    "grouping"=>array(
+        "year"=>array(
+            "calculate"=>array(
+                "{sumAmount}"=>array("sum","amount")
+            ),
+            "top"=>"<b>Year {year}</b>",
+            "bottom"=>"<td><b>Total of year {year}</b></td><td><b>{sumAmount}</b></td>"
+        ),
+    ),
+));
+
+It is pretty straight-forward, we define "calculate" in which we can define any custom variable and its calculation. In this example, we define {sumAmount} as the sum of amount. And then the {sumAmount} variable can be use in our templates later on.
+
+As you may see we have two templates "top" and "bottom". The "top" template defines what will show at the beginning of group while "bottom" defines what to show at bottom of group. In this example, we want to show year on top and we show the {sumAmount} of group at bottom.
+Calculate #
+
+In above example, we use default sum method of Table. Beside sum, you may use "avg", "min", "max" and "mode". The count of group items is available in pre-defined variable name "{count}".
+
+Example:
+
+<?php
+Table::create(array(
+    ...
+    "grouping"=>array(
+        "year"=>array(
+            "calculate"=>array(
+                "{sumAmount}"=>array("sum","amount"),
+                "{avgAmount}"=>array("avg","amount")
+                "{maxAmount}"=>array("max","amount")
+            ),
+            "top"=>"<b>Year {year}: {sumAmount} {maxAmount} {avgAmount}</b>",
+            ...
+        ),
+    ),
+));
+
+Define your own calculation: You may have your own function of calculation
+
+<?php
+Table::create(array(
+    ...
+    "grouping"=>array(
+        "year"=>array(
+            "calculate"=>array(
+                "{myOwnSum}"=>function($store)
+                {
+                    return $store->sum();
+                }
+            ),
+            ...
+        ),
+    ),
+));
+
+In your custom function, you will receive a $store contains data of the group. The type of $store is DataStore. In this function, you may do any calculation necessary and return value to be displayed.
+Template #
+
+In the template, as you may know, you can define how your "top" and "bottom" of the group look like.
+
+Note: If you don't want top text or bottom text to show, just don't include it.
+
+You can insert any variables you calculated in the "calculate" property to the "top" and "bottom" templates.
+
+Beside, there are several variable is always available to you:
+
+    The group name define as {your-column-name}, for example {year} in above example.
+    The group item count, always {count}
+    The previous group name. For example, if you group by country and city column then in the city template, you can use {country} to refer to country.
+
+The "bottom" and "top" can received function definition beside the conventional way of assigning string, for example:
+
+Table::create(array(
+    ...
+    "grouping"=>array(
+        "year"=>array(
+            "calculate"=>array(
+                "{sumAmount}"=>array("sum","amount"),
+                "{avgAmount}"=>array("avg","amount")
+                "{maxAmount}"=>array("max","amount")
+            ),
+            "top"=>function($calculated_results){
+                return "Number items:".$calculated_results["count"];
+            },
+            "bottom"=>function($calculated_results){
+                return "Sum amount:".$calculated_results["{sumAmount}"];
+            },
+        ),
+    ),
+));
+
+The $calculated_results is an associated array containing all results from group calculation.
+Sorting #
+
+You use sorting property to sort data by the column
+
+Table::create(array(
+    "dataSoure"=>$this->dataStore("orders"),
+    "sorting"=>array(
+        "orderDate"=>"desc",
+        "customerName"=>"asc"
+    )
+));
+
+In above example, we would like to sort first by the orderDate and then by customerName. The recent orders will show first and name of customer will order by alpha-beta ascendingly.
+
+Note: May you use the sorting feature incorporating with grouping to group and still sort by the field you want.
+

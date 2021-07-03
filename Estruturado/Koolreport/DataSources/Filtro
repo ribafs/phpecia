@@ -1,0 +1,48 @@
+Filter
+
+    Introduction
+    Sample Code
+    Operators
+
+Introduction #
+
+Filter process helps to filter your data based on condition. It is like the WHERE statement in SQL Query. If your data is from database, we encourage you to use the filtering feature of database. However, if your data coming from other sources such as CSV or Microsoft Excel then you need Filter.
+
+Sample Code #
+
+<?php
+use \koolreport\processes\Filter;
+class MyReport extends \koolreport\KoolReport
+{
+    public function setup()
+    {
+        ...
+        ->pipe(new Filter(array(
+            array("region","=","asia"),
+            array("customerAge",">",50)
+        )))
+        ...
+    }
+}
+
+Operators #
+
+Name    	description	                example
+=	        Equal to	                array("age","=",32)
+!=	        Not equal to	            array("age","!=",32)
+>	        Greater than	            array("age",">",32)
+<	        Less than	                array("age","<",32)
+>=	        Greater than or equal to	array("age",">=",32)
+<=	        Less than or equal to	    array("age","<=",32)
+contain	    Contain a string	        array("name","contain","John")
+notContain	Not contain a string	    array("name","notContain","John")
+startWith	Start with a string	        array("name","startWith","John")
+notStartWithNot start with a string	    array("name","notStartWith","John")
+endWith	    End with a string	        array("name","endWith","John")
+notEndWith	Not end with a string	    array("name","notEndWith","John")
+between	    Between two given values	array("name","between",24,32)
+notBetween	Not between two given values	array("name","notBetween",24,32)
+in	        Value is in an array    	array("name","in",array("peter","marry"))
+notIn	    Value is NOT in an array	array("name","notIn",array("peter","marry"))
+
+

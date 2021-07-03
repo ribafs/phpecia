@@ -1,0 +1,116 @@
+Problemas com Charset? Nunca mais
+
+Artigo que apresenta os principais problemas com codificação de caracteres e mostra o passo a passo de como definir o charset (encoding) UTF-8 para todas as áreas dos seus projetos PHP.
+
+Categorias: banco de dados, certificação, charset, php, tutorial
+Hommer assustado com um caractere exibido incorretamente
+
+Introdução
+
+Vira e mexe existe alguém aparecendo com problemas com apresentação de caracteres por conta de codificação de caracteres errada. Já escrevi sobre Unicode, Códigos e Símbolos Unicode e sobre HTML entities. Mas neste artigo, veremos como utilizar UTF-8 em tudo e nunca mais ver caracteres sendo exibidos errado.
+
+1º Salve o código-fonte em UTF-8
+
+Antes de mais nada, escolha um bom editor de código-fonte, que lhe permita definir qual a codificação utilizada nos arquivos salvos. Normalmente isso fica nas configurações do editor ou nas opções do momento de salvar. Se você usa editores em modo texto (vi, nano, pico, etc), talvez seja necessário configurar isso nas configurações do próprio terminal de comandos (gnome-terminal, xterm, etc).
+
+Observação: alguns editores tem opção de salvar o arquivo com o BOM. Recomenda-se que não inclua estes bytes, pois eles podem causar comportamento inesperado no PHP. Por exemplo, você não vai conseguir chamar funções como header ou utilizar o recurso de namespaces, que obriga que a declaração de namespace seja a primeira coisa no script.
+
+2º Informe ao navegador que você usa UTF-8
+
+Quando um arquivo PHP gera um HTML e é enviado para o navegador, junto com o arquivo vai um cabeçalho (do protocolo HTTP), onde é especificado o tipo de arquivo e a codificação. Caso você não informe ela explicitamente no seu código, o seu servidor HTTP (por exemplo, o Apache) irá enviar tal arquivo com um mime-type padrão (normalmente "text/html") e uma codificação padrão (normalmente "ISO-8859-1").
+
+Para mudar este cabeçalho explicitamente, e informar corretamente o mime-type e a codificação do documento que você está gerando, utilize a função header, passando a diretiva "Content-type", conforme exemplo:
+
+<?php
+header('Content-Type: text/html; charset=UTF-8');
+echo '<html>';
+...
+
+Caso o arquivo seja de outro tipo, basta mudar o mime-type para o tipo correspondente (por exemplo, "text/css", "text/xml", "application/xhtml+xml", etc).
+
+Porém, nem sempre os arquivos são gerados via PHP. Existem HTML estáticos que precisam informar o cabeçalho HTTP com o mime-type e codificação corretos. Neste caso, existe uma alternativa que é usando a tag meta com o atributo "http-equiv" (equivalente HTTP). Com ela, é possível "simular" cabeçalho do HTTP pelo próprio conteúdo do documento HTML. Isso é feito da seguinte forma:
+
+<html>
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" >
+...
+
+No HTML 5, isso foi simplificado:
+
+<!DOCTYPE HTML>
+<html>
+  <head>
+    <meta charset="UTF-8" >
+...
+
+Caso você utilize XML ou XHTML, lembre-se de informar a codificação UTF-8 no cabeçalho XML:
+
+<?xml version="1.0" encoding="UTF-8" ?>
+
+3º Comunique-se com o BD via UTF-8
+
+Para que as informações sejam trafegadas entre o PHP e o Banco de Dados usando UTF-8, é preciso declarar esta codificação logo que se conecta ao banco. Isso varia de banco para banco, mas vamos ver alguns exemplos comuns:
+
+MySQL (PDO):
+
+$dsn = "mysql:host=localhost;dbname=world;charset=utf8";
+$opcoes = array(
+    PDO::MYSQL_ATTR_INIT_COMMAND => 'SET NAMES UTF8'
+);
+$pdo = new PDO($dsn, $usuario, $senha, $opcoes);
+...
+
+MySQLi:
+
+$mysqli = new mysqli(...);
+$mysqli->set_charset('utf8'));
+
+MySQL (funções):
+
+$conexao = mysql_connect(...);
+mysql_select_db(...);
+mysql_set_charset('UTF8', $conexao);
+...
+
+Observação: as funções de conexão com MySQL estão depreciadas. Prefira usar PDO ou MySQLi.
+
+PostgreSQL (PDO):
+
+$pdo = new PDO(...);
+$pdo->query('SET NAMES UNICODE');
+...
+
+PostgreSQL (funções):
+
+$conexao = pg_connect(...);
+pg_set_client_encoding($conexao, 'UNICODE');
+...
+
+4º Crie seu Banco de Dados em UTF-8
+
+Os campos de texto armazenados em bancos de dados também precisam de uma codificação de caracteres. Caso não seja definida no momento que se cria o campo, a codificação é obtida do padrão da tabela ou do bando de dados. Para definir um valor padrão de codificação de um banco de dados, use os comandos:
+
+MySQL:
+
+CREATE DATABASE nome_bd CHARACTER SET UTF8;
+
+PostgreSQL:
+
+CREATE DATABASE nome_bd ENCODING UNICODE;
+
+5º Lembre-se de especificar a codificação UTF-8 onde puder
+
+Algumas funções em PHP recebem como parâmetro a codificação a ser considerada. Algumas das mais importantes que devem ser ressaltadas são: htmlentities e htmlspecialchars.
+
+Além disso, ao realizar operações com expressões regulares PCRE, lembre-se de utilizar o modificador "u" ao final da expressão, indicando que ela é UTF-8, conforme o exemplo:
+
+preg_match('/^[a-z](.*)/u', $str, $matches);
+
+Um conjunto importante de funções, leva em consideração a localidade (com uma codificação) para funcionar. Então, também é importante definir a localidade adequadamente com a localidade UTF-8:
+
+setlocale(LC_ALL, 'pt_BR.utf8');
+
+Lembre-se que a localidade depende do servidor e o nome utilizado pode variar.
+Conclusão
+
+Tomando as devidas medidas, é possível utilizar UTF-8 sem grandes problemas em todas as camadas do seu sistema: no HTML, no PHP e no Banco de Dados. Erro de codificação? Nunca mais!

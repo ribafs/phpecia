@@ -1,0 +1,62 @@
+Algo que precede ao MVC é a programação em duas camadas,
+a model e a view, ou seja, a manipulação dos dados do banco e a view. Veja um exemplo abaixo de separação em duas camadas.
+
+Interagindo com o banco de dados
+Quando os desenvolvedores começam a aprender PHP, muitas vezes acabam misturando a interação com o banco de dados com a camada de apresentação, usando código que pode parecer com isso:
+
+<ul>
+<?php
+foreach ($db->query('SELECT * FROM table') as $row) {
+    echo "<li>".$row['field1']." - ".$row['field1']."</li>";
+}
+?>
+</ul>
+
+Esta é uma má prática por várias razões, principalmente por ser difícil de depurar, testar, ler e ainda pode gerar na saída um monte de campos se não houver um limite.
+Embora existam muitas outras soluções para fazer isso - dependendo se você preferir a OOP ou programação funcional - deve haver algum elemento de separação.
+Considere o passo mais básico:
+
+<?php
+function getAllFoos($db) {
+    return $db->query('SELECT * FROM table');
+}
+
+foreach (getAllFoos($db) as $row) {
+    echo "<li>".$row['field1']." - ".$row['field1']."</li>"; // BAD!!
+}
+
+Este é um bom começo. Coloque estes dois itens em dois arquivos diferentes e você terá alguma separação limpa.
+Crie uma classe para colocar este método e você terá um “Modelo”. Criando um arquivo .php simples para colocar a lógica de apresentação e você terá uma “View”, que é quase um MVC - uma arquitura OOP comum para a maioria dos frameworks.
+
+foo.php
+<?php
+$db = new PDO('mysql:host=localhost;dbname=testdb;charset=utf8', 'username', 'password');
+
+// Deixe seu modelo disponível
+include 'models/FooModel.php';
+
+// Crie uma instância
+$fooList = new FooModel($db);
+
+// Mostre a view
+include 'views/foo-list.php';
+models/FooModel.php
+<?php
+class Foo()
+{
+    protected $db;
+
+    public function __construct(PDO $db)
+    {
+        $this->db = $db;
+    }
+
+    public function getAllFoos() {
+        return $this->db->query('SELECT * FROM table');
+    }
+}
+views/foo-list.php
+<?php foreach ($fooList as $row): ?>
+    <?= $row['field1'] ?> - <?= $row['field1'] ?>
+<?php endforeach ?>
+Isto é essenciamente o mesmo que a maioria dos frameworks modernos fazem, todos sejam eles um pouco mais manual. Você pode não precisar de tudo a todo momento, mas misturando muita lógica de apresentação e interação com o banco de dados pode ser um problema real se você quiser testes unitários em sua aplicação.

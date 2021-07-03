@@ -1,0 +1,691 @@
+Trabalhando com arquivos em PHP
+criado por Caio Filipini em 14/09/2002 1:57pm
+Ao trabalhar com arquivos, no mínimo duas operações devem ser realizadas: abrir e fechar o arquivo. Programadores que conhecem a linguagem C e já trabalharam com arquivos se sentirão em casa.
+
+Para abrir um arquivo, precisamos utilizar a função fopen(), que tem a seguinte sintaxe:
+
+fopen(filename, mode, [use_include_path]);
+
+
+filename: pode ser simplesmente um nome, ou um caminho completo. Exemplos: “arquivo.txt”, “./arquivo.dat”, “/data/data.txt”.
+
+mode: especifica o modo de abertura, ou seja, se o arquivo deve ser aberto para leitura, escrita, etc. Modos de abertura:
+- r: abre o arquivo no modo somente leitura e posiciona o ponteiro no início do arquivo; o arquivo já deve existir;
+- r+: abre o arquivo para leitura/escrita, posiciona o ponteiro no início do arquivo;
+- w: abre o arquivo no modo somente escrita; se o arquivo já existir, será sobrescrito; senão, será criado um novo;
+- w+: abre o arquivo para escrita/leitura; se o arquivo já existir, será sobrescrito; senão, será criado um novo;
+- a: abre o arquivo para anexar dados, posiciona o ponteiro no final do arquivo; se o arquivo não existir, será criado um novo;
+- a+: abre o arquivo para anexo/leitura, posiciona o ponteiro no final do arquivo; se o arquivo não existir, será criado um novo;
+
+Obs: Além dos modos de abertura descritos acima, um arquivo pode ser aberto como binário, especificando o modo de abertura como “b”.
+
+use_include_path: este parâmetro é opcional; se for atribuído o valor 1, e não for especificado nenhum caminho (path) no nome do arquivo, ele será procurado no diretório especificado em include_path, no arquivo php.ini.
+
+A função fopen() retorna um número inteiro, o indicador (handle) do arquivo. Este indicador será necessário quando formos realizar operações de leitura e escrita no arquivo, indicando qual arquivo iremos manipular. Portanto, para abrir um arquivo usamos a seguinte instrução:
+
+<?php
+$fp = fopen(“./arquivo.dat”, “r”); // $fp conterá o handle do arquivo que abrimos
+?>
+
+
+Aqui estamos abrindo um arquivo já existente no modo somente leitura, e atribuindo o valor retornado por fopen() à variável $fp. $fp conterá um número inteiro positivo (o handle do arquivo) se a operação tiver sucesso; caso contrário, conterá zero.
+
+Depois de utilizar o arquivo, é necessário que ele seja fechado. Para tanto utilizamos a função fclose():
+
+fclose(handle_arquivo);
+
+
+No caso do arquivo que abrirmos no exemplo anterior, teríamos a seguinte instrução:
+
+<?php
+fclose($fp);
+?>
+
+Agora que já sabemos como abrir e fechar um arquivo, precisamos conhecer as funções que manipulam esse arquivo. Primeiro, daremos uma olhada nas funções para escrita de dados de um arquivo.
+
+fwrite(): Esta função permite escrever strings em um arquivo. Se os dados forem escritos com sucesso, fwrite() retorna o número de bytes escritos; caso contrário, retorna –1 (indicando erro). Ela tem a seguinte sintaxe:
+
+fwrite(handle, string);
+- handle: handle do arquivo onde os dados serão escritos;
+- string: string a ser escrita no arquivo;
+
+Exemplo:
+
+<?php
+$fp = fopen(“./dados.txt”, “w”);
+fwrite($fp, “Hello world!”); // grava a string “Hello world!” no arquivo
+fclose($fp);
+?>
+
+
+fputs(): Esta função é semelhante à função fwrite() e funciona da mesma maneira.
+
+Depois de escrevermos os dados no arquivo, precisamos ser capazes de ler os dados que acabamos de gravar. É exatamente isso o que iremos aprender agora, funções para leitura de dados de um arquivo.
+
+fread(): Esta função permite ler strings gravadas em um arquivo. A sintaxe é a seguinte:
+
+fread(handle, length);
+- handle: handle do arquivo de onde os dados serão lidos;
+- length: tamanho em bytes do buffer de leitura;
+
+Exemplo:
+
+<?php
+$fp = fopen(“./dados.txt”, “r”);
+$text = fread($fp, 20); // lê 20 bytes do arquivo e armazena em $text
+fclose($fp);
+?>
+
+
+fgets(): Esta função é usada na leitura de strings de um arquivo. fgets() lê “length – 1” bytes do arquivo. Se for encontrado o final da linha e o número de bytes especificados não tiver sido atingido, fgets() terminará a leitura no final da linha (ou no final do arquivo, se for o caso). Eis a sua sintaxe:
+
+fgets(handle, length);
+- handle: handle do arquivo de onde os dados serão lidos;
+- length: tamanho em bytes do buffer de leitura;
+
+Exemplo:
+
+<?php
+$fp = fopen(“./dados.txt”, “r”);
+$text = fgets($fp, 20);
+fclose($fp);
+?>
+
+
+fgetc(): Esta função permite ler caractere por caractere de um arquivo. Seguem a sintaxe e um exemplo de utilização:
+
+fgetc(handle);
+- handle: handle do arquivo de onde os dados serão lidos;
+
+Exemplo:
+
+<?php
+$fp = fopen(“./dados.txt”, “r”);
+do {
+    $char .= fgetc($fp);
+} while($char);
+fclose($fp);
+?>
+
+
+file(): Esta função lê um arquivo completo, e armazena cada linha do arquivo como um elemento de um array. Depois de ler todo o conteúdo do arquivo, file() o fecha automaticamente, não sendo necessária uma chamada a fclose(); Vejamos a sintaxe:
+
+file(filename);
+- filename: nome ou caminho completo de um arquivo.
+
+Exemplo:
+
+<?php
+$file_lines = file(“./dados.txt”);
+echo “Primeira linha: “ . $file_lines[0];
+?>
+
+
+Além dessas funções para leitura e escrita, existe ainda uma função bastante útil, que testa se o final do arquivo foi atingido. É a função feof(), que tem a seguinte sintaxe:
+
+feof(handle);
+- handle: handle do arquivo;
+
+Exemplo:
+
+<?php
+$fp = fopen(“./dados.txt”, “r”);
+while(!feof($fp)) {
+    $char .= fgetc($fp);
+}
+fclose($fp);
+?>
+
+
+É isso aí! Existem diversas outras funções em PHP para a manipulação de arquivo, inclusive para acesso aleatório. Porém, o intuito deste tutorial é mostrar a base da manipulação de arquivos. Aqueles que estiverem interessados em aprender o assunto mais a fundo, há uma referência de todas as funções da linguagem PHP no manual, disponível em http://www.php.net.
+http://www.phpbrasil.com/artigo/FygWH2oM4L0/2/trabalhando-com-arquivos-em-php
+
+Trabalhando com arquivos em PHP
+Iae pessoal, tudo beleza?
+
+Hoje vamos aprender um pouco sobre como ler e excluir linhas de arquivos TXT usando o PHP.
+
+É muito simples, basicamente vamos trabalhar muito com arrays e depois o salvaremos no arquivo. Muitas pessoas preferem modificar diretamente no arquivo, mas assim, caso este esteja sendo usado por outro processo, poderá ser danificado ou os dados não serem salvos corretamente. Vamos lá!
+
+Conteúdo do meuarquivo.txt
+
+1|Meu nome|Meu site|Olá pessoal 2|Meu nome1|Meu site|Olá pessoal 3|Meu nome2|Meu site|Olá pessoal 4|Meu nome3|Meu site|Olá pessoal 5|Meu nome4|Meu site|Olá pessoal
+
+Lendo linhas do array:
+
+Primeiro, vamos colocar todo o arquivo num array. Use o seguinte código:
+$meuArray = file("nomedoarquivo.txt"); // coloco todo o arquivo num array
+
+Vamos excluir a linha que tenha o primeiro valor do array igual a 3. Para isto, temos que ler cada linha do array e fazer um "explode" delas, separando os "|" como se fosse em colunas.
+Depois, faremos um [cfIF[/cf] perguntando se a coluna desejada é igual ao valor que queremos: 3
+
+for($n=0; $n < count($meuArray); $n++) { // enquanto que a variável $n for menor que o número de linhas do array, incremento ($n + 1). $cadaLinha = explode("|", $meuArray[$n]); // crio outro array que possua as colunas (de acordo com o explode) da linha $n do $meyArray if($cadaLinha[0] == 3) { echo "Meu nome: $cadalinha[1] - Site: $cadalinha[2]"; // imprimo o que desejo } } // fecho o for
+
+Excluindo linhas do array e salvando nos arquivos:
+
+Faremos a mesma lógica de ler as linhas, sendo que a única diferença é que ao invés de ser igual a 3, ele gravará apenas se for diferente.
+
+$meuArray = file("nomedoarquivo.txt"); // coloco todo o arquivo num array $arrayModificado = array(); // crio um array vazio.
+
+for($n=0; $n < count($meuArray); $n++) { // enquanto que a variável $n for menor que o número de linhas do array, incremento ($n + 1). $cadaLinha = explode("|", $meuArray[$n]); // crio outro array que possua as colunas (de acordo com o explode) da linha $n do $meyArray if($cadaLinha[0] <> 3) { // se o valor da coluna 0 for diferente de 3, executo $arrayModificado[] = $meuArray[$n]; // coloco no outro array, que será salvo, os valores do array inicial. } } // fecho o for
+
+Depois é só salvar o array no arquivo, incluindo cada linha do array já modificado:
+
+$bufferArquivo = fopen('nomedoarquivo.txt',"w"); // abro arquivo somente para escrita, excluo suas linhas e coloco o ponteiro no começo. for($n=0; $n < count($arrayModificado); $n++) { // enquanto que a variável $n for menor que o número de linhas do array, incremento ($n + 1). fwrite($bufferArquivo, $arrayModificado[$n]); // gravo esta linha do array no arquivo } // fecho o for fclose($bufferArquivo); // fecho o arquivo.
+
+Você pode pensar, mas porque não faço apenas um FOR e já gravo no arquivo?
+Como falei no começo, este procedimento fará com que o arquivo possa ser danificado, caso algum outro processo tente gravá-lo. Então, é melhor trabalhar com o array e apenas depois de modificado o desejado, salvá-lo no arquivo.
+
+Com este exemplo da exclusão, você poderá ainda adaptá-lo e editar uma linha específica.
+
+Bom, por hoje é só.
+
+Até mais pessoal. 
+
+ Trabalhando com arquivos ZIP com PHP
+Rodrigo Aramburu
+25/08/2012
+
+Em várias situações necessitamos enviar ou baixar de um servidor vários arquivos de uma unica vez e arquivos zip servem muito bem a este proposito, com a vantagem de diminuir um pouco o tamanho da informação. Vamos ver a seguir como manipular um arquivo ZIP através da extensão ZIP do PHP que nos permite compactar, extrair, adicionar um arquivo a um arquivo ZIP já existente, excluir um arquivo existente e como forçar o download de um arquivo ZIP.
+Vamos então a criar um arquivo ZIP:
+1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+	
+$zip = new ZipArchive();
+  
+if( $zip->open( 'zips/arquivo.zip' , ZipArchive::CREATE )  === true){
+      
+    $zip->addFile(  'arquivos/lorem.txt' , 'lorem.txt' );
+      
+    $zip->addFile(  'arquivos/not_today.jpg' , 'pasta/not_today.jpg') ;
+      
+    $zip->addFromString('string.txt' , "Uma string qualquer" );
+      
+    $zip->close();
+}
+
+Na linha 1 criamos o objeto ZipArchive que é o objeto responsável por manipular um arquivo Zip no PHP. Lembrando que a extensão zip do PHP deve estar habilitada.
+
+Na lina 3 abrimos o arquivo através do método open que recebe como parâmetro o caminho para o arquivo zip, lembrando que se estamos criando um arquivo esse local deve ter permissão de escrita para o usuário do apache. No segundo parâmetro é fornecido o modo de abertura, o modo ZipArchive::CREATE cria o arquivo caso ele não exista, ou carrega o conteúdo do arquivo, caso ele exista ou podemos utilizar o modo ZipArchive::OVERWRITE que remove todos os arquivos pré-existentes no zip, caso ele exista e seja incluído pelo menos um elemento. Se o método open retornar true o arquivo foi aberto com sucesso.
+
+Na linha 5 adicionamos um arquivo de texto ao arquivo zip chamando o método addFile que recebe como primeiro parâmetro o caminho do arquivo no sistema de arquivos e como segundo parâmetro o nome que ele terá dentro do arquivo zip.
+
+Na linha 7 adicionamos um segundo arquivo no arquivo zip como na linha 5, mas no parâmetro do nome do arquivo no zip colocamos um diretório e a seguir colocamos o nome do arquivo o que fará ser criada uma pasta dentro do arquivo zip que irá conter nosso arquivo.
+
+Na linha 9 adicionamos mais um arquivo mas desta vez usamos o método addFromString que adiciona um arquivo não do sistema de arquivo mas de uma variável string do código PHP(bastante útil se o conteúdo do arquivo for gerado dinamicamente). Para isso o primeiro parâmetro é o nome do arquivo no zip e o segundo parâmetro será o conteúdo do arquivo.
+
+Na linha 11 fechamos o arquivo através do método close que grava as alterações feitas no arquivo.
+Descompactando Um arquivo zip
+1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+	
+$zip = new ZipArchive();
+  
+if( $zip->open( 'zips/arquivo.zip' )  === true){
+      
+    $zip->extractTo('zips/extraido');
+  
+    $zip->extractTo('zips/', array('string.txt','lorem.txt'));
+      
+    $zip->close();
+}
+
+Na linha 1 e 3 tem a mesma função do exemplo anterior.
+
+Na linha 5 extraímos o conteúdo do arquivo zip através do método extractTo que recebe como parâmetro o caminho no sistema de arquivo onde serão colocados o arquivos descompactados.
+
+Na linha 7 também extraímos arquivos do arquivo zip mas especificamos através de um array os arquivos que queremos extrair.
+Listando os arquivo dentro de um zip
+1
+2
+3
+4
+5
+6
+7
+8
+9
+	
+$zip = new ZipArchive();
+  
+if( $zip->open( 'zips/arquivo.zip' )  === true){
+      
+     for ($i = 0; $i < $zip->numFiles; $i++) {
+  
+        echo $zip->getNameIndex($i)."<br />";
+     }
+}
+
+Quando não sabemos os nomes dos arquivos de um zip podemos utilizar o seu índice para descobri-los, lembrando que o índice é dado pelo lugar que o arquivo é armazenado dentro do zip, então ao inserir um novo arquivo no zip o índice de outros arquivos já presente pode mudar.
+
+Para listar os arquivos pelo índice é necessário acessá-los pelo método getNameIndex(linha 7) que recebe como parâmetro o próprio índice. Para saber quantos arquivos tem dentro do arquivo zip, para acessá-los em um loop por exemplo, utilizamos o método numFiles como vemos na linha 5.
+Adicionamos um arquivo ao zip
+1
+2
+3
+4
+5
+6
+7
+8
+	
+$zip = new ZipArchive();
+  
+if( $zip->open( 'zips/arquivo.zip' )  === true){
+      
+    $zip->addFile('arquivos/adicionado.txt' , 'adicionado.txt');
+  
+    $zip->close();
+}    
+
+Basicamente para adicionar um arquivo a um arquivo zip existente basta abrir ele(linha 3) e adicionar o novo arquivo através do método addFile.
+Deletando um arquivo de zip
+1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+	
+$zip = new ZipArchive();
+  
+if( $zip->open( 'zips/arquivo.zip' )  === true){
+      
+    $zip->deleteName('adicionado.txt');
+  
+    $zip->deleteName('pasta/not_today.jpg');
+  
+    $zip->close();
+}
+
+Para deletar chamamos o método deleteName passando como parâmetro o nome do arquivo dentro do arquivo zip, inclusive o nome do diretório se o arquivo estiver dentro de um dentro do zip, como vemos na linha 7. Também podemos deletar um arquivo pelo seu índice pelo método deleteIndex($indice).
+Carregando um arquivo de um arquivo zip para o php sem extrair
+1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+	
+$zip = new ZipArchive();
+  
+if( $zip->open( 'zips/arquivo.zip' )  === true){
+      
+        $conteudo_txt = $zip->getFromName('string.txt');
+        echo $conteudo_txt;
+          
+        echo "<br />==============================<br />";
+          
+        $conteudo_php = $zip->getFromIndex(0);
+}
+
+Podemos também carregar um arquivo direto do arquivo zip para uma uma variável do PHP sem ser necessário extrair o arquivo para o sistema de arquivo e depois lê-lo, fazemos isso através dos métodos getFromName que recebe como o nome do arquivo ou o método getFromIndex que recebe o índice do arquivo no zip.
+Forçando o download de um arquivo zip
+1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+	
+$zip = new ZipArchive();
+  
+if( $zip->open( 'zips/arquivo.zip' , ZipArchive::CREATE  )  === true){
+      
+    $zip->addFile(  'arquivos/lorem.txt' , 'lorem.txt' );
+      
+    $zip->addFile(  'arquivos/not_today.jpg' , 'pasta/not_today.jpg') ;
+      
+      
+    $zip->close();
+  
+    header('Content-type: application/zip');
+    header('Content-disposition: attachment; filename="arquivo.zip"');
+    readfile('zips/arquivo.zip');
+  
+    unlink('zips/arquivo.zip');
+}
+
+Para forçar o download de um arquivo zip primeiro criamos uma arquivo zip (óbvio!!!) como vimos no primeiro exemplo, após isso mudamos o header para o tipo de um arquivo zip “application/zip” (linha 12).
+
+Na linha 13 forçamos o navegador a baixar o arquivo com o nome de arquivo.zip, ou senão o nome padrão para baixar o arquivo vai ser o nome do script PHP o que não seria legal!
+
+Na linha 14 chamamos a função readfile que lê o conteúdo de um arquivo(no nosso caso o nosso zip) e exibe mandando a informação do arquivo para o navegador e ser feito o download.
+
+Como já mandamos o arquivo zip para o usuário fazer download não precisamos mais do arquivo zip gerado então deletamos utilizando a função unlink.
+
+Bom era isso. T++ !
+
+https://www.botecodigital.dev.br/php/trabalhando-com-arquivos-zip-com-php/
+
+PHP Manipulating Files
+
+PHP has several functions for creating, reading, uploading, and editing files.
+
+Be careful when manipulating files!
+When you are manipulating files you must be very careful.
+
+You can do a lot of damage if you do something wrong. Common errors are: editing the wrong file, filling a hard-drive with garbage data, and deleting the content of a file by accident.
+PHP readfile() Function
+
+The readfile() function reads a file and writes it to the output buffer.
+
+Assume we have a text file called "webdictionary.txt", stored on the server, that looks like this:
+AJAX = Asynchronous JavaScript and XML
+CSS = Cascading Style Sheets
+HTML = Hyper Text Markup Language
+PHP = PHP Hypertext Preprocessor
+SQL = Structured Query Language
+SVG = Scalable Vector Graphics
+XML = EXtensible Markup Language
+
+The PHP code to read the file and write it to the output buffer is as follows (the readfile() function returns the number of bytes read on success):
+Example
+<?php
+echo readfile("webdictionary.txt");
+?>
+
+The readfile() function is useful if all you want to do is open up a file and read its contents.
+
+The next chapters will teach you more about file handling.
+
+PHP File Open/Read/Close
+
+In this chapter we will teach you how to open, read, and close a file on the server.
+PHP Open File - fopen()
+
+A better method to open files is with the fopen() function. This function gives you more options than the readfile() function.
+
+We will use the text file, "webdictionary.txt", during the lessons:
+AJAX = Asynchronous JavaScript and XML
+CSS = Cascading Style Sheets
+HTML = Hyper Text Markup Language
+PHP = PHP Hypertext Preprocessor
+SQL = Structured Query Language
+SVG = Scalable Vector Graphics
+XML = EXtensible Markup Language
+
+The first parameter of fopen() contains the name of the file to be opened and the second parameter specifies in which mode the file should be opened. The following example also generates a message if the fopen() function is unable to open the specified file:
+Example
+<?php
+$myfile = fopen("webdictionary.txt", "r") or die("Unable to open file!");
+echo fread($myfile,filesize("webdictionary.txt"));
+fclose($myfile);
+?>
+
+Tip: The fread() and the fclose() functions will be explained below.
+
+The file may be opened in one of the following modes:
+Modes 	Description
+r 	Open a file for read only. File pointer starts at the beginning of the file
+w 	Open a file for write only. Erases the contents of the file or creates a new file if it doesn't exist. File pointer starts at the beginning of the file
+a 	Open a file for write only. The existing data in file is preserved. File pointer starts at the end of the file. Creates a new file if the file doesn't exist
+x 	Creates a new file for write only. Returns FALSE and an error if file already exists
+r+ 	Open a file for read/write. File pointer starts at the beginning of the file
+w+ 	Open a file for read/write. Erases the contents of the file or creates a new file if it doesn't exist. File pointer starts at the beginning of the file
+a+ 	Open a file for read/write. The existing data in file is preserved. File pointer starts at the end of the file. Creates a new file if the file doesn't exist
+x+ 	Creates a new file for read/write. Returns FALSE and an error if file already exists
+PHP Read File - fread()
+
+The fread() function reads from an open file.
+
+The first parameter of fread() contains the name of the file to read from and the second parameter specifies the maximum number of bytes to read.
+
+The following PHP code reads the "webdictionary.txt" file to the end:
+fread($myfile,filesize("webdictionary.txt"));
+PHP Close File - fclose()
+
+The fclose() function is used to close an open file.
+
+It's a good programming practice to close all files after you have finished with them. You don't want an open file running around on your server taking up resources!
+
+The fclose() requires the name of the file (or a variable that holds the filename) we want to close:
+<?php
+$myfile = fopen("webdictionary.txt", "r");
+// some code to be executed....
+fclose($myfile);
+?>
+PHP Read Single Line - fgets()
+
+The fgets() function is used to read a single line from a file.
+
+The example below outputs the first line of the "webdictionary.txt" file:
+Example
+<?php
+$myfile = fopen("webdictionary.txt", "r") or die("Unable to open file!");
+echo fgets($myfile);
+fclose($myfile);
+?>
+
+Note: After a call to the fgets() function, the file pointer has moved to the next line.
+PHP Check End-Of-File - feof()
+
+The feof() function checks if the "end-of-file" (EOF) has been reached.
+
+The feof() function is useful for looping through data of unknown length.
+
+The example below reads the "webdictionary.txt" file line by line, until end-of-file is reached:
+Example
+<?php
+$myfile = fopen("webdictionary.txt", "r") or die("Unable to open file!");
+// Output one line until end-of-file
+while(!feof($myfile)) {
+  echo fgets($myfile) . "<br>";
+}
+fclose($myfile);
+?>
+PHP Read Single Character - fgetc()
+
+The fgetc() function is used to read a single character from a file.
+
+The example below reads the "webdictionary.txt" file character by character, until end-of-file is reached:
+Example
+<?php
+$myfile = fopen("webdictionary.txt", "r") or die("Unable to open file!");
+// Output one character until end-of-file
+while(!feof($myfile)) {
+  echo fgetc($myfile);
+}
+fclose($myfile);
+?>
+
+Note: After a call to the fgetc() function, the file pointer moves to the next character.
+Complete PHP Filesystem Reference
+
+For a complete reference of filesystem functions, go to our complete PHP Filesystem Reference.
+
+
+PHP File Create/Write
+
+In this chapter we will teach you how to create and write to a file on the server.
+PHP Create File - fopen()
+
+The fopen() function is also used to create a file. Maybe a little confusing, but in PHP, a file is created using the same function used to open files.
+
+If you use fopen() on a file that does not exist, it will create it, given that the file is opened for writing (w) or appending (a).
+
+The example below creates a new file called "testfile.txt". The file will be created in the same directory where the PHP code resides:
+Example
+$myfile = fopen("testfile.txt", "w")
+
+PHP File Permissions
+
+If you are having errors when trying to get this code to run, check that you have granted your PHP file access to write information to the hard drive.
+PHP Write to File - fwrite()
+
+The fwrite() function is used to write to a file.
+
+The first parameter of fwrite() contains the name of the file to write to and the second parameter is the string to be written.
+
+The example below writes a couple of names into a new file called "newfile.txt":
+Example
+<?php
+$myfile = fopen("newfile.txt", "w") or die("Unable to open file!");
+$txt = "John Doe\n";
+fwrite($myfile, $txt);
+$txt = "Jane Doe\n";
+fwrite($myfile, $txt);
+fclose($myfile);
+?>
+
+Notice that we wrote to the file "newfile.txt" twice. Each time we wrote to the file we sent the string $txt that first contained "John Doe" and second contained "Jane Doe". After we finished writing, we closed the file using the fclose() function.
+
+If we open the "newfile.txt" file it would look like this:
+John Doe
+Jane Doe
+PHP Overwriting
+
+Now that "newfile.txt" contains some data we can show what happens when we open an existing file for writing. All the existing data will be ERASED and we start with an empty file.
+
+In the example below we open our existing file "newfile.txt", and write some new data into it:
+Example
+<?php
+$myfile = fopen("newfile.txt", "w") or die("Unable to open file!");
+$txt = "Mickey Mouse\n";
+fwrite($myfile, $txt);
+$txt = "Minnie Mouse\n";
+fwrite($myfile, $txt);
+fclose($myfile);
+?>
+
+If we now open the "newfile.txt" file, both John and Jane have vanished, and only the data we just wrote is present:
+Mickey Mouse
+Minnie Mouse
+
+
+PHP File Handling
+
+PHP File System allows us to create file, read file line by line, read file character by character, write file, append file, delete file and close file.
+PHP Open File - fopen()
+
+The PHP fopen() function is used to open a file.
+
+Syntax
+
+    resource fopen ( string $filename , string $mode [, bool $use_include_path = false [, resource $context ]] )  
+
+Example
+
+    <?php  
+    $handle = fopen("c:\\folder\\file.txt", "r");  
+    ?>  
+
+Click me for more details...
+PHP Close File - fclose()
+
+The PHP fclose() function is used to close an open file pointer.
+
+Syntax
+
+    ool fclose ( resource $handle )  
+
+Example
+
+    <?php  
+    fclose($handle);  
+    ?>  
+
+PHP Read File - fread()
+
+The PHP fread() function is used to read the content of the file. It accepts two arguments: resource and file size.
+
+Syntax
+
+    string fread ( resource $handle , int $length )  
+
+Example
+
+    <?php    
+    $filename = "c:\\myfile.txt";    
+    $handle = fopen($filename, "r");//open file in read mode    
+      
+    $contents = fread($handle, filesize($filename));//read file    
+      
+    echo $contents;//printing data of file  
+    fclose($handle);//close file    
+    ?>    
+
+Output
+
+hello php file
+
+Click me for more details...
+PHP Write File - fwrite()
+
+The PHP fwrite() function is used to write content of the string into file.
+
+Syntax
+
+    int fwrite ( resource $handle , string $string [, int $length ] )  
+
+Example
+
+    <?php  
+    $fp = fopen('data.txt', 'w');//open file in write mode  
+    fwrite($fp, 'hello ');  
+    fwrite($fp, 'php file');  
+    fclose($fp);  
+      
+    echo "File written successfully";  
+    ?>  
+
+Output
+
+File written successfully
+
+Click me for more details...
+PHP Delete File - unlink()
+
+The PHP unlink() function is used to delete file.
+
+Syntax
+
+    bool unlink ( string $filename [, resource $context ] )  
+
+Example
+
+    <?php    
+    unlink('data.txt');  
+       
+    echo "File deleted successfully";  
+    ?>  
+
+

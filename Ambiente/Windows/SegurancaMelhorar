@@ -1,0 +1,51 @@
+Melhorando a Segurança do Windows
+17/12/2014 por ribafs	
+
+Melhorando a Segurança do Windows
+
+Usar um computador requer um certo trabalho. Recomendo que de você não souber como efetuar a faxina abaixo peça ajuda a alguém para fazê-lo.
+
+– A providência mais importante que conheço é o backup dos meus arquivos pessoais. Os programas instalados posso baixar novamente e instalar, mas aqueles que produzi serão a maior perda (textos, fotos, vídeos, etc). Salve em DVD ou em HD USB.
+
+– Praticamente todos os usuários do Windows que conheço usam o Windows como usuário administrador. Isso deixa o uso mais cômodo, mas por outro lado fica muito mais inseguro e vulnerável a vírus e outras ameaças similares. Para melhorar a segurança use sempre o Windows como usuário padrão. Basta criar outro usuário e informar que quer um usuário do tipo padrão. Sugestão: use para ele a mesma senha que está usando agora para facilitar. Para ter uma ideia o usuário padrão não pode instalar nenhum programa nem apagar os arquivos do diretório c:\Windows. O vírus também não poderá. Para instalar programas o windows solicitará a senha do usuário administrador, basta digitar a senha.
+
+– Instale um bom anti-vírus.
+
+– Nunca faça download de sites de download como o Baixaki, pois eles empacotam muita coisa junto ao software que se baixa e me parece que muita porcaria também. Sempre vá ao site oficial para baixar. Caso não saiba o endereço do site, peça ajuda ao Google. Supondo que queira baixar o Winrar e não sabe o site. Digite no Google assim:
+
+winrar oficial.
+
+Geralmente ele retornará o site no primeiro link. A dica é, seja cuidadoso(a).
+
+– Ao instalar e desinstalar programas seja cauteloso, leia as recomendações e avisos e sempre desmarque tudo o que não quer. Ainda assim alguns softwares mal comportados instalam o que você não pediu. Por cautela após instalar um programa que não conhece vá ao painel de controle, adicionar/remover programas e verifique se ele instalou algo que não solicitou. Também veja nos complementos do Firefox ou Chrome se não instalou algo.
+
+– Procure manter o Windows e seus softwares atualizados. Sempre que os criadores percebem algum problema de segurança eles lançam nova versão com correção.
+
+– Caso ainda assim você tenha seu computador infectado por vírus ou similar vá até o painel de controle e procure remover. Caso não consiga siga os passos abaixo:
+
+– Iniciar – msconfig. Execute o msconfig.exe e desmarque da aba Inicialização de
+
+programas todos os indesejados e reinicie
+
+– Iniciar – agendador e execute o agendador de tarefas (tarefas agendadas no 8).
+
+Clique em Biblioteca do Agendador de Tarefas e exclua todas as entradas suspeitas.
+
+– Clique com o botão direito do mouse sobre o ícone do Firefox no Desktop – Propriedades e veja o comando em Destino. Ele precisa estar assim:
+
+“C:\Program Files (x86)\Mozilla Firefox\firefox.exe”
+
+Remova tudo que aparecer à direita, após exe”.
+
+– Abra o Firefox e vá em Ferramentas – Complementos e remova todas as extensões que não conheça.
+
+– Mais uma dica que acabo de aprender. Caso perceba que o Firefox está de alguma forma comprometido. Aqui aparecia uma página que não abri e também um balãozinho verde ao lado de cada link do resultado da busca do Google. Pesquisando aprendi que podemos resetar o Firefox para que volte ao estado original eliminando tudo que foi instalado e alterado nele. Basta clicar em:
+
+Ajuda – Dados para suporte – Restaurar o Firefox
+
+– Para melhorar ainda mais sua segurança mantenha-se informado, pesquise sobre o assunto e fique mais tranquilo.
+
+– Caso queira ainda mais segurança passe a usar o sistema operacional Linux. Sugiro o Linux Ubuntu, que é mais amigável. Mas para usar o Linux você precisa ser um usuário avançado ou então daqueles corajosos e fuçadores.
+
+https://ribafsdicas.wordpress.com/2014/12/17/melhorando-a-seguranca-do-windows/
+

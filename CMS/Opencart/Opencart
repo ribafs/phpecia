@@ -1,0 +1,207 @@
+Instalar o Opencart 3.0.3.3
+
+https://www.opencartbrasil.com.br/download
+
+Requisitos
+
+Webserver (Apache ou Nginx).
+PHP 5.6 (ou superior).
+Banco de dados MySQL ou MariaDB.
+Biblioteca Curl do PHP.
+Biblioteca mysqli do PHP.
+
+https://www.opencartbrasil.com.br/instalando-opencart
+
+Rolar a tela e copiar o link do Download
+
+cdr
+
+wget https://github.com/opencartbrasil/opencartbrasil/releases/download/v1.5.0/opencartbrasil-3.0.3.3.zip
+unzip opencartbrasil-3.0.3.3.zip -d oc
+rm opencartbrasil-3.0.3.3.zip
+
+Depois de criar usuário e banco vamos instalar pela web
+
+http://ribafs.me/oc
+
+
+1/4
+Licença para utilização
+
+Idioma - Português Brasil
+
+Continuar
+
+
+2/4
+Pré-instalação
+
+3. Certifique-se que definiu as permissões corretas na lista de arquivos abaixo.
+
+Arquivo 	SItuação
+/var/www/ribafs/oc/config.php 	Não encontrado
+/var/www/ribafs/oc/admin/config.php 	Não encontrado
+
+No servidor
+
+cdr
+
+cd oc/
+
+mv config-dist.php config.php
+
+cd admin
+
+mv config-dist.php config.php
+
+sudo permsr oc
+
+Voltar ao navegador e teclar F5
+
+Continuar
+
+
+3/4
+Configuração
+Preencha os dados para instalação
+
+1. Preencha os campos abaixo para o OpenCart se conectar com o banco de dados.
+Driver - MySQLi
+Servidor - localhost
+Usuário - oc_us
+Senha - 
+Banco de dados - oc_db
+Porta - 3306
+Prefixo - oc_
+
+2. Preencha os campos abaixo com um nome de usuário e senha para acessar a administração do OpenCart.
+Usuário - 
+Senha - 
+E-mail - ribafs@gmail.com
+
+Continuar
+
+
+4/4
+Instalação concluída
+A instalação do OpenCart foi concluída
+
+Não esqueça de excluir o diretório install por segurança! 
+
+Voltar ao servidor e
+
+cdr
+
+cd oc
+rm -rf install
+
+Voltar ao navegador e teclar F5
+
+Acessar a loja
+
+http://ribafs.me/oc/
+
+Acessar o admin
+
+http://ribafs.me/oc/admin/
+
+Ao acessar  admin aparece a mensagem num popup
+
+Procedimento de segurança
+É muito importante modificar o local da pasta storage para fora do diretório público (public_html, www ou htdocs por exemplo), de modo que ela não seja acessível pela web.
+Selecione como deseja modificar o local da pasta storage
+
+Selecione Modificar manualmente, pois ele não poderá escrever fora da pasta web
+
+Então nos informa o que rpecisamos fazer
+
+
+
+    Modifique a pasta:
+
+    /var/www/ribafs/oc/system/storage/
+
+    Para:
+
+    /var/www/storage/
+    
+cp -r /var/www/ribafs/oc/system/storage/ /var/www/storage/
+
+    Edite o arquivo config.php e modifique a linha abaixo:
+
+    define('DIR_STORAGE', DIR_SYSTEM . 'storage/');
+
+    Para:
+
+    define('DIR_STORAGE', '/var/www/storage/');
+
+    Edite o arquivo admin/config.php e modifique a linha abaixo:
+
+    define('DIR_STORAGE', DIR_SYSTEM . 'storage/');
+
+    Para:
+
+    define('DIR_STORAGE', '/var/www/storage/');
+
+Criar a pasta
+
+sudo mkdir /var/www/storage
+
+cdr
+
+cd oc
+
+nano config.php
+
+Mudar a linha abaixo
+Comentar a existente e adicionar esta
+define('DIR_STORAGE', '/var/www/storage/');
+
+//define('DIR_STORAGE', DIR_SYSTEM . 'storage/');
+define('DIR_STORAGE', '/var/www/storage/');
+
+
+nano admin/config.php
+
+Mudar
+
+define('DIR_STORAGE', '/var/www/storage/');
+
+Voltar ao navegador e teclar F5
+
+Então recebo o erro
+
+Warning: fopen(/var/www/storage/logs/error.log): failed to open stream: No such file or directory no arquivo /var/www/ribafs/oc/system/library/log.php na linha 22RuntimeException: Unable to create the cache directory (/var/www/storage/cache/b8). no arquivo /var/www/ribafs/oc/system/library/template/Twig/Cache/Filesystem.php na linha 62Warning: fwrite() expects parameter 1 to be resource, bool given in /var/www/ribafs/oc/system/library/log.php on line 31Warning: fclose() expects parameter 1 to be resource, bool given in /var/www/ribafs/oc/system/library/log.php on line 39Warning: fclose() expects parameter 1 to be resource, bool given in /var/www/ribafs/oc/system/library/log.php on line 39
+
+Que indica duas coisas, que estes erros não devem aaprecer e que o Opencart rpecisa de permissão para escrever na pasta /var/www/storage
+
+Voltar ao servidor e executar
+
+sudo chown -R ribafs:www-data /var/www/storage
+
+sudo chmod -R 775 /var/www/storage
+
+Voltar ao navegador e acessar
+
+http://ribafs.me/oc/admin
+
+Faço o login e recebo outro popup
+
+SyntaxError: JSON.parse: unexpected character at line 1 column 1 of the JSON data
+OK
+Warning: fopen(/var/www/storage/logs/error.log): failed to open stream: No such file or directory no arquivo /var/www/ribafs/oc/system/library/log.php na linha 22{"order":{"label":"Pedidos","data":[[1,0],[2,0],[3,0],[4,0],[5,0],[6,0],[7,0],[8,0],[9,0],[10,0],[11,0],[12,0],[13,0],[14,0],[15,0],[16,0],[17,0],[18,0],[19,0],[20,0],[21,0],[22,0],[23,0],[24,0],[25,0],[26,0],[27,0],[28,0],[29,0],[30,0],[31,0]]},"customer":{"label":"Clientes","data":[[1,0],[2,0],[3,0],[4,0],[5,0],[6,0],[7,0],[8,0],[9,0],[10,0],[11,0],[12,0],[13,0],[14,0],[15,0],[16,0],[17,0],[18,0],[19,0],[20,0],[21,0],[22,0],[23,0],[24,0],[25,0],[26,0],[27,0],[28,0],[29,0],[30,0],[31,0]]},"xaxis":[["1","01"],["2","02"],["3","03"],["4","04"],["5","05"],["6","06"],["7","07"],["8","08"],["9","09"],["10","10"],["11","11"],["12","12"],["13","13"],["14","14"],["15","15"],["16","16"],["17","17"],["18","18"],["19","19"],["20","20"],["21","21"],["22","22"],["23","23"],["24","24"],["25","25"],["26","26"],["27","27"],["28","28"],["29","29"],["30","30"],["31","31"]]}<b>Warning</b>: fclose() expects parameter 1 to be resource, bool given in <b>/var/www/ribafs/oc/system/library/log.php</b> on line <b>39</b><b>Warning</b>: fclose() expects parameter 1 to be resource, bool given in <b>/var/www/ribafs/oc/system/library/log.php</b> on line <b>39</b>
+
+Volto ao servidor e executo:
+
+mkdir /var/www/storage/logs
+
+sudo chown -R ribafs:www-data /var/www/storage
+
+sudo chmod -R 775 /var/www/storage
+
+Voltar ao navegador e teclo F5
+
+Agora tá tudo OK
+
+
+

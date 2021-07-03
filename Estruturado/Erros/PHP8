@@ -1,0 +1,20 @@
+Avisos de Erros mais elaborados e precisos
+
+Um grande problema para todos desenvolvedor é quando encontramos um erro.
+
+Atualmente, com o PHP, você já pode ver os avisos de erros. Mas, esses avisos ainda são gerados de forma básica. Porém, no PHP 8.0, você já poderá encontrar avisos com explicações mais precisas.
+
+Com certeza esse será um grande diferencial para os programadores, pois economizará muito tempo para solucionar problemas em meio as diversas linhas de código. Além de facilitar muito a vida de quem está aprendendo e iniciando na linguagem PHP.
+
+
+
+Throw Expressions no PHP 8
+
+Atualmente, no PHP, você pode utilizar o throw como uma instrução ou afirmação. Porém, até a versão 7.4, é impossível utiliza-lo em locais em que apenas uma expressão fosse permitida.
+
+Visando resolver esse problema, no PHP 8 o throw passará a ser uma expressão. Dessa forma, você poderá utiliza-lo no lugar de expressões. Portanto, será possível utiliza-lo em funções de seta, Operador de coalescência (Null Coalesce), operadores ternários e elvis, etc.
+
+Na própria RFC sobre o Throw, você pode encontrar diversos exemplos de como você poderá utilizar o throw a partir do PHP 8.
+
+
+

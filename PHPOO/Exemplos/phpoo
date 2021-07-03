@@ -1,0 +1,31 @@
+Introdução
+
+https://www.w3schools.com/php/
+
+História
+Ambiente de programação
+Editor/IDE
+Boas práticas
+    PHP-FIG
+    PHP do Jeito Certo
+Convenções
+Conceitos
+O que é Programação Orientada a Objetos?
+Classes e Objetos
+Construtor
+Destrutor
+Modificadores de acesso
+
+$this/self::
+Constantes
+Estáticos
+Herança
+Abstract/Interface
+Final
+Traits
+Composer, Namespace, PSR-7 e autoload
+MVC
+Rotas
+JSON e XML
+Data e Hora
+

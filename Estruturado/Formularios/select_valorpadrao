@@ -1,0 +1,30 @@
+Criando combos (select’s) dinâmicos com valores padrões
+0 Comentários
+
+Uma dúvida muito comum – porém de solução bastante simples – é como criar um combo (select) dinâmico e com um valor padrão. Isso pode ser útil ao montar um formulário para edição de dados. Suponha que você possui um sistema em que o usuário escolhe uma dentre diversas opções, por meio de um combo. Para criar um formulário de edição, você deve exibir o combo, mas mostrando a seleção atual.
+
+Para exemplificar, vou usar um simples array com alguns estados brasileiros e uma variável que armazenará o dado que deve aparecer selecionado.
+
+A exibição do combo, juntamente com o dado selecionado, será realizada por uma função, que percorre o array de dados e compara se o registro corrente é igual ao que deve ser selecionado. Se a comparação retornar TRUE, insere-se o atributo “selected” na tag “option”.
+
+$estados = array( 'PR', 'SP', 'RJ', 'SC', 'RS' );
+$padrao = 'PR';
+ 
+echo MontaSelect( $estados, $padrao );
+ 
+ 
+function MontaSelect( $dados, $selected = NULL )
+{
+	$str = "<select name=\"uf\" id=\"uf\">\n"; 
+	$total= count( $dados );
+	for ( $i = 0; $i < $total; $i++ )
+	{
+		$str .= "<option value=\"" . $dados[$i] . "\"" . ( ( $dados[$i] == $selected ) ? " selected=\"true\"" : "" ) . ">" . $dados[$i] . "</option>\n";
+	}
+	$str .= "</select>\n";
+	return $str;
+}
+
+A solução é simples, apesar de ser fonte de dúvida frequente em fóruns pela Internet.
+
+Lembrando que é sempre bom efetuar verificação nos tipos de parâmetros da função. Não inseri isso no código, mas é recomendável usar is_array() para verificar a variável $dados, por exemplo, a fim de evitar geração de erros e warnings.

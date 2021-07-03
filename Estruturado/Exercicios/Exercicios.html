@@ -1,0 +1,2657 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html lang="pt-br">
+<head>
+  <meta http-equiv="Content-Type"
+ content="text/html; charset=ISO-8859-1">
+  <meta name="generator" content="Bluefish 1.0.4">
+  <title>PHPTutorialRibaFS.html</title>
+</head>
+<body
+ style="color: rgb(0, 0, 0); background-color: rgb(221, 221, 177);"
+ alink="#000099" link="#000099" vlink="#990099">
+<p style="text-align: center;"><b>TUTORIAL DE </b><b>PHP</b></p>
+<p style="text-align: center;"><b></b></p>
+<p style="text-align: center;"><b>Este tutorial teve
+como principal fonte de informa&ccedil;&otilde;es o manual
+oficial do PHP.</b></p>
+<p><b></b></p>
+<p><b>1 - </b><b>INTRODU&Ccedil;&Atilde;O</b></p>
+<p><b>O Que &eacute; </b><b>PHP</b><b>?</b></p>
+<p>&Eacute; uma&nbsp;linguagem&nbsp;de script, Open
+Source, de&nbsp;uso&nbsp;geral, no lado do servidor,
+embut&iacute;vel no HTML e especialmente&nbsp;voltada para o
+desenvolvimento Web. Originalmente&nbsp;chamou-se&nbsp;PHP
+(Personal Home Page) mas
+depois&nbsp;teve&nbsp;seu&nbsp;nome&nbsp;alterado&nbsp;pela&nbsp;comunidade
+para PHP: Hypertext Processor, um acr&ocirc;nimo&nbsp;recursivo.</p>
+<p style="text-decoration: underline;">Um pequneno script
+em PHP</p>
+<p>&lt;?php<br>
+    echo "Script em PHP!";<br>
+?&gt;</p>
+<p> </p>
+<p class="western" style="margin-bottom: 0cm;">Em
+mar&ccedil;o/2006
+ele j&aacute; est&aacute; presente em mais de 20
+milh&otilde;es de
+dom&iacute;nios</p>
+<p class="western" style="margin-bottom: 0cm;">ao
+redor do planeta
+(<a href="http://www.php.net/usage.php">http://www.php.net/usage.php</a>).</p>
+<br>
+Estat&iacute;sticas
+sobre o PHP:
+<p class="western" style="margin-bottom: 0cm;"><a
+ href="http://www.nexen.net/chiffres_cles/phpversion/php_statistics_for_april_2006.php">http://www.nexen.net/chiffres_cles/phpversion/php_statistics_for_april_2006.php</a>
+</p>
+<br>
+<p><b>Hist&oacute;ria</b><b> do </b><b>PHP</b><br>
+- Criado em 1995 por&nbsp;Rasmus&nbsp;Lerdorf,
+na&nbsp;forma&nbsp;de scripts Perl para
+coletar&nbsp;estat&iacute;sticas&nbsp;online&nbsp;de&nbsp;seu&nbsp;curr&iacute;culo.
+Com um interpretador em C e comunica&ccedil;&atilde;o com SGBDs.</p>
+<p style="text-align: justify;">- Vers&atilde;o 2
+aparece em novembro&nbsp;de 1997,
+quando&nbsp;recebe&nbsp;seu&nbsp;nome&nbsp;inicial e
+&eacute; enriquecido com um
+interpretador&nbsp;de&nbsp;formul&aacute;rios (FI) -
+PHP/FI.
+Teve&nbsp;seu&nbsp;c&oacute;digo&nbsp;fonte&nbsp;disponibilizado
+para a comunidade. Contava com 50.000 dom&iacute;nios&nbsp;que
+o utilizavam (em torno&nbsp;de 1% dos
+existentes&nbsp;na&nbsp;&eacute;poca).</p>
+<p style="text-align: justify;">- Vers&atilde;o 3 sai
+em seguida, logo em
+julho&nbsp;de 1998. Similar ao&nbsp;PHP&nbsp;atual,
+esta&nbsp;vers&atilde;o&nbsp;foi&nbsp;totalmente&nbsp;reescrita&nbsp;por
+Andi Gutmans e Zeev&nbsp;Suraski,
+programadores&nbsp;israelenses. Inicia o suporte &agrave;
+orienta&ccedil;&atilde;o a objetos e a
+sua&nbsp;extensibilidade,
+que&nbsp;atraiu&nbsp;muitos&nbsp;programadores.
+Rebatizado&nbsp;de&nbsp;PHP: Hypertext Processor.
+J&aacute;&nbsp;estava&nbsp;presente em 10% dos servidores
+web da Internet.</p>
+<p>- Vers&atilde;o 4 sai em maio&nbsp;de 2000.
+Melhora&nbsp;de performance, suporte a muitos&nbsp;servidores
+web, a session,&nbsp; entre&nbsp;outros.
+J&aacute;&nbsp;est&aacute;&nbsp;presente em 20% dos
+dom&iacute;nios&nbsp;da Internet.</p>
+<p>- Vers&atilde;o 5 sai em julho&nbsp;de 2004.
+Seu&nbsp;foco principal &eacute; a
+orienta&ccedil;&atilde;o a objetos,
+que&nbsp;corrije&nbsp;defici&ecirc;ncias e
+traz&nbsp;novos e amplos&nbsp;recursos para a
+orienta&ccedil;&atilde;o a objetos.</p>
+<p><b>Delimitadores</b><b> do </b><b>PHP</b><br>
+Para que o
+interpretador&nbsp;reconhe&ccedil;a&nbsp;quando&nbsp;tem&nbsp;que&nbsp;interpretar
+o script em PHP e quando&nbsp;n&atilde;o,&nbsp;
+usa-se&nbsp;delimitadores para
+que&nbsp;quando&nbsp;os&nbsp;encontre&nbsp;ele&nbsp;interprete&nbsp;corretamente.
+Quando&nbsp;ele&nbsp;encontra o delimitador
+&lt;?php&nbsp;ele&nbsp;come&ccedil;a a
+processar&nbsp;como&nbsp;PHP e quando&nbsp;encontra
+?&gt; ele&nbsp;p&aacute;ra&nbsp;de&nbsp;processar e
+tudo o mais&nbsp;envia para o browser
+como&nbsp;est&aacute;.
+Existem&nbsp;outros&nbsp;tipos&nbsp;de&nbsp;delimitadores
+do PHP mas estes &lt;?php ... ?&gt;
+s&atilde;o&nbsp;os&nbsp;recomendados,
+por&nbsp;serem&nbsp;os&nbsp;mais&nbsp;abrangentes e
+terem&nbsp;suporte inclusive a XML.</p>
+<p><b></b><b>For&ccedil;as</b><b>
+do </b><b>PHP</b><br>
+- Sua&nbsp;simplicitade &eacute;
+muito&nbsp;importante para o
+programador&nbsp;que&nbsp;se&nbsp;inicia no PHP.</p>
+<p>-
+Seus recursos&nbsp;atendem
+ao&nbsp;programador&nbsp;experiente.</p>
+<p>-
+Sua&nbsp;documenta&ccedil;&atilde;o&nbsp;rica em
+conte&uacute;do e exemplos&nbsp;facilita a
+solu&ccedil;&atilde;o&nbsp;de&nbsp;problemas,
+al&eacute;m da busca online.</p>
+<p>- O suporte&nbsp;de&nbsp;maneira simples &agrave;
+maioria dos SGBDs do
+mercado&nbsp;atende&nbsp;&agrave;s&nbsp;necessidades&nbsp;de
+sites din&acirc;micos com acesso a
+bancos&nbsp;de&nbsp;dados.</p>
+<p><b>O Que &eacute; </b><b>Poss&iacute;vel</b><b>&nbsp;</b><b>Realizar</b><b>
+em </b><b>PHP</b><b>?</b><br>
+- Em
+sendo&nbsp;uma&nbsp;linguagem&nbsp;de&nbsp;uso&nbsp;geral,
+podemos realizar praticamente&nbsp;qualquer atividade realizada
+com outra&nbsp;linguagem. Ele&nbsp;roda no lado servidor,
+como&nbsp;aplica&ccedil;&atilde;o Web e
+tamb&eacute;m&nbsp;roda no lado&nbsp;cliente,
+com o&nbsp;PHP-GTK.</p>
+<p>- Existem&nbsp;edi&ccedil;&otilde;es para
+os&nbsp;principais&nbsp;sistemas&nbsp;operacionais (Linux,
+BSDs, Windows, Mac OS X, etc). </p>
+<p>- Suportado&nbsp;pela&nbsp;maioria dos servidores Web,
+especialmente pelo Apache.</p>
+<p>- Bom&nbsp;suporte &agrave;
+orienta&ccedil;&atilde;o a objetos, em especial com a chegada
+da vers&atilde;o 5.</p>
+<p>- Comunica&ccedil;&atilde;o com Java.</p>
+<p>- Suporte&nbsp;aos&nbsp;principais&nbsp;SGBDs do
+mercado (MySQL, PostgreSQL, Oracle, SQL Server, etc),&nbsp;
+atualmente&nbsp;s&atilde;o&nbsp;mais&nbsp;de&nbsp;vinte&nbsp;os&nbsp;suportados.</p>
+<p>- Suporte a LDAP, IMAP, SNMP, NNTP, POP3, HTTP, COM (em
+Windows somente), a IRC, compress&atilde;o (gzip, bz2,
+rar),&nbsp;PDF, GD, Flash, XML, etc..</p>
+<br>
+<p><b>2 - TUTORIAL SIMPLES</b></p>
+<p>Para
+continuar&nbsp;voc&ecirc;&nbsp;deve&nbsp;ter um
+servidor
+web instalado e com suporte a PHP e,
+caso&nbsp;queira&nbsp;usar&nbsp;bancos&nbsp;de&nbsp;dados,
+instale um SGBD.</p>
+<p>Os arquivos em
+PHP&nbsp;somente&nbsp;funcionam&nbsp;corretamente no
+navegador, se&nbsp;estivem no
+diret&oacute;rio&nbsp;reconhecido&nbsp;pelo&nbsp;servidor
+web, que &eacute; o DocumentRoot. Considerando que o PHP e Apache
+tenham&nbsp;sido&nbsp;instalados com o Xampp e que o
+diret&oacute;rio web seja o default, este fica em:</p>
+<p>C:\Arquivos&nbsp;de&nbsp;Programas\Xampp\htdocs</p>
+<p>Al&eacute;m&nbsp;disso&nbsp;qualquer script
+que&nbsp;contenha&nbsp;algo em PHP&nbsp;deve&nbsp;ter a
+extens&atilde;o .php para
+que&nbsp;seja&nbsp;corretamente&nbsp;processado&nbsp;pelo
+Apache.&nbsp;</p>
+<p>Criar um
+arquivo&nbsp;chamado&nbsp;olamundo.php&nbsp;na pasta
+C:\Arquivos&nbsp;de&nbsp;Programas\Xampp\htdocs, com o
+conte&uacute;do:</p>
+<p>&lt;?php</p>
+<p> echo "Ol&aacute;&nbsp;PHP!";</p>
+<p>?&gt;</p>
+<p>Startar o Apache e abrir no browser assim:</p>
+<p>http://127.0.0.1/olamundo.php</p>
+<p style="text-decoration: underline;">Visualizar&nbsp;resultado&nbsp;de
+script PHP no Browser</p>
+<p>Ap&oacute;s&nbsp;ter&nbsp;executado o olamundo.php
+no
+Browser solicite a visualiza&ccedil;&atilde;o do
+c&oacute;digo&nbsp;fonte&nbsp;da&nbsp;p&aacute;gina&nbsp;exibida.</p>
+<p>Veja&nbsp;que&nbsp;nada&nbsp;chega&nbsp;de&nbsp;PHP.
+O PHP &eacute; processado no servidor e envia&nbsp;apenas o
+resultado em HTML para o browser.</p>
+<p><span style="text-decoration: underline;">Alerta&nbsp;sobre&nbsp;Editores
+e
+Processadores&nbsp;de&nbsp;Texto com PHP</span>&nbsp;<br>
+Para criar scripts PHP&nbsp;evite o
+uso&nbsp;de&nbsp;processadores&nbsp;de texto e
+de&nbsp;editores&nbsp;como o Bloco&nbsp;de&nbsp;Notas,
+pois&nbsp;deixam&nbsp;sujeira no c&oacute;digo e dificultam
+o salvamento do arquivo.</p>
+<p>Preferentemente use uma&nbsp;IDE&nbsp;especializada em
+PHP, que inclusive
+tem&nbsp;outros&nbsp;recursos&nbsp;&uacute;teis, a
+exemplo do
+PHPEclipse ou um editor de texto como o freeware Win32pad.</p>
+<p>&nbsp;<br>
+<span style="text-decoration: underline;">
+Informa&ccedil;&otilde;es&nbsp;sobre o PHP</span>&nbsp;<br>
+Para
+obter&nbsp;diversas&nbsp;informa&ccedil;&otilde;es&nbsp;&uacute;teis&nbsp;sobre
+o PHP instalado no seu servidor, execute um script com a
+fun&ccedil;&atilde;o:<br>
+<br>
+&lt;?php<br>
+&nbsp; &nbsp; phpinfo();<br>
+?&gt;</p>
+<p>Checar&nbsp;navegador em uso<br>
+if (strstr($_SERVER["HTTP_USER_AGENT"], "MSIE")) {<br>
+&nbsp; &nbsp; &nbsp;echo "Seu&nbsp;navegador
+&eacute; o Internet
+Explorer!";<br>
+} else {<br>
+&nbsp; &nbsp; &nbsp;echo
+"Seu&nbsp;navegador&nbsp;n&atilde;o
+&eacute; o IE!";<br>
+}
+</p>
+<p>strstr - procura&nbsp;substrings.</p>
+<br>
+<p class="western" style="margin-bottom: 0cm;"><b>Teste
+com echo e
+print:</b><br>
+&lt;?php<br>
+// Teste de echo e
+print<br>
+//print "primeiro,
+", "segundo"; // Gera erro de parser<br>
+echo "primeiro, ",
+"segundo, ", "terceiro"; //Funciona<br>
+// Ou seja, print pode
+trabalhar apenas com uma string de cada vez e echo com v&aacute;rias<br>
+?&gt;</p>
+<p class="western" style="margin-bottom: 0cm;"><b>print
+retorna valor
+enquanto que echo n&atilde;o retorna.</b><br>
+&lt;?php<br>
+$print = print "";<br>
+echo "Retorno do
+print: " . $print;<br>
+?&gt;</p>
+<p class="western" style="margin-bottom: 0cm;">Agora
+teste esse:<br>
+&lt;?php<br>
+&nbsp; &nbsp; $echo = echo "";<br>
+&nbsp; &nbsp; echo "Retorno do
+echo: " . $echo;<br>
+?&gt;</p>
+<p class="western" style="margin-bottom: 0cm;">Ir&aacute;
+receber um
+erro fatal (do parser).</p>
+&nbsp;&nbsp;
+<p><b>3 - </b><b>CONFIGURA&Ccedil;&Otilde;ES</b></p>
+<p style="text-decoration: underline;">php.ini</p>
+<p>register_globals = off
+(por&nbsp;quest&otilde;es&nbsp;de&nbsp;seguran&ccedil;a)<br>
+No Xampp o php.ini traz register_globals ativo por default.&nbsp;</p>
+<p>GD, pgsql, mysql e
+outras&nbsp;extens&otilde;es&nbsp;que&nbsp;queira&nbsp;usar&nbsp;dever&aacute;&nbsp;descomentar
+no php.ini, se&ccedil;&atilde;o Extensions.</p>
+<p>httpd.conf<br>
+Para poder&nbsp;alterar o diret&oacute;rio web default
+dever&aacute;&nbsp;mudar&nbsp;dois&nbsp;par&acirc;metros
+no arquivo&nbsp;httpd.conf do Apache:&nbsp;</p>
+<p>DocumentRoot &ldquo;/opt/lampp/htdocs&rdquo;<br>
+&lt;Directory "/opt/lampp/htdocs"&gt;&nbsp;</p>
+<p>Os
+diret&oacute;rios&nbsp;acima&nbsp;s&atilde;o para a
+edi&ccedil;&atilde;o for Linux do Xampp. Para o Windows
+observe que o Apache utiliza, n&atilde;o&nbsp;barras,
+que&nbsp;s&atilde;o&nbsp;utilizadas&nbsp;neste SO, mas
+sim contra-barras e as vezes contra-barras&nbsp;duplas.</p>
+<p>No caso&nbsp;queremos&nbsp;mudar o
+diret&oacute;rio default para /home/www,
+ent&atilde;o&nbsp;alteramos o httpd.conf para
+que&nbsp;fique assim:
+</p>
+<p>DocumentRoot &ldquo;/home/www&rdquo;<br>
+&lt;Directory "/home/www"&gt;&nbsp;</p>
+<p><span style="text-decoration: underline;">No
+Windows fica assim:</span><br>
+DocumentRoot "c:/Arquivos&nbsp;de Programas/Xampp/htdocs"<br>
+&lt;Directory "&lt;c:/Arquivos&nbsp;de
+Programas/Xampp/htdocs"&gt;</p>
+<p>Que devem ficar assim:<br>
+DocumentRoot "c:/1www"<br>
+&lt;Directory "&lt;c:/1www"&gt;</p>
+<p><span style="text-decoration: underline;">Configura&ccedil;&atilde;o
+das extens&otilde;es&nbsp;suportadas</span>.
+Altere&nbsp;a linha:&nbsp;<br>
+DirectoryIndex index.html index.html.var index.php index.php3
+index.php4
+</p>
+<p>Veja&nbsp;que&nbsp;acima&nbsp;configurou-se para
+perceber inclusive arquivos com as extens&otilde;es .php3 e .php4.<br>
+Caso&nbsp;n&atilde;o fossem inclu&iacute;das,
+arquivos com extens&atilde;o .php3 e .php4
+n&atilde;o&nbsp;poderiam&nbsp;ser&nbsp;abertos&nbsp;neste&nbsp;servidor.</p>
+<br>
+<p><b>4 - </b><b>REFER&Ecirc;NCIA</b><b>
+DA </b><b>LINGUAGEM</b><br>
+<span style="text-decoration: underline;">
+Separador&nbsp;de&nbsp;Instru&ccedil;&otilde;es</span><br>
+O ponto e v&iacute;rgula ; &eacute; o
+separador&nbsp;de&nbsp;instru&ccedil;&otilde;es em PHP
+(como
+em Perl e em C).<br>
+Sempre&nbsp;que&nbsp;uma&nbsp;instru&ccedil;&atilde;o&nbsp;terminar&nbsp;devemos&nbsp;digitar
+um ponto e v&iacute;rgula (echo "ola"; ).
+</p>
+<p><span style="text-decoration: underline;">Coment&aacute;rios</span><br>
+Em PHP&nbsp;podemos&nbsp;usar 3
+tipos&nbsp;de&nbsp;coment&aacute;rios (/* ... */, // e #)
+mas
+devemos&nbsp;utilizar&nbsp;somente&nbsp;os&nbsp;dois&nbsp;primeiros
+e o primeiro &eacute; o mais&nbsp;eficiente, que &eacute; o
+/* ... */, que&nbsp;veio do C, j&aacute; que # est&aacute;
+em processo
+de obsolesc&ecirc;ncia. Ou seja, devemos usar // ou /* ... */, de
+prefer&ecirc;ncia este &uacute;ltimo.</p>
+<p>&nbsp;</p>
+<p style="text-decoration: underline;"><b>5 - </b><b>TIPOS</b><b>
+DE </b><b>DADOS</b>&nbsp;<br>
+O
+PHP&nbsp;suporta&nbsp;os&nbsp;oito&nbsp;tipos
+primitivos:</p>
+<p>- boolean, integer, float e string (b&aacute;sicos)<br>
+- array e object (compostos)<br>
+- resource e NULL (especiais)
+</p>
+<p>float&nbsp;&eacute;&nbsp;sin&ocirc;nimo&nbsp;de
+double em PHP.</p>
+<p><span style="text-decoration: underline;">Tipo&nbsp;de&nbsp;Vari&aacute;vel</span>&nbsp;<br>
+O tipo&nbsp;de&nbsp;uma&nbsp;vari&aacute;vel
+em PHP&nbsp;n&atilde;o &eacute;
+controlado&nbsp;pelo&nbsp;programador, depende do valor
+da&nbsp;vari&aacute;vel e &eacute; avaliado em tempo
+de&nbsp;execu&ccedil;&atilde;o. &nbsp;N&atilde;o
+&eacute; permitido ao programador declarar o tipo de
+vari&aacute;veis.</p>
+<p style="text-decoration: underline;">Fun&ccedil;&otilde;es&nbsp;que&nbsp;Retornal
+o
+Tipo</p>
+<p>gettype</p>
+<p>todas as is_type
+</p>
+<p><span style="text-decoration: underline;">Casting</span><br>
+(tipo) variavel;<br>
+&nbsp;</p>
+<p><b>Boleanos</b><br>
+Pode&nbsp;ser TRUE ou FALSE (case-insensitive)<br>
+</p>
+<p>Exemplos:&nbsp;</p>
+&lt;?php<br>
+echo gettype((bool)
+"")."&lt;br&gt;";&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+// bool(false)<br>
+echo gettype((bool)
+1)."&lt;br&gt;";&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+// bool(true)<br>
+echo gettype((bool)
+-2)."&lt;br&gt;";&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+// bool(true)<br>
+echo gettype((bool)
+"foo")."&lt;br&gt;";&nbsp;&nbsp;&nbsp; // bool(true)<br>
+echo gettype((bool)
+2.3e5)."&lt;br&gt;";&nbsp;&nbsp;&nbsp; // bool(true)<br>
+echo gettype((bool) array(12))."&lt;br&gt;"; // bool(true)<br>
+echo gettype((bool) array())."&lt;br&gt;";&nbsp; //
+bool(false)<br>
+?&gt; <br>
+<br>
+Convertendo&nbsp;Explicitamente
+para Boleano</span>&nbsp;</p>
+<p>Usa-se o modificador (bool) ou (boolean).<br>
+&nbsp;</p>
+<p style="text-decoration: underline;">Valores&nbsp;que&nbsp;s&atilde;o&nbsp;considerados
+FALSE</p>
+<p> FALSE, 0, 0.0, "0", "", array vazio,
+objeto&nbsp;sem&nbsp;membros e NULL (e
+vari&aacute;veis&nbsp;indefinidas).</p>
+<p>Os demais&nbsp;s&atilde;o TRUE<br>
+&nbsp;</p>
+<p><b>Inteiros</b><br>
+Em PHP, inteiro &eacute; um n&uacute;mero do
+conjunto&nbsp;matem&aacute;tico dos Inteiros (Z),
+que&nbsp;contem os negativos, o zero e os positivos.</p>
+<p>Em PHP os inteiros podem ser decimais, octais ou hexadecimais.</p>
+<p>octal - precedido por 0.<br>
+hexadecimal - precedido por 0x.<br>
+&nbsp;</p>
+<p>Exemplos:</p>
+<p>&lt;?php<br>
+$a =1234;<br>
+echo $a."&lt;br&gt;"; // n&uacute;mero decimal<br>
+$a =-123;<br>
+echo $a."&lt;br&gt;"; // um n&uacute;mero negativo<br>
+$a =0123;<br>
+echo $a."&lt;br&gt;"; // n&uacute;mero octal (equivalente a
+83 em decimal)<br>
+$a =0x1A;<br>
+echo $a."&lt;br&gt;"; // n&uacute;mero hexadecimal
+(equivalente a 26 em decimal)<br>
+?&gt;<br>
+</p>
+<p></p>
+<p>O tamanho dos inteiros depende da plataforma e &eacute; de
+32 bits com sinal. O PHP n&atilde;o suporta inteiros sem
+sinal.&nbsp;</p>
+<p><span style="text-decoration: underline;">Overflow</span>
+- caso seja especificado um n&uacute;mero inteiro
+al&eacute;m dos limites, ser&aacute; interpretado como
+flutuante.&nbsp;</p>
+<p style="text-decoration: underline;">Convertendo
+Explicitamente para Inteiro&nbsp;</p>
+<p>Usar o modificador (int) ou (integer).</p>
+<p>Ou com a fun&ccedil;&atilde;o intval().<br>
+&nbsp;</p>
+<p><span style="text-decoration: underline;">De
+boleanos</span> - FALSE ser&aacute; retornado como 0 e TRUE
+como 1.</p>
+<p><span style="text-decoration: underline;">De
+flutuantes</span> - ao converter para inteiros ser&atilde;o
+truncados</p>
+<p><span style="text-decoration: underline;">De
+strings</span> - A string ser&aacute; avaliada como um ponto
+flutuante se contiver qualquer um dos caracteres '.', 'e', ou 'E'. Em
+outros casos, ela ser&aacute; avaliada como um inteiro.</p>
+<p><span style="text-decoration: underline;">De
+outros tipos</span> - n&atilde;o t&ecirc;m
+precis&atilde;o, exatid&atilde;o, portanto &eacute; melhor
+evitar.</p>
+<p>&nbsp;</p>
+<p>Alerta:&nbsp;<br>
+echo (int) ((0.1 + 0.7 ) * 10); // Exibir&aacute; 7 ao
+inv&eacute;s do esperado 8<br>
+&nbsp;</p>
+<p><b>Ponto Flutuante</b><br>
+&Eacute; o float, double ou real.&nbsp;</p>
+<p>Exemplos:&nbsp;</p>
+<p>1.234 ou 1.2e3 ou 7E-10</p>
+<p>&lt;?php<br>
+$a = 1.234;<br>
+echo $a."&lt;br&gt;";<br>
+$b = 1.2e3;<br>
+echo $b."&lt;br&gt;";<br>
+$c = 7E-4;<br>
+echo $c;<br>
+?&gt;&nbsp;</p>
+<p>O tamanho de um float depende tamb&eacute;m da plataforma
+e &eacute; de 64bits no formato IEEE(*).</p>
+<p>Nunca compare n&uacute;meros em ponto flutuante em
+igualdades, sob pena de cometer erros.<br>
+</p>
+<p>* - (Wikipedia - <a href="http://pt.wikipedia.org">http://pt.wikipedia.org</a>
+)O <b>Instituto de Engenheiros Eletricistas e
+Eletr&ocirc;nicos</b> ou <b>IEEE</b>
+(pronuncia-se I-3-E ) &eacute; uma
+organiza&ccedil;&atilde;o profissional sem fins lucrativos,
+fundada nos <a
+ href="http://pt.wikipedia.org/wiki/Estados_Unidos_da_Am%C3%A9rica"
+ title="Estados Unidos da Am&eacute;rica">Estados Unidos</a>.
+&Eacute; a maior (em n&uacute;mero de s&oacute;cios)
+organiza&ccedil;&atilde;o profissional do mundo. O IEEE foi
+formado em <a href="http://pt.wikipedia.org/wiki/1963"
+ title="1963">1963</a> pela fus&atilde;o do <a
+ href="http://pt.wikipedia.org/w/index.php?title=Instituto_de_Engenheiros_de_R%C3%A1dio&amp;action=edit"
+ class="new" title="Instituto de Engenheiros de R&aacute;dio">Instituto
+de Engenheiros de R&aacute;dio</a> (IRA) com o <a
+ href="http://pt.wikipedia.org/w/index.php?title=Instituto_Americano_de_Engenheiros_El%C3%A9tricistas&amp;action=edit"
+ class="new"
+ title="Instituto Americano de Engenheiros El&eacute;tricistas">Instituto
+Americano de Engenheiros El&eacute;tricistas</a>
+(AIEE). O IEEE tem filiais em muitas partes do mundo, sendo seus
+s&oacute;cios
+engenheiros eletricistas, engenheiros da
+computa&ccedil;&atilde;o, cientistas da
+computa&ccedil;&atilde;o, profissionais de
+telecomunica&ccedil;&otilde;es etc. Sua meta &eacute;
+promover
+conhecimento no campo da <a
+ href="http://pt.wikipedia.org/wiki/Engenharia_el%C3%A9ctrica"
+ title="Engenharia el&eacute;ctrica">engenharia el&eacute;trica</a>,
+<a href="http://pt.wikipedia.org/wiki/Engenharia_eletr%C3%B4nica"
+ title="Engenharia eletr&ocirc;nica">eletr&ocirc;nica</a>
+e <a
+ href="http://pt.wikipedia.org/wiki/Ci%C3%AAncia_da_computa%C3%A7%C3%A3o"
+ title="Ci&ecirc;ncia da computa&ccedil;&atilde;o">computa&ccedil;&atilde;o</a>.
+<span style="text-decoration: underline;">Um de seus
+pap&eacute;is mais importantes &eacute; o estabelecimento de
+padr&otilde;es para formatos de </span><a
+ style="text-decoration: underline;"
+ href="http://pt.wikipedia.org/wiki/Computadores"
+ title="Computadores">computadores</a><span
+ style="text-decoration: underline;"> e </span><a
+ style="text-decoration: underline;"
+ href="http://pt.wikipedia.org/w/index.php?title=Dispositivo&amp;action=edit"
+ class="new" title="Dispositivo">dispositivos</a>.&nbsp;</p>
+<p><b>Strings</b><br>
+Em PHP um caractere ocupa um byte. At&eacute; a
+vers&atilde;o 5 o PHP n&atilde;o tem suporte a UNICODE, mas
+est&aacute; previsto este suporte para a pr&oacute;xima
+vers&atilde;o (Fonte: Wikipedia - http://www.wikipedia.org).</p>
+<p>N&atilde;o h&aacute; limite para o tamanho de uma
+string em PHP.</p>
+<p><span style="text-decoration: underline;">Especificando
+Strings:</span><br>
+- <span style="text-decoration: underline;">ap&oacute;strofos</span>
+(chamados de aspas simples ' )<br>
+- <span style="text-decoration: underline;">aspas</span>
+(chamadas de aspas duplas " )<br>
+- <span style="text-decoration: underline;">heredoc</span>
+(&lt;&lt;&lt;)<br>
+&nbsp;</p>
+<p>Exemplos:<br>
+&lt;?php<br>
+</p>
+<div class="phpcode"><code><span class="html"><span
+ class="default">
+echo 'isto &eacute; uma string comum';<br>
+echo 'Voc&ecirc; pode incluir novas linhas em strings,<br>
+dessa maneira que estar&aacute;<br>
+tudo bem';<br>
+<br>
+// Imprime: Arnold disse uma vez: "I\'ll be back"<br>
+echo 'Arnold once said: "I\'ll be back"';<br>
+<br>
+// Imprime: Voc&ecirc; tem certeza em apagar C:\*.*?<br>
+echo 'Voc&ecirc; tem certeza em apagar C:\\*.*?';<br>
+<br>
+// Imprime: Voc&ecirc; tem certeza em apagar C:\*.*?<br>
+echo 'Voc&ecirc; tem certeza em apagar C:\*.*?';<br>
+<br>
+// Imprime: Isto n&atilde;o ser&aacute; substituido: \n uma
+nova linha<br>
+echo 'Isto n&atilde;o ser&aacute; substituido: \n uma nova
+linha';<br>
+<br>
+// Imprime: Variaveis $tamb&eacute;m n&atilde;o $expandem<br>
+echo 'Variaveis $tamb&eacute;m n&atilde;o $expandem';<br>
+<br>
+echo '&lt;br&gt;------------&lt;br&gt;';<br>
+<br>
+$str = &lt;&lt;&lt;EOD<br>
+Exemplo de uma string<br>
+distribu&iacute;da em v&aacute;rias linhas<br>
+utilizando a sintaxe heredoc.<br>
+EOD;<br>
+<br>
+/* Exemplo mais complexo, com vari&aacute;veis */<br>
+class foo<br>
+{<br>
+&nbsp;&nbsp; var $foo;<br>
+&nbsp;&nbsp; var $bar;<br>
+<br>
+&nbsp;&nbsp; function foo()<br>
+&nbsp;&nbsp; {<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+$this-&gt;foo = 'Foo';<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+$this-&gt;bar = array('Bar1', 'Bar2', 'Bar3');<br>
+&nbsp;&nbsp; }<br>
+}<br>
+<br>
+$foo = new foo();<br>
+$name = 'Meu nome';<br>
+<br>
+echo &lt;&lt;&lt;EOT<br>
+Meu nome &eacute; "$name". Eu estou imprimindo $foo-&gt;foo.<br>
+Agora, eu estou imprimindo {$foo-&gt;bar[1]}.<br>
+Isto deve imprimir um 'A' mai&uacute;sculo: \x41<br>
+EOT;<br>
+<br>
+?&gt;</span><span class="default"><br>
+</span></span>
+</code></div>
+<p>&nbsp;</p>
+<p><b>6&nbsp;- VARI&Aacute;VEIS</b>&nbsp;<br>
+Em PHP as vari&aacute;veis s&atilde;o iniciadas por um
+sinal de d&oacute;lar $.&nbsp;</p>
+<p style="text-decoration: underline;">Vari&aacute;veis
+Predefinidas&nbsp;</p>
+<p>S&atilde;o as que j&aacute; v&ecirc;m definidas no
+pr&oacute;prio PHP. A
+fun&ccedil;&atilde;o phpinfo() mostra tamb&eacute;m estas
+vari&aacute;veis.&nbsp;</p>
+<p>Com o PHP 4.2 o valor default da diretiva register_globals
+passou a ser off. Com isso as vari&aacute;veis passaram a ser
+acessadas de forma diferente e muitos scripts deixaram de funcionar
+quanto tiveram o PHP atualizado e outros novos scripts n&atilde;o
+funcionaram devido esperar uma semelhante a anteerior.&nbsp;</p>
+<p> On &nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp; &nbsp;Off<br>
+=======================================================&nbsp;</p>
+<p>$DOCUMENT_ROOT &nbsp;&nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+$_SERVER['DOCUMENT_ROOT'];<br>
+$HOME $_ENV['HOME'];<br>
+$GLOBALS<br>
+$_SERVER<br>
+$_GET<br>
+$_POST<br>
+$_REQUEST<br>
+$_SESSION</p>
+<p><span style="font-weight: bold;">Obs.:</span>
+&nbsp;Agora, como o
+default do PHP &eacute; register_globals = Off, faz-se
+necess&aacute;rio usar $_POST['nomecampo'], para receber o valor de
+um
+campo de form em script PHP.</p>
+<p><span style="text-decoration: underline;">Escopo
+de Vari&aacute;veis</span>&nbsp;<br>
+O escopo de uma vari&aacute;vel &eacute; o contexto
+onde ela foi definida e geralmente o escopo &eacute;
+local.&nbsp;</p>
+<p>$a = 1;<br>
+include ("teste.php");</p>
+<p>// $a estar&aacute; dispon&iacute;vel, ser&aacute;
+vista por teste.php, pois foi definida antes.&nbsp;</p>
+<p>include ("teste.php");<br>
+$a = 1;</p>
+<p>// Aqui, como $a&nbsp;foi definida ap&oacute;s a
+inclus&atilde;o, n&atilde;o ser&aacute; visto pelo teste.php<br>
+&nbsp;</p>
+<p><span style="text-decoration: underline;">Escopo
+de vari&aacute;veis em
+fun&ccedil;&otilde;es</span>&nbsp;<br>
+A palavra-chave global pode preceder uma vari&aacute;vel
+para tornar seu escopo global, como tamb&eacute;m $GLOBALS[].</p>
+Exemplos:<br>
+<br>
+<div class="phpcode"><code><span class="html"><span
+ class="default">&lt;?php<br>
+$a </span><span class="keyword">= </span><span
+ class="default">1</span><span class="keyword">;
+</span><span class="comment">/* escopo global */<br>
+<br>
+</span><span class="keyword">function </span><span
+ class="default">Teste</span><span class="keyword">(){<br>
+&nbsp;&nbsp; echo </span><span class="default">$a</span><span
+ class="keyword">; </span><span class="comment">/*
+referencia uma vari&aacute;vel do escopo local (n&atilde;o
+definida) */<br>
+</span><span class="keyword">}<br>
+<br>
+</span><span class="default">Teste</span><span
+ class="keyword">();<br>
+</span><span class="default">?&gt;<br>
+</span></span></code><code><span class="html"><span
+ class="default"></span></span></code>
+<div class="phpcode"><code><span class="html"><span
+ class="default"><br>
+&lt;?php<br>
+$a </span><span class="keyword">= </span><span
+ class="default">1</span><span class="keyword">;
+</span><span class="comment">/* escopo global */<br>
+<br>
+</span><span class="keyword">function </span><span
+ class="default">Teste</span><span class="keyword">(){<br>
+&nbsp;&nbsp; &nbsp;global $a;<br>
+&nbsp;&nbsp;&nbsp; echo </span><span
+ class="default">$a</span><span class="keyword">;
+</span><span class="comment">/*
+referencia&nbsp;a vari&aacute;vel do escopo global */<br>
+</span><span class="keyword">}<br>
+<br>
+</span><span class="default">Teste</span><span
+ class="keyword">();<br>
+</span><span class="default">?&gt;</span>
+</span></code></div>
+<code><span class="html"><span class="default"></span></span>
+</code>
+<p>&nbsp;</p>
+</div>
+<b>Usando <var class="varname">$GLOBALS</var>
+no lugar de global<br>
+</b>
+<div class="phpcode"><code><span class="html"><span
+ class="default">&lt;?php<br>
+$a </span><span class="keyword">= </span><span
+ class="default">1</span><span class="keyword">;<br>
+</span><span class="default">$b </span><span
+ class="keyword">= </span><span class="default">2</span><span
+ class="keyword">;<br>
+<br>
+function </span><span class="default">Soma</span><span
+ class="keyword">(){<br>
+&nbsp;&nbsp; </span><span class="default">$GLOBALS</span><span
+ class="keyword">[</span><span class="string">"b"</span><span
+ class="keyword">] = </span><span class="default">$GLOBALS</span><span
+ class="keyword">[</span><span class="string">"a"</span><span
+ class="keyword">] + </span><span class="default">$GLOBALS</span><span
+ class="keyword">[</span><span class="string">"b"</span><span
+ class="keyword">];<br>
+}<br>
+<br>
+</span><span class="default">Soma</span><span
+ class="keyword">();<br>
+echo </span><span class="default">$b</span><span
+ class="keyword">;<br>
+</span><span class="default">?&gt;</span>
+</span></code></div>
+&nbsp;
+<p>Utilizando
+Vari&aacute;veis Est&aacute;ticas<br>
+Vari&aacute;veis est&aacute;ticas guardam o valor de
+vari&aacute;veis entre execu&ccedil;&otilde;es de
+fun&ccedil;&otilde;es.<br>
+Ao fechar o programa, ao fechar ou atualizar o browser, o valor da
+vari&aacute;vel se perde.</p>
+<p><br>
+Exemplos:</p>
+<p>&lt;?php<br>
+function Teste (){<br>
+&nbsp;&nbsp; $a = 0;<br>
+&nbsp;&nbsp; echo $a;<br>
+&nbsp;&nbsp; $a++;<br>
+}<br>
+<br>
+for ($x=1;$x&lt;10;$x++){<br>
+&nbsp;&nbsp; &nbsp;Teste();<br>
+}<br>
+echo "&lt;br&gt;&lt;br&gt;";<br>
+<br>
+function Teste2(){<br>
+&nbsp;&nbsp; static $a = 0;<br>
+&nbsp;&nbsp; echo $a;<br>
+&nbsp;&nbsp; $a++;<br>
+}<br>
+<br>
+for ($x=1;$x&lt;10;$x++){<br>
+&nbsp;&nbsp; &nbsp;Teste2();<br>
+}<br>
+<br>
+echo "&lt;br&gt;&lt;br&gt;";<br>
+<br>
+// Fun&ccedil;&atilde;o recursiva<br>
+function Teste3()<br>
+{<br>
+&nbsp;&nbsp; static $count = 0;<br>
+<br>
+&nbsp;&nbsp; $count++;<br>
+&nbsp;&nbsp; echo $count;<br>
+&nbsp;&nbsp; if ($count &lt; 10) {<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Teste3 ();<br>
+&nbsp;&nbsp; }<br>
+&nbsp;&nbsp; $count--;<br>
+}<br>
+<br>
+for ($x=1;$x&lt;5;$x++){<br>
+&nbsp;&nbsp; &nbsp;Teste3();<br>
+&nbsp;&nbsp;&nbsp; if ($x &lt; 4) echo " - ";</p>
+<p>}<br>
+<br>
+echo "&lt;br&gt;&lt;br&gt;";<br>
+//Declarando vari&aacute;veis static<br>
+<br>
+function foo(){<br>
+&nbsp;&nbsp; static $int =
+0;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+// correro<br>
+&nbsp;&nbsp; //static $int =
+1+2;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+// errado (&eacute; uma express&atilde;o)<br>
+&nbsp;&nbsp; //static $int = sqrt(121);&nbsp; //
+wrong&nbsp; (&eacute; uma express&atilde;o
+tamb&eacute;m)<br>
+<br>
+&nbsp;&nbsp; $int++;<br>
+&nbsp;&nbsp; echo $int;<br>
+}<br>
+<br>
+foo();<br>
+&nbsp;<br>
+?&gt;</p>
+<p>&nbsp;</p>
+<p>Vari&aacute;veis
+Vari&aacute;veis<br>
+S&atilde;o vari&aacute;veis cujos nomes podem ser
+criados dinamicamente.
+</p>
+<p>Vari&aacute;vel comun -&gt; $variavel;<br>
+Vari&aacute;vel vari&aacute;vel -&gt;
+$$variavelvariavel;&nbsp;</p>
+<p>Ela torna o valor de uma vari&aacute;vel e o trata como se
+fosse o nome de uma vari&aacute;vel.&nbsp;<br>
+Obs.: vari&aacute;veis vari&aacute;veis n&atilde;o
+podem ser utilizadas com os arrays superglobais.&nbsp;</p>
+<br>
+<p>Determiando o Tipo das Vari&aacute;veis&nbsp;<br>
+gettype<br>
+is_array, is_float, is_int, is_object, is_string, is_numeric</p>
+<p>&nbsp;</p>
+<p><b>7&nbsp;- CONSTANTES</b><br>
+O valor de uma constante n&atilde;o pode ser alterado
+durante a execu&ccedil;&atilde;o do script.<br>
+Convenciona-se usar o nome de constantes com todas as
+letras em mai&uacute;sculas.&nbsp;</p>
+<p>define ("NOME", "valor");</p>
+<p>Exemplos:</p>
+<div class="phpcode"><code><span class="html"><span
+ class="default">&lt;?php<br>
+</span><span class="comment">// Nomes de constantes
+v&aacute;lidos<br>
+</span><span class="default">define</span><span
+ class="keyword">(</span><span class="string">"FOO"</span><span
+ class="keyword">,&nbsp; &nbsp; </span><span
+ class="string">"alguma coisa"</span><span
+ class="keyword">);<br>
+</span><span class="default">define</span><span
+ class="keyword">(</span><span class="string">"FOO2"</span><span
+ class="keyword">,&nbsp; &nbsp; </span><span
+ class="string">"alguma outra coisa"</span><span
+ class="keyword">);<br>
+</span><span class="default">define</span><span
+ class="keyword">(</span><span class="string">"FOO_BAR"</span><span
+ class="keyword">, </span><span class="string">"mais
+alguma outra coisa"</span><span class="keyword">)<br>
+<br>
+</span><span class="comment">// Nomes de constantes
+inv&aacute;lidas<br>
+</span><span class="default">define</span><span
+ class="keyword">(</span><span class="string">"2FOO"</span><span
+ class="keyword">,&nbsp; &nbsp; </span><span
+ class="string">"alguma coisa"</span><span
+ class="keyword">);<br>
+<br>
+</span><span class="comment">// Isto &eacute;
+v&aacute;lido, mas deve ser evitado:<br>
+// O PHP pode vir a fornercer uma constante m&aacute;gica<br>
+// que danificar&aacute; seu script<br>
+</span><span class="default">define</span><span
+ class="keyword">(</span><span class="string">"__FOO__"</span><span
+ class="keyword">, </span><span class="string">"alguma
+coisa"</span><span class="keyword">); <br>
+<br>
+</span><span class="default">?&gt;</span></span></code>&nbsp;</div>
+<p>Obs.: Somente dados escalares (bolean, integer, float, e
+string) podem ser armazanados nos valores de constantes.
+</p>
+<p>A fun&ccedil;&atilde;o <span
+ style="text-decoration: underline;">constant()</span>
+retorna o valor de
+uma constante.<br>
+A fun&ccedil;&atilde;o <span
+ style="text-decoration: underline;">get_defined_constantes()</span>
+retorna todas as constantes definidas.<br>
+Enquanto que <span style="text-decoration: underline;">defined()</span>
+checa se uma constante foi definida.
+&nbsp;<br>
+</p>
+<p class="western" style="margin-bottom: 0cm;">define
+(NOME, valor);<br>
+define ("PESO",
+70);<br>
+print "O peso vale
+" . PESO . " KG";</p>
+<p class="western" style="margin-bottom: 0cm;">&lt;?php<br>
+switch (PHP_OS){<br>
+&nbsp;&nbsp;&nbsp; case "WIN32":<br>
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; echo
+"Sistema
+Windows";<br>
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; break;<br>
+&nbsp;&nbsp;&nbsp; case "Linux":<br>
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; echo
+"Sistema
+Linux";<br>
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; break;<br>
+&nbsp;&nbsp;&nbsp; case "OS/2":<br>
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; echo
+"Sistema
+OS/2";<br>
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; break;<br>
+&nbsp;&nbsp;&nbsp; default:<br>
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; echo
+"Sistema
+n&atilde;o &eacute; Windows, Linux nem OS/2";<br>
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; break;<br>
+}<br>
+?&gt;<br>
+<br>
+</p>
+<p class="western" style="margin-bottom: 0cm;">&lt;?php<br>
+if
+(strtoupper(substr(PHP_OS, 0, 3)) === 'WIN') {<br>
+&nbsp;&nbsp;&nbsp; echo 'Este &eacute;
+um servidor usando Windows!';<br>
+} else {<br>
+&nbsp;&nbsp;&nbsp; echo 'Este &eacute;
+um servidor que n&atilde;o usa Windows!';<br>
+}<br>
+?&gt; </p>
+<p>Constantes
+M&aacute;gicas<br>
+Essas s&atilde;o as cinco constantes
+"m&aacute;gicas", que mudam dependendo de onde elas s&atilde;o
+utilizadas. Por exemplo, o valor de <tt class="constant"><b>__LINE__</b></tt>
+depende do n&uacute;mero da linha em que &eacute; utilizada em
+seu script. Essas constantes especiais s&atilde;o
+insens&iacute;veis ao caso:<br>
+</p>
+<div class="table">
+<p><b>Algumas constantes "m&aacute;gicas" do PHP</b></p>
+<table class="CALSTABLE" border="1">
+  <col><col><thead><tr>
+    <th>Nome</th>
+    <th>Descri&ccedil;&atilde;o</th>
+  </tr>
+  </thead><tbody>
+    <tr>
+      <td><tt class="constant"><b>__LINE__</b></tt></td>
+      <td> A linha atual do script. </td>
+    </tr>
+    <tr>
+      <td><tt class="constant"><b>__FILE__</b></tt></td>
+      <td> O caminho completo e nome do arquivo. Se utilizado
+dentro de um include, o nome do arquivo inclu&iacute;do
+ser&aacute; retornado. </td>
+    </tr>
+    <tr>
+      <td><tt class="constant"><b>__FUNCTION__</b></tt></td>
+      <td> O nome da fun&ccedil;&atilde;o (Acrescentado
+no PHP 4.3.0). A partir do PHP 5 esta constante retorna o nome da
+fun&ccedil;&atilde;o como ela foi declarada
+(sens&iacute;vel a mai&uacute;sculas e min&uacute;sculas).
+No PHP 4 sempre retorna o nome em min&uacute;sculas. </td>
+    </tr>
+    <tr>
+      <td><tt class="constant"><b>__CLASS__</b></tt></td>
+      <td> O nome da classe (Acrescentado no PHP 4.3.0). A partir
+do PHP 5 esta constante retorna o nome da fun&ccedil;&atilde;o
+como ela foi declarada (sens&iacute;vel a mai&uacute;sculas e
+min&uacute;sculas). No PHP 4 sempre retorna o nome em
+min&uacute;sculas. </td>
+    </tr>
+    <tr>
+      <td><tt class="constant"><b>__METHOD__</b></tt></td>
+      <td> O nome do m&eacute;todo de classe. (Acrescentado
+no PHP 5.0.0). O nome do m&eacute;todo &eacute; retornado como
+foi declarado (sens&iacute;vel a mai&uacute;sculas e
+min&uacute;sculas). </td>
+    </tr>
+  </tbody>
+</table>
+</div>
+<p> Veja tamb&eacute;m <a
+ href="http://www.php.net/manual/pt_BR/function.get-class.php"><b
+ class="function">get_class()</b></a>, <a
+ href="http://www.php.net/manual/pt_BR/function.get-object-vars.php"><b
+ class="function">get_object_vars()</b></a>, <a
+ href="http://www.php.net/manual/pt_BR/function.file-exists.php"><b
+ class="function">file_exists()</b></a>, e <a
+ href="http://www.php.net/manual/pt_BR/function.function-exists.php"><b
+ class="function">function_exists()</b></a>. </p>
+<p><b>8&nbsp;- EXPRESS&Otilde;ES</b>&nbsp;<br>
+Uma express&atilde;o &eacute; qualquer coisa que tem
+um valor, normalmente na forma de constantes ou vari&aacute;veis.</p>
+<p>$a = 5;<br>
+&nbsp;</p>
+<p>Temos acima uma equa&ccedil;&atilde;o formada por duas
+express&otilde;es, a da esquerda composta por uma
+vari&aacute;vel e a da direita composta por uma constante.</p>
+<p>Fun&ccedil;&otilde;es s&atilde;o
+express&otilde;es cujo valor &eacute; igual ao seu valor de
+retorno.&nbsp;<br>
+O PHP &eacute; uma linguagem orientada as
+express&otilde;es.&nbsp;<br>
+Atribui&ccedil;&otilde;es s&atilde;o analisadas da
+direita para a esquerda.&nbsp;</p>
+<p>$b = $a = 5; // $a recebe 5 e ent&atilde;o $b recebe
+5&nbsp;</p>
+<p>Exemplo:</p>
+<p>&lt;?php<br>
+function dobro($i){<br>
+&nbsp;&nbsp; return $i*2;<br>
+}<br>
+$b = $a = 5;echo
+$b."&lt;br&gt;";&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+/* atribui o valor cinco &agrave;s vari&aacute;veis $a e $b */<br>
+$c = $a++;echo
+$c."&lt;br&gt;";&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+/* p&oacute;s-incremento, atribui o valor original de $a<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+(5) para $c */<br>
+$e = $d = ++$b;echo
+$e."&lt;br&gt;";&nbsp;&nbsp;&nbsp; /*
+pr&eacute;-incremento, atribui o valor incrementado de<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+$b (6) a $d e $e */<br>
+<br>
+/* neste ponto, tanto $d quanto $e s&atilde;o iguais a 6 */<br>
+<br>
+$f = dobro($d++);echo $f."&lt;br&gt;";&nbsp; /* atribui o
+dobro do valor de $d antes<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+do incremento, 2*6 = 12 a $f */<br>
+$g = dobro(++$e);echo $g."&lt;br&gt;";&nbsp; /* atribui o
+dobro do valor de $e depois<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+do incremento, 2*7 = 14 a $g */<br>
+$h = $g += 10;echo
+$h."&lt;br&gt;";&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+/* primeiro, $g &eacute; incrementado de 10 e termina com o<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+valor 24. o valor da atribui&ccedil;&atilde;o (24) &eacute;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+ent&atilde;o atribu&iacute;do a $h, e $h termina com o valor<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+24 tamb&eacute;m. */<br>
+?&gt; </p>
+<p>&nbsp;</p>
+<p><b>9&nbsp;- OPERADORES</b>&nbsp;<br>
+Um operador &eacute; algo que alimentado com um ou mais
+valores devolve outro valor. Assim as fun&ccedil;&otilde;es e
+outros construtores que retornam valor s&atilde;o
+operadores.&nbsp;</p>
+<p>Tipos de Operadores<br>
+- <span style="text-decoration: underline;">un&aacute;rios</span>
+- operam apenas em um valor (!, ++, ...)<br>
+- <span style="text-decoration: underline;">bin&aacute;rios</span>
+- operam em dois valores (+, - , ...)<br>
+- <span style="text-decoration: underline;">tern&aacute;rio</span>
+- selecionar entre 2 valores, dependendo
+de um terceiro. Emglob&aacute;-los entre par&ecirc;nteses
+facilita o entendimento.<br>
+&nbsp;</p>
+<p><span style="text-decoration: underline;">Preced&ecirc;ncia
+de Operadores</span>&nbsp;<br>
+A preced&ecirc;ncia de um operador em
+rela&ccedil;&atilde;o a outro diz que um operador deve ser
+executado antes do outro.&nbsp;</p>
+<p>Exemplo:<br>
+1 + 5 * 3<br>
+&nbsp;</p>
+<p>Dependendo da preced&ecirc;ncia dos operadores + ou *
+teremos resultados diferentes.<br>
+Se o operador + tiver preced&ecirc;ncia superior ao *
+ent&atilde;o resolveremos assim:&nbsp;</p>
+<p>Somamos 1 + 5 e somente depois multiplicamos por 3 -&gt;
+(1+5)*3 = 6*3 = 18&nbsp;</p>
+<p>Este resultado est&aacute; incorreto, pois o operador *
+tem preced&ecirc;ncia superior ao + e deveria ser assim:&nbsp;<br>
+1+(5*3) = 1+15=16
+&nbsp;</p>
+<p>Para facilitar a percep&ccedil;&atilde;o das
+preced&ecirc;ncias usa-se par&ecirc;ntesis:&nbsp;</p>
+<p>1 + (5 * 3) = Sempre devemos resolver antes o
+que estiver entre par&ecirc;ntesis.<br>
+1 +&nbsp;15 = 16 (Neste caso fica mais claro).&nbsp;</p>
+<p>Veja a tabela contendo a preced&ecirc;ncia de dos
+operadores do PHP, da maior preced&ecirc;ncia para a
+menor:&nbsp;</p>
+<p><b>* e / </b>t&ecirc;m preced&ecirc;ncia
+sobre <b>+ e -.</b></p>
+<p><b>Obs.: </b>Para uma
+rela&ccedil;&atilde;o completa das preced&ecirc;ncias veja
+o manual oficial no site do PHP.</p>
+<br>
+<span style="text-decoration: underline;">Operadores
+Aritm&eacute;ticos</span><br>
+S&atilde;o os operadores correspondentes &agrave;s
+quatro opera&ccedil;&otilde;es comuns da matem&aacute;tica
+adicionados ao operador m&oacute;dulo:&nbsp;
+<p>&bull; soma (+)<br>
+&bull; subtra&ccedil;&atilde;o (-)<br>
+&bull; multiplica&ccedil;&atilde;o (*)<br>
+&bull; divis&atilde;o (/)<br>
+&bull;&nbsp;m&oacute;dulo (%)
+</p>
+<p>O m&oacute;dulo &eacute; o resto de um
+n&uacute;mero dividido por outro.&nbsp;</p>
+<p>Exemplos de operadores aritm&eacute;ticos:</p>
+<pre>$a = 9;<br>$b = 4;<br>echo "\$a + \$b = ".($a + $b); // 13<br>echo "\$a + \$b = ".$a + $b; // Retorna 4, pois ap&oacute;s o ponto &eacute; considerado strings<br>echo "\$a - \$b = ".($a - $b); // 5<br>echo "\$a * \$b = ".$a * $b; // 36<br>echo "\$a / \$b = ".$a / $b; // 2.25 - Divis&atilde;o Quociente de $a por $b.<br>echo "\$a % \$b = ".$a % $b; // 1 - Resto de $a por $b<br></pre>
+<!--<script language="javascript" src="funcoes.inc.js"></script>-->
+&nbsp;
+<p>Operadores de
+Atribui&ccedil;&atilde;o<br>
+O operador b&aacute;sico de
+atribui&ccedil;&atilde;o &eacute; o sinal de igualdade =.</p>
+<p>Exemplo:</p>
+<p>$x = $y + 3; // O que representa: 3 ser&aacute;
+adicionado a $y e o resultado ser&aacute; atribu&iacute;do a $x<br>
+$a = 3;<br>
+$a += 5; // Que &eacute; semelhante a $a = $a + 5;<br>
+$b = "Bom ";<br>
+$b .= "Dia!"; // Similar a $b = $b . "Dia!";<br>
+</p>
+<p>Exemplos:</p>
+<p>&lt;?php<br>
+$a = 3;<br>
+$a += 5; // $a recebe 5 e soma com seus 3, tipo: $a = $a + 5;<br>
+echo "\$a vale " . $a;<br>
+<br>
+$b = "Bom ";<br>
+$b .= "Dia!"; // $b fica com "Bom Dia!", como em $b = $b . "Dia!";<br>
+echo "\$b vale " . $b;<br>
+<br>
+$c=2;<br>
+$a -= $c;&nbsp;&nbsp;&nbsp; //$a = $a -
+$c&nbsp;&nbsp;&nbsp; Subtra&ccedil;&atilde;o<br>
+echo "\$a -= \$c vale " . $a;<br>
+$a *= $c;&nbsp;&nbsp;&nbsp; //$a = $a *
+$c&nbsp;&nbsp;&nbsp; Multiplica&ccedil;&atilde;o<br>
+echo "\$a *= \$c vale " . $a;<br>
+$a /= $c;&nbsp;&nbsp;&nbsp; //$a = $a /
+$c&nbsp;&nbsp;&nbsp; Divis&atilde;o<br>
+echo "\$a /= \$c vale " . $a;<br>
+$resto = $a % $c;&nbsp;&nbsp;&nbsp; //$a = $a %
+$c&nbsp;&nbsp;&nbsp; M&oacute;dulo (resto)<br>
+echo "Resto de $a % $c vale: " . $resto;<br>
+?&gt;<br>
+</p>
+<span style="font-family: &quot;Sans&quot;;"><br>
+<span style="text-decoration: underline;">Operadores de
+Controle de Erro</span><br>
+Representado pelo s&iacute;mbolo de arroba @. Quando precede uma
+express&atilde;o ele abafa as mensagens de erro.<br>
+Observa&ccedil;&atilde;o - Somente funciona em
+express&otilde;es, ou seja, em qualquer
+constru&ccedil;&atilde;o que retorne algo.<br>
+<br>
+Recomenda&ccedil;&atilde;o - Deixar todas as mensagens de erro
+originais do PHP livres em ambientes de desenvolvimento (de testes).
+Somente utilizar @ em ambiente de produ&ccedil;&atilde;o,
+ap&oacute;s executar os testes.<br>
+<br>
+Exemplos:<br>
+<br>
+</span>
+<div class="phpcode"><code><span class="html"><span
+ class="default">&lt;?php<br>
+/* Erro intencional */<br>
+$a = 6;<br>
+$b = 0;<br>
+<br>
+echo "Camuflando erro de divis&atilde;o por zero";<br>
+$c = @($a / $b);<br>
+?&gt;</span></span></code>
+<div class="phpcode"><code><span class="html"><span
+ class="default"></span>
+</span></code></div>
+</div>
+<br>
+<span style="text-decoration: underline;">Operadores de
+Execu&ccedil;&atilde;o</span><br>
+Existem algumas fun&ccedil;&otilde;es de
+execu&ccedil;&atilde;o de programas (shell_exec e outras) como
+tamb&eacute;m existe um operador, que &eacute; formado por dois
+sinais de crase` `.<br>
+<br>
+Nota: Caso safe_mode esteja desativado no php.ini como
+tamb&eacute;m shell_exec() ent&atilde;o o operador de
+execu&ccedil;&atilde;o tamb&eacute;m fica dasativado.<br>
+<br>
+Exemplo:<br>
+<br>
+<div class="phpcode"><code><span class="html"><span
+ class="default"></span><span class="default">&lt;?php<br>
+// Em PHP a crase ` &eacute; um operador de
+execu&ccedil;&atilde;o de arquivos do SO<br>
+// Como em scripts bash<br>
+<br>
+// Exibir todos os arquivos do diret&oacute;rio atual, inclusive os
+ocultos<br>
+if (PHP_OS == "WINNT"){<br>
+<br>
+&nbsp;&nbsp;&nbsp; $output = `dir/o/p`;<br>
+&nbsp;&nbsp;&nbsp; echo
+"&lt;pre&gt;$output&lt;/pre&gt;";<br>
+} elseif (PHP_OS == "Linux){<br>
+&nbsp;&nbsp;&nbsp; $output = `ls -la`;<br>
+&nbsp;&nbsp;&nbsp; echo
+"&lt;pre&gt;$output&lt;/pre&gt;";<br>
+}else{<br>
+&nbsp;&nbsp;&nbsp; echo "Voc&ecirc; est&aacute;
+usando um SO diferente de Linux e de Windows!"<br>
+}<br>
+?&gt;<br>
+<br>
+<br>
+<span style="text-decoration: underline;">Operadores de
+Incremento e de Decremento</span><br>
+Os operadores de pr&eacute; e p&oacute;s-incremento/decremento
+s&atilde;o suportados pelo PHP.<br>
+<br>
+++$a (pr&eacute;-incremento) - Primeiro incrementa $a de 1, depois
+retorna $a incrementado<br>
+</span></span></code><code><span class="html"><span
+ class="default">$a++ (p&oacute;s-incremento) - Primeiro
+retorna $a, depois incrementa $a de 1<br>
+</span></span></code><code><span class="html"><span
+ class="default">--$a (pr&eacute;-decremento) - Primeiro
+decrementa $a de 1, depois retorna $a decrementado</span></span></code><br>
+<code><span class="html"><span class="default">$a--
+(p&oacute;s-decremento) - Primeiro retorna $a, depois decrementa $a
+de 1</span></span></code><br>
+<br>
+Exemplos:<br>
+&lt;?php<br>
+echo "&lt;h3&gt;P&oacute;s-incremento&lt;/h3&gt;";<br>
+$a = 5;<br>
+echo "\$a = ".$a."&lt;br&gt;&lt;br&gt;";<br>
+echo "\$a++ deve ser: " . $a++ . "&lt;br /&gt;\n";<br>
+echo "\$a deve ser: " . $a . "&lt;br /&gt;\n";<br>
+<br>
+echo "&lt;h3&gt;Pr&eacute;-incremento&lt;/h3&gt;";<br>
+$a = 5;<br>
+echo "++\$a deve ser: " . ++$a . "&lt;br /&gt;\n";<br>
+echo "\$a deve ser: " . $a . "&lt;br /&gt;\n";<br>
+<br>
+echo "&lt;h3&gt;P&oacute;s-decremento&lt;/h3&gt;";<br>
+$a = 5;<br>
+echo "\$a-- deve ser: " . $a-- . "&lt;br /&gt;\n";<br>
+echo "\$a deve ser: " . $a . "&lt;br /&gt;\n";<br>
+<br>
+echo "&lt;h3&gt;Pr&eacute;-decremento&lt;/h3&gt;";<br>
+$a = 5;<br>
+echo "--\$a deve ser: " . --$a . "&lt;br /&gt;\n";<br>
+echo "\$a deve ser: " . $a . "&lt;br /&gt;\n";<br>
+?&gt; <code><span class="html"><span
+ class="default"><br>
+</span></span></code><br>
+<br>
+<span style="text-decoration: underline;">Operadores
+L&oacute;gicos</span><br>
+Utilizados para comparar duas express&otilde;es e o resultado
+ser&aacute; TRUE ou FALSE.<br>
+<br>
+Exemplos:<br>
+<br>
+&lt;?php<br>
+$a = true; $b = FALSE; // true e false s&atilde;o insensitivos<br>
+<br>
+echo ($a and $b)?
+"T&lt;br&gt;":"F&lt;br&gt;";&nbsp;&nbsp;&nbsp;
+//E&nbsp;&nbsp;&nbsp; Verdadeiro (TRUE) se tanto $a quanto
+$b s&atilde;o verdadeiros.<br>
+echo ($a or $b)?
+"T&lt;br&gt;":"F&lt;br&gt;";&nbsp;&nbsp;&nbsp;
+//OU&nbsp;&nbsp;&nbsp; Verdadeiro se $a ou $b
+s&atilde;o verdadeiros.<br>
+echo ($a xor $b)?
+"T&lt;br&gt;":"F&lt;br&gt;";&nbsp;&nbsp;&nbsp;
+//XOR&nbsp;&nbsp;&nbsp; Verdadeiro se $a ou $b
+s&atilde;o verdadeiros, mas n&atilde;o ambos.<br>
+echo (! $a)?
+"T&lt;br&gt;":"F&lt;br&gt;";&nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp;
+//N&Atilde;O&nbsp;&nbsp;&nbsp; Verdadeiro se $a
+n&atilde;o &eacute; verdadeiro.<br>
+echo ($a &amp;&amp; $b)?
+"T&lt;br&gt;":"F&lt;br&gt;";&nbsp;&nbsp;&nbsp;
+//E&nbsp;&nbsp;&nbsp; Verdadeiro se tanto $a quanto $b
+s&atilde;o verdadeiros.<br>
+echo ($a || $b)?
+"T&lt;br&gt;":"F&lt;br&gt;";&nbsp;&nbsp;&nbsp;
+//OU&nbsp;&nbsp;&nbsp; Verdadeiro se $a ou $b
+s&atilde;o verdadeiros.<br>
+?&gt;<br>
+<br>
+<br>
+<span style="text-decoration: underline;">Operadores de
+String</span><br>
+Strings em PHP s&atilde;o concatenadas com o operador ponto final
+".".<br>
+<br>
+Exemplos:<br>
+<br>
+&lt;?php<br>
+$a = "Ol&aacute; ";<br>
+$b = $a . "mundo do PHP!";<br>
+echo $b;<br>
+<br>
+$a = "Ol&aacute; ";<br>
+$a .= "meu mundo!";<br>
+<br>
+echo "&lt;br&gt;" . $a;<br>
+?&gt;
+<br>
+Convertendo strings em n&uacute;meros<br>
+<br>
+&lt;?php<br>
+$foo = 1 + "10.5";echo
+$foo."&lt;br&gt;";&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+// $foo &eacute; float (11.5)<br>
+$foo = 1 + "-1.3e3";echo
+$foo."&lt;br&gt;";&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+// $foo &eacute; float (-1299)<br>
+$foo = 1 + "bob-1.3e3";echo
+$foo."&lt;br&gt;";&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+// $foo &eacute; integer (1)<br>
+$foo = 1 + "bob3";echo
+$foo."&lt;br&gt;";&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+// $foo &eacute; integer (1)<br>
+$foo = 1 + "10 Small Pigs";echo
+$foo."&lt;br&gt;";&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+// $foo &eacute; integer (11)<br>
+$foo = 4 + "10.2 Little Piggies";echo $foo."&lt;br&gt;"; //
+$foo &eacute; float (14.2)<br>
+$foo = "10.0 pigs " + 1;echo
+$foo."&lt;br&gt;";&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+// $foo &eacute; float (11)<br>
+$foo = "10.0 pigs " + 1.0;echo
+$foo."&lt;br&gt;";&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+// $foo &eacute; float (11)<br>
+?&gt;<br>
+<br>
+Opera&ccedil;&otilde;es com Strings<br>
+<br>
+&lt;?php<br>
+// Pega o primeiro caracter da string<br>
+$str = 'Isto &eacute; um teste.';<br>
+$first = $str{0};<br>
+echo $first."&lt;br&gt;";<br>
+// Pega o terceiro caracter da string<br>
+$third = $str{2};<br>
+echo $third."&lt;br&gt;";<br>
+// Pega o &uacute;ltimo caracter da string<br>
+$str = 'Isto ainda &eacute; um teste.';<br>
+$last = $str{strlen($str)-1};<br>
+echo $last."&lt;br&gt;";<br>
+// Modifica o ultimo caracter da string<br>
+$str = 'Olhe o mal';<br>
+echo $str{strlen($str)-1} = 'r';<br>
+?&gt;<br>
+<br>
+<br>
+<span style="text-decoration: underline;">Operadores com
+Arrays</span><br>
+<table class="CALSTABLE" border="1">
+  <thead><tr>
+    <th>Exemplo</th>
+    <th>Nome</th>
+    <th>Resultado</th>
+  </tr>
+  </thead><tbody>
+    <tr>
+      <td>$a + $b</td>
+      <td>Uni&atilde;o</td>
+      <td>Uni&atilde;o de $a e $b.</td>
+    </tr>
+    <tr>
+      <td>$a == $b</td>
+      <td>Igualdade</td>
+      <td><tt class="constant"><b>TRUE</b></tt>
+se $a e $b tem os mesmos elementos.</td>
+    </tr>
+    <tr>
+      <td>$a === $b</td>
+      <td>Identidade</td>
+      <td><tt class="constant"><b>TRUE</b></tt>
+se $a e $b tem os mesmos elementos na mesma ordem.</td>
+    </tr>
+    <tr>
+      <td>$a != $b</td>
+      <td>Desigualdade</td>
+      <td><tt class="constant"><b>TRUE</b></tt>
+se $a n&atilde;o &eacute; igual a $b.</td>
+    </tr>
+    <tr>
+      <td>$a &lt;&gt; $b</td>
+      <td>Desigualdade</td>
+      <td><tt class="constant"><b>TRUE</b></tt>
+se $a n&atilde;o &eacute; igual a $b.</td>
+    </tr>
+    <tr>
+      <td>$a !== $b</td>
+      <td>N&atilde;o identidade</td>
+      <td><tt class="constant"><b>TRUE</b></tt>
+se $a n&atilde;o &eacute; identico a $b.</td>
+    </tr>
+  </tbody>
+</table>
+<p> O operador <var class="literal">+</var>
+acrescenta o array da direita no array da esquerda, contudo, chaves
+duplicadas N&Atilde;O s&atilde;o sobrescritas. </p>
+<br>
+Exemplos:<br>
+<br>
+<div class="phpcode"><code><span class="html"><span
+ class="default">&lt;?php<br>
+$a </span><span class="keyword">= array(</span><span
+ class="string">"a" </span><span class="keyword">=&gt;
+</span><span class="string">"ma&ccedil;&atilde;"</span><span
+ class="keyword">, </span><span class="string">"b"
+</span><span class="keyword">=&gt; </span><span
+ class="string">"banana"</span><span class="keyword">);<br>
+</span><span class="default">$b </span><span
+ class="keyword">= array(</span><span class="string">"a"
+</span><span class="keyword">=&gt;</span><span
+ class="string">"p&ecirc;ra"</span><span
+ class="keyword">, </span><span class="string">"b"
+</span><span class="keyword">=&gt; </span><span
+ class="string">"framboesa"</span><span
+ class="keyword">, </span><span class="string">"c"
+</span><span class="keyword">=&gt; </span><span
+ class="string">"morango"</span><span class="keyword">);<br>
+<br>
+</span><span class="default">$c </span><span
+ class="keyword">= </span><span class="default">$a
+</span><span class="keyword">+ </span><span
+ class="default">$b</span><span class="keyword">;
+</span><span class="comment">// Uniao de $a e $b<br>
+</span><span class="keyword">echo </span><span
+ class="string">"Uni&atilde;o de \$a e \$b: \n"</span><span
+ class="keyword">;<br>
+</span><span class="default">var_dump</span><span
+ class="keyword">(</span><span class="default">$c</span><span
+ class="keyword">);<br>
+<br>
+</span><span class="default">$c </span><span
+ class="keyword">= </span><span class="default">$b
+</span><span class="keyword">+ </span><span
+ class="default">$a</span><span class="keyword">;
+</span><span class="comment">// Uni&atilde;o de
+$b e $a<br>
+</span><span class="keyword">echo </span><span
+ class="string">"Uni&atilde;o de \$b e \$a: \n"</span><span
+ class="keyword">;<br>
+</span><span class="default">var_dump</span><span
+ class="keyword">(</span><span class="default">$c</span><span
+ class="keyword">);<br>
+</span><span class="default">?&gt;</span>
+</span></code></div>
+<br>
+Observar que na uni&atilde;o de $a+$b&nbsp;o valor de "b"
+&eacute; banana em $a, ele
+n&atilde;o foi sobrescrito por framboesa de $b.<br>
+Assim como framboesa "b" em $b n&atilde;o foi
+substitu&iacute;do por banana de $a na uni&atilde;o de $b+$a.<br>
+<br>
+<br>
+<span style="font-weight: bold; text-decoration: underline;">10
+- ESTRUTURAS DE CONTROLE</span><br>
+<br>
+As principais estruturas para controlar o fluxo dos scripts PHP.<br>
+if, else, elseif, while, do... while, for, break, consinue e switch.<br>
+Um script PHP &eacute; formado por instru&ccedil;&otilde;es
+(cada instru&ccedil;&atilde;o termina com ;).<br>
+<br>
+<span style="text-decoration: underline;">
+Uma instru&ccedil;&atilde;o pode ser:</span><br>
+&nbsp;&nbsp;&nbsp; - uma atribui&ccedil;&atilde;o<br>
+&nbsp;&nbsp;&nbsp; - uma chamada de
+fun&ccedil;&atilde;o<br>
+&nbsp;&nbsp;&nbsp; - um la&ccedil;o (loop)<br>
+&nbsp;&nbsp;&nbsp; - uma instru&ccedil;&atilde;o
+condicional<br>
+&nbsp;&nbsp;&nbsp; - at&eacute; uma
+instru&ccedil;&atilde;o nula (;;).<br>
+<br>
+As instru&ccedil;&otilde;es podem ser agrupadas com chaves,
+formando blocos.<br>
+<br>
+<span style="font-weight: bold;">if</span> - uma
+constru&ccedil;&atilde;o muito importante e
+vers&aacute;til. Permite a execu&ccedil;&atilde;o
+condicional de fragmentos de c&oacute;digo.<br>
+<br>
+Sintaxe:<br>
+<br>
+if (expressao) {<br>
+&nbsp; &nbsp; instrucoes;<br>
+}<br>
+<br>
+expressao - &eacute; avaliada como TRUE ou FALSE<br>
+&nbsp;&nbsp;&nbsp; - Se TRUE as instrucoes ser&atilde;o
+executadas<br>
+&nbsp;&nbsp;&nbsp; - Se FALSE as instrucoes
+ser&atilde;o ignoradas<br>
+<br>
+Exemplos:<br>
+<br>
+<div class="phpcode"><code><span class="html"><span
+ class="default">&lt;?php<br>
+$a = 5;<br>
+$b = 3;<br>
+</span><span class="keyword">if (</span><span
+ class="default">$a </span><span class="keyword">&gt;
+</span><span class="default">$b</span><span
+ class="keyword">){<br>
+&nbsp;&nbsp; echo </span><span class="string">"a
+&eacute; maior que b"</span><span class="keyword">;<br>
+}<br>
+</span><span class="default">?&gt;</span>
+</span></code></div>
+<br>
+<br>
+<span style="font-weight: bold;">else</span>
+- executa&nbsp;instrucoes2 caso&nbsp;expressao seja FALSE.<br>
+<br>
+Sintaxe:<br>
+<br>
+if (expressao) {<br>
+&nbsp; &nbsp; instrucoes;<br>
+} else {<br>
+&nbsp; &nbsp; instrucoes2;<br>
+}<br>
+<br>
+Exemplos:<br>
+<br>
+&lt;?php<br>
+$a = 3;<br>
+$b = 5;<br>
+if ($a &gt; $b){<br>
+&nbsp;&nbsp; echo "a &eacute; maior que b";<br>
+} else {<br>
+&nbsp;&nbsp; echo "a N&Atilde;O &eacute; maior que b";<br>
+}<br>
+?&gt;<br>
+<br>
+<span style="font-weight: bold;">elseif</span>
+- &eacute; uma combina&ccedil;&atilde;o de if com else.
+Caso a expressao do if seja FALSE ent&atilde;o o elseif
+testa&nbsp;a expresao2, se esta for TRUE instrucoes2
+ser&atilde;o executadas, caso contr&aacute;rio instrucoes3
+ser&atilde;o executadas.<br>
+<br>
+Sintaxe:<br>
+<br>
+if (expressao) {<br>
+&nbsp; &nbsp; instrucoes;<br>
+} elseif (expressao2) {<br>
+&nbsp;&nbsp;&nbsp; instrucoes2;<br>
+} else {<br>
+&nbsp; &nbsp; instrucoes3;<br>
+}<br>
+<br>
+&lt;?php<br>
+$a = 3;<br>
+$b = 3;<br>
+if ($a &gt; $b){<br>
+&nbsp;&nbsp; echo "a &eacute; maior que b";<br>
+} elseif ($a==$b){<br>
+&nbsp;&nbsp; echo "a &eacute; igual a
+b";&nbsp;&nbsp;&nbsp; <br>
+} else {<br>
+&nbsp;&nbsp; echo "a N&Atilde;O &eacute; maior que b
+nem igual a b";<br>
+}<br>
+?&gt;<br>
+<br>
+<br>
+<span style="font-weight: bold;">while</span>
+- executa instru&ccedil;&otilde;es v&aacute;rias vezez,
+enquanto uma express&atilde;o for verdadeira (TRUE).<br>
+<br>
+Sintaxe:<br>
+while (expressao) {<br>
+&nbsp; &nbsp; instrucoes;<br>
+}<br>
+<br>
+Em cada itera&ccedil;&atilde;o&nbsp;expressao
+&eacute; avaliada, se TRUE instrucoes ser&atilde;o executadas,
+se FALSE, ser&atilde;o ignoradas.<br>
+<br>
+Exemplos:<br>
+<br>
+&lt;?php<br>
+<br>
+$i = 1;<br>
+while ($i &lt;= 10) {<br>
+&nbsp;&nbsp; echo $i++;&nbsp; /* o valor impresso
+ser&aacute;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+$i depois do acr&eacute;scimo<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+(post-increment) */<br>
+}<br>
+<br>
+?&gt; <br>
+<br>
+<br>
+<span style="font-weight: bold;">do
+... while</span> - Semelhante ao while, diferindo no fato da
+express&atilde;o condicional ficar ao final das
+itera&ccedil;&otilde;es.<br>
+No do ... while a primeira itera&ccedil;&atilde;o
+sempre&nbsp;executar&aacute; as
+instru&ccedil;&otilde;es incondicionalmente.<br>
+<br>
+Sintaxe:<br>
+<br>
+do {<br>
+&nbsp;&nbsp;&nbsp; instrucoes;<br>
+} while (expressoes);&nbsp;&nbsp;&nbsp; // Atentar para o
+ponto e v&iacute;rgula ao final<br>
+<br>
+Exemplos:<br>
+<br>
+&lt;?php<br>
+// Executa pelo menos uma vez incondicionalmente<br>
+$i = 6; $fator = 2; $minimo = 10;<br>
+do {<br>
+&nbsp;&nbsp; if ($i &lt; 5) {<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; echo "\$i
+n&atilde;o &eacute; grande o suficiente";<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; break;<br>
+&nbsp;&nbsp; }<br>
+&nbsp;&nbsp; $i *= $fator;<br>
+&nbsp;&nbsp; if ($i &lt; $minimo) {<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; break;<br>
+&nbsp;&nbsp; }<br>
+&nbsp;&nbsp; echo "\$i est&aacute; Ok e vale " . $i;<br>
+<br>
+} while (0);<br>
+<br>
+/* Exemplo simples<br>
+$i = 0;<br>
+do {<br>
+&nbsp;&nbsp; echo $i;<br>
+} while ($i &gt; 0);<br>
+*/<br>
+?&gt; <br>
+<br>
+<span style="font-weight: bold;">for</span>
+- la&ccedil;o composto por 3 instru&ccedil;&otilde;es. A
+primeira &eacute; a de inicializa&ccedil;&atilde;o da
+vari&aacute;vel, a segunda ser&aacute; avaliada a cada
+itera&ccedil;&atilde;o e a terceira &eacute; a de
+incremento. As 3 separadas por ponto e v&iacute;rgula. Todas as 3
+s&atilde;o opcionais e caso a segunda seja nula o loop
+ser&aacute; infinito.<br>
+<br>
+Sintaxe:<br>
+<br>
+for (expr1; expr2; expr3) {<br>
+&nbsp;&nbsp;&nbsp; instrucoes;<br>
+}<br>
+<br>
+- expr1 ser&aacute; avaliada uma &uacute;nica vez
+incondicionalmente;<br>
+- expr2 ser&aacute; avaliada no in&iacute;cio de cada
+itera&ccedil;&atilde;o:<br>
+&nbsp;&nbsp;&nbsp; - Se TRUE o la&ccedil;o continua e
+as instru&ccedil;&otilde;es ser&atilde;o executadas<br>
+&nbsp;&nbsp;&nbsp; - Se FALSE o la&ccedil;o termina.<br>
+- expr3 &eacute; avaliada ao final de cada
+itera&ccedil;&atilde;o, no caso incrementa a vari&aacute;vel<br>
+<br>
+Exemplos:<br>
+<br>
+&lt;?php<br>
+/* exemplo 1 - Controla o fluso no for*/<br>
+echo "&lt;br&gt;&lt;br&gt;1- ";<br>
+for ($i = 1; $i &lt;= 10; $i++) {<br>
+&nbsp;&nbsp; echo $i;<br>
+}<br>
+echo "&lt;br&gt;&lt;br&gt;2- ";<br>
+/* exemplo 2 - Controle o fluxo no if interno*/<br>
+for ($i = 1; ; $i++) {<br>
+&nbsp;&nbsp; if ($i &gt; 10) {<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; break;<br>
+&nbsp;&nbsp; }<br>
+&nbsp;&nbsp; echo $i;<br>
+}<br>
+echo "&lt;br&gt;&lt;br&gt;3- ";<br>
+/* exemplo 3 - Controle o fluxo no if interno*/<br>
+$i = 1;<br>
+for (; ; ) {<br>
+&nbsp;&nbsp; if ($i &gt; 10) {<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; break;<br>
+&nbsp;&nbsp; }<br>
+&nbsp;&nbsp; echo $i;<br>
+&nbsp;&nbsp; $i++;<br>
+}<br>
+echo "&lt;br&gt;&lt;br&gt;4- ";<br>
+/* exemplo 4 */<br>
+for ($i = 1; $i &lt;= 10;$i++);<br>
+&nbsp;&nbsp;&nbsp; echo $i;<br>
+?&gt;<br>
+<br>
+<br>
+<span style="font-weight: bold;">foreach
+</span>- la&ccedil;o para varrer os elementos de uma matriz
+(array).<br>
+<br>
+Atentar para o fato de que&nbsp;o foreach n&atilde;o requer
+reset() antes, pois quando
+&eacute; executado o ponteiro interno do array j&aacute;
+&eacute; zerado automaticamente.<br>
+<br>
+Sintaxe:<br>
+<pre class="programlisting">foreach (expressao_array as $valor){<br> instrucoes;<br>}<br><br>foreach (expressao_array as $chave =&gt; $valor) {<br> instrucoes;<br>}</pre>
+<br>
+Exemplos:<br>
+&lt;?php<br>
+//Voc&ecirc; pode ter notado que os seguintes itens s&atilde;o
+funcionalmente id&ecirc;nticos:<br>
+$arr = array("um", "dois", "tr&ecirc;s");<br>
+reset ($arr); // Aponta para o primeiro elemento<br>
+while (list(, $value) = each ($arr)) {<br>
+&nbsp;&nbsp; echo "Valor: $value&lt;br /&gt;";<br>
+}<br>
+foreach ($arr as $value) {<br>
+&nbsp;&nbsp; echo "Valor: $value&lt;br /&gt;";<br>
+}<br>
+<br>
+//Os seguintes tamb&eacute;m s&atilde;o funcionalmente
+id&ecirc;nticos:<br>
+$arr = array("one", "two", "three");<br>
+reset($arr);<br>
+while (list($key, $value) = each ($arr)) {<br>
+&nbsp;&nbsp; echo "Chave: $key; Valor: $value&lt;br
+/&gt;";<br>
+}<br>
+foreach ($arr as $key =&gt; $value) {<br>
+&nbsp;&nbsp; echo "Chave: $key; Valor: $value&lt;br
+/&gt;";<br>
+}<br>
+<br>
+/* exemplo foreach 1: somente valores */<br>
+$a = array(1, 2, 3, 17);<br>
+foreach ($a as $v) {<br>
+&nbsp;&nbsp; echo "Valor atual de \$a: $v.&lt;br&gt;";<br>
+}<br>
+<br>
+/* exemplo foreach 2: valores (com as chaves impressas para
+ilustra&ccedil;&atilde;o) */<br>
+$a = array(1, 2, 3, 17);<br>
+$i = 0; /* para exemplo somente */<br>
+foreach ($a as $v) {<br>
+&nbsp;&nbsp; echo "\$a[$i] =&gt; $v.&lt;br&gt;";<br>
+&nbsp;&nbsp; $i++;<br>
+}<br>
+<br>
+/* exemplo foreach 3: chaves e valores */<br>
+$a = array (<br>
+&nbsp;&nbsp; "um" =&gt; 1,<br>
+&nbsp;&nbsp; "dois" =&gt; 2,<br>
+&nbsp;&nbsp; "tr&ecirc;s" =&gt; 3,<br>
+&nbsp;&nbsp; "dezessete" =&gt; 17<br>
+);<br>
+foreach ($a as $k =&gt; $v) {<br>
+&nbsp;&nbsp; echo "\$a[$k] =&gt; $v.&lt;br&gt;";<br>
+}<br>
+?&gt; <br>
+<br>
+<br>
+<br>
+<span style="font-weight: bold;">
+break</span> - cancela a execu&ccedil;&atilde;o de
+la&ccedil;os:
+for, foreach, while, do ... while ou switch.<br>
+break n &eacute; suportado, onde n &eacute; o n&uacute;mero
+de estruturas a serem canceladas.<br>
+<br>
+Sintaxe:<br>
+<br>
+break;<br>
+<br>
+break n;<br>
+<br>
+Exemplos:<br>
+<br>
+&lt;?php<br>
+$arr = array('um', 'dois', 'tr&ecirc;s', 'quatro', 'PARE', 'cinco');<br>
+while (list (, $val) = each ($arr)) {<br>
+&nbsp;&nbsp; if ($val == 'PARE') {<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+break;&nbsp;&nbsp;&nbsp; /* Voc&ecirc; poderia colocar
+'break 1;' aqui. */<br>
+&nbsp;&nbsp; }<br>
+&nbsp;&nbsp; echo "$val&lt;br /&gt;";<br>
+}<br>
+echo "&lt;br /&gt;";<br>
+/* Utilizando o argumento opcional. */<br>
+<br>
+$i = 0;<br>
+while (++$i) {<br>
+&nbsp;&nbsp; switch ($i) {<br>
+&nbsp;&nbsp; case 5:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; echo "No
+5&lt;br /&gt;";<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; break
+1;&nbsp; /* Sai somente do switch. */<br>
+&nbsp;&nbsp; case 10:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; echo "No
+10; saindo&lt;br /&gt;";<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; break
+2;&nbsp; /* Sai do switch e while. */<br>
+&nbsp;&nbsp; default:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; break;<br>
+&nbsp;&nbsp; }<br>
+}<br>
+?&gt;<br>
+<br>
+<br>
+<span style="font-weight: bold;">continue</span>
+- sai da atual itera&ccedil;&atilde;o de um loop para continuar
+na pr&oacute;xima itera&ccedil;&atilde;o.<br>
+<br>
+Sintaxe:<br>
+<br>
+continue;<br>
+continue n;<br>
+<br>
+Enquanto o break encerra definitivamente um la&ccedil;o, o continue
+encerra somente a itera&ccedil;&atilde;o atual.<br>
+<br>
+Exemplos:<br>
+<br>
+&lt;?php<br>
+$arr = array(1,2,3,4,5,6,7,8);<br>
+while (list ($key, $value) = each ($arr)) {<br>
+&nbsp;&nbsp; if (!($key % 2)) { // pula itens pares, ou seja,
+processa somente &iacute;mpares<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; continue;<br>
+&nbsp;&nbsp; }<br>
+&nbsp;&nbsp; echo ($value);<br>
+}<br>
+echo "&lt;br&gt;";<br>
+$i = 0;<br>
+while ($i++ &lt; 5) {<br>
+&nbsp;&nbsp; echo "Fora&lt;br /&gt;";<br>
+&nbsp;&nbsp; while (1) {<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; echo
+"&amp;nbsp;&amp;nbsp;Meio&lt;br /&gt;";<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; while (1) {<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+echo "&amp;nbsp;&amp;nbsp;Dentro&lt;br /&gt;";<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+continue 3;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; echo "Isto
+nunca ser&aacute; exibido.&lt;br /&gt;";<br>
+&nbsp;&nbsp; }<br>
+&nbsp;&nbsp; echo "Nem isso.&lt;br /&gt;";<br>
+}<br>
+<br>
+// Outro exemplo<br>
+&nbsp; for ($i = 0; $i &lt; 5; ++$i) {<br>
+&nbsp;&nbsp;&nbsp;&nbsp; if ($i == 2)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+continue<br>
+&nbsp;&nbsp;&nbsp;&nbsp; print "$i\n";<br>
+&nbsp; }<br>
+?&gt;<br>
+<br>
+<br>
+<span style="font-weight: bold;">switch</span><span
+ style="text-decoration: underline;">
+</span>- similar a uma s&eacute;rie de
+constru&ccedil;&otilde;es
+if seguidas.<br>
+<br>
+Sintaxe:<br>
+<br>
+switch (variavel) {<br>
+&nbsp;&nbsp;&nbsp; case valor1:<br>
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+instrucoes;<br>
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; break;<br>
+&nbsp;&nbsp;&nbsp; case valor2:<br>
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+instrucoes2;<br>
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; break;<br>
+&nbsp;&nbsp;&nbsp; case valorN;<br>
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+instrucoesN;<br>
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; break;<br>
+&nbsp;&nbsp;&nbsp; default:<br>
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+instrucoesDefault;<br>
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; break;<br>
+}<br>
+<br>
+Exemplos:<br>
+<br>
+&lt;?php<br>
+<br>
+$i = 1;<br>
+<br>
+// Estrutura com if<br>
+if ($i == 0) {<br>
+&nbsp;&nbsp; echo "\$i igual a 0";<br>
+} elseif ($i == 1) {<br>
+&nbsp;&nbsp; echo "\$i igual a 1";<br>
+} elseif ($i == 2) {<br>
+&nbsp;&nbsp; echo "\$i igual a 2";<br>
+}<br>
+echo "&lt;br&gt;";<br>
+// Estruturas com switch<br>
+switch ($i) {<br>
+&nbsp;&nbsp; case 0:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; echo "\$i
+igual a 0";<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; break;<br>
+&nbsp;&nbsp; case 1:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; echo "\$i
+igual a 1";<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; break;<br>
+&nbsp;&nbsp; case 2:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; echo "\$i
+igual a 2";<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; break;<br>
+}<br>
+echo "&lt;br&gt;";<br>
+$i = 2;<br>
+// Executar&aacute; todos, falta o break<br>
+switch ($i) {<br>
+&nbsp;&nbsp; case 0:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; echo "\$i
+igual a 0";<br>
+&nbsp;&nbsp; case 1:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; echo "\$i
+igual a 1";<br>
+&nbsp;&nbsp; case 2:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; echo "\$i
+igual a 2";<br>
+}<br>
+echo "&lt;br&gt;";<br>
+// Simulando intervalos<br>
+switch ($i) {<br>
+&nbsp;&nbsp; case 0:<br>
+&nbsp;&nbsp; case 1:<br>
+&nbsp;&nbsp; case 2:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; echo "\$i
+&eacute; menor que 3 mas n&atilde;o negativo";<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; break;<br>
+&nbsp;&nbsp; case 3:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; echo "\$i
+&eacute; 3";<br>
+}<br>
+echo "&lt;br&gt;";<br>
+// Valor default<br>
+switch ($i) {<br>
+&nbsp;&nbsp; case 0:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; echo "\$i
+igual a 0";<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; break;<br>
+&nbsp;&nbsp; case 1:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; echo "\$i
+igual a 1";<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; break;<br>
+&nbsp;&nbsp; case 2:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; echo "\$i
+igual a 2";<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; break;<br>
+&nbsp;&nbsp; default:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; echo "\$i
+n&atilde;o &eacute; igual a 0, 1 ou 2";<br>
+}<br>
+?&gt;<br>
+<br>
+<p class="western" style="margin-bottom: 0cm;"><b>Estruturas
+em Obsolesc&ecirc;ncia</b><br>
+Devemos evitar, pois em
+futuras vers&otilde;es n&atilde;o mais ser&atilde;o
+utilizados.<br>
+Fun&ccedil;&otilde;es
+com nomes antigos, tipo:</p>
+<p class="western" style="margin-bottom: 0cm;">pg_numrown,
+pg_fecharray e similares.</p>
+<p class="western" style="margin-bottom: 0cm;">Caso
+se fa&ccedil;a uma
+busca por estas fun&ccedil;&otilde;es no site do PHP nada
+ser&aacute;
+retornado.</p>
+<p class="western" style="margin-bottom: 0cm;">As
+fun&ccedil;&otilde;es
+atuais tem nomes com espa&ccedil;o separando palavras, como:<br>
+pg_num_rown,
+pg_fech_array e similares.</p>
+<p class="western" style="margin-bottom: 0cm;">Algumas
+fun&ccedil;&otilde;es
+agora tem outro nome, por exemplo:<br>
+pg_exec agora deve ser
+substuida por pg_query</p>
+<p class="western" style="margin-bottom: 0cm;">Algumas
+estruturas de
+controle usavam os dois pontos:<br>
+while: ... endwhile,
+if: ... endif, devemos preferir:<br>
+while(){ ... }, if(){
+... }</p>
+<p class="western" style="margin-bottom: 0cm;">Evitar
+o uso do
+coment&aacute;rio tipo shell #.</p>
+<p class="western" style="margin-bottom: 0cm;">Estruturas
+do tipo
+4HTTP_POST_VARS e similares foram substitu&iacute;das
+por:&nbsp;$_POST e similares.</p>
+<br>
+<p class="western" style="margin-bottom: 0cm;"><b>Formatando
+N&uacute;meros</b><br>
+number_format</p>
+<p class="western" style="margin-bottom: 0cm;">number_format
+--
+Formata um n&uacute;mero com os milhares agrupados<br>
+string number_format (
+float number [, int decimals] )<br>
+string number_format (
+float number, int decimals, string dec_point, string thousands_sep )</p>
+<p class="western" style="margin-bottom: 0cm;">number_format()
+retorna
+uma vers&atilde;o formatada de number. Esta
+fun&ccedil;&atilde;o
+aceita um, dois ou quatro par&acirc;metros (n&atilde;o
+tr&ecirc;s):</p>
+<p class="western" style="margin-bottom: 0cm;">Se
+apenas um par&acirc;metro
+&eacute; dado, number ser&aacute; formatado sem decimais, mas
+com uma
+virgula (",") entre cada grupo de milhar.</p>
+<p class="western" style="margin-bottom: 0cm;">Se
+dois par&acirc;metros
+s&atilde;o dados, number ser&aacute; formatado com o
+n&uacute;mero de
+casas decimais especificadas em decimals com um ponto (".")
+na frente, e uma v&iacute;rgula (",") entre cada grupo de
+milhar.</p>
+<p class="western" style="margin-bottom: 0cm;">Se
+todos os quatro
+par&acirc;metros forem dados, number ser&aacute; formatado com
+o
+n&uacute;mero de casas decimais em decimals, dec_point ao
+inv&eacute;s
+do ponto (".") antes das casas decimais e thousands_sep ao
+inv&eacute;s de uma v&iacute;rgula (",") entre os grupos de
+milhares. </p>
+<p class="western" style="margin-bottom: 0cm;">
+Somente o primeiro
+caractere de thousands_sep &eacute; usado. Por exemplo, se
+voc&ecirc;
+usar foo como o par&acirc;metro thousands_sep no n&uacute;mero
+1000,
+number_format() ir&aacute; retornar 1f000.</p>
+<p class="western" style="margin-bottom: 0cm;">Exemplo
+1. Exemplo
+number_format()</p>
+<p class="western" style="margin-bottom: 0cm;">Por
+exemplo, a nota&ccedil;&atilde;o
+Francesa usa duas casas decimais, v&iacute;rgula (',') como
+separador
+decimal, e espa&ccedil;o (' ') como separador de milhar. Isto
+&eacute;
+feito com a linha :</p>
+<p class="western" style="margin-bottom: 0cm;">&lt;?php</p>
+<p class="western" style="margin-bottom: 0cm;">//
+string number_format
+( float number, int decimals, string dec_point, string thousands_sep
+)<br>
+$number = 1234.56;<br>
+</p>
+<p class="western" style="margin-bottom: 0cm;">//
+Nota&ccedil;&atilde;o
+Brasileira<br>
+$numero_format_brasil =
+number_format($numero, 2, ',', '.');<br>
+</p>
+<p class="western" style="margin-bottom: 0cm;">//
+1.234,56<br>
+echo "O n&uacute;mero'
+$number' no formato brasileiro fica
+'$numero_format_brasil'&lt;br&gt;&lt;br&gt;";<br>
+?&gt;</p>
+<p class="western" style="margin-bottom: 0cm;"><b>Valida&ccedil;&atilde;o
+de Ano Bisexto&nbsp;</b></p>
+<p class="western" style="margin-bottom: 0cm;">&lt;?php<br>
+function
+ano_bisexto($ano){<br>
+&nbsp;&nbsp;&nbsp; return
+((($ano%4)==0 &amp;&amp; ($ano%100) != 0) || ($ano%400)==0);<br>
+}</p>
+<p class="western" style="margin-bottom: 0cm;">if(ano_bisexto(2006))<br>
+&nbsp;&nbsp;&nbsp; echo "Ano
+bisexto";<br>
+else<br>
+&nbsp;&nbsp;&nbsp; echo "Ano
+n&atilde;o bisexto";<br>
+?&gt;</p>
+<p class="western" style="margin-bottom: 0cm;"><span
+ style="font-weight: bold;">Algumas
+Fun&ccedil;&otilde;es Matem&aacute;ticas</span></p>
+<p class="western" style="margin-bottom: 0cm;"><span
+ style="font-weight: bold;">abs</span>&nbsp;--&nbsp;Valor
+absoluto</p>
+mixed <b class="methodname">abs</b> ( mixed
+n&uacute;mero )<br>
+<div class="phpcode"><code><span class="html">
+<span class="default">&lt;?php<br>
+$abs </span><span class="keyword">= </span><span
+ class="default">abs</span><span class="keyword">(-</span><span
+ class="default">4.2</span><span class="keyword">);
+</span><span class="comment">// $abs = 4.2;
+(double/float)<br>
+</span><span class="default">$abs2 </span><span
+ class="keyword">= </span><span class="default">abs</span><span
+ class="keyword">(</span><span class="default">5</span><span
+ class="keyword">);&nbsp; </span><span
+ class="comment">// $abs2 = 5; (inteiro)<br>
+</span><span class="default">$abs3 </span><span
+ class="keyword">= </span><span class="default">abs</span><span
+ class="keyword">(-</span><span class="default">5</span><span
+ class="keyword">);&nbsp; </span><span
+ class="comment">// $abs3 = 5; (inteiro)<br>
+</span><span class="default">?&gt;<br>
+<br>
+</span></span></code><span
+ style="font-weight: bold;">ceil</span>&nbsp;--&nbsp;Arredonda
+fra&ccedil;&otilde;es para cima<br>
+float <b class="methodname">ceil</b> ( float valor )<br>
+<br>
+<div class="phpcode"><code><span class="html">
+<span class="default">&lt;?php<br>
+</span><span class="keyword">echo </span><span
+ class="default">ceil</span><span class="keyword">(</span><span
+ class="default">4.3</span><span class="keyword">);&nbsp;
+&nbsp; </span><span class="comment">// 5<br>
+</span><span class="keyword">echo </span><span
+ class="default">ceil</span><span class="keyword">(</span><span
+ class="default">9.999</span><span class="keyword">);&nbsp;
+</span><span class="comment">// 10<br>
+</span><span class="default">?&gt;<br>
+<br>
+</span></span></code><span
+ style="font-weight: bold;">floor</span>&nbsp;--&nbsp;Arredonda
+fra&ccedil;&otilde;es para baixo<br>
+float <b class="methodname">floor</b> ( float valor
+)<br>
+<div class="phpcode"><code><span class="html">
+<span class="default">&lt;?php<br>
+</span><span class="keyword">echo </span><span
+ class="default">floor</span><span class="keyword">(</span><span
+ class="default">4.3</span><span class="keyword">);&nbsp;
+</span><span class="comment">// 4<br>
+</span><span class="keyword">echo </span><span
+ class="default">floor</span><span class="keyword">(</span><span
+ class="default">9.999</span><span class="keyword">);
+</span><span class="comment">// 9<br>
+</span><span class="default">?&gt;<br>
+<br>
+</span></span></code></div>
+<span style="font-weight: bold;">max</span>&nbsp;--&nbsp;Localiza
+o maior n&uacute;mero<br>
+mixed <b class="methodname">max</b> ( number arg1,
+number arg2 [, number ...] )<br>
+mixed <b class="methodname">max</b> ( array numbers
+[, array ...] )<br>
+</div>
+<div class="phpcode"><code><span class="html">
+<span class="default">&lt;?php<br>
+</span><span class="keyword">echo </span><span
+ class="default">max</span><span class="keyword">(</span><span
+ class="default">1</span><span class="keyword">,
+</span><span class="default">3</span><span
+ class="keyword">, </span><span class="default">5</span><span
+ class="keyword">, </span><span class="default">6</span><span
+ class="keyword">, </span><span class="default">7</span><span
+ class="keyword">);&nbsp; </span><span
+ class="comment">// 7<br>
+</span><span class="keyword">echo </span><span
+ class="default">max</span><span class="keyword">(array(</span><span
+ class="default">2</span><span class="keyword">,
+</span><span class="default">4</span><span
+ class="keyword">, </span><span class="default">5</span><span
+ class="keyword">)); </span><span class="comment">//
+5<br>
+<br>
+</span><span class="keyword">echo </span><span
+ class="default">max</span><span class="keyword">(</span><span
+ class="default">0</span><span class="keyword">,
+</span><span class="string">'hello'</span><span
+ class="keyword">);&nbsp; &nbsp; </span><span
+ class="comment">// 0<br>
+</span><span class="keyword">echo </span><span
+ class="default">max</span><span class="keyword">(</span><span
+ class="string">'hello'</span><span class="keyword">,
+</span><span class="default">0</span><span
+ class="keyword">);&nbsp; &nbsp; </span><span
+ class="comment">// hello<br>
+</span><span class="keyword">echo </span><span
+ class="default">max</span><span class="keyword">(-</span><span
+ class="default">1</span><span class="keyword">,
+</span><span class="string">'hello'</span><span
+ class="keyword">);&nbsp; &nbsp; </span><span
+ class="comment">// hello<br>
+<br>
+// Com arrays m&uacute;ltiplos, max compara da esquerda para
+direita,<br>
+// assim nesse exemplo: 2 == 2, mas 4 &lt; 5<br>
+</span><span class="default">$val </span><span
+ class="keyword">= </span><span class="default">max</span><span
+ class="keyword">(array(</span><span class="default">2</span><span
+ class="keyword">, </span><span class="default">4</span><span
+ class="keyword">, </span><span class="default">8</span><span
+ class="keyword">), array(</span><span
+ class="default">2</span><span class="keyword">,
+</span><span class="default">5</span><span
+ class="keyword">, </span><span class="default">7</span><span
+ class="keyword">)); </span><span class="comment">//
+array(2, 5, 7)<br>
+<br>
+// Se forem informados um array e um n&atilde;o array, o array<br>
+// &eacute; sempre retornado como se ele fosse o maior<br>
+</span><span class="default">$val </span><span
+ class="keyword">= </span><span class="default">max</span><span
+ class="keyword">(</span><span class="string">'string'</span><span
+ class="keyword">, array(</span><span class="default">2</span><span
+ class="keyword">, </span><span class="default">5</span><span
+ class="keyword">, </span><span class="default">7</span><span
+ class="keyword">), </span><span class="default">42</span><span
+ class="keyword">);&nbsp; </span><span
+ class="comment">// array(2, 5, 7)<br>
+</span><span class="default">?&gt;<br>
+</span></span></code><br>
+<span style="font-weight: bold;">min</span>&nbsp;--&nbsp;Localiza
+o menor n&uacute;mero<br>
+mixed <b class="methodname">min</b> ( number arg1,
+number arg2 [, number ...] )<br>
+mixed <b class="methodname">min</b> ( array numbers
+[, array ...] )</div>
+</div>
+<br>
+<div class="phpcode"><code><span class="html">
+<span class="default">&lt;?php<br>
+</span><span class="keyword">echo </span><span
+ class="default">min</span><span class="keyword">(</span><span
+ class="default">2</span><span class="keyword">,
+</span><span class="default">3</span><span
+ class="keyword">, </span><span class="default">1</span><span
+ class="keyword">, </span><span class="default">6</span><span
+ class="keyword">, </span><span class="default">7</span><span
+ class="keyword">);&nbsp; </span><span
+ class="comment">// 1<br>
+</span><span class="keyword">echo </span><span
+ class="default">min</span><span class="keyword">(array(</span><span
+ class="default">2</span><span class="keyword">,
+</span><span class="default">4</span><span
+ class="keyword">, </span><span class="default">5</span><span
+ class="keyword">)); </span><span class="comment">//
+2<br>
+<br>
+</span><span class="keyword">echo </span><span
+ class="default">min</span><span class="keyword">(</span><span
+ class="default">0</span><span class="keyword">,
+</span><span class="string">'hello'</span><span
+ class="keyword">);&nbsp; &nbsp; </span><span
+ class="comment">// 0<br>
+</span><span class="keyword">echo </span><span
+ class="default">min</span><span class="keyword">(</span><span
+ class="string">'hello'</span><span class="keyword">,
+</span><span class="default">0</span><span
+ class="keyword">);&nbsp; &nbsp; </span><span
+ class="comment">// hello<br>
+</span><span class="keyword">echo </span><span
+ class="default">min</span><span class="keyword">(</span><span
+ class="string">'hello'</span><span class="keyword">,
+-</span><span class="default">1</span><span
+ class="keyword">);&nbsp; &nbsp; </span><span
+ class="comment">// -1<br>
+<br>
+// Com arrays m&uacute;ltiplos, min compara da esquerda para
+direita,<br>
+// assim nesse exemplo: 2 == 2, mas 4 &lt; 5<br>
+</span><span class="default">$val </span><span
+ class="keyword">= </span><span class="default">min</span><span
+ class="keyword">(array(</span><span class="default">2</span><span
+ class="keyword">, </span><span class="default">4</span><span
+ class="keyword">, </span><span class="default">8</span><span
+ class="keyword">), array(</span><span
+ class="default">2</span><span class="keyword">,
+</span><span class="default">5</span><span
+ class="keyword">, </span><span class="default">1</span><span
+ class="keyword">)); </span><span class="comment">//
+array(2, 4, 8)<br>
+<br>
+// Se ambos forem um array e um n&atilde;o array, o array<br>
+// nunca ser&aacute; retornado porque ele &eacute; sempre
+considerado o maior<br>
+</span><span class="default">$val </span><span
+ class="keyword">= </span><span class="default">min</span><span
+ class="keyword">(</span><span class="string">'string'</span><span
+ class="keyword">, array(</span><span class="default">2</span><span
+ class="keyword">, </span><span class="default">5</span><span
+ class="keyword">, </span><span class="default">7</span><span
+ class="keyword">), </span><span class="default">42</span><span
+ class="keyword">);&nbsp; </span><span
+ class="comment">// string<br>
+</span><span class="default">?&gt;<br>
+<br>
+</span></span></code><span
+ style="font-weight: bold;">count</span>&nbsp;--&nbsp;Conta
+o n&uacute;mero de elementos de uma vari&aacute;vel<br>
+int <b class="methodname">count</b> ( mixed var [,
+int mode] )<br>
+<div class="phpcode"><code><span class="html">
+<span class="default">&lt;?php<br>
+$a</span><span class="keyword">[</span><span
+ class="default">0</span><span class="keyword">]
+= </span><span class="default">1</span><span
+ class="keyword">; <br>
+</span><span class="default">$a</span><span
+ class="keyword">[</span><span class="default">1</span><span
+ class="keyword">] = </span><span class="default">3</span><span
+ class="keyword">; <br>
+</span><span class="default">$a</span><span
+ class="keyword">[</span><span class="default">2</span><span
+ class="keyword">] = </span><span class="default">5</span><span
+ class="keyword">; <br>
+</span><span class="default">$result </span><span
+ class="keyword">= </span><span class="default">count</span><span
+ class="keyword">(</span><span class="default">$a</span><span
+ class="keyword">);<br>
+</span><span class="comment">// $result == 3<br>
+<br>
+</span><span class="default">$b</span><span
+ class="keyword">[</span><span class="default">0</span><span
+ class="keyword">] = </span><span class="default">7</span><span
+ class="keyword">;<br>
+</span><span class="default">$b</span><span
+ class="keyword">[</span><span class="default">5</span><span
+ class="keyword">] = </span><span class="default">9</span><span
+ class="keyword">;<br>
+</span><span class="default">$b</span><span
+ class="keyword">[</span><span class="default">10</span><span
+ class="keyword">] = </span><span class="default">11</span><span
+ class="keyword">;<br>
+</span><span class="default">$result </span><span
+ class="keyword">= </span><span class="default">count</span><span
+ class="keyword">(</span><span class="default">$b</span><span
+ class="keyword">);<br>
+</span><span class="comment">// $result == 3;<br>
+</span><span class="default">?&gt;</span></span></code></div>
+<p><b>Exemplo 2. Uso recursivo da
+fun&ccedil;&atilde;o <b class="function">count()</b>
+(PHP &gt;= 4.2.0) </b></p>
+<div class="phpcode"><code><span class="html">
+<span class="default">&lt;?php<br>
+$food </span><span class="keyword">= array( </span><span
+ class="string">'fruits'&nbsp; </span><span
+ class="keyword">=&gt; array(</span><span
+ class="string">'orange'</span><span class="keyword">,
+</span><span class="string">'banana'</span><span
+ class="keyword">, </span><span class="string">'apple'</span><span
+ class="keyword">),<br>
+</span><span class="string">'veggie'&nbsp; </span><span
+ class="keyword">=&gt; array(</span><span
+ class="string">'carrot'</span><span class="keyword">,
+</span><span class="string">'collard'</span><span
+ class="keyword">,</span><span class="string">'pea'</span><span
+ class="keyword">));<br>
+</span><span class="comment">// recursive count<br>
+</span><span class="keyword">echo </span><span
+ class="default">count</span><span class="keyword">(</span><span
+ class="default">$food</span><span class="keyword">,</span><span
+ class="default">COUNT_RECURSIVE</span><span
+ class="keyword">);&nbsp; </span><span
+ class="comment">// mostra 8<br>
+// normal count<br>
+</span><span class="keyword">echo </span><span
+ class="default">count</span><span class="keyword">(</span><span
+ class="default">$food</span><span class="keyword">);&nbsp;
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+&nbsp; &nbsp; </span><span class="comment">//
+mostra2 2<br>
+</span><span class="default">?&gt;</span>
+</span></code></div>
+<br>
+<span style="font-weight: bold;">pow</span>&nbsp;--&nbsp;Pot&ecirc;ncia<br>
+number <b class="methodname">pow</b> ( number base,
+number exp )</div>
+<div class="phpcode"><code><span class="html"><span
+ class="default"><br>
+var_dump</span><span class="keyword">( </span><span
+ class="default">pow</span><span class="keyword">(</span><span
+ class="default">2</span><span class="keyword">,</span><span
+ class="default">8</span><span class="keyword">)
+); </span><span class="comment">// int(256)<br>
+</span><span class="keyword">echo </span><span
+ class="default">pow</span><span class="keyword">(-</span><span
+ class="default">1</span><span class="keyword">,</span><span
+ class="default">20</span><span class="keyword">);
+</span><span class="comment">// 1<br>
+</span><span class="keyword">echo </span><span
+ class="default">pow</span><span class="keyword">(</span><span
+ class="default">0</span><span class="keyword">,
+</span><span class="default">0</span><span
+ class="keyword">); </span><span class="comment">//
+1<br>
+</span><span class="keyword">echo </span><span
+ class="default">pow</span><span class="keyword">(-</span><span
+ class="default">1</span><span class="keyword">,
+</span><span class="default">5.5</span><span
+ class="keyword">); </span><span class="comment">//
+erro</span><span class="default"><br>
+</span>
+</span></code></div>
+<br>
+<span style="font-weight: bold;">rand</span>&nbsp;--&nbsp;Gera
+um n&uacute;mero aleat&oacute;rio<br>
+int <b class="methodname">rand</b> ( [int min, int
+max] )<br>
+<br>
+echo "Exibir 20 n&uacute;meros aleat&oacute;rios entre 20 e
+160&lt;br&gt;&lt;br&gt;";<br>
+for($x=20;$x&lt;40;$x++){<br>
+&nbsp;&nbsp;&nbsp; echo rand($x, 4*$x)."&lt;br&gt;";<br>
+}<br>
+exit("Saindo...");<br>
+<br>
+<span style="font-weight: bold;">round</span>&nbsp;--&nbsp;Arredonda
+um n&uacute;mero<br>
+float <b class="methodname">round</b> ( float val
+[, int precision] )<br>
+<br>
+<div class="phpcode"><code><span class="html">
+<span class="default">&lt;?php<br>
+</span><span class="keyword">echo </span><span
+ class="default">round</span><span class="keyword">(</span><span
+ class="default">3.4</span><span class="keyword">);&nbsp;
+&nbsp; &nbsp; &nbsp; </span><span class="comment">//
+3<br>
+</span><span class="keyword">echo </span><span
+ class="default">round</span><span class="keyword">(</span><span
+ class="default">3.5</span><span class="keyword">);&nbsp;
+&nbsp; &nbsp; &nbsp; </span><span class="comment">//
+4<br>
+</span><span class="keyword">echo </span><span
+ class="default">round</span><span class="keyword">(</span><span
+ class="default">3.6</span><span class="keyword">);&nbsp;
+&nbsp; &nbsp; &nbsp; </span><span class="comment">//
+4<br>
+</span><span class="keyword">echo </span><span
+ class="default">round</span><span class="keyword">(</span><span
+ class="default">3.6</span><span class="keyword">,
+</span><span class="default">0</span><span
+ class="keyword">);&nbsp; &nbsp; &nbsp; </span><span
+ class="comment">// 4<br>
+</span><span class="keyword">echo </span><span
+ class="default">round</span><span class="keyword">(</span><span
+ class="default">1.95583</span><span class="keyword">,
+</span><span class="default">2</span><span
+ class="keyword">);&nbsp; </span><span
+ class="comment">// 1.96<br>
+</span><span class="keyword">echo </span><span
+ class="default">round</span><span class="keyword">(</span><span
+ class="default">1241757</span><span class="keyword">,
+-</span><span class="default">3</span><span
+ class="keyword">); </span><span class="comment">//
+1242000<br>
+</span><span class="keyword">echo </span><span
+ class="default">round</span><span class="keyword">(</span><span
+ class="default">5.045</span><span class="keyword">,
+</span><span class="default">2</span><span
+ class="keyword">);&nbsp; &nbsp; </span><span
+ class="comment">// 5.04<br>
+</span><span class="keyword">echo </span><span
+ class="default">round</span><span class="keyword">(</span><span
+ class="default">5.055</span><span class="keyword">,
+</span><span class="default">2</span><span
+ class="keyword">);&nbsp; &nbsp; </span><span
+ class="comment">// 5.06<br>
+</span><span class="default">?&gt;<br>
+<br>
+</span></span></code><span
+ style="font-weight: bold;">sqrt</span>&nbsp;--&nbsp;Raiz
+quadrada<br>
+float <b class="methodname">sqrt</b> ( float arg )</div>
+<br>
+<pre class="programlisting">&lt;?php<br>// Precis&atilde;o depende de sua diretiva precision<br>echo sqrt(9); // 3<br>echo sqrt(10); // 3.16227766 ...<br>?&gt;</pre>
+<p class="western" style="margin-bottom: 0cm;"><b>For&ccedil;ando
+a Limpeza do Cache</b><br>
+&lt;?php<br>
+// Este &eacute; para
+os servidores de proxy. Diz para baixar, bypassando o proxy<br>
+header ("Cache-Control:
+no-cache, must-revalidate");<br>
+<br>
+</p>
+<p class="western" style="margin-bottom: 0cm;">//
+Este &eacute; para o
+navegador e nem sempre funciona (falta de padr&atilde;o entre eles)<br>
+header ("Pragma:
+no-cache");<br>
+?&gt;</p>
+<p class="western" style="margin-bottom: 0cm;"><b>Redirecionamento
+de P&aacute;ginas</b></p>
+<p class="western" style="margin-bottom: 0cm;">header("location:
+novapagina.php");</p>
+<p class="western"
+ style="margin-bottom: 0cm; font-weight: bold;">Exibir o
+conte&uacute;do de um arquivo</p>
+<p class="western" style="margin-bottom: 0cm;">readfile&nbsp;--&nbsp;L&ecirc;
+e exibe o conte&uacute;do de um arquivo</p>
+<p class="western" style="margin-bottom: 0cm;">readfile('http://www.google.com.br');</p>
+<p class="western" style="margin-bottom: 0cm;">readfile('/home/1www/pagina2.php');</p>
+<p class="western" style="margin-bottom: 0cm;"></p>
+<p class="western" style="margin-bottom: 0cm;"><b>Enviar
+E-mail via PHP</b></p>
+<p class="western" style="margin-bottom: 0cm;">&lt;?php<br>
+$to = "ribamar.sousa@dnocs.gov.br";<br>
+$subject="Apenas testando";<br>
+$message = "Estou testando o envio de e-mail pelo PHP.";<br>
+$email="ribafs@gmail.com";<br>
+$ret=mail($to, $subject, $message, "From: $email\r\nReply-to:
+$email\r\n");<br>
+echo $ret;<br>
+?&gt;<b></b></p>
+<p class="western" style="margin-bottom: 0cm;"><b>Usando
+Favicon em sites</b></p>
+<p class="western" style="margin-bottom: 0cm;">Aquele
+pequeno &iacute;cone
+que fica &agrave; esquerda da URL do site, na caixa Location do
+Browser,<br>
+que inclusive
+personaliza a barra de links quando arrastamos o endere&ccedil;o do
+site.<br>
+Para que nosso site
+apare&ccedil;a para o visitante com um link, devemos seguir os<br>
+seguintes
+procedimentos:</p>
+<p class="western" style="margin-bottom: 0cm;">-
+Criar uma imagem com
+o logo do site, no formato png, jpg, gif, etc com 32x32 pixels<br>
+- Salvar como
+favicon.png ou outra extens&atilde;o<br>
+- Adicionar a TAG
+abaixo, na TAG head, como abaixo:<br>
+&lt;head&gt;<br>
+...<br>
+&lt;link
+href="http://www.seusite.com.br/diretorio/favicon.png"
+type="image/gif" rel="icon"&gt;<br>
+...<br>
+&lt;/head&gt;</p>
+<p class="western" style="margin-bottom: 0cm;">Tamb&eacute;m
+pode ser
+assim:<br>
+rel="shortcut
+icon"</p>
+<p class="western" style="margin-bottom: 0cm;">Este
+&iacute;cone pode
+ser inclusive animado.<br>
+Refer&ecirc;ncia: lista da Dicas-L (http://www.dicas-l.com.br).</p>
+<p class="western" style="margin-bottom: 0cm;"><b>Livros</b><br>
+Desenvolvendo Web Sites
+com PHP<br>
+Editora Novatec<br>
+Juliano Niederauer</p>
+<p class="western" style="margin-bottom: 0cm;">PHP
+para quem conhece
+PHP<br>
+Editora Novatec<br>
+Juliano Niederauer</p>
+<p class="western" style="margin-bottom: 0cm;">PHP
+Guia do
+Desenvolvedor<br>
+Ed. Berkeley<br>
+Sterling Hughes<br>
+(Do grupo de
+desenvolvimento do PHP)</p>
+<p class="western" style="margin-bottom: 0cm;">Desvendando
+aplica&ccedil;&otilde;es
+na Web com PHP 4.0<br>
+Ed. Ci&ecirc;ncia
+Moderna<br>
+Tobias Retschiller e<br>
+Till Gerken</p>
+<p class="western" style="margin-bottom: 0cm;"><b>Links</b></p>
+<p class="western" style="margin-bottom: 0cm;">PHP<br>
+<a href="http://www.zend.com/">http://www.php.net<br>
+http://www.php.net/manual/pt_BR/<br>
+http://www.php.net/downloads.php<br>
+http://www.phpbrasil.com/<br>
+http://www.planet-source-code.com/vb/default.asp?lngWId=8<br>
+http://www.hotscripts.com/PHP/index.html<br>
+http://www.zend.com</a>
+(empresa dos dois membros israelenses da equipe de desenvolvimento<br>
+do PHP, especial
+&ecirc;nfase na se&ccedil;&atilde;o Developer Zone)<br>
+<a href="http://www.devshed.com/">http://www.phpwizard.net<br>
+http://www.phpclasses.org<br>
+http://www.weberdev.com<br>
+http://www.devshed.com</a><br>
+<code><a href="http://www.phpnet.us/">http://www.phpmania.org/<br>
+http://www.phpnet.us/</a>
+- Hospedagem free para PHP e MySQL (300MB)<br>
+<a href="http://ribafs.byethost2.com/">http://www.superphp.com.br<br>
+http://www.scriptbrasil.com/<br>
+http://www.faqts.com/knowledge_base/index.phtml/fid/51/<br>
+http://www.alt-php-faq.org/<br>
+http://ribafs.byethost2.com/</a></code></p>
+<p class="western" style="margin-bottom: 0cm;"><small>CURSOS
+GR&Aacute;TIS</small><br>
+<code><a href="http://cursos.cdtc.org.br/brasil/">http://cursos.cdtc.org.br/brasil/</a>
+- Cursos Gr&aacute;tis para Func.P&uacute;bl.<br>
+<a
+ href="http://www.solocursosgratis.com/cursos_gratis_php-slctema264.htm">http://www.apostilando.com/download.php?cod=171&amp;categoria=PHP<br>
+http://www.aprendaemcasa.com.br/apcasa6.htm<br>
+http://www.solocursosgratis.com/cursos_gratis_php-slctema264.htm</a></code></p>
+<p class="western" style="margin-bottom: 0cm;"><code>CLIPARTS<br>
+<a href="http://www.digitmania.holowww.com/digital.html">http://www.digitmania.holowww.com/digital.html</a>
+&ndash; D&iacute;gitos (cliparts)</code></p>
+<p class="western" style="margin-bottom: 0cm;"><code><a
+ href="http://paginas.terra.com.br/informatica/php_editor/">EDITORES<br>
+http://paginas.terra.com.br/informatica/php_editor/</a></code></p>
+<p class="western" style="margin-bottom: 0cm;"><code><a
+ href="http://www.designmagick.com/category/3/PostgreSQL">POSTGRESQL<br>
+http://www.postgresql.org/docs/current/interactive/<br>
+http://pgdocptbr.sourceforge.net/pg80/index.html<br>
+http://www.designmagick.com/category/3/PostgreSQL</a></code></p>
+<p class="western" style="margin-bottom: 0cm;"><code><a
+ href="http://dev.mysql.com/doc/refman/5.0/en/index.html">MYSQL<br>
+http://dev.mysql.com/doc/refman/4.1/pt/index.html<br>
+http://dev.mysql.com/doc/refman/5.0/en/index.html</a></code></p>
+<p class="western" style="margin-bottom: 0cm;"><code><a
+ href="http://tutorials.findtutorials.com/">SQL<br>
+http://www.firstsql.com/tutor.htm<br>
+http://sqlzoo.net/<br>
+http://www.sql-tutorial.net/SQL-tutorial.asp<br>
+http://www.programmingtutorials.com/sql.aspx<br>
+http://tutorials.findtutorials.com/</a></code><br>
+<a href="http://www.hardened-php.net/home.8.html">http://www.hardened-php.net/home.8.html</a>
+- Hardened PHP Project<br>
+</p>
+<a href="http://www.1phpscripts.com/">http://www.1phpscripts.com/
+</a><br>
+<a href="http://www.weberdev.com/">http://www.weberdev.com/
+</a><br>
+<a href="http://www.goldsofts.com/scriptscategory/10/0/1/0.html">http://www.goldsofts.com/scriptscategory/10/0/1/0.html
+</a><br>
+<br>
+<br>
+<span style="font-weight: bold;">Tutoriais Trabalhando
+com...</span><br>
+<br>
+<a href="ribamar/trabalhando_com/TrabalhandoComForms.txt"><b>Trabalhando</b><b>
+com </b><b>Formul&aacute;rios</b><b>
+em </b><b>PHP</b></a><br>
+<a style="font-weight: bold;"
+ href="ribamar/trabalhando_com/TrabalhandoComArrays.txt"></a><br>
+<a style="font-weight: bold;"
+ href="ribamar/trabalhando_com/TrabalhandoComSGBDs.txt">Trabalhando
+com SGBDs (PostgreSQL)</a><br>
+<br>
+<br>
+<hr style="width: 100%; height: 2px;">
+<div style="text-align: center;">Julho de 2006<br>
+Ribamar FS - <a href="http://ribafs.tk">http://ribafs.tk</a>
+- ribafs[ ]gmail.com<br>
+</div>
+</div>
+</body>
+</html>

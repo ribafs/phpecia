@@ -1,0 +1,15 @@
+https://craftcms.com/
+
+Free para seu site ou de amigo
+
+cd /var/www/html
+composer create-project craftcms/craft ribafs
+
+     Step 1: Download Craft
+    Step 2: Set the File Permissions
+    Step 3: Set a Security Key
+    Step 4: Create a Database
+    Step 5: Set up the Web Server
+    Step 6: Run the Setup Wizard 
+    
+    

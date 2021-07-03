@@ -1,0 +1,14 @@
+PHPCS
+Xdebug
+Whoops e sismilares
+https://github.com/filp/whoops http://filp.github.io/whoops/
+http://phperror.net/
+https://github.com/JosephLenton/PHP-Error
+https://github.com/thephpleague/booboo
+https://github.com/kuria/error
+
+PHP CodeSniffer, 
+PHPLint, 
+PHPStan, 
+Scrutinizer
+

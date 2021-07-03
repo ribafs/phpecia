@@ -1,0 +1,57 @@
+# Função para debugar código PHP
+
+Debugar, corrigir error é uma tarefa muito importante para programadores. Então se cada um procurar se carcar de boas ferramentas de trabalho poderá reduzir o tempo da caça ao bug.
+
+Debuga variáveis, arrays e objetos, tanto em código procedural quanto em OO
+
+Já tentou debugar uma variável PHP que está dentro de uma tabela HTML? Bem, não dá certo da mesma forma que fora.
+
+Uma vantagem desta pequena função é que ela debuga inclusive dentro de tabelas HTML. Basta passar o parâmetro $t = 1. Veja abaixo exmeplos.
+
+```php
+<?php
+function d( $params = [], $die = true)
+{
+    print '<style>.pre_red{font-size: 14px;color:red;}.pre_black{font-size: 14px;}</style>';
+    print '<h3>Resultado do Debug</h3>';
+
+    if(!empty($params)){
+        echo '<b><pre class="pre_red">';
+        print_r($params);
+        echo '</pre></b>';
+    }
+    if ($die) die();
+}
+```php
+
+## Exemplo:
+
+Crie o arquivo
+
+teste.php 
+
+contendo:
+```php
+<table><tr><td>
+<?php $ar = array(0 => 'a', 1 =>'b');
+?></td></tr></table>
+
+<?php
+require_once 'd.php';
+
+d($ar);
+```
+## Adicionar ao include_path do PHP
+
+Assim esta função ficará disponível em qualquer aplicativo.
+
+Aqui salvei como "d.php" no include_path, que no meu caso é em /usr/share/php.
+
+Podemos adicionar ao include_path outro diretório assim, adicionei ':/usr/share/php':include_path = ".:/php/includes:/usr/share/php"
+
+Isso acima é feito no php.ini.
+
+Mini Framework MVC com PHP #01 - Criando a estrutura do projeto - https://www.youtube.com/watch?v=A1rVfAZ4hk8
+
+Eu criei a função d() tendo como referência a função dd() do Bruno Correia citada no vídeo acima.
+

@@ -1,0 +1,21 @@
+Cookies e Sessions
+
+Cookies:
+- Armazenados no computador do cliente
+- Lentos, pois precisam sair do computador do cliente para o servidor
+- Tamanho limitado
+- Pode ser visualizado e modificado pelo cliente, o que acarreta problema de segurança
+- Não está disponível enquanto a página nãor ecarrega
+
+Session:
+- Armezenado no servidor
+- Rápido, pois já está no servidor
+- O tamanhod e um session depende da configuração do php
+- São mais seguros que cookies
+- Disponível imediatamente no código sem precisar de reload
+
+Quando trabalhando com dados sigilosos, como senha e númerod e cartão de crédito, cpf, etc devemos usar session. Com outros tipos de dados podemos usar cookies.
+
+Sessões em PHP são, por padrão, armazenadas no /tmp e isso pode ser um grande problema em servidores compartilhados, visto que neste diretório qualquer usuário tem permissão de leitura e escrita.
+
+É recomendado que regularmente regeremos o ID da sessão.

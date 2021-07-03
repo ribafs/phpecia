@@ -1,0 +1,283 @@
+
+<?php
+// error handler function
+function myErrorHandler($errno, $errstr, $errfile, $errline)
+{
+    switch ($errno) {
+    case E_USER_ERROR:
+        echo "<b>My ERROR</b> [$errno] $errstr<br />\n";
+        echo "  Fatal error on line $errline in file $errfile";
+        echo ", PHP " . PHP_VERSION . " (" . PHP_OS . ")<br />\n";
+        echo "Aborting...<br />\n";
+        exit(1);
+        break;
+
+    case E_USER_WARNING:
+        echo "<b>My WARNING</b> [$errno] $errstr<br />\n";
+        break;
+
+    case E_USER_NOTICE:
+        echo "<b>My NOTICE</b> [$errno] $errstr<br />\n";
+        break;
+
+    default:
+        echo "Unknown error type: [$errno] $errstr<br />\n";
+        break;
+    }
+
+    /* Don't execute PHP internal error handler */
+    return true;
+}
+
+// function to test the error handling
+function scale_by_log($vect, $scale)
+{
+    if (!is_numeric($scale) || $scale <= 0) {
+        trigger_error("log(x) for x <= 0 is undefined, you used: scale = $scale", E_USER_ERROR);
+    }
+
+    if (!is_array($vect)) {
+        trigger_error("Incorrect input vector, array of values expected", E_USER_WARNING);
+        return null;
+    }
+
+    $temp = array();
+    foreach($vect as $pos => $value) {
+        if (!is_numeric($value)) {
+            trigger_error("Value at position $pos is not a number, using 0 (zero)", E_USER_NOTICE);
+            $value = 0;
+        }
+        $temp[$pos] = log($scale) * $value;
+    }
+
+    return $temp;
+}
+
+// set to the user defined error handler
+$old_error_handler = set_error_handler("myErrorHandler");
+
+// trigger some errors, first define a mixed array with a non-numeric item
+echo "vector a\n";
+$a = array(2, 3, "foo", 5.5, 43.3, 21.11);
+print_r($a);
+
+// now generate second array
+echo "----\nvector b - a notice (b = log(PI) * a)\n";
+/* Value at position $pos is not a number, using 0 (zero) */
+$b = scale_by_log($a, M_PI);
+print_r($b);
+
+// this is trouble, we pass a string instead of an array
+echo "----\nvector c - a warning\n";
+/* Incorrect input vector, array of values expected */
+$c = scale_by_log("not array", 2.3);
+var_dump($c); // NULL
+
+// this is a critical error, log of zero or negative number is undefined
+echo "----\nvector d - fatal error\n";
+/* log(x) for x <= 0 is undefined, you used: scale = $scale" */
+$d = scale_by_log($a, -2.5);
+var_dump($d); // Never reached
+?>
+
+
+
+
+
+Actually you can handle parse and fatal errors. It is true that the error handler function you defined with set_error_handler() will not be called. The way to do it is by defining a shutdown function with register_shutdown_function(). Here is what I have working in my website:
+
+File prepend.php (this file will be prepended to all php scripts automatically). See below for tips on prepending files to PHP.
+
+set_error_handler("errorHandler");
+register_shutdown_function("shutdownHandler");
+
+function errorHandler($error_level, $error_message, $error_file, $error_line, $error_context)
+{
+$error = "lvl: " . $error_level . " | msg:" . $error_message . " | file:" . $error_file . " | ln:" . $error_line;
+switch ($error_level) {
+    case E_ERROR:
+    case E_CORE_ERROR:
+    case E_COMPILE_ERROR:
+    case E_PARSE:
+        mylog($error, "fatal");
+        break;
+    case E_USER_ERROR:
+    case E_RECOVERABLE_ERROR:
+        mylog($error, "error");
+        break;
+    case E_WARNING:
+    case E_CORE_WARNING:
+    case E_COMPILE_WARNING:
+    case E_USER_WARNING:
+        mylog($error, "warn");
+        break;
+    case E_NOTICE:
+    case E_USER_NOTICE:
+        mylog($error, "info");
+        break;
+    case E_STRICT:
+        mylog($error, "debug");
+        break;
+    default:
+        mylog($error, "warn");
+}
+}
+
+function shutdownHandler() //will be called when php script ends.
+{
+$lasterror = error_get_last();
+switch ($lasterror['type'])
+{
+    case E_ERROR:
+    case E_CORE_ERROR:
+    case E_COMPILE_ERROR:
+    case E_USER_ERROR:
+    case E_RECOVERABLE_ERROR:
+    case E_CORE_WARNING:
+    case E_COMPILE_WARNING:
+    case E_PARSE:
+        $error = "[SHUTDOWN] lvl:" . $lasterror['type'] . " | msg:" . $lasterror['message'] . " | file:" . $lasterror['file'] . " | ln:" . $lasterror['line'];
+        mylog($error, "fatal");
+}
+}
+
+function mylog($error, $errlvl)
+{
+...do whatever you want...
+}
+
+PHP will call function errorHandler() if he catches an error in any of the scripts. If the error forces the script to shutdown immediately, the error is handled by function shutdownHandler().
+
+This is working on the site I have under development. I haven't yet tested it in production. But it is currently catching all errors I find while developing it.
+
+I believe there is a risk of catching the same error twice, once by each function. This could happen if an error that I am handling in the function shutdownHandler() was also caught by function errorHandler().
+
+TODO's:
+
+1 - I need to work on a better log() function to handle errors gracefully. Because I am still in development, I am basically logging the error to a database and echoing it to the screen.
+
+2 - Implement error handling for all MySQL calls.
+
+3 - Implement error handling for my javascript code.
+
+IMPORTANT NOTES:
+
+1 - I am using the following line in my php.ini to automatically prepend the above script to all php scripts:
+
+auto_prepend_file = "/homepages/45/d301354504/htdocs/hmsee/cgi-bin/errorhandling.php"
+
+it works well.
+
+2 - I am logging and resolving all errors, including E_STRICT errors. I believe in developing a clean code. During development, my php.ini file has the following lines:
+
+track_errors = 1
+display_errors = 1
+error_reporting = 2147483647
+html_errors = 0
+
+When I go live, I will change display_errors to 0 to reduce the risk of my users seeing ugly PHP error messages.
+
+I hope this helps someone.
+
+
+
+
+You can track these errors using code like this:
+
+(Parse errors can only be caught if they occur in other script files via include() or require(), or by putting this code into an auto_prepend_file as other answers have mentioned.)
+
+function shutdown() {
+    $isError = false;
+
+    if ($error = error_get_last()){
+    switch($error['type']){
+        case E_ERROR:
+        case E_CORE_ERROR:
+        case E_COMPILE_ERROR:
+        case E_USER_ERROR:
+            $isError = true;
+            break;
+        }
+    }
+
+    if ($isError){
+        var_dump ($error);//do whatever you need with it
+    }
+}
+
+register_shutdown_function('shutdown');
+
+
+
+21
+
+I won't detract from the advise regarding Krzysztof's blog, but here is a dead-easy way to create custom exceptions.
+
+Example:
+
+<?php
+   require_once "CustomException.php";
+   class SqlProxyException extends CustomException {}
+
+   throw new SqlProxyException($errorMsg, mysql_errno());     
+?>
+
+The code behind that (which I borrowed somewhere, apologies to whomever that was)
+
+<?php
+
+interface IException
+{
+    /* Protected methods inherited from Exception class */
+    public function getMessage();                 // Exception message
+    public function getCode();                    // User-defined Exception code
+    public function getFile();                    // Source filename
+    public function getLine();                    // Source line
+    public function getTrace();                   // An array of the backtrace()
+    public function getTraceAsString();           // Formated string of trace
+
+    /* Overrideable methods inherited from Exception class */
+    public function __toString();                 // formated string for display
+    public function __construct($message = null, $code = 0);
+}
+
+abstract class CustomException extends Exception implements IException
+{
+    protected $message = 'Unknown exception';     // Exception message
+    private   $string;                            // Unknown
+    protected $code    = 0;                       // User-defined exception code
+    protected $file;                              // Source filename of exception
+    protected $line;                              // Source line of exception
+    private   $trace;                             // Unknown
+
+    public function __construct($message = null, $code = 0)
+    {
+        if (!$message) {
+            throw new $this('Unknown '. get_class($this));
+        }
+        parent::__construct($message, $code);
+    }
+
+    public function __toString()
+    {
+        return get_class($this) . " '{$this->message}' in {$this->file}({$this->line})\n"
+                                . "{$this->getTraceAsString()}";
+    }
+}
+
+Share
+Follow
+answered Jul 23 '13 at 10:07
+Orwellophile
+11.1k33 gold badges5959 silver badges3838 bronze badges
+
+    1
+    +1 for being the first place that I found that actually told me how to define a PHP exception and how to throw it – Brian Underwood Dec 17 '15 at 3:34
+    My big question here is how the hell did you override FINAL public function getCode()? – Alex Barker May 12 '16 at 20:53
+    Good god man, that code was originally written 7 years ago (I just found who wrote it). It's still the second-from-top comment on php.net's exception man-page. I was running php 5.3 when I copied it, and I'm running php 5.4 now. What may or may not be a final method in php 8 (future-proofing my comment there) is of no concern to me :) php.net/manual/en/language.exceptions.php#91159 – Orwellophile Jun 8 '16 at 9:22
+    3
+    To whomever is down-voting this answer, please do not do so with explanation. I just checked it against PHP 7.0.6, and PHP 5.4,43 without issue. – Orwellophile Jun 8 '16 at 10:00
+
+
+
+

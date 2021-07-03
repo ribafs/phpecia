@@ -1,0 +1,87 @@
+Estendendo exceções ¶
+
+Uma classe de exceção definida pelo usuário pode ser criada herdando a classe Exception. Os membros e propriedades abaixo mostram o que é acessível a partir da classe filha que deriva da Exception.
+
+Exemplo #1 A classe nativa Exception
+<?php
+class Exception extends Throwable
+{
+    protected $message = 'Unknown exception';   // Mensagem da exceção
+    private   $string;                          // Cache __toString 
+    protected $code = 0;                        // Código definido pelo usuário
+    protected $file;                            // Nome do arquivo onde a exceção originou
+    protected $line;                            // Número da linha onde a exceção originou
+    private   $trace;                           // Backtrace
+    private   $previous;                        // Exceção anterior (se exceção empilhada)
+
+    public function __construct($message = null, $code = 0, Exception $previous = null);
+
+    final private function __clone();           // Inibe a clonagem de exceções
+
+    final public  function getMessage();        // Mensagem da exceção
+    final public  function getCode();           // Código definido pelo usuário
+    final public  function getFile();           // Nome do arquivo onde a exceção originou
+    final public  function getLine();           // Número da linha onde a exceção originou
+    final public  function getTrace();          // Um array do backtrace()
+    final public  function getPrevious();       // Exceção anterior
+    final public  function getTraceAsString();  // Backtrace formatado como string
+
+    // Pode ser sobrescrito
+    public function __toString();               // String formatada da exceção
+}
+?>
+
+
+// Exemplo 1
+try {
+    $o = new TestException(TestException::THROW_CUSTOM);
+} catch (MyException $e) {      // Entrará aqui ...
+    echo "Pegou MyException\n", $e;
+    $e->customFunction();
+} catch (Exception $e) {        // ... mas não aqui.
+    echo "Pegou Exception padrão\n", $e;
+}
+
+// Execução continua
+var_dump($o); // Null
+echo "\n\n";
+
+
+// Examplo 2
+try {
+    $o = new TestException(TestException::THROW_DEFAULT);
+} catch (MyException $e) {      // Não entrará aqui ...
+    echo "Pegou MyException\n", $e;
+    $e->customFunction();
+} catch (Exception $e) {        // ... porque entrará aqui.
+    echo "Pegou Exception padrão\n", $e;
+}
+
+// Execução continua
+var_dump($o); // Null
+echo "\n\n";
+
+
+// Examplo 3
+try {
+    $o = new TestException(TestException::THROW_CUSTOM);
+} catch (Exception $e) {        // Entrará aqui
+    echo "Pegou exceção padrão\n", $e;
+}
+
+// Execução continua
+var_dump($o); // Null
+echo "\n\n";
+
+
+// Examplo 4
+try {
+    $o = new TestException();
+} catch (Exception $e) {        // Não entrará, sem exceção
+    echo "Pegou Exception padrão\n", $e;
+}
+
+// Execução continua
+var_dump($o); // TestException
+echo "\n\n";
+?>

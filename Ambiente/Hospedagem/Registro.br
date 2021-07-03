@@ -1,0 +1,16 @@
+Cadastrando o domínio ribamar.net.br no Github
+
+Nova entrada
+
+blog    .ribamar.net.br     CNAME   ribafs.github.io
+
+www     .ribamar.net.br	    CNAME	ribafs.github.io
+
+blog.ribamar.net.br	CNAME	ribafs.github.io
+www.ribamar.net.br	CNAME	ribafs.github.io
+
+
+ribamar.net.brribamar.net.br	A	185.199.108.153
+ribamar.net.brribamar.net.br	A	185.199.109.153
+ribamar.net.brribamar.net.br	A	185.199.110.153
+ribamar.net.brribamar.net.br	A	185.199.111.153

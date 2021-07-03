@@ -1,0 +1,54 @@
+shutdown -t 1800 -s -f -c "O SEU PC SERÁ DESLIGADO DAQUI A 30 MINUTOS. SALVE SEUS TRABALHOS"
+
+Onde:
+
+-t = Define o tempo limite para desligamento eme segundos no exemplo 3600s=1h
+
+-s = Desliga o computador
+
+-f = Força o encerramento da execução de aplicativos que estejam abertos.
+
+-c = "COMENTÁRIOs ENTRE ASPAS" Comentário sobre desligamento (máximo de 127 caracteres).
+
+OBS: Para cancelar o desligamento, digite no prompt: shutdown -a
+
+-a = Anula o desligamento do sitema.
+
+Se voce tiver um servidor com AD, poderar fazer o desligamento das estações atraves do servidor do seguinte escript.
+
+shutdown -t 1800 -s -f -c "O SEU PC SERÁ DESLIGADO DAQUI A 30min. SALVE SEUS TRABALHOS" -m \\nome do computador ou ip
+
+-m = Endereço de rede do computador a ser desligado. 
+
+O aplicativo shutdown.exe esta localizado na system32, não precisa apontar o caminho para ele rodar.
+
+Segue um link que vai dar uma ajuda se voce tiver dúvidas.
+
+http://infor-help.forumeiros.com/t11-desligando-o-computador-com-o-shutdownbat-criar-um-ficheiro-para-desligar-ou-agendar-encerramentos-do-windows
+
+
+Criando um temporizador de desligamento usando o Prompt de Comando
+
+Existem duas maneiras de programar o temporizador, e usando a telinha preta do sistema é uma delas. Primeiramente, abra o Prompt de Comando e insira o comando shutdown -s -t XXXX. O “XXXX” é o tempo em segundos que o processo vai esperar antes de executar o comando de desligamento. Por exemplo, se você quer que o seu computador desligue daqui uma hora, você vai inserir o comando dessa forma: shutdown -s -t 3600.
+
+Para cancelar o cronômetro, abra a janela "Executar" ou "Prompt de Comando" novamente e escreva: "shutdown -a".
+Criando um atalho na área de trabalho
+
+Essa outra forma é útil se você precisar usar o temporizador de desligamento várias vezes. Aqui vamos usar uma pouquinho a mais de tempo para configurar, transformando-o em um atalho.
+
+Criando um temporizador de desligamento usando o Prompt de Comando
+
+Existem duas maneiras de programar o temporizador, e usando a telinha preta do sistema é uma delas. Primeiramente, abra o Prompt de Comando e insira o comando shutdown -s -t XXXX. O “XXXX” é o tempo em segundos que o processo vai esperar antes de executar o comando de desligamento. Por exemplo, se você quer que o seu computador desligue daqui uma hora, você vai inserir o comando dessa forma: shutdown -s -t 3600.
+
+Para cancelar o cronômetro, abra a janela "Executar" ou "Prompt de Comando" novamente e escreva: "shutdown -a".
+Criando um atalho na área de trabalho
+
+Essa outra forma é útil se você precisar usar o temporizador de desligamento várias vezes. Aqui vamos usar uma pouquinho a mais de tempo para configurar, transformando-o em um atalho.
+
+    Clique com o botão direito do mouse na área de trabalho, repouse o mouse sobre "Novo" e selecione "Atalho" no menu lateral.
+    No campo de caminho, digite "shutdown -s -t XXXX" e clique em "Avançar".
+    Escolha um nome para o atalho (exemplo, "Desligar em 1 hora") e clique em Concluir.
+
+Sempre que você clicar duas vezes no atalho, o temporizador será executado. Para cancelar o timer, você pode criar um segundo atalho usando "shutdown -a" ou digitando o comando "shutdown -a" no prompt de comando.
+
+Se você quiser alterar o valor do temporizador, clique com o botão direito do mouse no ícone de atalho, selecione Propriedades e altere o valor de segundos no campo Destino.

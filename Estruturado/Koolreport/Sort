@@ -1,0 +1,51 @@
+Sort
+
+    Introduction
+    Examples
+        Simple sorting
+        Advanced sorting with function
+
+Introduction #
+
+Sort process helps you to sort data based on columns. It works like the SORT BY in SQL Statement. The input array contains key=>value where key will be column name and the value is the direction of sort.
+
+Examples #
+
+Simple sorting #
+
+<?php
+use \koolreport\processes\Sort;
+class MyReport extends \koolreport\KoolReport
+{
+    public function setup()
+    {
+        ...
+        ->pipe(new Sort(array(
+            "age"=>"asc",
+            "name"=>"desc"
+        ));
+        ...
+    }
+}
+
+Advanced sorting with function #
+
+If you need sort differently rather than simple desc or asc, you can set your own comparison function.
+
+<?php
+use \koolreport\processes\Sort;
+class MyReport extends \koolreport\KoolReport
+{
+    public function setup()
+    {
+        ...
+        ->pipe(new Sort(array(
+            "age"=>function($a,$b){
+                return $a<$b;
+            },
+        ));
+        ...
+    }
+}
+
+

@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+   <head>
+       <meta charset="utf-8"/>
+       <title>Formulário de Demonstração HTML5</title>
+   </head>
+<body>
+
+ <h1 align="center">Formulário de Demonstração HTML5</h1>	
+
+<form method="POST" action="cadastro.php">
+<table>
+<!-- Para inputs tipo text existe autocomplete="off"> – "on" por padrão, como medida de segurança. -->
+<tr><td>Nome</td><td><input type="text" name="nome" autocomplete="on" size="30" maxlength="50" placeholder="Digite o nome" required></td></tr>
+<tr><td>E-mail</td><td><input type="email" name="email" size="30" maxlength="30"></td></tr>
+<tr><td>Data</td><td><input type="date" required min="1938-01-01" max="2022-12-31"></td></tr>
+<tr><td>Data e Hora</td><td><input type="datetime-local" placeholder="yyyy-mm-ddT19:30" min="2018-06-07T00:00" max="2022-06-14T00:00"></td></tr>
+<tr><td>Mês</td><td><input type="month" placeholder="yyyy-mm"></td></tr>
+<tr><td>Semana</td><td><input type="week" min="2018-W27" max="2018-W35" required placeholder="yyyy-Wxx"></td></tr>
+<tr><td>Hora</td><td><input type="time" placeholder="hh:mm"></td></tr>
+<tr><td>URL</td><td><input type="url" placeholder="http://xxxx.yy"></td></tr>
+<tr><td>Cores</td><td><input type="color"></td></tr>
+<tr><td>Telefone</td><td><input type="tel" pattern="^\d{2}-\d{4}-\d{4}$" placeholder="xx-xxxx-xxxx"></td></tr>
+<tr><td>Celular</td><td><input type="tel" pattern="^\d{2}-\d{5}-\d{4}$" placeholder="xx-xxxxx-xxxx"></td></tr>
+<tr><td>Faixa</td><td><input type="range"></td></tr>
+<tr><td>Número</td><td><input type="number" min="10" max="15" title="min-10 max-15"></td></tr>
+<tr><td>SVG</td><td>
+<svg width="400" height="100">
+  <rect width="400" height="100" style="fill:rgb(0,0,255);stroke-width:10;stroke:rgb(0,0,0)" />
+  Seu navegador não suporta SVG tinline.
+</svg>
+</td></tr>
+<tr><td>Canvas</td><td>
+<canvas id="myCanvas" width="200" height="100" style="border:1px solid #d3d3d3;">
+Your browser does not support the HTML5 canvas tag.</canvas>
+</td></tr><!-- /outros exemplos: https://www.w3schools.com/html/html5_canvas.asp -->
+<script>
+var c = document.getElementById("myCanvas");
+var ctx = c.getContext("2d");
+
+// Create gradient
+var grd = ctx.createRadialGradient(75,50,5,90,60,100);
+grd.addColorStop(0,"red");
+grd.addColorStop(1,"white");
+
+// Fill with gradient
+ctx.fillStyle = grd;
+ctx.fillRect(10,10,150,80);
+</script>
+<tr><td>Áudio</td><td>
+ <audio controls>
+  <source src="horse.ogg" type="audio/ogg">
+  <source src="alarm.mp3" type="audio/mpeg">
+  Seu navegador não suporta a tag audio
+</audio> <!-- https://www.w3schools.com/tags/tag_audio.asp -->
+</td></tr>
+<tr><td>Vovó no Youtube</td><td>
+<a href="https://www.youtube.com/watch?v=szYR9Td7oMQ">Vovó</a>
+</td></tr>
+
+<tr><td>Vídeo</td><td>
+ <video width="620" height="440" controls>
+  <source src="video.mp4" type="video/mp4">
+  <source src="movie.ogg" type="video/ogg">
+  Seu navegador não suporta a tag video
+</video> <!-- https://www.w3schools.com/tags/tag_video.asp -->
+</td></tr>
+<tr><td></td><td><input type="submit" name="enviar" value="Enviar"></td></tr>
+</table>
+</form>
+
+
+<style>
+:invalid {
+  border: 2px solid #ff0000;
+}
+</style>
+

@@ -1,0 +1,7 @@
+$hoje = date('d/m/Y');
+echo $hoje;
+
+$agora = date('d/m/Y H:i');
+echo $agora;
+
+

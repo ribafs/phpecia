@@ -1,0 +1,52 @@
+Programa do PHP Estruturado
+
+Introdução
+História
+Ambiente de programação
+    - Xampp
+    - LAMP e LEMP
+VSCode/Notepad++
+
+Tags
+Final de instruções/linhas
+Comentários
+Variáveis e nomes
+Escopo de variáveis
+Operadores 
+    ▪ Operadores aritméticos 
+    ▪ Operadores binários 
+    ▪ Operadores de comparação 
+    ▪ Operadores de atribuição 
+    ▪ Operadores de string 
+    ▪ Operadores lógicos 
+    ▪ Operadores de incremento e decremento 
+    ▪ Procedência de operadores 
+Expressões
+Tipos de dados
+Estruturas de controle:
+- if/else
+- if/elseif/else
+- switch
+- for
+- while
+- do while
+- foreach
+Arrays
+Session
+Cookies
+Funções:
+- simples
+- parâmetros
+- retorno
+- Métodos mágicos
+- Output buffer
+- Funções nativas
+    - strings
+    - arrays - uni e multidimensionais
+    - matemáticas
+    - arquivos e diretórios
+    - permissões
+    - objetos
+- Trabalhando com a GD
+- Lidando com Erros
+

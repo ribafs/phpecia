@@ -1,0 +1,71 @@
+<html>
+  <head>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.10.15/css/jquery.dataTables.min.css">
+    <link rel="stylesheet" href="style.css">
+  </head>
+  <body>
+    <div class="container">
+      <div class="row">
+        <h2 class="text-center">
+          Realtime Data Table
+        </h2>
+        <div class="col-md-7">
+          <button class="btn btn-danger" id="remove">
+            <i class="glyphicon glyphicon-remove"></i>
+          </button>
+          <table id="realtime" class="display" width="100%"></table>
+        </div>
+        <div class="col-md-4 col-md-offset-1">
+          <h3 class="text-center">Create New Employee</h3>
+          <div class="form-group">
+            <label for="name">Name</label>
+            <input type="text" name="name" id="name" placeholder="Name" class="form-control">
+          </div>
+          <div class="form-group">
+            <label for="position">Position</label>
+            <select name="position" id="position" class="form-control">
+              <option value="">--Select Position--</option>
+              <option value="Frontend Developer">Frontend Developer</option>
+              <option value="UI/UX Engineer">UI/UX Engineer</option>
+              <option value="iOS Engineer">iOS Engineer</option>
+              <option value="Android Developer">Android Developer</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label for="office">Office</label>
+            <select name="office" id="office" class="form-control">
+              <option value="">--Select Office--</option>
+              <option value="Lagos">Lagos</option>
+              <option value="London">London</option>
+              <option value="New York">New York</option>
+              <option value="Berlin">Berlin</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label for="extn">Extn</label>
+            <input type="number" name="extn" id="extn" placeholder="Extn" class="form-control">
+          </div>
+          <div class="form-group">
+            <label for="startDate">Start Date</label>
+            <input type="date" name="startDate" id="startDate" placeholder="Start Date" class="form-control">
+          </div>
+          <div class="form-group">
+            <label for="salary">Salary</label>
+            <input type="number" name="salary" id="salary" placeholder="Salary" class="form-control">
+          </div>
+          <div class="form-group">
+            <button class="btn btn-info" id="add">Add</button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.16.2/axios.js"></script>
+    <script src="https://js.pusher.com/4.1/pusher.min.js"></script>
+    <script src="https://cdn.datatables.net/1.10.15/js/jquery.dataTables.min.js"></script>
+    <script src="https://cdn.datatables.net/plug-ins/1.10.15/api/row().show().js"></script>
+    <script src="data.js"></script>
+    <script src="script.js"></script>
+  </body>
+</html>

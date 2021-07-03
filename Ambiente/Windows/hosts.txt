@@ -1,0 +1,9 @@
+O hosts no windows fica em:
+
+C:\Windows\System32\drivers\etc\hosts
+
+Adicionar um virtualhost para acessar outra máquina da rede com apenas http://ribamar
+
+192.168.100.5 ribamar
+
+

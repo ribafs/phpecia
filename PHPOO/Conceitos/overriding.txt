@@ -1,0 +1,44 @@
+PHP5 Herança – Method Overriding
+
+Definição de Method Overriding:
+É quando a função da classe base é redefinida com o mesmo nome, assinatura e especificador de acesso (public ou protected) da classe derivada.
+
+A razão de fazer isso é para prover funcionalidades adicionais  sobre as definidas na classe base.
+
+Exemplo prático: você tem uma classe com nome Bird da qual derivam duas outras classes: Eagle e Swift. A classe Bird tem definidos os métodos defined para eat, fly, etc, mas cada uma desstas classes será especializada para Eagle e Swift e deve ter seu próprio estilo de voar que você precisa override as funcionalidades de voar.
+
+Veja Bird:
+
+class Bird {
+	public function fly() {
+		echo "Fly method of Bird Class called";
+	}
+}
+ 
+class Eagle extends Bird {
+	public function fly() {
+		echo "Fly method of the Eagle Class called";
+	}
+}
+ 
+class Swift extends Bird {
+	public function fly() {
+		echo "Fly method of the Swift Class called";
+	}
+}
+ 
+$e = new Eagle();
+$s = new Swift();
+ 
+$e->fly();
+echo "\n";
+$s->fly();
+
+Output:
+Fly method of the Eagle Class called
+Fly method of the Swift Class called
+
+No exemplo acima criamos dois objetos das classes Eagle e Swift. Cada uma destas classes overridden the method fly() e proverá sua própria implementação do método fly() que deve ser extendido da classe Bird. A forma como ela extenderá o método fly() da classe Bird não é chamado da mesma forma em ambas as classes que provem uma nova funcionalidade para o método fly().
+
+http://www.sunilb.com/category/php/php5-oops-tutorials
+

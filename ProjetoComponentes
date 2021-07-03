@@ -1,0 +1,8 @@
+Criar projeto em PHP
+
+Orientado a objetos e usar alguns componentes instalados com o composer:
+
+- whoops
+- migrations
+- phpmailer
+- ...

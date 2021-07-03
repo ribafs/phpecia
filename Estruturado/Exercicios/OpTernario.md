@@ -1,0 +1,10 @@
+# Operador Ternário
+
+```php
+// Ternary operator expression
+$y = ($x == 1) ? 1 : 2;
+
+// Ternary operator statement
+($x == 1) ? $y = 1 : $y = 2;
+
+```

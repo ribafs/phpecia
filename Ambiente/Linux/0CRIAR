@@ -1,0 +1,36 @@
+Criar vários scripts:
+
+- criaruser
+- criarbd com respectivo user
+
+ 
+Aliases úteis
+- maiores
+- apres
+- aprel
+- aptes
+- mres
+- mrel
+- ai
+
+Comandos úteis
+- Compactar e descompactar com zip e tar.gz
+- ssh e scp
+
+Gerenciamento de serviços
+
+Apache
+
+sudo service apache2 reload
+sudo service apache2 restart
+sudo service apache2 stop
+sudo service apache2 start
+sudo service apache2 status
+sudo apachectl configtest
+
+Desabilitar
+sudo systemctl disable apache2
+
+Habilitar
+sudo systemctl enable apache2
+

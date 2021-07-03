@@ -1,0 +1,28 @@
+Lucas Marques Dutra
+
+Marcus Brasizza em algum momento ele nao vai mais manter o codigo. Não existe mantimento de codigo eternamente.
+O framework dele não é opensource e usado por mais gente além dele.
+É bem improvavel que sozinho ele tenha implementado varios design patterns e ter ciclo de evolução tanto da aplicação quanto do framework em si. Improvavel também que seja um framework tão seguro e estavel quanto os ja existentes e mais usados.
+Mas esses que citei são apenas alguns dos problemas.
+Não tem vantagem em usar FW proprio em produção pra clientes.
+
+Lucas Marques Dutra
+Marcus Brasizza eu sei mano. Eu conheço o trabalho do Pablo e da divulgação que houve na época do PHP-GTK, muito se deve a ele. Eu li os livros dele (e ainda tenho o do php-gtk).
+Mas não vejo os softwares que ele fez hoje com relevância, pra não dizer que a relevancia é praticamente zero hoje.
+E quanto ao que vc disse, Gabriel Domingos, discordo com veemencia, minha opinião pessoal.
+Veja, hoje em dia tem Laminas, Laravel, Symfony, Lumen, Slim... Não tem o porquê vc reinventar a roda (no caso de um framework é bem "tentar" reinventar né). Vc nunca vai ter tempo de ficar implementando novas features no framework, documentar, cobrir por testes unitários, cobrir por testes de integração, passar scanners de vulnerabilidades, ser compliant com as PSRs... Não adianta, ninguém é um exercito de um homem só. E um dia alguém vai ter que dar manutenção no projeto do cliente que vc implementou o tal framework-proprio, essa pessoa não vai saber utiliza-lo, ou vai achar ruim ou vai preferir o que todos usam, é mais conveniente, se ela precisar de um pacote, ela dá composer install, se ela precisar de ajuda, existe comunidade, se ela precisar olhar documentação, ela tem. Vai ser diferente do seu FW proprio. Provavelmente o que essa pessoa vai fazer quanto pegar seu projeto proprio é jogar tudo fora e ser refeito do zero com soluções já existentes, que são usadas por muitos, cobertas por testes, compliants com recomendações/standards, com pessoas atualizando, tirando coisas depreciadas e tudo mais. Eu não caio nesse papo de que framework próprio é melhor, não tem como ser. Não tem argumento que fundamente, é só esse mesmo papo de "ah se meu codigo for bom ele vai durar mto tempo", não tem isso. Pode ser bom PRA VC e ruim pra comunidade, saca? Pode ser otimo do teu ponto de vista e horrível pra performance, as vezes cheio de god-class e cheio de violação de SOLID. Não to dizendo que é o caso do dele, mas que é muito provável que não tenha metade das coisas que citei.
+Frameworks open source sofrem centenas e as vezes milhares de contribuições. Fazer framework é papo-sério. Eu sei o quanto é legal projetar fws, eu gosto, já fiz isso varias vezes ao longo dos anos como desenvolvedor. Não existe argumento sólido que justifique. Eu vejo como irresponsabilidade técnica no futuro.
+
+"você nunca vai desenvolver produtos high end"
+isso é mentira.
+Produtos "high end" usam soluções existentes.
+Faturar alto ou baixo independe disto. Geralmente quem fatura alto conhece mais tecnologias, e não só a linguagem! 😉
+Esse outro papo de "tem tudo lá inclusive o que não precisa" é discurso falso também, pois PHP trabalha com namespaces e autoload de classes.
+Vc sempre vai precisar do "core" da coisa, o resto ESTÁ DISPONÍVEL para você usar, sem causar débito técnico.
+Não é porquê tem um monte de facades por exemplo, que vai ser carregado sozinho o que vc não precisa. Essas frase/discurso dá a ideia de que "o framework tem muita coisa que vc não vai usar, logo isso vai afetar na performance ou whatever" e isso é mentira. O máximo é ocupar alguns megabytes de espaço no HD, o que é irrelevante. Se o PHP não tá explicitamente chamando, não carregar, então não tem débito técnico.
+No caso do symfony e do laravel, isso é bem explicito e tu pode tirar o que não quiser e adicionar o que quiser, sem ter praticamente nenhum impacto. Ficar reinventando a roda é tiro no pé 100% das vezes a menos que você esteja criando algo completamente inovador ou específico pro seu cenário que não tenha nenhuma tecnologia ou pacote que atenda.
+Eu entendo a questão de inventar FWs por hobby ou diversão, mas discordo que seja bom de algum jeito isso ir pra produção pra um cliente. Na minha opinião é algo bem anti-profissional, inclusive, pelos vários motivos que já citei.
+
+Lucas Marques Dutra Boa. Grato por compartilhar. O próprio Rasmus detesta os frameworks, mas me parece que sua opinião não se sustenta, pois os frameworks fazem muito e não somente pelos iniciantes. Sem cotnar que contam com uma equipe de especialistas em várias áreas, que corrigem problemas com agilidade.
+
+

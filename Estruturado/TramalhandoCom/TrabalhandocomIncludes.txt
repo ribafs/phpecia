@@ -1,0 +1,96 @@
+TRABALHANDO COM INCLUDES E REQUIRES
+
+INCLUDE - inclue e avalia o conteúdo do arquivo.
+REQUIRE - também inclue e avalia o conteúdo do arquivo incluído.
+A diferença entre ambos é que o include ao encontrar um erro, lança um warning apenas, 
+enquanto que o require lança um Fatal Error, que pára o processamento.
+
+Uso do require: para códigos que requerem maior segurança.
+
+INCLUDE_ONCE e REQUIRE_ONCE - são semelhantes ao include e require, sendo que 
+estes incluem um arquivo somente uma vez.
+
+Mostrando uso do require_once:
+
+echo.php
+<?php
+echo "Hello";
+?>
+
+teste.php
+<?php
+require('echo.php');
+require_once('echo.php');
+?>
+
+Executar teste.php 
+saída: "Hello".
+
+Agora teste2.php:
+<?php
+require('echo.php');
+require('echo.php');
+?>
+
+Executar teste2.php 
+saída: "HelloHello".
+
+Agora teste3.php:
+<?php
+require_once('echo.php');
+require('echo.php');
+?>
+
+Executar teste3.php 
+saída: "HelloHello".
+
+Ou seja, ao encontrar require_once, ele verifica se o arquivo já foi incluído, e somente o incluirá novamente se ele ainda não tiver sido incluído.
+
+
+<?php
+// Isto está errado e não funcionará como desejado
+if ($condition)
+   include $arquivo;
+else
+   include $outro;
+
+
+// E este está correto
+if ($condition) {
+   include $arquivo;
+} else {
+   include $outro;
+}
+
+?> 
+
+<?php
+$path="/full/path/to/script/";
+if (getdomain($path) == 'yourdomain'){
+     include($path.'somefile.php');
+}
+?>
+
+"variables.php"
+<?php
+$includer = basename($_SERVER['SCRIPT_NAME']);
+
+switch ($includer) {
+   case 'a.php':
+   $this_variable = 'included by script a.php';
+   break;
+
+   case 'b.php':
+   $this_variable = 'included by script b.php';
+   break;
+   
+   default:
+   $this_variable = 'included by unkown script';
+}
+echo $this_variable;
+?>
+
+Test with 3 different files "a.php", "b.php", "c.php", all with the same content:
+<?php
+include 'variables.php';
+?>

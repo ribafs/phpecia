@@ -1,0 +1,83 @@
+NumberBucket
+
+    Introduction
+    Option for bucketed column
+    Example
+        Basic usage
+        Advanced usage
+
+Introduction #
+
+NumberBucket helps to categorize number into group of predefined range for example 0-10 or 10-20.
+
+NumberBucket is great when used with Group or Pivot process. The number data after categorized by NumberBucket can be aggregated by Group or Pivot process.
+
+Option for bucketed column #
+
+Name        	    type	    default	        description
+step	            number	        	        *required This is range of bucket you want to set
+formatString	    string	    "{from} - {to}"	The format string of output. With default settings, output will be 0-10 for example.
+decimals	        number	    0	            The number of decimals for {from} and {to}
+thousandSeparator	string	    ","	            Thousand separator format for number
+decimalPoint	    string	    "."	Decimal character separating number and it's decimal
+prefix	            string		                The string in front of number
+suffix	            string		                The string goes after number
+
+Example #
+
+Basic usage #
+
+<?php
+use \koolreport\processes\NumberBucket;
+use \koolreport\processes\Group;
+class MyReport extends \koolreport\KoolReport
+{
+    public function setup()
+    {
+        ...
+        ->pipe(new NumberBucket(array(
+            "age"=>array("step"=>5)
+        )))
+        ->pipe(new Group(array(
+            "by"=>"age",
+            "avg"=>"income"
+        ))
+        ...
+    }
+}
+
+Code explanation:
+
+    In above example, the created_time is chunked by quarter and then be grouped. At the end, we will get a table with Quarter and the sum of amount for particular quarter.
+
+Advanced usage #
+
+<?php
+use \koolreport\processes\NumberBucket;
+use \koolreport\processes\Group;
+class MyReport extends \koolreport\KoolReport
+{
+    public function setup()
+    {
+        ...
+        ->pipe(new NumberBucket(array(
+            "income"=>array(
+                "step"=>1000,
+                "formatString"=>"From {from} to {to}",
+                "decimals"=>0,
+                "prefix"=>"$",
+            )
+        )))
+        ->pipe(new Group(array(
+            "by"=>"income",
+            "count"=>"user_id"
+        ))
+        ...
+    }
+}
+
+Code explanation:
+
+    In above example, we add extra options for bucketed number such as the "formatString" "prefix" and "decimals". Those guide NumberBucket how to name the bucket.
+
+

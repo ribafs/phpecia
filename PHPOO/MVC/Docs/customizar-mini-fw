@@ -1,0 +1,119 @@
+Nesta fase quero reconsruir o framework etapa por etapa, começando pelo index.php e indo adicionando de acordo com as mensagens.
+
+Começa pelo
+public/index.php
+
+Vou remover todo o restante
+Com isso ele reclamou do 
+src/bootstrap.php
+
+Adicionei o
+src/bootstrap.php
+
+Agora ele reclamou do
+src/config/config.php
+
+Adicionei
+
+Agora ele reclamou  do Router, então adicionei:
+src/Core/Router.php
+
+Agora ele reclamou do CustomersController.php, então adicionei
+src/Controller/CustomersController.php
+
+Agora ele reclama do CustomersModel.php, então adicionei:
+src/Model/CustomersModel.php
+
+Agora ele reclama da classe base dos models, então adicionei
+src/Core/
+
+Agora recama da classe CustomersView.php, então adicionei
+src/View/CustomersView.php
+
+Agora ele reclama de
+src/template/_templates/header.php
+
+Adicionei e agora já aparece o cabeçalho, o fundo e o menu
+
+Agora ele reclama de src/template/customers/index.php
+Adicionei e a listagem de customers apareceu
+
+Agora ele reclama do footer e adicionei
+Pronto. Sem nenhum erro.
+
+Agora vou testar o edit, add e delete
+
+Ao clicar no edit reclama do edit.php
+Sem erros
+
+Agora cliquei em Add Customer
+Ele reclama do add.php
+Após adicionar nada de error
+
+O delete não gerou erro.
+
+Uma boa ideia é sair rastreando o código, colocando mensagens com print durante  caminho.
+
+Add Customer
+Coloquei no costomers/add.php:
+<?php echo URL.'customers/add';exit; ?>
+
+O CustomersController será chamado, especificamente no seu método add
+        if (isset($_POST['submit_add_customer'])) {
+            // Instance new Model (Customers)
+            $Customer = new CustomersModel();
+            // do add() in model/Customer.php
+            $Customer->add($_POST['name'], $_POST['email'],  $_POST['birthday']);
+	        // where to go after Customer has been added
+	        header('location: ' . URL . 'customers/index');	
+        }
+
+Veja que ele testa de a variável submit_add_customer está setada, então se estiver, instancia o CustomersModel e chama o método
+add do model, passando as variáveis com POST
+Ao final redireciona para customers/index.
+
+O método add do model chamado pelo controller executa o inseert na tabela:
+
+    public function add($name, $email, $birthday)
+    {
+        $sql = 'INSERT INTO customers (name, email, birthday) VALUES (:name, :email, :birthday)';
+        $query = $this->db->prepare($sql);
+        $parameters = array(':name' => $name, ':email' => $email, ':birthday' => $birthday);
+    ...
+    }
+
+=============
+Este fluxo também pode ser percebido analisando-se cada arquivo. Vejamos, começando pelo .htaccess do raiz:
+
+- .htaccess - redireciona para o public/index.php
+
+- public/index.php - Este tem apenas uma linha útil, pela qual chama o bootstrap.php (require __DIR__ . '/../src/bootstrap.php';)
+
+- ../src/bootstrap.php - define duas constantes, carrega o autoload e o config.php e finalmente instancia o Router.
+
+- Core/Router.php - É interessante observar que contém apenas um único método public (__construct()). O outro e as propriedades são todas privates, ou seja, se irá sair algum processamento desta classe será pelo método __construct(), os demais são apenas de apoio.
+Veja que originalmente ele chamava por default o HomeController e que eu criei uma constante CONTROLLER_DEFAULT em config.php, que pode ser setada pelo usuário alterando para o controller que desejar:
+//            $page = new \Mini\Controller\HomeController(); // In mini3
+			$controllerDefault = '\\Mini\\Controller\\' . CONTROLLER_DEFAULT . 'Controller';
+Aqui ele será redirecionado pera um controller default ou para o ErrorController.
+
+- No config.php adicionei mais uma constante, que achei interessante, que foi a APP_TITTLE, que uso no _templates/header.php, assim:
+    <div align="center"><h1><?=APP_TITTLE?></h1>
+
+- Como no config.php o controller default é o CustomersController.php, é para lá que vamos:
+Em seu action index, ele instancia o CustomersModel, pega todos os customers usando o método getAllCustomers e também traz o total de customers com o getAmountOfCustomers. Usando as variáveis que armazenam localmente ambos ele chama a view index com:
+		$view->index('customers','index',$customers,$amount_of_customers);
+Assim estas duas variáveis estarão disponíveis na view index. A variável $customers é usada em um foreach().
+Cada um dos demais actions se comunica com a respectiva view, com exceção de delete, que não tem uma view mas age diretamente pelo model e rediceriona para a view index.
+Em geral cada action instancia o model, então chama os respectivos métodos e redireciona para a view, quando for o caso.
+Veja que no config.php, ele chama:
+define('CONTROLLER', array('customers','index'));
+Então neste momento veremos a listagem dos customers na view index. Essa é uma tela de CRUD, onde podemos acessar as demais ações, como edit, add e delete.
+Quando inserimos no CustomersController/edit algo como:
+...
+	        $customers = $Customer->getAllCustomers();
+print_r($customers);exit;
+            // do getCustomer() in model/model.php
+...
+E clicamos no botão Edit de algum registro na listagem/index, o processamento pára mostrando os customers.
+

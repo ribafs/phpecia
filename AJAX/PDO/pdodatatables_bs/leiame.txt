@@ -1,0 +1,8 @@
+Original em
+http://www.webslesson.info/2017/01/php-pdo-ajax-crud-with-data-tables-and-bootstrap-modals.html
+
+Converti para a tabela clientes com 100.000 registros e se comportou bem.
+Baixei todos os js e css e uso localmente. Adicionei a pasta fonts.
+Traduzi a interface no js da datatables.
+
+

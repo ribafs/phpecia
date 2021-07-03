@@ -1,0 +1,84 @@
+O Microsoft Office Home and Student 2019 é para ser instalado em um único dispositivo, não podendo ser compartilhado.
+
+A licença que pode ser compartilhada é o Office 365 Home. Onde terá direito a sua instalação e ativação e 5 compartilhamentos e ativando simultaneamente em 5 dispositivos para cada compartilhamento, podendo ser: PC ou Mac, tablet e dispositivos móveis.
+
+Para instalar um novo Office, deverá fazer a remoção do anterior.
+
+Para a instalação, atualização e download do Microsoft Office Home and Student 2019, temos o suporte gratuito da Central Microsoft, que poderá fazer todo este processo para você e sem nenhum custo.
+
+Mas caso se sinta confortável, poderá realizar os procedimentos abaixo para remoção da chave do Office 365 Trial (teste de 30 dias) que está em sua máquina.
+
+Para a remoção definitiva do Office que está instalado, siga as orientações abaixo:
+
+1º Passo
+
+Inicialmente, precisará fechar todos os aplicativos do Office.
+
+Em seguida, limpe os arquivos temporários.
+
+    Na área de trabalho, pressione simultaneamente as teclas de atalho Windows + R para abrir o Executar;
+    Digite: Temp e pressione Enter;
+    Ao abrir uma nova tela, pressione as teclas CTRL + A (selecionará todos os arquivos) e depois SHIFT + Delete (Irá deletar todos os arquivos);
+
+    Caso o sistema operacional apresente uma mensagem informando que um determinado objeto não pode ser excluído, ignore o objeto no processo de exclusão e deixe que o Windows continue excluindo os outros objetos da pasta;
+
+    Feche esta janela e repita o mesmo processo para os comandos: %Temp% e Prefetch.
+
+2º Passo
+
+Remover as chaves anteriores da licença do Office, para que não entre em conflito com a licença atual.
+
+1. Pressione as teclas Windows+Q digite CMD;
+
+2. Clique com botão o direito sobre CMD e selecione Executar como Administrador;
+
+3. Verifique em quantos bits foi instalado o seu Office e selecione o comando correspondente.
+
+Por exemplo:
+
+Office 2016 instalado em 32 bits, copie e cole o comando abaixo e pressione Enter:
+
+CD C:\Program Files (x86)\Microsoft Office\Office16
+
+
+Office 2016 instalado em 64 bits, copie e cole o comando abaixo e pressione Enter:
+
+CD C:\Program Files\Microsoft Office\Office16
+
+Office 2015 instalado em 32 bits, copie e cole o comando abaixo e pressioneEnter:
+
+CD C:\Program Files (x86)\Microsoft Office\Office15
+
+Office 2015 instalado em 64 bits, copie e cole o comando abaixo e pressione Enter:
+
+CD C:\Program Files\Microsoft Office\Office15
+
+Insira o comando a seguir, como mostra a imagem abaixo, onde irá apresentar os últimos 05 dígitos do Office 2013 ou 2016 (se houver): 
+
+Cscript ospp.vbs /dstatus
+
+Após este resultado, insira o comando : Cscript ospp.vbs /unpkey:XXXXX (Onde deverá substituir o XXXXX pelos dígitos que apresentar na tela e pressionar Enter).
+
+Normalmente aparece a mensagem: <Product Key uninstall sucessful> onde a chave de produto foi removida com sucesso.
+
+Como dica: Se apresentar mais de uma chave de produto, remova todas, repetindo os procedimentos acima.
+
+O próximo passo é Vincular o Microsoft Office Home and Student 2019 a uma Conta Microsoft, para isso acesse: www.office.com/setup, preencha as informações solicitadas e aguarde a instalação.
+
+Ou entre em contato com a Central de Suport Microsoft e assim terá as orientações necessárias.
+
+Segue as opções de contato com a Central de Suporte Microsoft:
+
+Brasil
+
+Grande São Paulo: (11) 4706-0900
+
+Demais Localidades: 0800  7617454
+
+Segunda à Sexta das 9h às 21h 
+
+Sábados e Domingos das 10h às 18h
+
+https://answers.microsoft.com/pt-br/msoffice/forum/msoffice_install-mso_win10-mso_2019/d%C3%BAvidas-sobre-microsoft-office-home-and/1c8b07b2-742b-450a-9b03-d6fa43b7060b
+
+

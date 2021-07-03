@@ -1,0 +1,40 @@
+Validar datas em PHP com checkdate
+
+por Claudeci Goularte · 24 de fevereiro de 2019
+
+No PHP, existe uma função muito simples para validação de datas. A chamada checkdate.
+
+A função checkdate, checa a validade da data formada pelos argumentos. Uma data é considerada válida se cada parâmetro é adequadamente definido.
+
+Ela recebe 3 parâmetros para validação de uma data, que são basicamente o mês, dia e o ano para validação, como mostrada na sintaxe abaixo:
+bool checkdate ( int $month , int $day , int $year )
+1
+	
+bool checkdate ( int $month , int $day , int $year )
+
+O parâmetro month, deve receber o número do mês, entre os números 1 (Janeiro) e 12 (Dezembro). O parâmetro day, está dentro do número permitido de dias para um mês, iniciando-se claro, em 1.
+
+OBS: Anos bissexto são levados em consideração.
+
+O parâmetro year, suporta anos entre o número 1, até o ano 32767.
+
+Após a validação da data, a função irá retornar o TRUE, caso seja uma data válida, e FALSE, em caso contrário.
+
+Veja a sua utilização de forma prática:
+var_dump(checkdate('08', '01', '2017')); // retorna true; 
+var_dump(checkdate('29', '01', '2017')); // retorna false;
+1
+2
+	
+var_dump(checkdate('08', '01', '2017')); // retorna true; 
+var_dump(checkdate('29', '01', '2017')); // retorna false;
+
+O exemplo, irá imprimir o resultado a seguir:
+
+bool(true) bool(false)
+
+Por hoje é só. Bons estudos.
+
+https://www.codigomaster.com.br/desenvolvimento/validar-datas-em-php-com-checkdate/
+
+

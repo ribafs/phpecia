@@ -1,0 +1,129 @@
+Herança
+
+Obs: Se os atributos forem do tipo public, podemos atribuir valores diretamente para eles, sem a necessidade de utilizar os métodos. Para manipularmos variáveis
+na classe, precisamos usar a variável $this, funções e o separador ->. A classe deve utilizar a variável $this para referenciar seus próprios métodos e atributos.
+
+HERANÇA I
+
+class SuperClasse{
+
+    public $a = 'variável $a';
+
+    public function ini(){
+        echo "SuperClasse->ini()";
+    }
+}
+
+class SubClasse extends SuperClasse{
+
+}
+
+$super = new SuperClasse();
+$super->ini();
+$super->a = "";
+
+$sub = new SubClasse();
+$sub->ini();
+$sub->a = "qualquer valor";
+
+https://excript.com/php/heranca-php.html
+
+
+Para usar o retorno da classe pai na filha com
+$this->ret;
+
+Precisamos puxar o construtor da classe pai na filha:
+
+<?php
+class Pai{
+    private $user = 'root';
+    private $pass = 'root';
+    private $host = 'localhost';
+    private $db = 'testes';
+    protected $pdo;
+    public $regsPerPage = 10;
+    public $linksPerPage = 15;
+
+    public function __construct(){
+        try {
+            $this->pdo = new PDO('mysql:host='.$this->host.';dbname='.$this->db, $this->user, $this->pass);
+            //print 'Conectou';
+            return $this->pdo;
+        } catch (PDOException $e) {
+            print "Error: <br>" . $e->getMessage();
+            die();
+        }
+    }
+}
+$filha = new Pai();
+
+<?php
+
+require_once 'Pai.php';
+
+/* Classe que trabalha com um crud, lidando com uma tabela por vez, que é fornecida a cada instância, desde a conexão com o banco */
+
+class Crud extends Conn
+{
+
+	public function __construct(){
+        parent::__construct();
+	}
+
+    // $this->pdo abaixo vem da Pai
+    public function update($id,$nome,$email='',$data_nasc=''){
+        $sth = $this->pdo->prepare($sql);
+        ...
+    }
+
+
+Herança – Method Overriding
+
+Definição de Method Overriding:
+É quando a função da classe base é redefinida com o mesmo nome, assinatura e especificador de acesso (public ou protected) da classe derivada.
+
+Overriding/substituição de métodos
+
+As definições de função nas classes filhas substituem as definições com o mesmo nome nas classes pais. Em uma classe filha, podemos modificar a definição de uma função herdada da classe pai.
+
+No exemplo a seguir, as funções getPrice e getTitle são substituídas para retornar alguns valores.
+
+A razão de fazer isso é para prover funcionalidades adicionais  sobre as definidas na classe base.
+
+Exemplo prático: você tem uma classe com nome Bird da qual derivam duas outras classes: Eagle e Swift. A classe Bird tem definidos os métodos defined para eat, fly, etc, mas cada uma desstas classes será especializada para Eagle e Swift e deve ter seu próprio estilo de voar que você precisa override as funcionalidades de voar.
+
+Veja Bird:
+
+class Bird {
+	public function fly() {
+		echo "Fly method of Bird Class called";
+	}
+}
+ 
+class Eagle extends Bird {
+	public function fly() {
+		echo "Fly method of the Eagle Class called";
+	}
+}
+ 
+class Swift extends Bird {
+	public function fly() {
+		echo "Fly method of the Swift Class called";
+	}
+}
+ 
+$e = new Eagle();
+$s = new Swift();
+ 
+$e->fly();
+echo "\n";
+$s->fly();
+
+Output:
+Fly method of the Eagle Class called
+Fly method of the Swift Class called
+
+No exemplo acima criamos dois objetos das classes Eagle e Swift. Cada uma destas classes overridden the method fly() e proverá sua própria implementação do método fly() que deve ser extendido da classe Bird. A forma como ela extenderá o método fly() da classe Bird não é chamado da mesma forma em ambas as classes que provem uma nova funcionalidade para o método fly().
+
+http://www.sunilb.com/category/php/php5-oops-tutorials
+

@@ -1,0 +1,44 @@
+error_log
+
+O PHP tem ferramentas de log que seriam melhor aplicadas do que um print_r; error_log é um exemplo.
+
+117
+
+If you don't want to change anything in your php.ini file, according to PHP documentation, you can do this.
+
+error_log("Error message\n", 3, "/mypath/php.log");
+
+The first parameter is the string to be sent to the log. The second parameter 3 means expect a file destination. The third parameter is the log file path.
+
+
+
+17
+
+We all know that PHP save errors in php_errors.log file.
+
+But, that file contains a lot of data.
+
+If we want to log our application data, we need to save it to a custom location.
+
+We can use two parameters in the error_log function to achieve this.
+
+http://php.net/manual/en/function.error-log.php
+
+We can do it using:
+
+error_log(print_r($v, TRUE), 3, '/var/tmp/errors.log');
+
+Where,
+
+print_r($v, TRUE) : logs $v (array/string/object) to log file. 3: Put log message to custom log file specified in the third parameter.
+
+'/var/tmp/errors.log': Custom log file (This path is for Linux, we can specify other depending upon OS).
+
+OR, you can use file_put_contents()
+
+file_put_contents('/var/tmp/e.log', print_r($v, true), FILE_APPEND);
+
+Where:
+
+'/var/tmp/errors.log': Custom log file (This path is for Linux, we can specify other depending upon OS). print_r($v, TRUE) : logs $v (array/string/object) to log file. FILE_APPEND: Constant parameter specifying whether to append to the file if it exists, if file does not exist, new file will be created.
+

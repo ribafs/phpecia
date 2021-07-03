@@ -1,0 +1,14 @@
+Para mostrar error em testes/desenvolvimento, adicionar no início do arquivo, idealmente um index.php:
+
+error_reporting(E_ALL);
+ini_set('display_errors', true);
+
+
+Mudar parâmetros do php.ini:
+
+ini_set('memory_limit', '5060M');
+ini_set('max_execution_time', 3600);
+ini_set("date.timezone", "America/Fortaleza");
+
+
+

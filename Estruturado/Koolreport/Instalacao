@@ -1,0 +1,32 @@
+Via composer
+
+composer require koolreport/core
+
+Ou efetuando o download
+
+https://www.koolreport.com/getting-started
+
+Podemos baixar somente o core ou o core mais vártios exemplos
+
+Como executar os exemplos
+
+Os exemplos coom bancos de dados acessam os dados remotamente do site do koolreport
+
+Faça o download do koolreport com exemplos e descompacte na pasta /var/www/html/relatorios
+
+/var/www/html/relatorios
+── koolreport
+── examples
+
+Visualize os exemplos com
+
+http://localhost/relatorios
+
+Alternativamente podemos baixar de
+https://github.com/koolreport/examples
+
+https://www.koolreport.com/docs/installation/
+
+Ao final da página acima, podemos nos registrar para receber tutoriais da equipe.
+
+

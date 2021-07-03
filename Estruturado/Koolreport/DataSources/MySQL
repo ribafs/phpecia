@@ -1,0 +1,59 @@
+MySQLDataSource
+
+    Introduction
+    Settings
+    Methods
+    Example
+
+Introduction #
+
+Although using PDODataSource can connect to MySQL. However if for some reasons, you do not have the PDO Driver, you may use the old traditional connection to MySQL using MySQLDataSource
+
+Settings #
+
+Name	    type    	default	description
+class	    string		Must set to '\koolreport\datasources\MySQLDataSource'
+host	    string		Host of database
+username	string		Your login username
+password	string		Your password
+dbname	    string		Database name
+charset	    string		Charset
+
+Methods #
+Name	                    return	        description
+query(string $str_query)	MySQLDataSource	This method is used in report's setup() function. It will help to setup query string which will be executed when report is run.
+params(array $params)	    MySQLDataSource	This method is used to set list of parameters for query statement
+
+Example #
+
+<?php
+class MyReport extends \koolreport\KoolReport
+{
+    public function settings()
+    {
+        return array(
+            "dataSources"=>array(
+                "automaker"=>array(
+                    'host' => 'localhost',
+                    'username' => 'root',
+                    'password' => '',
+                    'dbname' => 'automaker',
+                    'charset' => 'utf8',  
+                    'class' => "\koolreport\datasources\MySQLDataSource"  
+                ),
+            )
+        );
+    }
+    public function setup()
+    {
+        $this->src('automaker')
+        ->query("SELECT * FROM tblPurchase where status=:status")
+        ->params(array(":status"=>"completed"))
+        ->pipe(..)
+        ->pipe(..)
+        ->pipe($this->dataStore('purchase_summary'));
+    }
+}
+
+In above example, we query all data from table tblPurchase of "automaker". The query result will be piped through many processes in between until it reaches the final data store called "purchase_summary".
+

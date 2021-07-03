@@ -1,0 +1,55 @@
+PHP error_reporting() Cheat Sheet
+
+Error Levels
+
+The following values and constants can be used within the error_reporting() function.
+value 	constant
+1 	E_ERROR
+2 	E_WARNING
+4 	E_PARSE
+8 	E_NOTICE
+16 	E_CORE_ERROR
+32 	E_CORE_WARNING
+64 	E_COMPILE_ERROR
+128 	E_COMPILE_WARNING
+256 	E_USER_ERROR
+512 	E_USER_WARNING
+1024 	E_USER_NOTICE
+6143 	E_ALL
+2048 	E_STRICT
+4096 	E_RECOVERABLE_ERROR
+Basic Usage
+
+The following is basic usage of PHP's error reporting (using only one level).
+
+//Não mostrar erros
+error_reporting(0);
+
+//Mostrar todos os erros
+error_reporting(E_ALL);
+
+//using php.ini and ini_set()
+ini_set('error_reporting', E_ALL);
+
+Advanced Usage
+
+The following accounts for multiple error reporting levels.
+
+//show warnings and errors
+error_reporting(E_ERROR | ERROR_WARNING);
+
+//Mostrar todos menos notices
+error_reporting(E_ALL ^ E_NOTICE);
+
+Custom Error Handling
+
+Visit my article, Custom Error Handling in PHP, to learn about custom error handling in PHP.
+Previous Error
+
+To grab information on the last error, you can code:
+
+//returns an array with error number, message, file, and line
+error_get_last();
+
+https://davidwalsh.name/php-error_reporting-error-reporting
+

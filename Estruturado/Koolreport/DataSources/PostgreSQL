@@ -1,0 +1,58 @@
+PostgreSQLDataSource
+
+    Introduction
+    Settings
+    Methods
+    Example
+
+Introduction #
+
+Although using PDODataSource can connect to SQL Server. However if for some reasons, you do not have the PDO Driver, you may use the old traditional connection to PostgreSQL using PostgreSQLDataSource.
+
+Settings #
+
+Name	    type	default	description
+class	    string	    	Must set to '\koolreport\datasources\PostgreSQLDataSource'
+host	    string	    	Host of database
+username	string	    	Your login username
+password	string	    	Your password
+dbname	    string	    	Database name
+
+Methods #
+
+Name	                    return	description
+query(string $str_query)	PostgreSQLDataSource	This method is used in report's setup() function. It will help to setup query string which will be executed when report is run.
+params(array $params)	    PostgreSQLDataSource	This method is used to set list of parameters for query statement
+
+Example #
+
+<?php
+class MyReport extends \koolreport\KoolReport
+{
+    public function settings()
+    {
+        return array(
+            "dataSources"=>array(
+                "sqlserver"=>array(
+                    'host' => 'localhost',
+                    'username' => 'username',
+                    'password' => 'psasword',
+                    'dbname' => 'automaker',
+                    'charset' => 'utf8',  
+                    'class' => "\koolreport\datasources\PostgreSQLDataSource"  
+                ),
+            )
+        );
+    }
+    public function setup()
+    {
+        $this->src('sqlserver')
+        ->query("SELECT * FROM tblPurchase where status=:status")
+        ->params(array(":status"=>"completed"))
+        ->pipe(..)
+        ->pipe(..)
+        ->pipe($this->dataStore('purchase_summary'));
+    }
+}               
+
+

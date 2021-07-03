@@ -1,0 +1,32 @@
+Path Relativo
+
+Supondo um aplicativo no diretório web com 5 pastas aninhadas, uma dentro da outra, assim:
+
+dir1
+    dir2
+        dir3
+            dir4
+                dir5
+
+ou
+dir1/dir2/dir3/dir4/dir5
+
+Então suponha que esteja na pasta dir3 e queira chamar a pasta 1:
+
+if($d == '../../dir1')
+
+Queira chamar a pasta dir2:
+
+if($d == '../dir2')
+
+Chamar a pasta dir3:
+
+if($d == './dir3') // prefira, por conta da segurança
+ou
+if($d == 'dir3')
+
+Chamar a pasta dir5:
+
+if($d == 'dir4/dir5')
+
+

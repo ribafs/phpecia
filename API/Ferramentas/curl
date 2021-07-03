@@ -1,0 +1,32 @@
+Algumas dicas de curl
+
+curl -i http://localhost:8080/api/products
+
+Queremos os detelhes do cliente 'jim', então vamos executar uma requisição GET para a URL deste recurso: 
+curl -v http://localhost:80/clients/jim
+
+Para criar um novo cliente, chamado Paul...	
+curl -v -X PUT http://localhost:80/clients/paul -d '{"address":"Sunset Boulevard" }
+
+Criar um produto usando POST
+curl -X POST -i http://localhost:1338/produtos --data '{
+  "nome": "Groselha",
+  "preco": 1,
+  "descricao": "Groselha prata",
+}'
+
+Seguindo, podemos obter as informações de todos os clientes de uma vez:	
+curl -v http://localhost:80/clients/
+
+para deletar um cliente:
+curl -v -X DELETE http://localhost:80/clients/anne
+
+curl -X DELETE http://<unique-to-you>.cloudwaysapps.com/api/v1/car/1
+
+/ping: An API's "Hello World"
+routes/web.php:
+$router->get('/ping', function () {
+return response()->json(['ack' => time()]);
+});
+$ curl -i http://localhost:8888/ping
+

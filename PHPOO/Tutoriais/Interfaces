@@ -1,0 +1,60 @@
+Interfaces
+
+Interfaces - o próximo nível de abstração
+As interfaces se assemelham a classes abstratas no sentido de que incluem métodos abstratos que o programador deve definir nas classes que herdam da interface. Dessa forma, as interfaces contribuem para a organização do código porque elas comprometem as classes filhas com métodos abstratos que devem implementar. O uso de interfaces se torna muito útil quando trabalhamos em uma equipe de programadores e queremos garantir que todos os programadores escrevam os métodos nos quais devem trabalhar, ou mesmo no caso de um único programador que deseja se comprometer a escrever certos métodos nas aulas infantis.
+Uma interface confirma suas classes filhas para métodos abstratos que devem implementar.
+
+Interfaces permitem a criação de código que especifica quais métodos uma classe deve implementar, sem ter que definir como esses métodos serão tratados. Interfaces são definidas utilizando a palavra-chave interface, e devem ter definições para todos os métodos listados na interface. Classes podem implementar mais de uma interface se desejarem, listando cada interface separada por um espaço.
+
+Dizer que uma classe implementa uma interface e não definir todos os métodos na interface resultará em um erro fatal exibindo quais métodos não foram implementados. Vamos criar uma interface que servirá de base para as nossas classes de notícias utilizadas até agora:
+
+NoticiaInterface.php
+
+interface iNoticia
+{
+    public function setTitulo($valor);
+    public function setTexto($valor);
+    public function exibeNoticia();
+}
+
+A implementação desta interface é simples. No código a seguir utilizamos a nossa interface iNoticia para a classe Noticia e conseqüentemente NoticiaPrincipal:
+
+Interface iNoticia implementada na Classe Noticia:
+
+<?php
+# noticia_interface_impl.php
+include_once('noticia_interface.class.php');
+
+class Noticia implements iNoticia
+{
+    protected $titulo;
+    protected $texto;
+
+    public function setTitulo($valor)
+    {
+        $this->titulo = $valor;
+    }
+
+    public function setTexto($valor)
+    {
+        $this->texto = $valor;
+    }
+
+    public function exibeNoticia()
+    {
+        $ret = "<center>";
+        $ret .= "<b>". $this->titulo ."</b><p>";
+        $ret .= $this->texto;
+        $ret .= "<p></center>";
+        return $ret;
+    }
+}
+
+$titulo = 'Vestibular da Unicamp';
+$texto = 'Um dos maiores vestibulares do país tem número recorde de inscritos';
+$not = new Noticia;
+$not->setTitulo($titulo);
+$not->setTexto($texto);
+$not->exibeNoticia();
+print $not;
+

@@ -1,0 +1,74 @@
+PdoDataSource
+
+    Introduction
+    Settings
+    Methods
+    Example
+
+Introduction #
+
+PdoDataSource is the default datasource in KoolReport. This datasource helps you to connect to various databases such as MySQL, SQL Server, Oracle and many others.
+
+Supported Databases:
+
+    CUBRID (PDO)
+    MS SQL Server (PDO)
+    Firebird (PDO)
+    IBM (PDO)
+    Informix (PDO)
+    MySQL (PDO)
+    MS SQL Server (PDO)
+    Oracle (PDO)
+    ODBC and DB2 (PDO)
+    PostgreSQL (PDO)
+    SQLite (PDO)
+    4D (PDO)
+
+For more information of PDO, click here!
+
+Settings #
+
+Name	            type	    default	description
+connectionString	string		        Set the PDO connection string
+username	        string		        User login name
+password	        string		        User password
+charset	            string	    "utf8"	Set the charset of database.
+
+Methods #
+
+Name	                    return	        description
+query(string $str_query)	PdoDataSource	This method is used in report's setup() function. It will help to setup query string which will be excuted when report is run.
+params(array $params)	    PdoDataSource	This method is used to set list of parameters for query statement
+
+Example #
+
+<?php
+class MyReport extends \koolreport\KoolReport
+{
+    public function settings()
+    {
+        return array(
+            "dataSources"=>array(
+                "mysql_datasource"=>array(
+                    "connectionString"=>"mysql:host=localhost;dbname=mysql_databases",
+                    "username"=>"root",
+                    "password"=>"",
+                    "charset"=>"utf8"
+                ),
+            )
+        );
+    }
+
+    public function setup()
+    {
+        $this->src('mysql_datasource')
+        ->query("SELECT * FROM tblPurchase where status=:status")
+        ->params(array(":status"=>"completed"))
+        ->pipe(..)
+        ->pipe(..)
+        ->pipe($this->dataStore('purchase_summary'));
+    }
+}
+
+In above example, we query all data from table tblPurchase of "mysql_datasource". The query result will be piped through many processes in between until it reaches the final data store called "purchase_summary".
+

@@ -1,0 +1,166 @@
+TRABALHANDO COM A BIBLIOTECA GRÁFICA GD
+
+(Se no Windows tirar o ; da extension=php_gd.dll)
+
+Gerando Imagens Dinamicamente
+por Luiz Ribeiro
+
+O PHP oferece uma interface ao módulo GD de Thomas Boutell. Usando tal módulo, você pode criar e editar imagens nos formatos JPEG e PNG. O formato GIF já foi aceito, mas como o algoritmo de compressão do GIF (LZW) contém uma patente de posse da Unisys, os desenvolvedores do módulo foram obrigados à retirar o suporte a esse formato nas versões mais recentes.
+
+
+Bom, para iniciar vou explicar o procedimento para criar uma imagem usando o módulo GD em PHP. Se você não tem esse módulo, você pode fazer o download dele em http://www.boutell.com/gd/. Normalmente a GD acompanha uma instalação completa do PHP.
+
+Para se criar a imagem, será usada a função ImageCreate(), então serão realizadas as alterações na imagem, então será finalizada a imagem usando ImageJpeg(), ImagePng() ou até ImageGif() se a versão do módulo GD for inferior à 1.4.
+
+Bom, vamos ao que interessa. Primeiramente vamos criar uma pequena imagem com o seguinte texto: PHPBrasil. O código ficará da seguinte forma:
+
+<?php
+header("Content-type: image/gif"); //Informa ao browser que o arquivo é uma imagem no formato GIF
+
+$imagem = ImageCreate(150,40); //Cria uma imagem com as dimensões 100x20
+
+$vermelho = ImageColorAllocate($imagem, 255, 0, 0); //Cria o segundo plano da imagem e o configura para vermelho
+$branco = ImageColorAllocate($imagem, 255, 255, 255); //Cria a cor de primeiro plano da imagem e configura-a para branco
+
+ImageString($imagem, 3, 3, 3, "PHPBrasil", $branco); //Imprime na imagem o texto PHPBrasil na cor branca que está na variável $branco
+
+ImageGif($imagem); //Converte a imagem para um GIF e a envia para o browser
+
+ImageDestroy($imagem); //Destrói a memória alocada para a construção da imagem GIF.
+?>
+
+
+Bom, o script está todo comentado e acho que você entendeu. Se alguma dúvida ficar martelando aí, manda um comentário. =D
+
+Bom, neste exemplo usamos a função ImageGif() para converter a imagem, $imagem, e depoisa enviamos ao navegador. Mas poderíamos ter salvo esta imagem em um arquivo, ao invés de mostrar ela no navegador. Veja o exemplo:
+
+<?php
+$arquivo = "imagem1.gif";
+
+$imagem = ImageCreate(150,40);
+
+$vermelho = ImageColorAllocate($imagem, 255, 0, 0);
+$branco = ImageColorAllocate($imagem, 255, 255, 255);
+
+ImageString($imagem, 3, 3, 3, "PHPBrasil", $branco);
+ImageGif($imagem, $arquivo);
+
+ImageDestroy($imagem);
+
+echo "A imagem foi salva no arquivo $arquivo.";
+?>
+
+
+Como você deve ter notado, apenas retiramos aquele header() (que informava ao browser que o arquivo era uma imagem), afinal este exemplo não irá mostrar a imagem no navegador e sim gravar ela em $arquivo, e também mudamos os parâmetros da função ImageGif() para salvar a imagem no arquivo.
+
+Nesta parte do artigo, irei explicar como desenhar retângulos, polígonos e arcos.
+
+Desenhando retângulos
+
+Vamos ao primeiro exemplo, que irá desenhar um simples retângulo preenchido usando GD (o formato da imagem a seguir é PNG).
+
+<?php
+header("Content-type: image/png");
+$imagem = ImageCreate(100, 20);
+$branco = ImageColorAllocate($imagem, 255, 255, 255);
+$azul = ImageColorAllocate($imagem, 20, 93, 233);
+ImageFilledRectangle($imagem, 5, 10, 60, 14, $azul);
+ImagePng($imagem);
+ImageDestroy($imagem);
+?>
+
+Bom, neste exemplo só há uma função nova, a função ImageFilledRectangle() que como seu próprio nome diz é uma função que cria um retângulo com as dimensões e posição informadas, e na cor azul, que foi definida na variável $azul.
+
+Já para criar um retângulo sem preenchimento você simplesmente irá trocar a função ImageFilledRectangle() por ImageRectangle(). O exemplo ficará da seguinte forma:
+
+<?php
+header("Content-type: image/png");
+$imagem = ImageCreate(100, 20);
+$branco = ImageColorAllocate($imagem, 255, 255, 255);
+$azul = ImageColorAllocate($imagem, 20, 93, 233);
+ImageRectangle($imagem, 5, 10, 60, 14, $azul);
+ImagePng($imagem);
+ImageDestroy($imagem);
+?>
+
+
+Como foi dito, este exemplo irá criar uma imagem com um retângulo sem preenchimento, mas sua borda terá a cor $azul.
+
+Desenhando polígonos
+
+Para desenhar polígonos, vamos usar a função ImagePolygon(), que irá criar um polígono sem preenchimento, e a função ImageFilledPolygon() que irá desenhar um polígono com preenchimento.
+
+Em nosso primeiro exemplo, vamos desenhar um polígono com vértices de (12, 10), (15, 20), (50, 17) e (70, 10) com uma borda de azul-claro:
+
+<?php
+header("Content-type: image/png");
+$imagem = ImageCreate(100, 20);
+$branco = ImageColorAllocate($imagem, 255, 255, 255);
+$azul = ImageColorAllocate($imagem, 20, 93, 233);
+$pontos = array(12, 10, 15, 20, 50, 17, 70, 10);
+ImagePolygon($imagem, $pontos, 4, $azul);
+ImagePng($imagem);
+ImageDestroy($imagem);
+?>
+
+
+Bom, agora vamos criar um polígono preenchido, você já deve ter pensado que o código será o mesmo, mas ao invés de ImagePolygon() usaremos ImageFilledPolygon(), se você énsou isso, acertou em cheio. Vamos ver como ficaria nossa imagem com um retângulo preenchido:
+
+<?php
+header("Content-type: image/png");
+$imagem = ImageCreate(100, 20);
+$branco = ImageColorAllocate($imagem, 255, 255, 255);
+$azul = ImageColorAllocate($imagem, 20, 93, 233);
+$pontos = array(12, 10, 15, 20, 50, 17, 70, 10);
+ImageFilledPolygon($imagem, $pontos, 4, $azul);
+ImagePng($imagem);
+ImageDestroy($imagem);
+?>
+
+
+Desenhando arcos
+
+Bom, agora vamos desenhar alguns arcos em nossas imagens, para isso vamos usar a função ImageArc(). Antes de começarmos, vou passar a sintaxe da função:
+
+
+int ImageArc(int im, int cx, int cy, int w, int h, int s, int e, int co1);
+
+
+Esta função desenha um arco em uma imagem, im, com uma posição inicial de X de cx e uma posição inicial Y de cy. O arco é de largura w e altura h, com um ângulo inicial de s e um ângulo final de e, tudo na cor co1.
+
+Agora que já entendemos a função ImageArc() vamos ao nosso primeiro exemplo que irá desenhar uma elipse:
+
+<?php
+header("Content-type: image/gif");
+$imagem = ImageCreate(500, 100);
+$branco = ImageColorAllocate($imagem, 255, 255, 255);
+ImageColorTransparent($imagem, $branco);
+$vermelho = ImageColorAllocate($imagem, 20, 93, 233);
+ImageArc($imagem, 40, 50, 50, 40, 0, 360, $vermelho);
+ImageGif($imagem);
+ImageDestroy($imagem);
+?>
+
+
+O código acima funciona, pois para ter uma elipse, você precisa de uma diferença de 360 graus entre a posição inicial e a posição final. Aplicando esse conhecimento, também podemos desenhar um círculo preenchido usando a função ImageFillToBorder(). (Note que isso é um círculo, não uma elipse, porque os parâmetros de largura e altura têm o mesmo valor.)
+
+<?php
+header("Content-type: image/gif");
+$imagem = ImageCreate(500, 100);
+$branco = ImageColorAllocate($imagem, 255, 255, 255);
+ImageColorTransparent($imagem, $branco);
+$vermelho = ImageColorAllocate($imagem, 20, 93, 233);
+ImageArc($imagem, 40, 50, 50, 50, 0, 360, $vermelho);
+ImageFillToBorder($imagem, 50, 40, $vermelho);
+ImageGif($imagem);
+ImageDestroy($imagem);
+?>
+
+
+Observação: os exemplos acima foram retirados do livro PHP: Guia do Desenvolvedor que está na lista de livros recomendados da PHPBrasil. Nos exemplos só foram alterados os nomes de algumas variáveis para facilitar a compreensão.
+
+Bom, esse é o básico do módulo GD. Você com certeza tem muito a explorar ainda, em breve vou trazer mais alguns artigos sobre o assunto, para os que se interessaram, ou não entenderam alguma função podem ver no manual do PHP todas as funções de imagem:
+http://br.php.net/manual/pt_BR/ref.image.php
+
+Referência:
+http://www.phpbrasil.com/articles/print.php/id/164

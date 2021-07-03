@@ -1,0 +1,155 @@
+ Constantes Mágicas no PHP
+
+Postagem do dia 01/01/1970 na categoria PHP
+
+Irei apresentar uma lista de constantes existentes no PHP que são muito úteis mas que muita gente desconhece ou não usa.
+
+O PHP fornece várias constantes com conteúdos diversificasos, constantes que são disponibilizadas apartir de algum módulo instalado ou do próprio PHP.
+Hoje irei apresentar uma lista de consantes que tem seus valores alterados em tempo de execução, são constantes que trazem informação sobre classe, método, arquivo, número de linha, diretório, etc.
+
+Vamos então conhecer as 8 constantes disponíveis no PHP.
+
+1) __LINE__
+
+Esta constante informa o número da linha na qual esta constante foi invocada.
+
+Exemplo:
+	<?php
+	
+	echo 'Linha do arquivo executado é ' . __LINE__;
+
+O resultado que aparecerá na tela será "Linha do arquivo executado é 3", pois a constante foi invocada na linha 3 do arquivo, isso é muito útil quando precisamos gerar algum log e caso alguma alteração no script seja feita ao longo do tempo a constante irá capturar sempre a linha atual de onde ele está sendo executado no arquivo.
+ 
+
+2) __FILE__
+
+Está constante informa o caminho completo e nome do arquivo com links simbólicos resolvidos. Se utilizado dentro de um include, o nome do arquivo incluído será retornado.
+
+Esta constante está disponível apartir da versão 4.0.2 do PHP.
+
+Exemplo: 
+
+Nome do arquivo: index.php
+	<?php
+	
+	echo 'Arquivo executado: ' . __FILE__;
+
+O resultado que aparecerá na tela será "Arquivo executado: /var/www/html/index.php", pois a constante irá capturar o caminho absoluto do arquivo,
+
+3) __DIR__
+
+Esta constante informa o caminho até o diretório do arquivo. Se usado dentro de um include, o diretório do arquivo incluído é retornado. É equivalente a dirname(__FILE__). O nome do diretório não possui barra no final, a não ser que seja o diretório raiz.
+
+Esta constante está disponível apartir da versão 5.3.0 do PHP.
+
+Exemplo: 
+
+O resultado que aparecerá na tela será "Arquivo executado: /var/www/html", pois a constante irá capturar o caminho absoluto do arquivo sem exibir o nome do arquivo,
+	<?php
+	
+	echo 'Arquivo executado: ' . __DIR__;
+
+4) __FUNCTION__
+
+Esta constante informa o nome da função em que a constente __FUNCTION__ foi invocada. Um exemplo prático para o uso desta constante é na geração de log onde se deseja armazenar o nome da função ou método. A vantagem de usar este constante está no fato de não ter que ficar refatorando todo o lugar que usa no nome da função, caso a função tenha seu nome alterado.
+
+Esta constante está disponível apartir da versão 4.3.0 do PHP.
+	<?php
+	
+	function obterMensagem()
+	{
+	return 'Nome do método executado: ' . __FUNCTION__;
+	}
+	
+	echo obterMensagem();
+
+O resultado que aparecerá na tela será "Nome do método executado: obterMensagem​", pois a constante irá dentro do método obterMensagem, o mesmo funciona para funções,
+
+5) __CLASS__
+
+Esta constante informa o nome da classe e inclui o namespace em que foi declarado (por exemplo, Foo\Bar). Note que a partir do PHP 5.4, __CLASS__ também funcionará em traits. Quando utilizada em um método trait, __CLASS__ é o nome da classe que está utilizando a trait.
+
+Esta constante está disponível apartir da versão 4.3.0 do PHP.
+
+Exemplo: 
+
+Nome do arquivo: index.php
+	<?php
+	
+	class Pessoa{
+	
+	public function echo obterNomeClasse()
+	{
+	return 'Nome da classe: ' . __CLASS__;
+	}
+	}
+	
+	$pessoa = new Pessoa();
+	echo $pessoa->obterNomeClasse();
+
+O resultado que aparecerá na tela será "Nome da classe: Pessoa", pois a constante irá capturar o nome da classe, Caso a classe faça parte de um namespace chamado "Entidade", o nome da classe será exibido precedido do namespace, exemplo: "Nome da classe: Entidade\Pessoa "
+
+6) __TRAIT__
+
+Esta constante informa o nome do trait, inclui o namespace em que foi declarado (por exemplo, Foo\Bar). Esta constante está disponível apartir da versão 5.4.0 do PHP.
+
+Exemplo: 
+
+O resultado que aparecerá na tela será "Nome da trait: Log​", pois a constante irá capturar o caminho absoluto do arquivo sem exibir o nome do arquivo,
+	<?php
+	trait Log
+	{
+	public function gravarLog()
+	{
+	return 'Nome da trait: ' . __TRAIT__;
+	// implementação aqui
+	}
+	}
+	
+	class PessoaController
+	{
+	use Log;
+	}
+	
+	$pessoaController = new PessoaController();
+	echo $pessoaController->gravarLog();
+
+7) __METHOD__
+
+O nome do método da classe. Esta constante está disponível apartir da versão 5.0.0 do PHP.
+	<?php
+	
+	class PessoaController
+	{
+	public function gravarLog()
+	{
+	return 'Nome do método: ' . __METHOD__;
+	}
+	}
+	
+	$pessoaController = new PessoaController();
+	echo $pessoaController->gravarLog();
+
+O resultado que aparecerá na tela será: "Nome do método: PessoaController::gravarLog​", ou seja nome do método precedido do nome da classe. Caso haja um namespace ele será exibido também, exemplo: "Controller\PessoaController::gravarLog".
+
+8) __NAMESPACE__
+
+Esta constante informa o nome do namespace corrente. Esta constante está disponível apartir da versão 5.3.0 do PHP.
+	<?php
+	namespace Controller;
+	
+	class PessoaController
+	{
+	public function gravarLog()
+	{
+	return 'Nome do namespace: ' . __NAMESPACE__;
+	}
+	}
+	
+	$pessoaController = new PessoaController();
+	echo $pessoaController->gravarLog();
+
+O resultado que aparecerá na tela será "Nome do namespace: Controller​",
+
+Observação: Antes da versão 5.0.0 do PHP algumas constantes exibiam as informações em letras minúsculas, agora todos são case-sensitive (contém os nomes da mesma maneira que foram declarados).
+https://www.tayron.com.br/postagem/135/constantes-magicas-no-php

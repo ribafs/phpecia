@@ -1,0 +1,9 @@
+Fatal error: Uncaught Error: Array callback has to contain indices 0 and 1 in
+
+Logo abaixo, em fundo branco, o Xdebug me mostra:
+
+searchValues( $pdo = class PDO { }, $row = ['id' => '882', 'unidade' => 'SRYC'], $table = 'funcionarios' )
+Algo misturado, campos da tabela unidades mas a tabela está funcionarios
+
+O problema era que eu troquei [ por (. O correto é assim:
+            $values .= "<td>".$row["$fn"]."</td>";

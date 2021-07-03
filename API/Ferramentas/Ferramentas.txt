@@ -1,0 +1,87 @@
+- Ferramentas especializadas para trabalhar com API
+
+	- Extensões - RESTClient para o Firefox
+	- Insomnia Core - https://insomnia.rest/ (desktop)
+	- Postman - https://www.postman.com/ (desktop)
+
+
+Gerenciando um CRUD de API no Postman:
+GET, GET(id), POST, PUT(id), DELETE(id)
+
+== Recebendo todos os registros com GET
+
+Método - GET
+
+url - http://localhost:8000/api/authors
+
+Clicar em SEND
+
+
+== Recebendo apenas um único registro com GET
+
+Método - GET
+
+url - http://localhost:8000/api/authors/2
+
+Clicar em SEND
+
+
+== Atualizando um registro com PUT
+
+Olhando para o router, vi que PUT espera um id
+
+Para alterar o name do registro com id=2 para Elias, fiz assim:
+
+Método - PUT
+
+url - http://localhost:8000/api/authors/2
+
+Crio um Query Param assim:
+
+KEY           VALUE
+name          Elias
+
+== Após clicar no SEND não aparece erro e a url fica assim:
+
+http://localhost:8000/api/authors/2?name=Elias
+
+Ao chamar com GET ele me mostra o registro alterado
+De forma semelhante no navegador aperecem os registros, inclusive o com id=2 alterado
+http://localhost:8000/api/authors
+
+== Inserindo registro com POST
+
+Método - POST
+
+url - http://localhost:8000/api/authors
+
+Crio Query Params assim:
+
+KEY           VALUE
+name         Tiago EF
+email       tiago@tiago.br
+github      tiago
+twitter     tiago
+location    Fortaleza
+latest_article_published  2020-06-17
+
+Clico em SEND
+
+Sem error e ao chamar GET com a url
+
+http://localhost:8000/api/authors
+
+Ou pelo navegador
+http://localhost:8000/api/authors
+
+Posso ver o novo registro inserido
+
+== Excluindo um registro com DELETE, registro com id=2
+
+Método - DELETE
+
+url - http://localhost:8000/api/authors/2
+
+Clicar em SEND
+
+https://www.youtube.com/watch?v=1YT3DnbirKg

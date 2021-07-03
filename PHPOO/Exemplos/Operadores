@@ -1,0 +1,43 @@
+
+Atribuição
+
+<?php
+$var += 5;		 // Soma 5 em $var;
+$var *=5;		 // Multiplica $var por 5;
+$var -= 5;		
+$var /= 5;		
+?>
+// Subtrai 5 em $var;
+// Divide $var por 5;
+
+Operadores Descrição
+
+++$a    Pré-incremento. Incrementa $a em um e, então, retorna $a .
+$a++    Pós-incremento. Retorna $a e, então, incrementa $a em um.
+--$a    Pré-decremento. Decrementa $a em um e, então, retorna $a .
+$a--    Pós-decremento. Retorna $a e, então, decrementa $a em um.
+
+Relacionais
+
+==
+===
+!= ou <>
+<
+>
+<=
+>=
+
+TRUE/FALSE
+
+Operador        Descrição
+($a and $b)     E: Verdadeiro ( TRUE ) se tanto $a quanto $b forem verdadeiros.
+($a or $b)      OU: Verdadeiro ( TRUE ) se $a ou $b forem verdadeiros.
+($a xor $b)     XOR: Verdadeiro ( TRUE ) se $a ou $b forem verdadeiros, de forma exclusiva.
+(! $a)          NOT: Verdadeiro ( TRUE ) se $a for FALSE .
+($a && $b)      E: Verdadeiro ( TRUE ) se tanto $a quanto $b forem verdadeiros.
+($a || $b)      OU: Verdadeiro ( TRUE ) se $a ou $b forem verdadeiros.
+
+Observação: or e and têm precedência maior que && ou || .
+
+
+

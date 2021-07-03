@@ -1,0 +1,143 @@
+Neste tutorial, criaremos um relatório para resumir as 10 principais vendas por cliente. Nossos dados provêm de um arquivo csv contendo o nome dos clientes e a quantidade de seus pedidos. Isso parecerá assim:
+
+customerName	                dollar_sales	orderDate
+Online Diecast Creations Co.	4080.00	        2003-01-06
+Vitachrome Inc.	                3726.45	        2003-01-10
+Baane Mini Imports	            5571.80	        2003-01-29
+
+Link do CSV - https://www.koolreport.com/docs/articles/quick_start/orders.csv
+
+Configurar o relatório
+
+Estrutura
+
+htdocs
+├── koolreport
+├── sale_report
+│   ├── orders.csv
+│   ├── SalesByCustomer.php
+│   ├── SalesByCustomer.view.php
+│   └── index.php	
+
+SalesByCustomer.php - é o arquivo de controller do relatório, que define como o relatório recebe e processa os dados
+SalesByCustomer.view.php - é o arquivo de view do relatório, que determina como o relatório será exibido
+index,php - é o arquivo de bootstrap, que inicia o relatório
+
+Classe Controller
+
+SalesByCustomer.php é o arquivo que manipula a classe SalesByCustomer do relatório
+
+<?php
+
+// Require autoload.php from koolreport library
+require_once "../koolreport/core/autoload.php";
+
+//Specify some data processes that will be used to process
+use \koolreport\processes\Group;
+use \koolreport\processes\Sort;
+use \koolreport\processes\Limit;
+
+//Define the class
+class SalesByCustomer extends \koolreport\KoolReport
+{    
+    protected function settings()
+    {
+        //Define the "sales" data source which is the orders.csv 
+        return array(
+            "dataSources"=>array(
+                "sales"=>array(
+                    "class"=>'\koolreport\datasources\CSVDataSource',
+                    "filePath"=>"orders.csv",
+                ),        
+            )
+        );
+    }
+  
+    protected function setup()
+    {
+        //Select the data source then pipe data through various process
+        //until it reach the end which is the dataStore named "sales_by_customer".
+        $this->src('sales')
+        ->pipe(new Group(array(
+            "by"=>"customerName",
+            "sum"=>"dollar_sales"
+        )))
+        ->pipe(new Sort(array(
+            "dollar_sales"=>"desc"
+        )))
+        ->pipe(new Limit(array(10)))
+        ->pipe($this->dataStore('sales_by_customer'));
+    }
+}
+
+Arquivo de View
+
+É um arquivo em puro PHP, que contem HTML, CSS e Widgets do KoolReport para visualizar os dados do relatório
+
+<?php 
+    use \koolreport\widgets\koolphp\Table;
+    use \koolreport\widgets\google\BarChart;
+?>
+
+<div class="report-content">
+    <div class="text-center">
+        <h1>Sales By Customer</h1>
+        <p class="lead">This report shows top 10 sales by customer</p>
+    </div>
+
+    <?php
+    BarChart::create(array(
+        "dataStore"=>$this->dataStore('sales_by_customer'),
+        "width"=>"100%",
+        "height"=>"500px",
+        "columns"=>array(
+            "customerName"=>array(
+                "label"=>"Customer"
+            ),
+            "dollar_sales"=>array(
+                "type"=>"number",
+                "label"=>"Amount",
+                "prefix"=>"$",
+                "emphasis"=>true
+            )
+        ),
+        "options"=>array(
+            "title"=>"Sales By Customer",
+        )
+    ));
+    ?>
+    <?php
+    Table::create(array(
+        "dataStore"=>$this->dataStore('sales_by_customer'),
+            "columns"=>array(
+                "customerName"=>array(
+                    "label"=>"Customer"
+                ),
+                "dollar_sales"=>array(
+                    "type"=>"number",
+                    "label"=>"Amount",
+                    "prefix"=>"$",
+                )
+            ),
+        "cssClass"=>array(
+            "table"=>"table table-hover table-bordered"
+        )
+    ));
+    ?>
+</div>
+
+Arquivo index.php
+
+Executa e renderiza o relatório
+
+<?php 
+
+require_once "SalesByCustomer.php";
+$salesbycustomer = new SalesByCustomer;
+$salesbycustomer->run()->render();
+
+Executar
+
+https://localhost/sale_report
+
+

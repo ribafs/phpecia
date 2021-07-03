@@ -1,0 +1,15 @@
+Destrutor : O método destrutor será chamado assim que todas as referências a um objeto em particular forem removidas ou quando o objeto for explicitamente destruído. O método __destruct é executado toda vez que um objeto da classe é destruído pelo fim do script ou através da função unset. Sua função é basicamente zerar variáveis, limpar dados de sessões, fechar conexões com banco de dados, etc.
+
+Como no método construtor, o método destrutor possui um nome reservado, o 
+
+__destruct()
+
+O exemplo a seguir aplica este conceito na classe
+Noticia e NoticiaPrincipal:
+
+public function __destruct()
+{
+    echo “Destruindo objeto...”;
+}
+
+

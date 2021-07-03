@@ -1,0 +1,21 @@
+Contantes
+
+Uma constante é mais ou menos como uma variável, pois contém um valor, mas na verdade é mais como uma função porque uma constante tem seu valor é imutável. Depois de declarar uma constante, ela não muda seu valor.
+
+Por convenção as constantes devem usar nomes tudo em maiúsculas: CONSTANTE, MINHA_CONSTANTE;
+
+Declarar uma constante é fácil, como é feito nesta versão de MyClass -
+
+class MyClass {
+   const REQUIRE_MARGIN = 1.7;
+   
+   public function __construct($incomingValue) {
+      // Statements here run every time
+      // an instance of the class
+      // is created.
+   }
+}
+
+print MyClass::REQUIRE_MARGIN;
+
+

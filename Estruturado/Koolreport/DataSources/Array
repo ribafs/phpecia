@@ -1,0 +1,74 @@
+ArrayDataSource
+
+    Introduction
+    Settings
+    Methods
+    Example
+
+Introduction #
+
+Not all of your data comes from database, some may come from your application itself in form of array. ArrayDataSource helps you to source those data to produce data analysis and report.
+
+Settings #
+
+Name	    type	default	    description
+class	    string	    	    Must set to '\koolreport\datasources\ArrayDataSource'
+data	    array	array()	    Contain data in array
+dataFormat	string	"associate"	You can set value either "table" or "associate".
+
+Methods #
+Name	                                    return	        description
+load(array $data, $format = "associate")	ArrayDataSource	This allow us to load an array in the setup() function of KoolReport. This load() function support both type of table format "associate" and "table"
+
+Example #
+
+Associate data format:
+
+<?php
+class MyReport extends \koolreport\KoolReport
+{
+    public function settings()
+    {
+        return array(
+            "dataSources"=>array(
+                "array_example_datasource"=>array(
+                    "class"=>'\koolreport\datasources\ArrayDataSource',
+                    "dataFormat"=>"associate",
+                    "data"=>array(
+                        array("customerName"=>"Johny Deep","dollar_sales"=>100),
+                        array("customerName"=>"Angelina Jolie","dollar_sales"=>200),
+                        array("customerName"=>"Brad Pitt","dollar_sales"=>200),
+                        array("customerName"=>"Nocole Kidman","dollar_sales"=>100),
+                    )
+                ),
+            )
+        );
+    }
+}
+
+Table format:
+
+<?php
+class MyReport extends \koolreport\KoolReport
+{
+    public function settings()
+    {
+        return array(
+            "dataSources"=>array(
+                "array_example_datasource"=>array(
+                    "class"=>'\koolreport\datasources\ArrayDataSource',
+                    "dataFormat"=>"table", //Table data format
+                    "data"=>array(
+                        array("customerName","dollar_sales"),
+                        array("Johny Deep",100),
+                        array("Angelina Jolie",200),
+                        array("Brad Pitt",200),
+                        array("Nocole Kidman",100),
+                    )
+                ),
+            )
+        );
+    }
+}
+
+

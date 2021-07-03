@@ -1,0 +1,42 @@
+Virtual Host no ubuntu/Debian com Apache2
+
+Adaptado de:
+https://www.vivaolinux.com.br/topico/Apache-Web-Server/virtualHost
+
+Vou criar mais um virtual host:
+/backup/www - 127.0.0.1 - backup
+
+Muito útil para quem precisa executar um site no raiz web e que precisa de vários sites, todos no raiz.
+
+sudo nano /etc/hosts
+
+127.0.0.1	backup
+
+sudo nano /etc/apache2/sites-available/backup.conf
+
+<VirtualHost *:80>
+ServerAdmin ribafs@gmail.com
+ServerName backup
+DirectoryIndex index.php
+DocumentRoot /backup/www
+LogLevel warn
+ErrorLog ${APACHE_LOG_DIR}/error.log
+CustomLog ${APACHE_LOG_DIR}/access.log combined
+<Directory /backup/www/>
+    Options Indexes FollowSymLinks
+    AllowOverride All
+    Require all granted
+    DirectoryIndex index.html index.php
+</Directory>
+</VirtualHost>
+
+sudo a2ensite backup
+sudo systemctl reload apache2
+
+Para acessar
+
+http://backup
+
+Os arquivos da pasta
+/backup/www
+

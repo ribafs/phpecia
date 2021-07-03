@@ -1,0 +1,53 @@
+function foo(string $a, string $b, ?string $c = null, ?string $d = null) 
+
+    public function test(): static
+    {
+
+function bar(): ?mixed {}
+
+
+    array
+    bool
+    callable
+    int
+    float
+    null
+    object
+    resource
+    string
+
+function dump(mixed $var): mixed
+{
+	// print variable
+	return $var;
+}
+
+function strpos(string $haystack, string $needle): int|false
+{
+}
+
+
+public function(
+    string $parameterA,
+    int $parameterB,
+    Foo $objectfoo,
+) {
+    // …
+}
+
+class Foo
+{
+    public function __toString(): string
+    {
+        return 'foo';
+    }
+}
+
+$resourceId = (int) $resource;
+
+    function test(int $input): int
+    {
+        return $input;
+    }
+
+https://stitcher.io/blog/new-in-php-8

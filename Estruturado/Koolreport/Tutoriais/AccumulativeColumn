@@ -1,0 +1,36 @@
+AccumulativeColumn
+
+    Introduction
+    Example
+
+Introduction #
+
+AccumulativeColumn helps you to create a running total from a column.
+
+Example #
+
+<?php
+use \koolreport\processes\AccumulativeColumn;
+class MyReport extends \koolreport\KoolReport
+{
+    public function setup()
+    {
+        ...
+        ->pipe(new AccumulativeColumn(array(
+            "running_total"=>"total"
+        )))
+        ...
+    }
+}
+
+Results:
+
+date	    total	running_total
+
+2018-09-01 	$142 	$142
+2018-09-02 	$90 	$232
+2018-09-03 	$123 	$355
+2018-09-04 	$164 	$519
+2018-09-05 	$423 	$942
+2018-09-06 	$343 	$1,285 
+

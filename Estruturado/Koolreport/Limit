@@ -1,0 +1,27 @@
+Limit
+
+    Introduction
+    Sample Code
+
+Introduction #
+
+Limit process will limit the rows returned. It works the same as LIMIT statement in SQL Query.
+Sample Code #
+
+<?php
+use \koolreport\processes\Limit;
+class MyReport extends \koolreport\KoolReport
+{
+    public function setup()
+    {
+        ...
+        ->pipe(new Limit(array(20,10));//Limit 20 rows starting from offset 10
+        ...
+    }
+}
+
+If you only need to get top number of rows without offset, you can omit the offset value
+
+->pipe(new Limit(array(20));// Get top 20 rows
+
+

@@ -1,0 +1,28 @@
+<?php
+class Vazia
+{
+}
+
+$v = new Vazia();
+
+
+Objetos de uma mesma classe usam endereços de memória diferente:
+
+class Vazia
+{
+    public $prop=2;
+}
+
+$v = new Vazia();
+$v2 = new Vazia();
+$v3 = new Vazia();
+
+$v->prop = 5;
+$v2->prop = 10;
+$v3->prop = 15;
+
+print $v->prop; // 5
+print $v2->prop; // 10
+print $v3->prop; // 15
+
+

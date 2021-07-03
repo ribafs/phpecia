@@ -1,0 +1,57 @@
+-- Listar os veículos cujas placas estão no formato AAA-9999
+
+-- MySQL, MariaDB, SQLite
+SELECT * FROM veiculos WHERE placa REGEXP '^[A-Z]{3}-\d{4}$';
+
+-- PostgreSQL
+SELECT * FROM veiculos WHERE placa ~ '^[A-Z]{3}-\d{4}$';
+
+-- Oracle
+SELECT * FROM veiculos WHERE REGEXP_LIKE(placa, '^[A-Z]{3}-\d{4}$');
+
+-- Listar os veículos cujas placas NÃO estão no formato AAA-9999
+
+-- MySQL, MariaDB, SQLite
+SELECT * FROM veiculos WHERE placa NOT REGEXP '^[A-Z]{3}-\d{4}$';
+
+-- PostgreSQL
+SELECT * FROM veiculos WHERE placa !~ '^[A-Z]{3}-\d{4}$';
+
+-- Oracle
+SELECT * FROM veiculos WHERE NOT REGEXP_LIKE(placa, '^[A-Z]{3}-\d{4}$');
+
+-- Mostra o valor original e o formatado como AAA-9999
+
+-- MariaDB
+SELECT
+  placa AS placa_original,
+  REGEXP_REPLACE(placa, '^([A-Z]{3})[.: ]?(\d{4})$', '\\1-\\2') AS placa_ok
+FROM veiculos;
+
+-- PostgreSQL
+SELECT
+  placa AS placa_original,
+  regexp_replace(placa, '^([A-Z]{3})[.: ]?(\d{4})$', '\\1-\\2') AS placa_ok
+FROM veiculos;
+
+-- Oracle
+SELECT
+  placa AS placa_original,
+  REGEXP_REPLACE(placa, '^([A-Z]{3})[.: ]?(\d{4})$', '\1-\2') AS placa_ok
+FROM veiculos;
+
+- Corrigir todas as placas para o formato AAA-9999
+
+-- MariaDB
+UPDATE veiculos
+SET placa = REGEXP_REPLACE(placa, '^([A-Z]{3})[.: ]?(\d{4})$', '\\1-\\2');
+
+-- PostgreSQL
+UPDATE veiculos
+SET placa = regexp_replace(placa, '^([A-Z]{3})[.: ]?(\d{4})$', '\\1-\\2');
+
+-- Oracle
+UPDATE veiculos
+SET placa = REGEXP_REPLACE(placa, '^([A-Z]{3})[.: ]?(\d{4})$', '\1-\2');
+
+

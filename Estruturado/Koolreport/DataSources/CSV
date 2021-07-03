@@ -1,0 +1,47 @@
+CSVDataSource
+
+    Introduction
+    Settings
+    Example
+
+Introduction #
+
+In many case, data is stored in CSV for example log file. The CSVDataSource will help us to read data from those file and pipe their data into our processing chain.
+
+Settings #
+
+Name	        type	    default	description
+class	        string		        Must set to '\koolreport\datasources\CSVDataSource'
+filePath	    string		        The full file path to the .csv file.
+fieldSeparator	string	    ","	    Set the field separator in your csv, some file use "\t" tab as field separator
+charset	        string	    "utf8"	Charset of your CSV file
+firstRowData	boolean	    false	Whether the first row is data. Normally the first row contain the field name so default value of this property is false.
+
+Example #
+
+<?php
+class MyReport extends \koolreport\KoolReport
+{
+    public function settings()
+    {
+        return array(
+            "dataSources"=>array(
+                "csv_example_datasource"=>array(
+                    "class"=>'\koolreport\datasources\CSVDataSource',
+                    "filePath"=>"/var/storage/sales.csv",
+                    "fieldSeparator"=>"\t",
+                ),
+            )
+        );
+    }
+    public function setup()
+    {
+        $this->src('csv_example_datasource')
+        ->pipe(..)
+        ->pipe(...)
+        ...
+        ->pipe($this->dataStore('salescsv'));
+    }
+}
+
+

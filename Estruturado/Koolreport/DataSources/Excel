@@ -1,0 +1,45 @@
+ExcelDataSource
+
+    Introduction
+    Settings
+    Example
+
+Introduction #
+
+ExcelDataSource help you to get data from your current Microsoft Excel file. Underline of ExcelDataSource is the open-source library called PHPOffice/PhpSpreadsheet which helps us to read various Excel version. Please install the Excel package.
+
+Settings #
+
+Name	        type	    default	description
+class	        string		        Must set to '\koolreport\datasources\ExcelDataSource'
+filePath	    string		        The full file path to the Excel file.
+charset	        string	"utf8"	Charset of your CSV file
+firstRowData	boolean	false	Whether the first row is data. Normally the first row contain the field name so default value of this property is false.
+
+Example #
+
+<?php
+class MyReport extends \koolreport\KoolReport
+{
+    public function settings()
+    {
+        return array(
+            "dataSources"=>array(
+                "excel_example_datasource"=>array(
+                    "class"=>'\koolreport\excel\ExcelDataSource',
+                    "filePath"=>"/var/storage/sales.xls",
+                ),
+            )
+        );
+    }
+    public function setup()
+    {
+        $this->src('excel_example_datasource')
+        ->pipe(..)
+        ->pipe(...)
+        ...
+        ->pipe($this->dataStore('sales.excel'));
+    }
+}
+
+

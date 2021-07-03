@@ -1,0 +1,71 @@
+Trabalhando com Números em PHP
+
+Muito Cuidado ao Lidar com Números em Ponto Flutuante
+
+Teste em PHP
+
+<?php
+echo (int) ((0.1 + 0.7 ) * 10);
+?>
+
+Agora teste isso:
+
+echo (int) ((0.2 + 0.7 ) * 10);
+
+Não conclua muito apressadamente que é deficiência do PHP.
+
+Neste momento devemos ter conhecimento de como se comportam os números, especialmente os floats, que são normalizados pelo IEEE.
+
+
+Teste em Java
+
+class teste {
+    public static void main(String[] args) {
+        System.out.println((int) ((0.1 + 0.7 ) * 10)); //Display the string.
+    }
+}
+
+Em Java também dá o mesmo resultado do PHP, o que leva a crer que a coisa não depende da linguagem mas das normas de como foram construídos os números pelo IEEE.
+
+O Effective Java sugere que se use int, long ou BigDecimal para representar os valores monetários. A classe BigDecimal foi desenvolvida para resolver dois tipos de problemas associados a números de ponto flutuante (floats e doubles): primeiro, resolve o problema da inexatidão da representação de números decimais; segundo, pode ser usado para trabalhar com números com mais de 16 dígitos significativos. Em compensação, utilizar BigDecimal pode tornar o programa menos legível por não haver sobrecarga dos operadores matemáticos para ela, sendo necessário usar métodos da classe. Veja, por exemplo, como você faria o programa da listagem 1 com BigDecimal:
+
+BigDecimal d1 = new BigDecimal("1.95");
+
+BigDecimal d2 = new BigDecimal("1.03");
+
+System.out.println(d1.subtract(d2));
+
+Utilizar os primitivos normalmente é mais rápido e mais prático, mas o problema fica por conta da definição das casas decimais. Você pode controlar diretamente as casas decimais, por exemplo, utilizando como unidade para os valores o centavo ao invés de real. Um int ou um long passariam a representar a quantidade de centavos presentes no valor, e não a quatidade de reais. Por exemplo:
+
+long l1 = 195;
+
+long l2 = 103;
+
+System.out.println(l1 ? l2);
+
+Listagem 6: Programa da listagem 1 com long
+
+As variáveis acima dizem que você tem 195 centavos (e não R$ 1,95) e vai gastar 103 centavos, e não R$ 1,03. No final você ficará com 92 centavos (e não R$ 0,92).
+
+
+Agora veja as recomendações do manual do PHP
+
+O tamanho de um float depende também da plataforma e é de 64bits no formato IEEE(*). Nunca compare números em ponto flutuante em igualdades, sob pena de cometer erros.
+
+
+Teste com PostgreSQL
+
+SELECT CAST((0.1 + 0.7)*10 AS INTEGER);
+
+Este sim, retorna o valor esperado.
+
+
+Em Java:
+
+System.out.println(1.95 - 1.03); // Retorna errado e em PHP retorna OK.
+
+Em Ruby
+
+(1.8+0.1)==(1.9) retorna false
+
+O mesmo ocorre em Phyton.

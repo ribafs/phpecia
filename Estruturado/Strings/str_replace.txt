@@ -1,0 +1,29 @@
+Tenho um arquivo com 262 linhas, sendo uma abaixo da outra.
+
+Exemplo:
+
+Mais do que de inteligência, o mundo precisa de sentimento. Charles Chaplin! 
+A paz é a forma de nos sentirmos verdadeiramente humanos. Einstein 
+Eu chorava por não ter sapatos até que um dia encontrei um homem que não tinha pés. Desconhecido 
+
+Gostaria de inserir uma linha em branco após cada uma das linhas.
+
+Se eu jogar todo o conteúdo do arquivo dentro de uma string, assim:
+
+$string = 'Mais do que de inteligência, o mundo precisa de sentimento. Charles Chaplin! 
+A paz é a forma de nos sentirmos verdadeiramente humanos. Einstein 
+Eu chorava por não ter sapatos até que um dia encontrei um homem que não tinha pés. Desconhecido 
+';
+
+print str_replace("\n", "<br /><br />", $string);
+
+Isto fará o que quero:
+
+Mais do que de inteligência, o mundo precisa de sentimento. Charles Chaplin! 
+
+A paz é a forma de nos sentirmos verdadeiramente humanos. Einstein 
+
+Eu chorava por não ter sapatos até que um dia encontrei um homem que não tinha pés. Desconhecido 
+
+Obrigado aos colegas do grupo PHP Brasil no Facebook, que me ajudaram a descobrir. Imagina o trabalho de editar este arquivo com 252 linhas e inserir uma linha em branco entre cada uma? Bem, acho que programador deve otimizar as atividades. :)
+

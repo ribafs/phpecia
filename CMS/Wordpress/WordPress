@@ -1,0 +1,130 @@
+Instalar o Wordpress 5 em pt-br
+
+https://br.wordpress.org/download/
+
+Rolar a tela e copiar o link para baixar
+
+cdr
+
+wget https://br.wordpress.org/latest-pt_BR.zip
+unzip latest-pt_BR.zip -d wp
+rm latest-pt_BR.zip
+cd wp/wordpress
+mv * ../
+cd ..
+ls
+rm -rf wordpress
+
+sudo permsr
+ls -la
+
+Após criar o user e o banco instalar via web
+
+http://ribafs.me/wp
+
+Bem-vindo ao WordPress. Antes de começar, precisamos de algumas informações sobre o banco de dados. Você precisa conhecer o valor dos seguintes items antes de continuar.
+
+    Nome do banco de dados
+    Nome de usuário do banco de dados
+    Senha do banco de dados
+    Servidor do banco de dados
+    Prefixo de tabela (se quiser rodar mais de um WordPress no mesmo banco de dados)
+
+Nós iremos utilizar esta informação para criar um arquivo wp-config.php. Se por algum motivo a criação automática deste arquivo não funcionar, não se preocupe. Tudo que isto faz é preencher as informações do banco de dados a um arquivo de configuração. Você pode simplesmente abrir wp-config-sample.php em um editor de texto, inserir as informações e salvá-lo como wp-config.php. Ainda precisa de ajuda? Conte conosco.
+
+Provavelmente esses itens foram fornecidos pelo seu servidor de hospedagem. Se não tiver essa informação, então você precisa entrar em contato com eles antes de continuar. Se estiver pronto…
+
+Clicar em Vamos lá
+
+
+
+Abaixo você deve digitar suas informações de conexão com o banco de dados. Se você não tem certeza quais são, contate sua hospedagem.
+
+Nome do banco de dados - wp_db 		O nome do seu banco de dados que você deseja utilizar com o WordPress.
+Nome de usuário - wp_us 		Usuário do seu banco de dados.
+Senha -  		Senha do seu banco de dados.
+Servidor do banco de dados - localhost 		Você deve ser capaz de obter esta informação no seu servidor de hospedagem, caso localhost não funcione.
+Prefixo da tabela - wp_		Se quiser rodar várias instalações WordPress em um unico banco de dados, mude isto.
+
+Clicar em Enviar
+
+Muito bem! Você concluiu esta parte da instalação. Agora o WordPress pode se comunicar com seu banco de dados. Se você estiver pronto, é hora de…
+
+Instalar
+
+Bem-vindo (a)
+
+Bem-vindo (a) à famosa instalação do WordPress em cinco minutos! Basta preencher as informações abaixo e você estará a poucos passos de usar a plataforma de publicação mais extensível e poderosa do mundo.
+Informação necessária
+
+Forneça as seguintes informações. Não se preocupe, você pode alterar estas configurações mais tarde.
+Título do site 	- RibaFS WP
+Nome de usuário - 
+
+Nomes de usuário podem ter somente caracteres alfanuméricos, espaços, sublinhados, hífens, pontos e o símbolo @.
+Senha -
+
+Importante: Você precisará dessa senha para entrar. Guarde-a em um local seguro.
+O seu e-mail - ribafs@gmail.com
+
+Verifique o seu endereço de e-mail antes de prosseguir.
+
+Visibilidade nos motores de busca
+Evitar que mecanismos de busca indexem este site
+
+Cabe aos mecanismos de busca atender esta solicitação.
+
+Instalar Wordpress
+
+Sucesso!
+
+O WordPress foi instalado. Obrigado e divirta-se!
+Nome de usuário - 
+Senha - 
+
+Sua senha escolhida.
+
+Então abre
+
+http://ribafs.me/wp/wp-login.php
+
+Nome de usuário ou endereço de e-mail - 
+Senha - 
+
+Lembrar-me
+
+Acessar
+
+Perdeu a senha?
+
+← Ir para RibaFS WP 
+
+Acessa o admin
+
+http://ribafs.me/wp/wp-admin/
+
+Notificações
+
+Atualizações - cliquei
+
+Versão 5.6.2
+
+Você possui a última versão do WordPress.
+
+Plugins
+
+Os seguintes plugins possuem novas versões disponíveis. Marque os que você quer atualizar e então clique em “Atualizar Plugins”.
+
+Akismet Anti-Spam
+Você possui a versão 4.1.8 instalada. Atualize para versão 4.1.9. Ver detalhes da versão 4.1.9.
+Compatibilidade com o WordPress 5.6.2: 100% (de acordo com o autor) 
+
+Marquei e Atualziar plugins
+
+Requer um servidor de FTP para instalar os plugins.
+
+O site fica aqui
+
+http://ribafs.me/wp/
+
+

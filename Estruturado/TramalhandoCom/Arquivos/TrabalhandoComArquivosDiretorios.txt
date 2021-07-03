@@ -1,0 +1,227 @@
+TRABALHANDO COM ARQUIVOS E DIRETÓRIOS
+
+Abrir arquivo
+fopen(filename, mode, [use_include_path]);
+
+filename: pode ser simplesmente um nome, ou um caminho completo. 
+Exemplos: "arquivo.txt", "./arquivo.dat", "/data/data.txt".
+
+mode: especifica o modo de abertura, ou seja, se o arquivo deve ser aberto para leitura, 
+escrita, etc. Modos de abertura:
+
+- r: abre o arquivo no modo somente leitura e posiciona o ponteiro no início do arquivo; 
+	o arquivo já deve existir;
+- r+: abre o arquivo para leitura/escrita, posiciona o ponteiro no início do arquivo;
+- w: abre o arquivo no modo somente escrita; se o arquivo já existir, será sobrescrito; 
+	senão, será criado um novo;
+- w+: abre o arquivo para escrita/leitura; se o arquivo já existir, será sobrescrito; 
+	senão, será criado um novo;
+- a: abre o arquivo para anexar dados, posiciona o ponteiro no final do arquivo; 
+	se o arquivo não existir, será criado um novo;
+- a+: abre o arquivo para anexo/leitura, posiciona o ponteiro no final do arquivo; 
+	se o arquivo não existir, será criado um novo;
+
+<?php
+	$fp = fopen("./arquivo.dat", "r"); // $fp conterá o handle do arquivo que abrimos
+?>
+
+Fechar Arquivo
+
+fclose(handle_arquivo);
+
+<?php
+fclose($fp);
+?>
+
+Gravando em arquivo:
+<?php
+$fp = fopen("./dados.txt", "w");
+fwrite($fp, "Olá mundo do PHP!"); // grava a string no arquivo. Se não existir será criado
+fclose($fp);
+?>
+
+Lendo arquivo:
+<?php
+
+$fp = fopen("./dados.txt", "r");
+$texto = fread($fp, 20); // lê 20 bytes do arquivo e armazena em $text
+fclose($fp);
+echo $texto;
+?>
+
+fgets(): Esta função é usada na leitura de strings de um arquivo. fgets() lê "length \u2013 1" bytes do arquivo. Se for encontrado o final da linha e o número de bytes especificados não tiver sido atingido, fgets() terminará a leitura no final da linha (ou no final do arquivo, se for o caso). Eis a sua sintaxe:
+
+fgets(handle, length);
+- handle: handle do arquivo de onde os dados serão lidos;
+- length: tamanho em bytes do buffer de leitura;
+
+Exemplo:
+<?php
+$fp = fopen("./dados.txt", "r");
+$texto = fgets($fp, 3);
+fclose($fp);
+echo $texto;
+?>
+
+fgetc(): Esta função permite ler caractere por caractere de um arquivo. Seguem a sintaxe e um exemplo de utilização:
+
+fgetc(handle);
+- handle: handle do arquivo de onde os dados serão lidos;
+
+Exemplo:
+<?php
+$fp = fopen("./dados.txt", "r");
+while (!feof($fp)){
+    $char .= fgetc($fp);
+} 
+fclose($fp);
+echo $char."<br><br>";
+?>
+
+file(): Esta função lê um arquivo completo, e armazena cada linha do arquivo como um elemento de um array. Depois de ler todo o conteúdo do arquivo, file() o fecha automaticamente, não sendo necessária uma chamada a fclose(); Vejamos a sintaxe:
+
+file(filename);
+- filename: nome ou caminho completo de um arquivo.
+
+Exemplo:
+<?php
+// file() lê todo o arquivo
+$file_lines = file("./dados.txt");
+echo "Primeira linha: " . $file_lines[0]."<br>";
+echo "Segunda linha: " . $file_lines[1]."<br>";
+echo "Terceira linha: " . $file_lines[2];
+?>
+
+Além dessas funções para leitura e escrita, existe ainda uma função bastante útil, que testa se o final do arquivo foi atingido. É a função feof(), que tem a seguinte sintaxe:
+
+feof(handle);
+- handle: handle do arquivo;
+
+Exemplo:
+<?php
+$fp = fopen("./dados.txt", "r");
+while(!feof($fp)) {
+    $char .= fgetc($fp);
+}
+fclose($fp);
+echo $char;
+?>
+
+Contando o Número de Linhas de um arquivo
+<?php
+// Contar o número de linhas de um arquivo, iniciando com 1
+$fp = "./dados.txt";
+$line_count = count (file ($fp));
+echo $line_count;
+?>
+
+Contar palavras de um arquivo
+/*
+// Contar palavras repetidas em um arquivo
+$fn = "./dados.txt";
+$f_contents = preg_split ("/[\s+/", implode ("", file ($fn)));
+foreach ($f_content as $palavra) {
+	$ar[$palavra]++;
+}
+print "A seguinte palavra tem duplicatas<br>";
+foreach ($ar as $palavra => $conta_palavra) {
+	if (conta_palavra > 1) {
+		print "Palavra: $palavra<br>Número de ocorrências: $conta_palavra<br><br>";
+	}
+}
+*/
+
+Ler de forma inversa um arquivo, linha a linha
+
+<?php
+$fn = "./dados.txt";
+$f_contents = array_reverse (file ($fn));
+foreach ($f_contents as $linha_inversa) {
+	print $linha_inversa;
+}
+?>
+
+
+Ler aleatoriamente linha de arquivo
+
+<?php
+$fn = "./pensamentos.txt";
+$f_contents = file ($fn);
+srand ((double)microtime()*1000000);
+$linha_aleatoria = $f_contents[ rand (0, (count ($f_contents) - 1)) ];
+print $linha_aleatoria;
+?>
+
+Ler linha específica de arquivo
+
+<?php
+$fn = "./dados.txt";
+$nr_linha = 38;
+$f_contents = file ($fn);
+$sua_linha = $f_contents [$nr_linha];
+print $sua_linha;
+?>
+
+
+OPERAÇÕES COM DIRETÓRIOS
+
+Mostrando conteúdo de diretório
+
+<?php
+$dn = opendir ("/home/1www/");
+while ($file = readdir ($dn)) {
+	print "$file<br>";
+}
+closedir($dn);
+?>
+
+Excluindo arquivos do SO
+
+<?php
+$fn = "./dados0.txt";
+// Excluindo arquivo
+$ret = unlink ($fn);
+if ($ret){
+	 die ("Arquivo excluído!");
+}else{
+	die ("Erro ao excluir arquivo");
+}
+?>
+
+Copiando arquivos
+
+<?php
+$fn = "./dados.txt";
+
+if (copy ($fn, "dados0.txt")){
+	 die ("Arquivo '$fn' copiado para dados0.txt ");
+}else{
+	die ("Erro ao copiar arquivo");
+}
+?>
+
+Processando todos os arquivos de um diretório
+
+<?php
+$dh = dir ("/home/1www/");
+while ($entrada = $dh->read()) {
+	print $entrada . "<br>";
+}
+$dh->close();
+?>
+
+Referência:
+http://phpbrasil.com/articles/print.php/id/310
+
+TESTE SE ARQUIVO QUE PODE LIDO (READABLE)
+
+<?php
+if (is_readable('http://127.0.0.1/index.html')) {
+   header('Location: http://127.0.0.1/index.html');
+}else{
+	echo "Este arquivo não pode ser lido!";
+}
+
+?>
+
+

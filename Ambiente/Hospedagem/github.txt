@@ -1,0 +1,47 @@
+Domínio ribamar.net.br no Registro.br apontando para o GitHub
+
+Repositório professor com Github pages no diretório
+main - docs
+
+
+Manter os nameservers  no Registro.br
+
+E setar os registros do Github
+
+Apontar o repositório principal ribafs.github.io/professor em 
+
+Settings
+
+Rolar a tela até
+
+Custom domain
+Custom domains allow you to serve your site from a domain other than ribafs.github.io. Learn more.
+
+ribamar.net.br - Save (Esta parte parece que é feita automaticamente pelo Github depois de apontado o Domínio)
+
+CNAME
+
+blog.ribamar.net.br	ribafs.github.io
+www.ribamar.net.br	ribafs.github.io
+
+A
+
+ribamar.net.br	185.199.108.153
+ribamar.net.br	185.199.109.153
+ribamar.net.br	185.199.110.153
+ribamar.net.br	185.199.111.153
+
+
+
+
+Criar o arquivo
+
+CNAME
+
+Contendo
+
+ribamar.net.br
+
+No raiz do repositório ribafs.github.io/professor
+
+https://hossainkhan.medium.com/using-custom-domain-for-github-pages-86b303d3918a

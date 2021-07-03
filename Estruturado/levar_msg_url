@@ -1,0 +1,79 @@
+Tenho uma classe com o método abaixo, que quero levar mensagens para a index.php:
+
+No método:
+
+    function validateDate($date, $format = 'Y-m-d'){
+        $b = DateTime::createFromFormat($format, $date);
+        return $b && $b->format($format) === $date;
+    }
+
+    public function insert(){
+        $nome = $_POST['nome'];
+        $email = $_POST['email'];
+        $nascimento = $_POST['nascimento'];
+        $cpf = $_POST['cpf'];
+
+        if(!$this->validateDate($nascimento)){
+		    header("location: index.php?msg=Esta data é inválida&color=red&data=$nascimento");  
+            exit;
+        }
+
+       try{
+           $stmte = $this->pdo->prepare("INSERT INTO clientes(nome,email,nascimento,cpf) VALUES (?, ?, ?, ?)");
+           $stmte->bindParam(1, $nome , PDO::PARAM_STR);
+           $stmte->bindParam(2, $email , PDO::PARAM_STR);
+           $stmte->bindParam(3, $nascimento , PDO::PARAM_STR);
+           $stmte->bindParam(4, $cpf , PDO::PARAM_INT);
+           $executa = $stmte->execute();
+         
+           if($executa){
+               return true;
+           }else{
+               return false;
+           }
+       }
+       catch(PDOException $e){
+          echo $e->getMessage();
+       }
+    }
+
+Tem uma saída pelo teste da data e pelo teste do $executa
+
+Ao final do insert.php eu chamo o método acima:
+
+    if(isset($_POST['enviar'])){
+        if($crud->insert()){    
+           header("location: index.php?msg=Dados inseridos com sucesso&alert=success");
+           exit();
+        }else{
+	       header("location: index.php?msg=Erro ao inserir o registro&alert=danger");  
+           exit();
+        }
+    }
+
+Veja que redireciona para a index.php:
+
+<?php
+include_once("header.php");
+include_once("classes/crud.php");
+$crud = new Crud($pdo);
+
+if(isset($_GET['msg'])){
+    $msg = $_GET['msg'];
+    if ($_GET['alert'] == 'danger') $alert = 'alert-danger';
+    if ($_GET['alert'] == 'success') $alert = 'alert-success';
+}else{
+    $msg = NULL;
+    $alert = null;
+}
+?>
+
+<?php require_once '../header.php';?>
+<body>
+<br/>
+<div class="container">
+    <div class="panel panel-default">
+        <div class="panel-heading text-center"><h3><?=$conn->appName?><br><?=$conn->currentDir()?></h3></div>
+        <h2 align="center"><div class="<?=$alert?>"><?=$msg?></div></h2>
+
+

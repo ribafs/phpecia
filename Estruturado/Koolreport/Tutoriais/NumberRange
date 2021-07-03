@@ -1,0 +1,35 @@
+NumberRange
+
+    Introduction
+    Example
+
+Introduction #
+
+NumberRange helps to set custom name for defined range. For example, you can defined income from $0 to $1000 as low, $1000 to $6000 is medium and above $6000 is high.
+
+Example #
+
+<?php
+use \koolreport\processes\NumberRange;
+use \koolreport\processes\Group;
+class MyReport extends \koolreport\KoolReport
+{
+    public function setup()
+    {
+        ...
+        ->pipe(new NumberRange(array(
+            "income"=>array(
+                "low"=>array(null,999.99)
+                "medium"=>array(1000,5999.99),
+                "high"=>array(6000,null)
+            )
+        )))
+        ->pipe(new Group(array(
+            "by"=>"income",
+            "count"=>"user_id"
+        ))
+        ...
+    }
+}
+
+

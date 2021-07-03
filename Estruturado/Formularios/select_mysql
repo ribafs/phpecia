@@ -1,0 +1,26 @@
+    // Função que popula uma combo com os registros de uma tabela, para campos insert e para campos update
+
+    public function combo($sql, $selected=null){ // $sql='select id,descricao from produtos'
+        $smt = $this->pdo->prepare($sql);       // $sql do update = 'select produto_id,descricao from produtos',$produto_id
+        $smt->execute();
+        $data = $smt->fetchAll();
+        print "\n\t\t".'<select name="produto_id" id="produto_id" class="form-control">';
+        foreach ($data as $row){
+            if($selected == $row['id']){
+                print "\t\t".'<option value='.$row["id"].' selected>'.$row['descricao'].'</option>'."\n";
+            }else{
+                print "\t\t".'<option value='.$row["id"].'>'.$row['descricao'].'</option>'."\n";
+            }
+        }
+        print "\t\t".'</select>'."\n";
+    }
+
+
+Usando no Insert
+
+            <tr><td>Produto</td><td><?=$conn->combo('select id,descricao from produtos order by id')?></td></td></tr>
+
+Usando no Update
+$reg = $sth->fetch(PDO::FETCH_OBJ);
+$produto_id = $reg->produto_id;
+                <tr><td></td><td><?=$conn->combo('select id,descricao from produtos',$produto_id)?></td></tr>

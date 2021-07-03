@@ -1,0 +1,30 @@
+<script>
+function myFunction()
+{
+    var elements = document.getElementsByClassName("formVal");
+    var formData = new FormData(); 
+    for(var i=0; i<elements.length; i++)
+    {
+        formData.append(elements[i].name, elements[i].value);
+    }
+    var xmlHttp = new XMLHttpRequest();
+        xmlHttp.onreadystatechange = function()
+        {
+            if(xmlHttp.readyState == 4 && xmlHttp.status == 200)
+            {
+                alert(xmlHttp.responseText);
+            }
+        }
+        xmlHttp.open("post", "server.php"); 
+        xmlHttp.send(formData); 
+}
+// https://stackoverflow.com/questions/30414372/ajax-post-implementation-in-pure-javascript#30414515
+</script>
+
+<form action="" id="register_form">
+  <input class='formVal' type="text" name="nome" placeholder="Nome"><br>
+  <input class='formVal' type="text" name="email" placeholder="Email"><br>
+  <input class='formVal' type="text" name="cpf" placeholder="CPF"><br>
+  <input class='formVal' type="text" name="nascimento" placeholder="Nascimento"><br>
+  <input type="submit" value="submit_now" onclick="myFunction(); return false;">
+</form>

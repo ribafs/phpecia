@@ -1,0 +1,110 @@
+Bibliotecas de Debug para PHP
+
+Bibliteca de Debug para PHP
+
+Ajuda a detectar e corrigir error
+Mede tempo de execução de scripts/consultas
+Vê o consumo de memória
+
+composer require tracy/tracy
+
+
+index.php
+
+<?php
+
+require 'vendor/autoload.php';
+
+use Tracy\Debugger;
+
+Debugger::enable();
+
+Debugger::$showBar = true;
+
+$os->teste();
+
+Traz uma função dump($var) para ajudar no debug.
+
+Timer
+
+Debugger::timer();
+
+// sweet dreams my cherrie
+sleep(2);
+
+$elapsed = Debugger::timer();
+// $elapsed = 2
+
+ou
+Debugger::timer(); // runs the timer
+
+... // some time-consuming operation
+
+echo Debugger::timer(); // elapsed time in seconds
+
+Obs
+
+Em produção é muito importante desabilitar tracy e toda exibição de erros
+
+Mais detalhes
+https://tracy.nette.org/en/guide
+
+
+## Error Handler with Whoops
+
+Install
+
+composer require filp/whoops
+
+Configurations to use Whoops:
+- Create two development environments using define on config/config.php
+- Basic configurations to Whoops on application/bootstrap.php (below)
+- If in development environment woops display your error windows
+
+
+## src/bootstrap.php with whoops suport:
+```php
+<?php
+define('ROOT', dirname(__DIR__) . DIRECTORY_SEPARATOR);
+define('APP', ROOT . 'src' . DIRECTORY_SEPARATOR);
+require_once ROOT . 'vendor/autoload.php';
+require_once APP . 'config/config.php';
+
+/**
+* Register the error handler
+*/
+$whoops = new \Whoops\Run;
+
+if (ENVIRONMENT !== 'production') {
+// Configure the PrettyPageHandler:
+$errorPage = new Whoops\Handler\PrettyPageHandler();
+ 
+$errorPage->setPageTitle("Also wrong here!"); // Set the page's title
+$errorPage->setEditor("sublime");         // Set the editor used for the "Open" link
+// Algumas informações extras
+$errorPage->addDataTable("Extra Informations", array(
+      "stuff"     => 123,
+      "foo"       => "bar",
+      "useful_id" => "baloney"
+));
+} else {
+    $whoops->pushHandler(function($e){
+        echo 'Todo: Friendly error page and send an email to the developer';
+    });
+}
+ 
+$whoops->pushHandler($errorPage);
+$whoops->register();
+ 
+// Uncomment the line below to use Whoops
+//throw new RuntimeException("Verify details!");
+// load application class
+use Mvc\Core\Router;
+
+// start the application
+$app = new Router();
+```
+
+## References:
+https://code.tutsplus.com/tutorials/whoops-php-errors-for-cool-kids--net-32344
+https://github.com/ribafs/no-framework-tutorial

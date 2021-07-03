@@ -1,0 +1,333 @@
+	<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+	<html>
+	<head>
+		<title>Introdução a XML - Manual completo</title>
+		<base href="http://www.criarweb.com/artigos/">
+		<STYLE type="text/css">
+		 <!-- 
+		 BODY {font-family: verdana,arial,helvetica;font-size:10pt}
+		 TD {font-Family: verdana,arial,helvetica;font-size:10pt}
+		 .fuente8 {font-Family: verdana,arial,helvetica;font-size:8pt}
+		 .coment {font-size:8pt;font-family: verdana,arial,helvetica;background-color: #eeeeee;}
+		.codigo {font-size:8pt;font-family: verdana,arial,helvetica;color: #660000;}
+		 // -->
+		 </STYLE>
+
+	</head>
+	<body bgcolor="White" text="Black" link="#cc0033" vlink="#cc0033" topmargin=10 leftmargin=10 marginheight=10 marginwidth=10>
+	<table align="center" width="100%" cellspacing="2" cellpadding="2" border="0">
+	<tr>
+		<td width="155" align="center" valign="top"><img src="../../images/cabecera_print.gif" WIDTH=218 HEIGHT=81 alt="" border="0"></td>
+		<td align="center"><font size=5 face="verdana"><b>Introdução a XML</b></font></td>
+	</tr>
+	</table>
+	<br>
+	<table width="100%" cellspacing="0" cellpadding="0" border="0">
+	<tr>
+		<td  nowrap class=fuente8><b>Manual por:		<a href="http://www.criarweb.com"></a></b> 
+		<br>
+ 		Criar Web, manuais e recursos para desenvolvimento web		</td>
+	    <td align="right" class=fuente8><b>Versão on-line: </b><br>
+		<a href="../../manuais/24">http://www.criarweb.com/manuais/24</a></td>
+	</tr>
+	</table>
+	<hr>
+	<br><font size=4 face=verdana><b>O que é XML</b></font><br><br>XML é uma tecnologia na verdade muito simples que tem ao seu redor outras tecnologias que a complementam e a fazem muito maior e com possibilidades muito mais amplas. Vamos ver ao longo de vários capítulos uma introdução ao mundo XML, ou seja, à linguagem assim como às tecnologias que trabalham com ela, seus usos, vantagens e modos de realizar as tarefas.
+<p>
+XML, com  todas as tecnologias relacionadas, representa uma maneira distinta de fazer as coisas, mais avançada, cuja principal novidade consiste em permitir compartir os dados com os quais se trabalha a todos os níveis, por todas as aplicações e suportes. Sendo assim, o XML tem um papel importantíssimo neste mundo atual, que tende à globalização e à compatibilidade entre os sistemas, já que é a tecnologia que permitirá compartir a informação de una maneira segura, confiável e fácil. Ademais, XML permite ao programador e aos suportes dedicar seus esforços às tarefas importantes quando trabalha com os dados, já que algumas tarefas trabalhosas como a validação destes ou o percorrido das estruturas corre a cargo da linguagem e está especificado pelo padrão, de modo que o programador não tem que se preocupar por isso.
+<p>
+Vemos que XML não está só, e sim com um mundo de tecnologias ao redor dele, de possibilidades, maneiras mais fáceis e interessantes de trabalhar com os dados e, definitivamente, um avance na hora de tratar a informação, que é na verdade o objetivo da informática em geral. XML, ou melhor dizendo, o mundo XML não é uma linguagem, e sim várias linguagens, não é uma sintaxe, e sim várias e não é uma maneira totalmente nova de trabalhar, e sim uma maneira mais refinada que permitirá que todas as anteriores se possam comunicar entre si sem problemas, já que os dados cobram sentido. 
+<p>
+XML é interessante no mundo da Internet e do e-bussiness, já que existem muitos sistemas distintos que têm que se comunicar entre si, porém, como se pode imaginar, interessa igualmente a todos os ramos da informática e o tratamento de dados, já que permite muitos avances na hora de trabalhar com eles.
+
+<br><br><span class=fuente8>Informe de <b>Miguel Angel Alvarez - Tradução de JML</b><br>Mail: <a href="juliana@criarweb.com"><b>juliana@criarweb.com</b></a><br></span><br></br><br><font size=4 face=verdana><b>História do XML</b></font><br><br>O XML provém de uma linguagem que inventou IBM lá pelos anos 70. A linguagem de IBM chama-se GML (General Markup Language) e surgiu pela necessidade que tinham na empresa de armazenar grandes quantidades de informação de temas diversos.
+<p>
+Imaginar por um momento a quantidade de documentação que a IBM geraria sobre todas as áreas nas que trabalhava e investigava, e a quantidade de informação que haverá gerado até hoje. Sendo assim, necessitavam uma maneira de salvar a informação e os experts de IBM inventaram GML, uma linguagem com a qual poder classifica-la toda e escrever qualquer documento para que se possa logo processar adequadamente.
+<p>
+Esta linguagem atraiu muito ao pessoal de ISO, uma entidade que se encarrega de normalizar quantas coisas você puder imaginar para os processos do mundo atual, de modo que lá pelo ano de 86 trabalharam para normalizar a linguagem, criando o SGML, que não era mais que o GML, porém, padrão (Standar em inglês).
+<p>
+SGML é uma linguagem muito trabalhada, capaz de se adaptar a um grande leque de problemas e a partir dele criaram-se os seguintes sistemas para armazenar informação.
+<p>
+Pelo ano de 89, para o âmbito da rede Internet, um usuário que havia conhecido a linguagem de etiquetas (Markup) e os hiperlinks criou uma nova linguagem chamada <a href="http://www.criarweb.com/artigos/7.php?manual=11">HTML</a>, que foi utilizado para um novo serviço de Internet, a Web. Esta linguagem foi adotada rapidamente pela comunidade e várias organizações comerciais criaram seus próprios visores de <a href="http://www.criarweb.com/artigos/7.php?manual=11">HTML</a> e disputaram entre eles para fazer o visor mais avançado, inventando etiquetas segundo sua própria vontade. Desde 96 até hoje uma entidade chamada <a href="http://www.w3c.org" target="_blank">W3C</a> trataou de colocar ordem no <a href="http://www.criarweb.com/artigos/7.php?manual=11">HTML</a> e de estabelecer suas regras e etiquetas para que seja um padrão. Entretanto o <a href="http://www.criarweb.com/artigos/7.php?manual=11">HTML</a> cresceu de uma maneira descontrolada e não cumpriu todos os problemas que planejava a sociedade global de Internet.
+<p>
+O mesmo <a href="http://www.w3c.org" target="_blank">W3C</a> em 98 começou e continua, no desenvolvimento de XML (Extended Markup Language). Nesta linguagem foi pensado muito mais e muitas pessoas com grandes conhecimentos na matéria estão ainda trabalhando na sua gestação. Pretendiam solucionar as carências do <a href="http://www.criarweb.com/artigos/7.php?manual=11">HTML</a> no que se refere ao tratamento da informação. Problemas do <a href="http://www.criarweb.com/artigos/7.php?manual=11">HTML</a> como:
+<ul>
+<li>O conteúdo se mistura com os estilos que queremos aplicar.
+<li>Não permite compartilhar informação com todos os dispositivos, como podem ser computadores ou telefones celulares.
+<li>A apresentação na tela depende do visor que se utilize.
+</ul>
+Imagine, uma pessoa que conhece o <a href="http://www.criarweb.com/artigos/7.php?manual=11">HTML</a> e o difícil que pode chegar a ser entender seu código, se tivesse que processa-lo para extrair seus dados que necessite em outras aplicações. Seria muito difícil saber onde está realmente a informação que busca, sempre misturada entre etiquetas &lt;FONT&gt;, &lt;TABLE&gt;, &lt;TD&gt;, etc... Isto é uma má gestão da informação e o XML a soluciona.
+
+<br><br><span class=fuente8>Informe de <b>Miguel Angel Alvarez - Tradução de JML</b><br>Mail: <a href="juliana@criarweb.com"><b>juliana@criarweb.com</b></a><br></span><br></br><br><font size=4 face=verdana><b>Sintaxe do XML</b></font><br><br>Dizem que o XML é um 10% do SGML e é verdade, porque na realidade as normas que tem são muito simples. Escreve-se em um documento de texto ASCII, igual que o HTML e no cabeçalho do documento tem que colocar o texto
+<p>
+&lt;?xml versao=&quot;1.0&quot;?&gt;
+<p>
+No resto do documento devem se escrever etiquetas como as de HTML, as etiquetas que nós quisermos, por isso a linguagem se chama XML, linguagem de etiquetas espalhada. As etiquetas se escrevem aninhadas, umas dentro de outras.
+<p>
+&lt;ETIQ1&gt;...&lt;ETIQ2&gt;...&lt;/ETIQ2&gt;...&lt;/ETIQ1&gt;
+<p>
+Qualquer etiqueta pode ter atributos. Podemos colocar os atributos que quisermos.
+<p>
+&lt;ETIQ atributo1=&quot;valor1&quot; atributo2=&quot;valor2&quot;...&gt;
+<p>
+Os comentários de XML se escrevem igual que os de HTML.
+<p>
+&lt;!-- Comentario --&gt;
+<p>
+E isto é tudo o que é a linguagem XML em si, embora temos que ter em conta que o XML tem muitas outras linguagens e tecnologias trabalhando ao redor dela. Entretanto, não cabe a menor dúvida que a sintaxe XML é realmente reduzida e simples.
+<p>
+Para definir quais etiquetas e atributos devemos utilizar ao escrever em XML temos que observarmos na maneira de salvar a informação de uma forma estruturada e ordenada. Por exemplo, se desejarmos salvar a informação relacionada com um filme em um documento XML poderíamos utilizar um esquema com as seguintes etiquetas.
+<br>
+<br><span class=fuente8>
+&lt;?xml versao=&quot;1.0&quot;?&gt;
+<br>
+&lt;FILME nome=&quot;O Padrinho&quot; ano=1985&gt;
+<br>
+  &lt;ELENCO&gt;
+<br>
+    &lt;/DIRETOR nome=&quot;Georgie Lucar&quot;&gt;
+<br>
+    &lt;/INTÉRPRETE nome=&quot;Marlon Brando&quot; interpreta-a=&quot;Don Corleone&quot;&gt;
+<br>
+    &lt;/INTERPRETE nome=&quot;Al Pacino&quot; interpreta-a=&quot;Michael Corleone&quot;&gt;
+<br>
+  &lt;/ELENCO&gt;
+<br>
+  &lt;/ROTEIRO descrição=&quot;Filme de mafias sicilianas nos Estados Unidos&quot;&gt; 
+<br>
+&lt;/FILME&gt;</span>
+<br>
+<br>
+Como se pode ver, inventamos as etiquetas que quisemos para colocar este exemplo e as ordenamos de forma que a etiqueta maior é O FILME e dentro dela temos o ELENCO e o ROTEIRO. Por sua vez, dentro de ELENCO temos tanto o DIRETOR como os atores (INTERPRETE).
+
+<br><br><span class=fuente8>Informe de <b>Miguel Angel Alvarez - Tradução de JML</b><br>Mail: <a href="juliana@criarweb.com"><b>juliana@criarweb.com</b></a><br></span><br></br><br><font size=4 face=verdana><b>Diferenças entre HTML e XML</b></font><br><br>Para os que conhecem também a linguagem HTML, que esperamos que sejam muitos, compilamos aqui uma série de diferenças entre HTML e XML que servem de amostra para ver até onde chegam estas duas linguagens.
+<br>
+<br>
+O HTML se preocupa em formatar dados e para isso são as etiquetas que tem a linguagem, para formatar a informação que se deseja mostrar.
+<br>
+<br>
+O XML se preocupa em estruturar a informação que pretende armazenar. A estrutura, a marca, a lógica própria da informação.
+<br>
+<br>
+O desenvolvimento do HTML esteve marcando a concorrência entre os distintos visores do mercado. Cada um queria ser o melhor e inventava etiquetas novas que a longo prazo, entravam para fazer parte do padrão do W3C, como a etiqueta &lt;FRAME&gt;.
+<br>
+<br>
+O desenvolvimento do XML está sendo realizado com rigor, sempre ajustado ao que marca o padrão que desenvolve o W3C, entidade que está desenvolvendo o XML com mais diligência que as empresas com interesse particulares.
+<br>
+<br>
+Processar a informação em HTML é inviável, por estar misturada com os estilos e as etiquetas que formatam a informação.
+<br>
+<br>
+Em XML pode-se processar a informação com muita facilidade, porque tudo está ordenado de uma maneira lógica, assim mesmo a formatação da informação para que se possa entender bem pelo usuário é viável através de um pequeno processamento, através de folhas de estilos ou similares.
+
+<br />
+<b>Warning</b>:  mysql_fetch_object(): supplied argument is not a valid MySQL result resource in <b>/home/criarweb/data/librerias/imprimir_manual_completo.php</b> on line <b>110</b><br />
+<br><br><span class=fuente8>Informe de <b></b><br></span><br></br><br />
+<b>Warning</b>:  mysql_free_result(): supplied argument is not a valid MySQL result resource in <b>/home/criarweb/data/librerias/imprimir_manual_completo.php</b> on line <b>119</b><br />
+<br><font size=4 face=verdana><b>Objetivos e usos do XML</b></font><br><br>Objetivos e usos do XML
+
+O XML se criou para que cumprir vários objetivos. 
+<br>
+<br>
+<ul>
+<li>Que fosse idêntico na hora de servir, receber e processar a informação que o HTML, para aproveitar toda a tecnologia implantada para este último.
+<li>Que fosse formal e conciso desde o ponto de vista dos dados e a maneira de salva-los.
+<li>Que fosse extensível, para que possa ser utilizado em todos os campos do conhecimento.
+<li>Que fosse fácil de ler e editar.
+<li>Que fosse fácil de implantar, programar e aplicar aos distintos sistemas.
+</ul>
+O XML pode-se usar para uma infinidade de trabalhos e aporta muitas vantagens em amplos cenários. Vejamos algumas vantagens do XML em alguns campos práticos.
+<br>
+<br>
+<ul>
+<li>Comunicação de dados. Se a informação se transfere em XML, qualquer aplicação poderia escrever um documento de texto plano com os dados que estava manejando em formato XML e outra aplicação receber esta informação e trabalhar com ela. 
+<li>Migração de dados. Se tivermos que mover os dados de uma base de dados a outra seria muito simples se as duas trabalhassem em formato XML.
+<li>Aplicações web. Até agora cada navegador interpreta a informação a sua maneira e os programadores do web têm que fazer umas coisas ou outras em função do navegador do usuário. Com XML temos somente uma aplicação que maneja os dados e para cada navegador ou suporte poderemos ter uma folha de estilo ou similar para aplicar o estilo adequado. Se amanhã nossa aplicação deve correr em WAP só temos que criar uma nova folha de estilo ou similar.
+</ul>
+São somente alguns exemplos que esperamos que vocês possam compreender embora seja por alto, já que ainda há muitas coisas que faltam para vocês saberem sobre XML e as tecnologias relacionadas.
+
+<br><br><span class=fuente8>Informe de <b>Miguel Angel Alvarez - Tradução de JML</b><br>Mail: <a href="juliana@criarweb.com"><b>juliana@criarweb.com</b></a><br></span><br></br><br><font size=4 face=verdana><b>Tecnologias relacionadas com XML</b></font><br><br>Vimos o simples que é XML e as poucas normas que temos para sua sintaxe. Simplesmente utilizamos as etiquetas que necessitamos, abrindo e fechando cada epígrafe de maneira parecida a como fazemos em HTML.
+<br>
+<br>
+Toda esta simplicidade é graças a que XML tem muitas outras tecnologias relacionadas que são encarregadas de manejar importantes processos dentro do âmbito de uma aplicação XML. A sintaxe, a forma de aplicar estilos, programar ou acessar à bases de dados, vai por sua parte, ou seja, sã tecnologias relacionadas com o XML.
+<br>
+<br>
+Em seguintes capítulos vamos ver um montão de novas tecnologias, cada uma para realizar um aspecto da aplicação XML. Nesta introdução a XML não pretendemos entrar muito na discussão de cada tecnologia e sim, apresentá-las e conhecer seus usos.
+<br>
+<br>
+Veremos tecnologias relacionadas com os processos de:
+<ul>
+<li>Conteúdos: DTD ou XML Schema.
+<li>Desenho: CSS ou XSL.
+<li>Programação: SAX ou DOM.
+</ul>
+
+<br><br><span class=fuente8>Informe de <b>Miguel Angel Alvarez - Tradução de JML</b><br>Mail: <a href="juliana@criarweb.com"><b>juliana@criarweb.com</b></a><br></span><br></br><br><font size=4 face=verdana><b>Conteúdos: DTD ou XML Schema</b></font><br><br>Um documento XML pode conter muitos tipos de informação. Ou seja, pode haver muitas linguagens escritas em XML para qualquer coletivo de usuários. Por exemplo,
+<ul>
+<li>Se fosse utilizado por um coletivo de médicos poderiam criar uma linguagem em XML específica para armazenar diagnósticos dos pacientes. Esta linguagem poderia se chamar PacientesML.
+<li>Se os distribuidores de filmes utilizassem XML poderiam criar suas próprias linguagens para salvar a informação dos filmes. Esta linguagem poderia se chamar FilmesML.
+<li>Se estivermos escrevendo aplicações para celulares poderíamos utilizar uma linguagem para aplicações inalâmbricas (Wireless), que se chamaria WML.
+</ul>
+Como vemos, podem se criar infinitas linguagens a partir do XML. Para especificar cada um dos usos de XML, ou que é o mesmo, para especificar cada uma das sublinguagens que podemos criar a partir de XML, utilizam-se umas linguagens próprias. 
+<p>
+São umas linguagens que servem para definir outras linguagens, ou seja, são metalinguagens. Estas são definidas especificando quais etiquetas podemos ou devemos encontrar nos documentos HTML, em que ordem, dentro de quais outras, ademais de especificar os atributos que podem ou devem ter cada umas das etiquetas.
+<p>
+Existem duas metalinguagens com as quais definir as linguagens que podemos obter a partir de XML, o DTD e o XML Schema.
+<p>
+O DTD, Definition Type Document, tem uma sintaxe especial, diferente da de XML, que é simples, embora seja um pouco rara se nunca tivermos visto um documento parecido.
+<p>
+Para evitar o DTD, que tem uma sintaxe muito especial, tentou-se encontrar uma maneira de escrever em XML a definição de outra linguagem XML. Definiu-se então a linguagem XML Schema e funciona bem, embora possa chegar a ser um pouco mais complicado que especificá-la em DTD. Simplesmente poupamos aprender uma nova linguagem com sua sintaxe particular.
+<p>
+ Um detalhe importante de assinalar na hora de falar dos DTD ou XML Schema é que estas linguagens também permitem comprovar a integridade dos dados em qualquer momento. Calcula-se que um 70% das linhas de código que escreve um programador estão orientadas a comprovar a integridade dos dados, ou seja, comprovar se onde se supõem que existe um número efetivamente o exista, se o número é inteiro ou qualquer outra comprovação. Nossas metalinguagens de XML nos servem para pegar um documento XML e comprovar que os dados que ele inclui são válidos, comprovando se o que temos no XML concorda com o que teríamos que ter. Isso pode ser feito ao ler o documento, se não forem válidos tira-se uma mensagem de erro e se detém o processo do documento. Se forem válidos, fazemos o que for sem ter que nos preocuparmos pela integridade dos dados.
+
+
+<br><br><span class=fuente8>Informe de <b>Miguel Angel Alvarez - Tradução de JML</b><br>Mail: <a href="juliana@criarweb.com"><b>juliana@criarweb.com</b></a><br></span><br></br><br><font size=4 face=verdana><b>Desenho: CSS ou XSL</b></font><br><br>Para cada documento XML que se deseja apresentar em tela formatada da maneira que desejarmos tem-se que escrever uma folha de estilos ou similar. Utilizamos esta frase em outras partes da introdução a XML, vejamos agora o que significa.
+<br>
+<br>
+Também temos duas possíveis linguagens com as quais formatar os textos de um documento XML para poder ser visto por tela. A primeira possibilidade é o CSS, que muitos já conhecerão. A segunda opção é o XSL, bastante mais avançado.
+<br>
+<br>
+CSS (Cascading Style Sheets ou folhas de estilo em cascata) não é nada novo, já podia ser utilizado com HTML e foi criado na tentativa de separar a forma do conteúdo em HTML. Em XML também podemos utilizar as CSS, e utilizam-se de uma maneira muito parecida a como se utilizam em HTML, pelo menos os atributos de estilo que podemos aplicar são os mesmos e seus possíveis valores também.
+<br>
+<br>
+XSL, que são as siglas de XML Style Language, é a segunda linguagem com a qual trabalhar em XML. Esta linguagem não se limita a definir que estilo aplicar a cada elemento do documento XML. Ademais, podem se realizar pequenas instruções típicas das linguagens de programação. E a saída não tem porque ser um documento HTML, além disso, poderia ser de outros tipos, qualquer um que possamos necessitar como um documento escrito em WML (para WAP), um documento de texto plano ou outro documento XML. 
+<br>
+<br>
+XSL é muito mais potente que CSS e de fato é muito mais adequado utiliza-lo. Uma das suas principais vantagens será vista a seguir. Se tivermos um documento XML que quisermos que seja visualizado em múltiplos dispositivos distintos será imprescindível utilizar XSL. Neste esquema teríamos um só documento XML e um documento XSL para cada dispositivo que quisermos incluir, por exemplo, para um navegador Netscape, outro para Internet Explorer, outro para um celular Ericson e outro para um celular Nokia. Se amanhã aparece um novo dispositivo, por muito particular que seja, só necessitaremos criar um documento XSL para que nossos XML possam ser visualizados nele.
+
+<br><br><span class=fuente8>Informe de <b>Miguel Angel Alvarez - Tradução de JML</b><br>Mail: <a href="juliana@criarweb.com"><b>juliana@criarweb.com</b></a><br></span><br></br><br><font size=4 face=verdana><b>Programação: SAX ou DOM</b></font><br><br>Se quisermos realizar ações com nossos dados escritos em XML temos também muito caminho já implementado. O W3C especificou dois mecanismos para acessar a documentos XML e trabalhar com eles. Tratam-se simplesmente de umas normas que indicam os desenvolvedores à maneira de acessar aos documentos. Estas normas incluem uma hierarquia de objetos que têm alguns métodos e atributos com os quais teremos que trabalhar e que nos simplificarão as tarefas relativas ao percurso e acesso às partes do documento. 
+<br>
+<br>
+Estes dois mecanismos denominam-se <b>SAX e DOM</b>. SAX utiliza-se para fazer um percurso da seqüência dos elementos do documento XLM e DOM implica a criação de um fluxograma na memória que contém o documento XML, e com ele na memória podemos fazer qualquer tipo de percurso e ações com os elementos que quisermos.
+<br>
+<br>
+Pode-se programar com a linguagem de programação que desejarmos para acessar a um documento XML. Os criadores da linguagem são os responsáveis de criar umas API que cumpram as especificações de XML para que logo os desenvolvedores de cada linguagem as encontrem e possam trabalhar com elas. Uma linguagem típica para trabalhar com XML é Java e, neste caso é SUN Microsystems a encarregada de prover o API que o W3C especificou e portanto, os desenvolvedores em Java contam com umas aulas especiais que SUN criou para programar com XML.
+<br>
+<br>
+Por outro lado, os criadores de algumas linguagens implementaram uma terceira maneira de programar com XML que se chama XSLT. Empresas como por exemplo, a organização Apache, SUN ou Microsoft, já estão apoiando, embora no W3C não disseram que seja um padrão. É importante assinalar que a W3C é um organismo muito lento e que muito do que se faz em XML atualmente só está na W3C contemplado como uma "nota" na qual os gurus estão pensando.
+<br>
+<br>
+O trabalho com banco de dados e XML está se desenvolvendo com uma linguagem que se chama XQL (XML Query Language), que é um dos exemplos de linguagem que só está publicado no W3C como uma "nota".
+
+<br><br><span class=fuente8>Informe de <b>Miguel Angel Alvarez - Tradução de JML</b><br>Mail: <a href="juliana@criarweb.com"><b>juliana@criarweb.com</b></a><br></span><br></br><br><font size=4 face=verdana><b>SiteMaps de Google em PHP</b></font><br><br>Antes de colocarmos mãos à obra, vamos falar um pouco sobre o Google SiteMaps.
+<br>
+<br>
+Google Sitemaps permite aos webmasters acrescentar em um XML as páginas que querem que estejam no index de Google. A participação no programa é gratuita, a inclusão não está garantida, mas Google pensa que desta forma chegar a indexar um maior número de páginas do que com o simples rastreio tradicional.
+<br>
+<br>
+O XML também deixará que os webmasters indiquem a cada quanto tempo se atualiza sua página ou a cada quanto querem que seja re-visitada.
+<br>
+<br>
+<b>Como funciona o novo programa?</b>
+<br>
+<br>
+Os webmasters criam um arquivo XML com as URLs que querem que sejam rastreadas, assim como uma pequena anotação por URL indicando a última atualização e o ritmo de atualização da página. Google hospedará o Sitemap nos seus servidores lhe indicando exatamente aonde se encontra.
+<br>
+<br>
+Só é necessário utilizar uma conta de Google e se registrar de maneira gratuita.
+<br>
+<br>
+Este script pega o diretório raiz de nosso web site, o lê e faz uma lista de todos aqueles arquivos cuja extensão for .php, porém, vocês podem mudá-lo para que faça a lista do que vocês desejarem, de acordo com as suas necessidades, isto é só um exemplo.
+<br>
+<br>
+Agora chega de palavras e vamos ver o código:
+<br>
+<br>
+<span class=codigo>
+&lt;?php
+<br>
+if ($gestor = opendir('.')) { //Abrimos o diretorio onde estamos parados, aqui podem dar o diretorio que desejarem
+<br>
+<br>
+echo "&lt;" . "?xml versao=\"1.0\" encoding=\"UTF-8\"" . "?" . "&gt;"; //etiqueta de inicio de um arquivo XML
+<br>
+<br>
+/* Dados para o sitemaps de Google, confira esta parte em https://www.google.com/webmasters/sitemaps/docs/es/overview.html */
+<br>
+?&gt;
+<br>
+<br>
+&lt;urlset xmlns="http://www.google.com/schemas/sitemap/0.84"&gt;
+<br>
+<br>
+  &nbsp;&nbsp;&nbsp; &lt;url&gt;
+<br>
+      &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;loc&gt;http://www.seusite.com/&lt;/loc&gt;
+<br>
+      &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;lastmod&gt;2006-03-23&lt;/lastmod&gt;
+<br>
+      &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;changefreq&gt;monthly&lt;/changefreq&gt;
+<br>
+      &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;priority&gt;0.8&lt;/priority&gt;
+<br>
+   &nbsp;&nbsp;&nbsp;&lt;/url&gt;
+<br>
+
+<br>
+&lt;?
+<br>
+    &nbsp;&nbsp;&nbsp;// comecamos a gerar a iteracao
+<br>
+    &nbsp;&nbsp;&nbsp;while (false !== ($arquivo = readdir($gestor))) {
+<br>
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;$p = explode(".",$arquivo);
+<br>
+
+<br>
+         &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;if(strtolower($p[count($p)-1]) == "php")
+<br>
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{
+<br>
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;echo "
+<br>
+    &nbsp;&nbsp;&nbsp;&lt;url&gt;
+<br>
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;loc&gt;http://www.seusite.com/$arquivo&lt;/loc&gt;
+<br>
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;lastmod&gt;2006-03-23&lt;/lastmod&gt;
+<br>
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;changefreq&gt;yearly&lt;/changefreq&gt;
+<br>
+    &nbsp;&nbsp;&nbsp;&lt;/url&gt;";
+<br>
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}
+<br>
+    &nbsp;&nbsp;&nbsp;}
+<br>
+
+<br>
+   &nbsp;&nbsp;&nbsp; //fechamos
+<br>
+    &nbsp;&nbsp;&nbsp;closedir($gestor);
+<br>
+    &nbsp;&nbsp;&nbsp;echo "
+<br>
+    &nbsp;&nbsp;&nbsp;&lt;/urlset&gt;";
+<br>
+}
+<br>
+?&gt;
+</span>
+<br>
+<br>
+Bastante fácil, não é? Claro que se quisermos dar dados através do banco de dados, coisas como conteúdo.php?id=1 começa a complicar um pouquinho mais a coisa, mas mesmo assim não tem maiores mistérios. De qualquer forma, você desenvolverá, como já disse, de acordo com as suas necessidades.
+
+<br><br><span class=fuente8>Informe de <b>Juan Edgardo Jorquera Uribe</b><br>Mail: <a href="juan.jorquera@gmail.com"><b>juan.jorquera@gmail.com</b></a><br>URL: <a href="http://www.aplicacionesweb.cl"><b>http://www.aplicacionesweb.cl</b></a><br></span><br></br>	<hr>
+	<br>
+	
+	<br>
+	
+	<div align="center">
+	
+	<font size="2" face="verdana">Todos los <a href="../copyright/">direitos de reprodução e difusão</a> reservados</font>
+	
+	<br><br>
+	
+	<font size="3" face="verdana"><a href="../../manuais/24">Voltar</a></font>
+	
+	</div>
+	
+	</font>
+	
+	</body>
+	</html>

@@ -1,0 +1,8 @@
+Replicar Monitores no Mint
+
+Para que a ela de um monitor apareça para outro ligado ao mesmo micro.
+ 
+Menu
+Preferências
+Monitor
+Espenhar monitores

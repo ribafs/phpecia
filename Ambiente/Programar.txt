@@ -1,0 +1,36 @@
+Introdução à programação de computadores do João Ribeiro
+
+- Programar não é fácil, especialmente no início
+
+- Requer que se tenha muito interesse, pois assim as dificuldades serão reduzidas
+
+- A programação tem uma versatilidade muito grande e uma grande capacidade de resolver problemas
+
+- Lembre que não tem como saber tudo sobre uma linguagem, portanto escolha uma ou algumas áreas e se dedique
+
+- Como elas se atualizam muito rapidamente precisamos gastar tempo para as atualizações
+
+- Escolher as melhores ferramentas, aos seus olhos, o ajudará a ter um maior desempenho e resolver os problemas com maior rapidez
+
+- Faça testes em várias fases e sempre que concluir uma fase salve-a com um nome, para guardar as várias fases e assim poder recorrer a uma das anteriores cado tenha causado algum problema. Eu gostumo criar uma pasta com o nome do projeto e dentro delas pastas para cada fase. Ex.: crud1, crud2, crud3, etc.
+
+- Algo muito importante: empenhe-se em escrever código de forma profissional, com as convenções aceitas, melhores práticas e padrões e, principalmente, de forma simples, para que outros entendam com facilidade e você mesmo, com algum tempo não encontre dificuldade de entender. Tanto que nem precise ficar comentando o código para explicar algo que deveria ser claro. Comentários devem ser uma exceção em seu código.
+
+- Mantenha sempre uma cópia de aplicativos que tenha desenvolvido e que estejam funcionando, para servirem de consulta em caso de dúvidas sobre código parecido. Assim como exemplos de terceiros, que você tenha testado e que funcionem. Isso tem me ajudado muito.
+
+- Costumo dizer que atualmente bão temos o direito de dizer que não sabemos algo, especialmente na área de programação ou informática em geral. Porque? Porque praticamnete todas as informações estão em livros, cursos, video aulas, tutoriais, foruns, grupos, Google e em geral, na internet. Basta procurar. Mas acostume-se a estimular o desenvolvimento do seu cérebro, use todos os recursos ao seu alcance em seu desktop, para solucionar o problema. Acostume-se a entender as mensagens de erro e a corrigi-las. Um bom editor de código ou IDE ajudam muito. Caso esteja trabalhando com um editor simples. Somente perceberá um problema ao testar o código no navegador e corre o risco de ter cometido mais de um erro antes disso. Enquanto que um bom editor ou IDE já te avisam sobre um erro antes mesmo de você sair da linha em que se encontra. Lembro de uma frase atribuida a Isaac Newton, o grande cientista,"SE enxerguei longe é porque estava sobre ombros de gigantes." O que os cientistas antes dele deixaram o ajudou a ir em frente. 
+
+- Uma boa prática é manter a documentação oficial da linguagem com que trabalhamos offline, para o caso de estarmos sem internet
+
+- Não considerar uma aplicação concluída é prudente, pois sempre existe como melhorá-la. Como ela é uma criação sua, que carrega tua assinatura, corrigi-la, torná-la melhor será bom para você também.
+
+- Valorize o aprendizado da correção de erros. Algo que pode ajudar é anotar em um ou mais arquivos as mensagens de erro comuns e a solução encotnrada. Acontece que o mesmo erro acontecer algumas vezes algum tempo depois e não lembrarmos como corrigimos.
+
+- Quando for criar um aplicativo ou site para alguém que não seja da área lembre que como ele não conhece sobre o assunto caberá a você se empenhar para entender o que ele precisa, mesmo que ele não saiba explicar. Perguntas são uma forma de o levar a falar sobre o assunto e te ajudar a "advinhar" o que ele precisa. Focando na usabilidade do seu software ajuda o cliente/usuário e também a você, pois semdo fácil de sentender e de usar o seu suporte será reduzido e até a probabilidade de que aconteçam problemas será reduzida.
+
+- Lembre que cada software que cria leva sua assinatura e é seu melhor cartão de visitas. Então empenhe-se a cada novo software a criar o melhor que já fez.
+
+Adaptação da playlist
+https://www.youtube.com/playlist?list=PLXik_5Br-zO8n54GSDrEQFVpvshtx0VKh
+
+

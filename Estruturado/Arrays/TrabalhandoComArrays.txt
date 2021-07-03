@@ -1,0 +1,617 @@
+TRABALHANDO COM ARRAYS
+
+Algumas das funções
+
+Um array no PHP é um mapa ordenado, que relaciona valores com chaves.
+Especificando um array()
+array([chave =>] valor, ...);
+A chave pode ser uma string ou um inteiro.
+O valor pode ser qualquer coisa.
+
+Essas funções permitem a interação e manipulação de arrays de várias formas. Arrays são essenciais para armazenar, gerenciar, operar sobre um conjunto de variáveis.
+
+Arrays simples e multidimensionais (matrizes) são suportados, e podem ser criados pelo usuário ou por outras funções. Existem diversas funções específicas para bancos de dados para preencher arrays com os dados retornados em consultas, e vários outros tipos de funções também retornam arrays. 
+array_fill
+
+array_fill -- Preenche um array com valores
+
+array array_fill ( int start_index, int num, mixed value )
+
+<?php
+$a = array_fill(5, 6, 'banana');
+print_r($a);
+?>
+
+
+array_merge
+
+array_merge -- Funde dois ou mais arrays
+
+array array_merge ( array array1, array array2 [, array ...] )
+
+<?php
+$array1 = array();
+$array2 = array(1 => "data");
+$result = array_merge($array1, $array2);
+?>
+
+Não esqueça que as chaves numéricas serão reordenadas!
+Array
+(
+   [0] => data
+)
+
+Se você quer preservar os arrays e apenas concatená-los, o operador +:
+<?php
+$array1 = array();
+$array2 = array(1 => "data");
+$result = $array1 + $array2;
+?>
+
+As chaves numéricas serão preservadas e as associações originais permanecem. 
+
+
+array_pad
+
+array_pad --  Expande um array para um certo comprimento utilizando um determinado valor
+
+array array_pad ( array input, int pad_size, mixed pad_value )
+
+Exemplo 1. Exemplo de array_pad()
+<?php
+$input = array(12, 10, 9);
+
+$result = array_pad($input, 5, 0);
+// $result é array(12, 10, 9, 0, 0)
+
+$result = array_pad($input, -7, -1);
+// $result é array(-1, -1, -1, -1, 12, 10, 9)
+
+$result = array_pad($input, 2, "noop");
+// Não será expandido
+?> 
+
+
+array_pop
+
+array_pop -- Retira um elemento do final do array
+
+mixed array_pop ( array array )
+
+<?php
+$cesta = array("laranja", "banana", "melancia", "morango");
+$fruta = array_pop($cesta);
+print_r($cesta);
+?> 
+
+array_push
+
+array_push --  Adiciona um ou mais elementos no final de um array
+
+int array_push ( array array, mixed var [, mixed ...] )
+
+<?php
+$cesta = array("laranja", "morango");
+array_push($cesta, "melancia", "batata");
+print_r($cesta);
+?> 
+
+
+array_reverse
+
+array_reverse --  Retorna um array com os elementos na ordem inversa
+
+array array_reverse ( array array [, bool preserve_keys] )
+
+<?php
+$input = array("php", 4.0, array ("verde", "vermelho"));
+$result = array_reverse($input);
+$result_keyed = array_reverse($input, TRUE);
+print_r($result_keyed);
+?> 
+
+
+array_search
+
+array_search --  Procura por um valor em um array e retorna sua chave correspondente caso seja encontrado. Caso contrário retorna FALSE.
+
+mixed array_search ( mixed procurar_este, array procurar_neste [, bool strict] )
+
+<?php
+$a=array("a","b",0,"c","d");
+echo "a: ".array_search("a",$a)."<br>";
+echo "b: ".array_search("b",$a)."<br>";
+echo "c: ".array_search("c",$a)."<br>";
+echo "d: ".array_search("d",$a)."<br>";
+echo "0: ".array_search("0",$a)."<br>";
+echo "x: ".array_search("x",$a)."<br>";
+echo "1: ".array_search("1",$a);
+?>
+
+<?php
+if (array_search($needle, $array)!== FALSE) {
+   //code goes here (
+}
+?>
+
+<?php
+
+function array_replace($search, $replace, &$array) {
+  foreach($array as $key => $value) {
+   if($value == $search) {
+     $array[$key] = $replace;
+   }
+  }
+}
+?>
+
+<?
+$Projects[0] = array(123, "Text 1");
+$Projects[1] = array(456, "Text 2");
+$Projects[2] = array(789, "Text 3");
+
+$search_value = "ext 3";
+
+foreach ($Projects as $key => $row){
+     foreach($row as $cell){
+       if (strpos($cell, $search_value) !== FALSE){
+       		echo  "<p>Project ".$key;
+       }
+     }
+ }
+?>
+
+
+array_shift
+
+array_shift --  Retira o primeiro elemento de um array
+
+mixed array_shift ( array array )
+
+<?php
+$cesta = array("laranja", "banana", "melancia", "morango");
+$fruta = array_shift($cesta);
+print_r($cesta);
+?> 
+
+
+array_sum
+
+array_sum --  Calcula a soma dos elementos de um array
+
+mixed array_sum ( array arr )
+
+<?php
+$a = array(2, 4, 6, 8);
+echo "soma(a) = ".array_sum($a)."<br>";
+
+$b = array("a" => 1.2, "b" => 2.3, "c" => 3.4);
+echo "soma(b) = ".array_sum($b)."<br>";
+?> 
+
+
+array_unique
+
+array_unique -- Remove os valores duplicados de um array
+
+array array_unique ( array array )
+
+<?php
+$input = array("a" => "verde", "vermelho", "b" => "verde", "azul", "vermelho");
+$result = array_unique($input);
+print_r($result);
+?> 
+
+Exemplo 2. array_unique() e tipos
+<?php
+$input = array(4, "4", "3", 4, 3, "3");
+$result = array_unique($input);
+var_dump($result);
+?> 
+
+
+array_values
+
+array_values -- Retorna todos os valores de um array
+
+array array_values ( array input )
+
+//Retorna os valores, as chaves não
+<?php
+$array = array("tamanho" => "G", "cor" => "dourado");
+print_r(array_values ($array));
+?> 
+
+
+
+array
+
+array --  Cria um array
+
+array array ( [mixed ...] )
+
+Exemplo 1. Exemplo de array()
+<?php
+$frutas = array (
+   "frutas" => array("a"=>"laranja", "b"=>"banana", "c"=>"maçã"),
+   "numeros" => array(1, 2, 3, 4, 5, 6),
+   "buracos" => array("primeiro", 5 => "segundo", "terceiro")
+)
+?>
+
+Exemplo 2. Indexação automática com array()
+<?php
+$array = array(1, 1, 1, 1,  1, 8 => 1,  4 => 1, 19, 3 => 13);
+print_r($array);
+?> 
+
+
+arsort
+
+arsort --  Ordena um array em ordem descrescente dos valores 
+			mantendo a associação entre índices e valores
+
+void arsort ( array array [, int sort_flags] )
+
+<?php
+$frutas = array("d" => "limao", "a" => "laranja", "b" => "banana", "c" => "melancia");
+arsort($frutas);
+reset($frutas);
+while (list($chave, $valor) = each($frutas)) {
+   echo "$chave = $valor\n";
+}
+?> 
+
+
+asort
+
+asort --  Ordena um array em ordem crescente dos valores 
+		  mantendo a associação entre índices e valores
+
+void asort ( array array [, int sort_flags] )
+
+<?php
+$frutas = array("d" => "limao", "a" => "laranja", "b" => "banana", "c" => "melancia");
+asort($frutas);
+reset($frutas);
+while (list($chave, $valor) = each($frutas)) {
+   echo "$chave = $valor\n";
+}
+?> 
+count
+
+count -- Conta o número de elementos de uma variável
+
+int count ( mixed var [, int mode] )
+
+<?php
+$a[0] = 1;
+$a[1] = 3;
+$a[2] = 5;
+$a[3] = 6;
+$result = count($a);
+// $result == 4
+print $result."<br>";
+
+$b[0] = 7;
+$b[5] = 9;
+$b[10] = 11;
+$result = count($b);
+// $result == 3;
+print $result;
+?> 
+
+Exemplo 2. Uso recursivo da função count() (PHP >= 4.2.0)
+<?php
+$food = array( 'fruits'  => array('orange', 'banana', 'apple'),
+'veggie'  => array('carrot', 'collard','pea'));
+// recursive count
+echo count($food,COUNT_RECURSIVE);  // mostra 8
+// normal count
+echo count($food);                  // mostra2 2
+?> 
+
+<?php
+$food = array( 'fruits'  => array('orange', 'banana', 'apple'),
+'veggie'  => array('carrot', 'collard','pea'));
+// recursive count
+echo count($food,COUNT_RECURSIVE)."<br>";  // mostra 8
+// normal count
+echo count($food);                  // mostra2 2
+?> 
+
+
+current
+
+current -- Retorna o elemento corrente em um array
+
+mixed current ( array array )
+
+<?php
+$transport = array('foot', 'bike', 'car', 'plane');
+$mode = current($transport); // $mode = 'foot';
+echo "Atual $mode<br>";
+$mode = next($transport);    // $mode = 'bike';
+echo "Atual $mode<br>";
+$mode = current($transport); // $mode = 'bike';
+echo "Atual $mode<br>";
+$mode = prev($transport);    // $mode = 'foot';
+echo "Atual $mode<br>";
+$mode = end($transport);    // $mode = 'plane';
+echo "Atual $mode<br>";
+$mode = current($transport); // $mode = 'plane';
+echo "Atual $mode<br>";
+?>
+
+
+each
+
+each --  Retorna o par chave/valor corrente de um array e avança o seu cursor
+
+array each ( array array )
+
+<?php
+$foo = array("bob", "fred", "jussi", "jouni", "egon", "marliese");
+$bar = each($foo);
+print_r($bar);
+?> 
+
+<?php 
+  $foo = array("Robert" => "Bob", "Seppo" => "Sepi"); 
+  $bar = each($foo); 
+  print_r($bar); 
+?> 
+
+Percorrendo um array com each()
+<?php
+$fruit = array('a' => 'apple', 'b' => 'banana', 'c' => 'cranberry');
+reset($fruit);
+while (list($key, $val) = each($fruit)) { 
+     echo "$key => $val\n"; 
+}
+/* Saída:
+  
+  a => apple
+  b => banana
+  c => cranberry
+  
+  */
+?> 
+
+end
+
+end --  Faz o ponteiro interno de um array apontar para o seu último elemento
+
+mixed end ( array array )
+
+<?php
+  $frutas = array('melancia', 'banana', 'morango');
+  print end($frutas); // morango
+?> 
+
+
+key
+
+key -- Retorna uma chave da posição atual de um array associativo
+
+mixed key ( array array )
+
+<?php
+  $array = array(
+     'fruit1' => 'apple',
+     'fruit2' => 'orange',
+     'fruit3' => 'grape',
+     'fruit4' => 'apple',
+     'fruit5' => 'apple');
+  
+  // este ciclo  exibirá todas as chaves do array associativo
+  // ausiliado pela função next()
+  while ($fruit_name = current($array)) {
+         echo key($array).'<br>';
+	     next($array);
+  }
+  ?> 
+
+<?php
+  $array = array(
+     'fruit1' => 'apple',
+     'fruit2' => 'orange',
+     'fruit3' => 'grape',
+     'fruit4' => 'apple',
+     'fruit5' => 'apple');
+  
+  // este ciclo  exibirá toda a chave do array associativo
+  // onde o valor é igual a "apple"
+  while ($fruit_name = current($array)) {
+     if ($fruit_name == 'apple') {
+         echo key($array).'<br>';
+     }
+     next($array);
+  }
+  ?> 
+
+
+next
+
+next --  Avança o ponteiro interno de um array
+
+mixed next ( array array )
+
+<?php
+  $transport = array('foot', 'bike', 'car', 'plane');
+  $mode = current($transport); // $mode = 'foot';
+  print"$mode<br>";
+  $mode = next($transport);    // $mode = 'bike';
+  print"$mode<br>";
+  $mode = next($transport);    // $mode = 'car';
+  print"$mode<br>";
+  $mode = prev($transport);    // $mode = 'bike';
+  print"$mode<br>";
+  $mode = end($transport);    // $mode = 'plane';
+  print"$mode<br>";
+?> 
+
+
+prev
+
+prev -- Retrocede o ponteiro interno de um array
+
+mixed prev ( array array )
+
+<?php
+  $transport = array('foot', 'bike', 'car', 'plane');
+  $mode = current($transport); // $mode = 'foot';
+print"$mode<br>";
+  $mode = next($transport);    // $mode = 'bike';
+print"$mode<br>";
+  $mode = next($transport);    // $mode = 'car';
+print"$mode<br>";
+  $mode = prev($transport);    // $mode = 'bike';
+print"$mode<br>";
+  $mode = end($transport);    // $mode = 'plane';
+print"$mode<br>";
+?> 
+
+
+reset
+
+reset --  Faz o ponteiro interno de um array apontar para o seu primeiro elemento
+
+mixed reset ( array array )
+
+<?php 
+  $array = array('primero passo', 'segundo passo', 'terceiro passo', 'quarto passo'); 
+  
+  // por definição, o ponteiro está sobre o primeiro elemento 
+  echo current($array)."<br>\n"; // "Primeiro passo"
+  
+  // pula dois passos 
+  next($array); 
+  next($array); 
+  echo current($array)."<br>\n"; // "passo três" 
+  
+  // reinicia o ponteiro, começa novamente o primeiro passo 
+  reset($array); 
+  echo "Depois de resetado...: " . current($array)."<br>\n"; // "primeiro passo"   
+?> 
+sizeof
+sizeof -- Apelido de count()
+
+
+sort
+
+sort -- Ordena um array pelo seu valor
+
+void sort ( array array [, int sort_flags] )
+
+<?php
+
+$frutas = array("limao", "laranja", "banana", "melancia");
+sort($frutas);
+reset($frutas);
+while (list($chave, $valor) = each($frutas)) {
+   echo "frutas[".$chave."] = ".$valor."<br>";
+}
+?> 
+
+
+Os seguintes também são funcionalmente idênticos: 
+
+<?php
+$arr = array("one", "two", "three");
+reset($arr);
+while (list($key, $value) = each ($arr)) {
+   echo "Chave: $key; Valor: $value<br />\n";
+}
+
+foreach ($arr as $key => $value) {
+   echo "Chave: $key; Valor: $value<br />\n";
+}
+?> 
+
+Mais alguns exemplos para demonstrar os usos: 
+
+<?php
+/* exemplo foreach 1: somente valores */
+
+$a = array(1, 2, 3, 17);
+
+foreach ($a as $v) {
+   echo "Valor atual de \$a: $v.\n";
+}
+
+/* exemplo foreach 2: valores (com as chaves impressas para ilustração) */
+
+$a = array(1, 2, 3, 17);
+
+$i = 0; /* para exemplo somente */
+
+foreach ($a as $v) {
+   echo "\$a[$i] => $v.\n";
+   $i++;
+}
+
+/* exemplo foreach 3: chaves e valores */
+
+$a = array (
+   "um" => 1,
+   "dois" => 2,
+   "três" => 3,
+   "dezessete" => 17
+);
+
+foreach ($a as $k => $v) {
+   echo "\$a[$k] => $v.\n";
+}
+
+/* exemplo foreach 4: arrays multidimensionais */
+
+$a[0][0] = "a";
+$a[0][1] = "b";
+$a[1][0] = "y";
+$a[1][1] = "z";
+
+foreach ($a as $v1) {
+   foreach ($v1 as $v2) {
+       echo "$v2\n";
+   }
+}
+
+/* exemplo foreach 5: arrays dinâmicos */
+
+foreach (array(1, 2, 3, 4, 5) as $v) {
+   echo "$v\n";
+}
+?> 
+
+
+Exemplo de array multidimensional
+
+$produto[1][codigo] = "1";
+$produto[1][nome] = "João Pereira Brito";
+$produto[1][email] = "joao@joao.org";
+$produto[1][rua] = "Vasco da Gama";
+$produto[1][numero] = "1345";
+
+$produto[2][codigo] = "2";
+$produto[2][nome] = "Antônio queiroz";
+
+
+Exemplo de Array
+
+$i=0;
+while($i < $numregs){
+  	$codigo=pg_result($consulta,$i,codigo);  
+  	$nome=pg_result($consulta,$i,nome);  
+  	$venc=pg_result($consulta,$i,vencimento);
+  	$apartamento=pg_result($consulta,$i,apartamento);
+  	$pessoas=pg_result($consulta,$i,pessoas);
+  	$cota_agua=pg_result($consulta,$i,cota_agua);
+  	$cota_condominio=pg_result($consulta,$i,cota_condominio);
+  	$cota_reserva=pg_result($consulta,$i,cota_reserva);
+
+	$total = $cota_agua + $cota_condominio + $cota_reserva;
+	$total = number_format($total,2, ',','.');
+...
+$i++;
+}

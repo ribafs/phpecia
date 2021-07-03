@@ -1,0 +1,395 @@
+Classe Abstrata
+
+Classe que serve de base para outras classe. Classe que não pode ser instanciada. 
+Toda classe que incorpora algum método abstrato deve ser declarada como abstrata. 
+Uma classe que herde de uma classe abastrata deve definir os métodos abstratos declarados na classe abstrata. Do contrário, a classe que herda seria obrigada a ser declarada como abstrata. Quando uma classe herda de uma classe abstrata, todos os métodos marcados como abstratos na declaração da classe pai devem ser definidos na classe filha e esses métodos devem ser definidos com a mesma visibilidade ou mais pública. Se private então private, protected ou public. Se protected protected ou public. Se public então public.
+
+Uma classe abstrata é um modelo, para que outras classes possam herdá-las.
+Uma classe abstrata pode fornecer métodos abstratos e comuns.
+
+Método Abstrato
+
+Método abstrato, é um método que fornece assinatura para um método, mas sem nenhuma implementação.
+Qualquer classe que possuir métodos abstrados também deve ser abstrata.
+Da mesma forma que acontece com as classes, os métodos abstratos são criados apenas para ajudarem a estruturar as classes filhas.
+
+A implementação deverá ser feita nas subclasses.
+O principal uso de classes e métodos abstratos é garantir que cada subclasse sobrescreva os métodos abstratos da superclasse.
+
+Os métodos comuns, que são totalmente implementados em uma classe abstrata, podem ser usados por uma classe concreta por meio de herança.
+
+Exemplo:
+
+abstract class Motor
+{
+    abstract function ligar();
+}
+
+class MotorEletrico extends Motor
+{
+    public function ligar(){
+        //
+    }
+}
+
+class MotorExplosao extends Motor
+{
+    public function ligar(){
+        //
+    }
+}
+
+$obj = new MotorEletrico();
+
+$obj->ligar();
+
+As classes que extendem a abstrata podem ter outros métodos e propriedades que não sejam herdados da mesma.
+Classes abstratas podem ter propriedades e métodos que não são abstratos e que não precisam ser implementados nas classes que a estendem. Da mesma forma que as classes que estendem da abstrata podem ter propriedades e métodos extras, fora dos herdados da abstrata.
+
+Classes Final
+
+Como o noem sugere, uma classe final é uma classe que não pode ser instanciada.
+
+final class NomeClasse
+{
+
+}
+
+Métodos final
+Quando um método é dito como final ele não pode ser sobrescrito ou seja, a classe filha continua tento acesso a ele, mas não pode alterá-lo.
+
+
+Interfaces
+
+Uma interface é como um contrato que as classes que a implementam devem cumprir.
+
+Um método na interface não pode conter conteudo.
+Caso haja variáveis, estas devem existir na interface e na classe que a implementa.
+A visibilidade do método da interface tem que ser mais restrito ou igual a da classe que a implementa.
+Constantes numa interface não podem ser mudadas na classe que a implementa.
+É possivel uma classe implementar mais de 1 interface ao mesmo tempo , sendo assim , a classe tem que estar nos padrões de todas as interfaces que ela implementa.
+Uma interface pode herdar de várias outras Interfaces, sendo assim , a classe que implementa esta interface tem que estar nos padrões de todas as interfaces herdadas também.
+
+No PHP, as interfaces são nada mais do que um modelo de assinaturas de método para outras interfaces ou classes concretas implementarem. Uma interface é implementada usando o operador  implements.
+
+Se uma classe implementa uma interface ela deve implementar completamente todos os métodos da interface.
+
+Exemplo
+
+interface oopTemplate {
+ 
+ public function methodOne( $userName );
+ public function methodTwo( $userName, $password );
+ 
+}
+
+class oopClass implements oopTemplate {
+ 
+ public function methodOne( $userName ) {
+  
+  echo 'The user name is '. $userName. '<br>';
+  
+ }
+ 
+ public function methodTwo( $userName, $password ) {
+  
+  echo 'The user name is '. $userName. '<br>';
+  echo 'The password is '. $password. '<br>';
+  
+ }
+ 
+}
+
+No exemplo acima, temos uma interface chamada oopTemplate, que contém duas assinaturas de método e uma classe chamada oopClass que implementa a interface aplicando integralmente os métodos necessários. 
+
+É importante notar que todas as assinaturas de método em uma interface são públicas.
+
+Nós também podemos implementar mais de uma interface, separando-as com uma vírgula depois do operador de implementos.
+interface oopTemplate {
+ 
+ public function methodOne( $userName );
+ public function methodTwo( $userName, $password );
+ 
+}
+
+interface anotherTemplate {
+ 
+ public function methodOne( $userName );
+ public function methodThree( $userName, $password );
+ 
+}
+
+class oopClass implements oopTemplate, anotherTemplate {
+ 
+ public function methodOne( $userName ) {
+  
+  echo 'The user name is '.$userName.'<br>';
+  
+ }
+ 
+ public function methodTwo( $userName, $password ) {
+  
+  echo 'The user name is '.$userName.'<br>';
+  echo 'The password is '.$password.'<br>';
+  
+ }
+ 
+ public function methodThree( $userName, $password ){
+  
+  if( $userName == $password ) {
+   return true;
+  } else {
+   return false;
+  }
+  
+ }
+ 
+}
+
+Interface de dependência
+Uma interface também pode estender uma outra interface, o que nos permite definir dependências.
+interface oopTemplate {
+ 
+ public function methodOne( $userName );
+ public function methodTwo( $userName, $password );
+ 
+}
+
+interface anotherTemplate extends oopTemplate {
+ 
+ public function methodOne( $userName );
+ public function methodThree( $userName, $password );
+ 
+}
+
+class oopClass implements anotherTemplate {
+ 
+ public function methodOne( $userName ) {
+  
+  echo 'The user name is '.$userName.'<br>';
+  
+ }
+ 
+ public function methodTwo( $userName, $password ) {
+  
+  echo 'The user name is '. $userName. '<br>';
+  echo 'The password is '. $password. '<br>';
+  
+ }
+ 
+ public function methodThree( $userName, $password ){
+  
+  if( $userName == $password ){
+   return true;
+  }else{
+   return false;
+  }
+  
+ }
+ 
+}
+
+Constantes e interfaces
+Enquanto não somos capazes de definir propriedades de classe nas interfaces, podemos definir constantes.
+interface oopTemplate {
+ 
+ const memberConstant = 'password';
+ 
+ public function methodOne( $userName );
+ public function methodTwo( $userName, $password );
+ 
+}
+
+interface anotherTemplate extends oopTemplate {
+ 
+ public function methodOne( $userName );
+ public function methodThree( $userName, $password );
+ 
+}
+
+class oopClass implements anotherTemplate {
+ 
+ public function methodOne( $userName ) {
+  
+  echo 'The user name is '. $userName. '<br>';
+  
+ }
+ 
+ public function methodTwo( $userName, $password) {
+  
+  echo 'The user name is '. $userName. '<br>';
+  echo 'The password is '. $password. '<br>';
+  
+ }
+ 
+ public function methodThree( $userName, $password ) {
+  
+  if( $password == self::memberConstant ) {
+   return true;
+  }
+  if( $userName == $password ){
+   return true;
+  } else {
+   return false;
+  }
+  
+ }
+ 
+}
+
+Uma constante de interface só pode ser definida uma vez, para que outras interfaces ou classes que as herdam não possam alterá-las ou substituí-las.
+
+Ao trabalhar com Orientação a Objeto, algo que se espera é a confiabilidade de seus componentes. E uma das formas de garantir essa confiabilidade é a utilização de Interface.
+
+A Interface permite definir um “contrato” na qual as classes que vão implementá-las terão que ter os métodos definidos por ela.
+
+Exemplo
+
+Projeto para trabalhar bem com os SGBDs MySQL e PostgreSQL
+
+interface DataBase{
+    public function connect();
+    public function insert($data);
+    public function update($data, $where);
+    public function select($columns='*', array $filters=null);
+    public function delete($where);
+    public function setTableName($name);
+}
+
+Quem for utilizar essa interface precisará ter esses métodos, mas a forma que eles irão implementar dependerá de cada classe que irá utilizar.
+
+class MySQLDb implements DataBase{
+ 
+        public function __construct($host, $user, $pass, $dbname){
+         
+        }
+         
+        public function connect(){
+        //Implementa a conexão
+        }
+         
+        public function insert($data){
+        //Implementação do Insert usando MySQL
+        }
+         
+        public function update($data, $where){
+        //Implementação do update usando MySQL
+        }
+         
+        public function select($columns='*', array $filters=null){
+        //Implementação do SELECT usando MySQL
+        }
+        public function delete($where){
+        //Implementação do DELETE usando MySQL
+        }
+         
+        public function setTableName($name){
+        //define nome da tabela
+        }
+}
+
+class PostgreSQLDb implements DataBase{
+ 
+        public function __construct($host, $user, $pass, $dbname){
+         
+        }
+         
+        public function connect(){
+        //Implementa a conexão
+        }
+         
+        public function insert($data){
+        //Implementação do Insert usando Postgre
+        }
+         
+        public function update($data, $where){
+        //Implementação do update usando Postgre
+        }
+         
+        public function select($columns='*', array $filters=null){
+        //Implementação do SELECT usando Postgre
+        }
+        public function delete($where){
+        //Implementação do DELETE usando Postgre
+        }
+         
+        public function setTableName($name){
+        //define nome da tabela
+        }
+}
+
+Veja que fiz a mesma coisa, mas a forma de implementar a instruções de conectar, inserir, etc, vai depender da classe, mas a única coisa que sei mesmo é que eles terão que ter esses métodos.
+
+Agora criaremos uma nova classe a qual trabalhará com essas classes que vão abstrair.
+
+class DataAccessObject implements DataBase{
+        protected $adapter;
+         
+        public function __construct(DataBase $object){
+                $this->adapter = $object;
+                $this->connect();
+        }
+         
+        public function setTableName($name){
+                $this->adapter->setTableName($name);
+        }
+         
+        public function connect(){
+                $this->adapter->connect();
+        }
+         
+        public function insert($data){
+                $this->adapter->insert($data);
+        }
+         
+        public function update($data, $where){
+                $this->adapter->update($data, $where);
+        }
+         
+        public function delete($where){
+                $this->adapter->delete($where);
+        }
+}
+
+Veja que criei uma classe que também implementa a Interface DataBase. Só que agora ela tem um atributo chamado adapter, que vai ser responsável por guardar a instância da classe do banco de dados que irei utilizar.
+Veja que no construtor é informado que objeto passado tem que ter implementado a interface DataBase. Isso me garante que saberei quais métodos irei utilizar. Mas veja que não falei se será MySQL, PostgreSQL etc, pois não precisa.
+
+O que preciso saber é se ele tem a Interface implementada pra pode utilizar nesta classe.
+
+//Inclui as classes
+require_once "Db/DataBase.php";
+require_once "Db/MySQLDataBase.php";
+require_once "Db/DataAccessObject.php";
+ 
+//Instancia classe que abstrairá as ações do MySQL
+$database = new MySQLDataBase($host, $user, $pass, $dbname);
+ 
+//Instancio a classe que fará as operações, dizendo que banco de dados irei utilizar
+$dao = new DataAccessObject($database);
+ 
+//Definir o nome da tabela
+$dao->setTableName('produtos');
+ 
+//faço uma operação
+$dao->delete('idProduto = 1');
+Agora vamos dizer que precisamos usar o PostgreSQL. Simples, apenas instanciamos a classe do PostgreSQL e passamos para classe DataAccessObject.
+//Inclui as classes
+require_once "Db/DataBase.php";
+require_once "Db/PostgreSQLDataBase.php";
+require_once "Db/DataAccessObject.php";
+ 
+//Instancia classe que abstrairá as ações do PostgreSQL
+$database = new PostgreSQLDataBase($host, $user, $pass, $dbname);
+ 
+//Instancio a classe que fará as operações, dizendo que banco de dados irei utilizar
+$dao = new DataAccessObject($database);
+ 
+//Definir o nome da tabela
+$dao->setTableName('produtos');
+ 
+//faço uma operação
+$dao->delete('idProduto = 1');
+
+Definimos que  trabalharemos com as operações no banco de dados. Todas as classes que implementarem a Interface DataBase terão que ter esses métodos caso precise mudar de banco de dados, não terei perda no sistema, porque sei que irão trabalhar da mesma forma, mas só a implementação que será diferente.
+
+

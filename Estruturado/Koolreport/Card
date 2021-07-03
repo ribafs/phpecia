@@ -1,0 +1,193 @@
+Card
+
+    Introduction
+    Trend indicator
+        Calculate indicator
+        Indicator title template
+    Format number
+        Format by function
+    href
+        Set a url link
+        Set a javascript function
+    CssStyle
+    CssClass
+    Href
+
+Introduction #
+
+Card is a simple widget to show important indicator such as Month Sale, User Visits or any metrics that matter. This widget is used very much in dashboard. The KoolPHP's Card is created for this purpose.
+
+Example:
+21.87%
+$11,249
+Month Sale
+-13.33%
+13k
+Visitors
+24.67%
+1,233
+Number of sales
+
+Sample Code:
+
+<?php
+\koolreport\widgets\koolphp\Card::create(array(
+    "title"=>"Month Sale",
+    "value"=>11249,
+    "baseValue"=>9230,
+    "format"=>array(
+        "value"=>array(
+            "prefix"=>"$"
+        )
+    )
+));
+?>  
+
+Trend indicator #
+
+To show the trend indicator comparing current value with previous value, you need to enter the baseValue. The indicator on the top right will show the percentage of inclination or declination of current value compared to previous value that you enter.
+
+Card::create(array(
+    ...
+    "baseValue"=>9230,
+));
+
+Calculate indicator #
+
+By default, the indicator is calculated by percentage increased or decreased from value to baseValue. If you need to show the different between them, you can do:
+
+Card::create(array(
+    "value"=>11333,
+    "baseValue"=>9230,
+    "indicator"=>"different"
+));
+
+Or you may define your own function of calculation:
+
+Card::create(array(
+    "value"=>11333,
+    "baseValue"=>9230,
+    "indicator"=>function($value,$baseValue)
+    {
+        return $value-$baseValue;
+    }
+));
+
+Indicator title template #
+
+Whenever you hover your mouse to the indicator, there is a title showing this number is the result from comparison between value and baseValue. You may change this text with indicatorTitle:
+
+Card::create(array(
+    ...
+    "indicatorTitle"=>"This calculation base on value of {value} and previous value of {baseValue}",
+));
+
+The {value} and {baseValue} will be replaced with real numbers.
+Format number #
+
+You can format the value as well as the indicator number
+
+Card::create(array(
+    "format"=>array(
+        "value"=>array(
+            "prefix"=>"$",
+            "decimals"=>2,
+            "thounsandSeparator"=>",",
+            "decimalPoint"=>"."
+        ),
+        "indicator"=>array(
+            "suffix"=>"%",
+            "decimals"=>2,
+            "thounsandSeparator"=>",",
+            "decimalPoint"=>"."
+        )
+    )
+));
+
+Note: The format of value will used for previousNumber as well.
+Format by function #
+
+If our format number is still not enough, you may defined your own format function:
+
+Card::create(array(
+    "format"=>array(
+        "value"=>function($value){
+            return number_format($value);
+        },
+        "indicator"=>function($value)
+        {
+            return number_format($value);
+        }
+    )
+));
+
+href #
+Set a url link #
+
+The same as you set href in an <a> element in html, you may set "href" property for the Card so that users will be directed to new url location when they click the card. This is extremely useful when you want to show details of data to user after view the summarization on card.
+
+Card::create(array(
+    "href"=>"http://example.com/defails"
+));
+
+Set a javascript function #
+
+Card::create(array(
+    "href"=>"function(){
+        alert('click on card');
+    }"
+));
+
+CssStyle #
+
+You can add css style directly to elements of the Card widget
+
+Card::create(array (
+    ...
+    "cssStyle"=>array(
+        "negative"=>"color:#ddd",
+        "positive"=>"color:#0f0",
+        "indicator"=>"font-size:16px",
+        "card"=>"border-color:#999;background:yellow;",
+        "value"=>"color:blue",
+        "title"=>"color:green",
+    )
+));
+
+CssClass #
+
+Alternatively, you can add on css class to elements of Card widget
+
+Card::create(array(
+    ...
+    "cssClass"=>array(
+        "negative"=>"test-negative",
+        "positive"=>"test-positive",
+        "indicator"=>"test-indicator",
+        "card"=>"test-card",
+        "value"=>"test-value",
+        "title"=>"test-title",
+        "upIcon"=>"glyphicon glyphicon-heart",
+        "downIcon"=>"glyphicon glyphicon-remove"
+    ),
+));
+
+Href #
+
+In some case, you would like to let user click to the card and browser will take them to somewhere like detail report for example. You can do so with "href" property:
+
+Card::create(array(
+    ...
+    "href"=>"/detailReport.php"
+));
+
+or you can even set the javascript function:
+
+Card::create(array(
+    ...
+    "href"=>"function(){
+        alert('on click');
+    }"
+));
+
+

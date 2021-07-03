@@ -1,0 +1,5 @@
+Requisitos do servidor
+
+O framework KoolReport requer PHP 5.4 ou superior. Nós fortemente recomendamos o último PHP 7.x. Com a versão mais recente do PHP, você será beneficiado com o desempenho do relatório aprimorado e uma sintaxe melhor
+
+

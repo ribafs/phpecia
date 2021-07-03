@@ -1,0 +1,67 @@
+/*
+ * RANDOM PASSWORD GENERATION ALGORITHM
+ * PROGRAMMED BY: BRIAN GRIFFIN
+ * January 1, 2003
+ * MXrider005@hotmail.com
+ * https://www.planet-source-code.com/vb/scripts/ShowCode.asp?txtCodeId=872&lngWId=8
+ * You can use this freely. Just don't credit it as your own work! And please e-mail me if you do just to let me know. Thanks.
+ */
+
+ // DEFINE STRINGS TO USE FOR CHARACTER COMBINATIONS IN THE PASSWORD
+ $LCase = "abcdefghijklmnopqrstuvwxyz";
+ $UCase = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+ $Integer = "0123456789";
+ 
+
+ // DEFINE CONSTANTS FOR ALGORTTHM
+ define("LEN", "1");
+ /* THIS FUNCTION GENERATES A RANDOM NUMBER THAT WILL BE USED TO
+* RANDOMLY SELECT CHARACTERS FROM THE STRINGS ABOVE
+*/
+
+ function RndInt($Format){
+switch ($Format){
+ case "letter":
+$Rnd = rand(0,25);
+if ($Rnd > 25){
+ $Rnd = $Rnd - 1;
+}
+
+break;
+ case "number":
+$Rnd = rand(0,9);
+if ($Rnd > 9){
+ $Rnd = $Rnd - 1;
+}
+
+break;
+ }
+
+return $Rnd;
+} // END RndInt() FUNCTION
+
+ /* RUN THE FUNCTION TO GENERATE RANDOM INTEGERS FOR EACH OF THE
+* 6 CHARACTERS IN THE PASSWORD PRODUCED.
+*/
+ $a = RndInt("letter");
+ $b = RndInt("letter");
+ $c = RndInt("letter");
+ $d = RndInt("letter");
+ $e = RndInt("number");
+ $f = RndInt("number");
+
+ // EXTRACT 6 CHARACTERS RANDOMLY FROM THE DEFINITION STRINGS
+ $L1 = substr($LCase, $a, LEN);
+ $L2 = substr($LCase, $b, LEN);
+ $U1 = substr($UCase, $c, LEN);
+ $U2 = substr($UCase, $d, LEN);
+ $I1 = substr($Integer, $e, LEN);
+ $I2 = substr($Integer, $f, LEN);
+ 
+ // COMBINE THE CHARACTERS AND DISPLAY THE NEW PASSWORD
+ $PW = $L1 . $U2 . $I1 . $L2 . $I2 . $U1;
+ echo("
+The Password Is:\t$PW
+");
+
+?>

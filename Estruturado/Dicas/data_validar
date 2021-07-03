@@ -1,0 +1,12 @@
+    function validateDate($date, $format = 'Y-m-d'){
+        $b = DateTime::createFromFormat($format, $date);
+        return $b && $b->format($format) === $date;
+    }
+
+Usando
+
+        if(!$this->validateDate($nascimento)){
+		    header("location: index.php?msg=Esta data é inválida&color=red&data=$nascimento");  
+            exit;
+        }
+

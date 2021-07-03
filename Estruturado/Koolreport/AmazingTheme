@@ -1,0 +1,93 @@
+Amazing Theme
+
+    Overview
+    Installation
+        By downloading .zip file
+        By composer
+    Support
+
+Overview #
+
+Amazing is a new theme for KoolReport. This amazing theme is built on top of Bootstrap 4 with modern css styling and markup. It helps you to construct a nicer report and dashboard.
+Installation #
+By downloading .zip file #
+
+    Download zip file from My Licenses
+    Unzip
+    Copy the folder amazing into koolreport folder, it will look like below:
+
+koolreport
+├── core
+├── amazing
+
+By composer #
+
+If you have purchased the package then you can follow these steps to install
+
+    Login to koolreport.com
+    Go to My Licenses
+    Click Get Token For Composer button
+    Copy the text and save to file auth.json next to composer.json
+    Add the repositories to composer.json like below
+    Run composer update to install package
+
+composer.json
+
+{
+    "repositories":[
+      {"type":"composer","url":"https://repo.koolreport.com"}
+    ],
+    "require":{
+        "koolreport/amazing":"*",
+        ...
+    }
+}
+
+Your auth.json will look like this:
+
+{
+    "http-basic": {
+        "repo.koolreport.com": {
+            "username": "your@email.com",
+            "password": "your-secret-token"
+        }
+    }
+}
+
+Note: Please add your auth.json to .gitignore as it contains your secret login information.
+Support #
+
+Please use our forum if you need support, by this way other people can benefit as well. If the support request need privacy, you may send email to us at support@koolreport.com.
+
+
+Basic Usage
+
+    Register theme
+    Bootstrap 4 inheritance
+    Chart's colorScheme
+
+Register theme #
+
+To use Amazing theme, you only need to register it on your report class like below:
+
+class MyReport extends \koolreport\KoolReport
+{
+    use \koolreport\amazing\Theme;
+    ...
+}
+
+As a result of above line of code, you will notice the changes in font, buttons and all of our widgets.
+Bootstrap 4 inheritance #
+
+The Amazing theme is built on top of Bootstrap 4 so it inherits features of Bootstrap 4 in term of syntax. You may take a look at Twitter Bootstrap 4 Documentation.
+Chart's colorScheme #
+
+When apply the Amazing Theme, the color scheme of Google Charts or ChartJs will change accordingly. Amazing Theme provide 2 colorSchemes which are "default" and "more". By default, the "default" scheme will be used, you may change to "more" by doing following in the chart:
+
+\koolreport\widgets\google\ColumnChart::create(array(
+    ...
+    "colorScheme"=>"more",
+    ...
+))
+
+

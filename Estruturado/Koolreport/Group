@@ -1,0 +1,62 @@
+Group
+
+    Introduction
+    Sample Code
+        Group by single column
+        Group by multiple columns
+    Properties
+
+Introduction #
+
+Group process acts like the GROUP BY statement in SQL Query.
+
+Sample Code #
+
+Group by single column #
+
+<?php
+<?php
+use \koolreport\processes\Group;
+class MyReport extends \koolreport\KoolReport
+{
+    public function setup()
+    {
+        ...
+        ->pipe(new Group(array(
+            "by"=>"country",
+            "sum"=>"polulation"
+        )))
+        ...
+    }
+}
+
+Group by multiple columns #
+
+<?php
+<?php
+use \koolreport\processes\Group;
+class MyReport extends \koolreport\KoolReport
+{
+    public function setup()
+    {
+        ...
+        ->pipe(new Group(array(
+            "by"=>array("country","state"),
+            "sum"=>array("polulation","income")
+        )))
+        ...
+    }
+}
+
+Properties #
+
+Name	type	        default	description	example
+by	    string/array	    	List of columns to be group	"by"=>array("country,state")
+sum	    string/array	    	List of columns to be sum	"sum"=>"population"
+avg	    string/array	    	List of columns to be averaged	"avg"=>"income"
+min	    string/array	    	List of columns to get min value	"min"=>"income"
+max	    string/array	    	List of columns to get max value	"avg"=>"max"
+count	string/array	    	List of columns to get count value	"count"=>"customer"
+sort	bool	true	        Whether to sort data in grouped columns	"sort"=>false
+
+

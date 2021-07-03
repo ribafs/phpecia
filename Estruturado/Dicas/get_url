@@ -1,0 +1,3 @@
+Arrays pela url
+
+exemplo.php?vetor[]=valor1&vetor[]=valor2&vetor[]=valor3

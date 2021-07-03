@@ -1,0 +1,89 @@
+Métodos e propriedades estáticas
+
+Quando definimos métodos ou propriedades como estáticos (utilizando a palavra-chave static), estamos permitindo que estes possam ser chamados externamente sem haver a necessidade de estarem no contexto de um objeto, isto é, não é necessário instanciar um objeto para poder acessá-los. Para ter acesso a uma propriedade estática dentro do corpo da classe temos que usar a palavra self acompanhada de :: (self::).
+
+<?php
+# noticia_estatica.php
+class Noticia
+{
+    public static $nome_jornal = 'The Unicamp Post';
+    protected $titulo;
+    protected $texto;
+
+    public function setTitulo($valor)
+    {
+        $this->titulo = $valor;
+    }
+
+    public function setTexto($valor)
+    {
+        $this->texto = $valor;
+    }
+
+    public function exibeNoticia()
+    {
+        $ret = "<center>";
+        $ret .= "Nome do Jornal: <b>" . self::$nome_jornal . "</b><p>";
+        $ret .= "<b>". $this->titulo ."</b><p>";
+        $ret .= $this->texto;
+        $ret .= "</center><p>";
+        return $ret;
+    }
+}
+
+$titulo = 'Vestibular da Unicamp';
+$texto = 'Um dos maiores vestibulares do país tem número recorde de inscritos';
+
+$not = new Noticia;
+$not->setTitulo($titulo);
+$not->setTexto($texto);
+$not->exibeNoticia();
+echo "<p>" . Noticia::$nome_jornal .'</p>';
+
+/*
+Quando utilizamos o modificador static em atributos, ao invés de serem alocados n atributos para n objetos, é alocado apenas 1 atributo para n objetos, onde todos os objetos têm acesso ao mesmo atributo.
+*/
+
+
+Dentro da classe filha NoticiaPrincipal, a chamada à métodos ou propriedades estáticas da classe pai ficaria da seguinte forma:
+
+Propriedade $nome_jornal sendo chamada pela sub-classe NoticiaPrincipal:
+
+<?php
+# noticia_estatica.php
+include_once('noticia_estatica.class.php');
+
+class NoticiaPrincipal extends Noticia
+{
+    private $imagem;
+
+    public function setImagem($valor)
+    {
+        $this->imagem = $valor;
+    }
+
+    public function exibeNoticia()
+    {
+        $ret = "<center>";
+        $ret .= "Nome do Jornal: <b>" . parent::$nome_jornal . "</b><p>";
+        $ret .= "<img src=\"". $this->imagem ."\"><p>";
+        $ret .= "<b>". $this->titulo ."</b><p>";
+        $ret .= $this->texto;
+        $ret .= "<p></center>";
+
+        return $ret;        
+    }
+}
+
+$titulo = 'Vestibular da Unicamp';
+$texto = 'Um dos maiores vestibulares do país tem número recorde de inscritos';
+$imagem = 'img_unicamp.jpg';
+
+$not = new NoticiaPrincipal;
+$not->setTitulo($titulo);
+$not->setTexto($texto);
+$not->setImagem($imagem);
+$not->exibeNoticia();
+print $not;
+
+

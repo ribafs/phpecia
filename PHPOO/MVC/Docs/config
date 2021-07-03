@@ -1,0 +1,52 @@
+Arquivo config.php
+
+Esse arquivo tem a função de criar as definições do nosso sistema, facilitando seu uso posterior. Nesse arquivo já podemos deixar definidos nossos caminhos absolutos, diretórios específicos e configurações do banco de dados, conforme se observa no código abaixo: 
+
+Arquivos diretórios raízes
+
+$PastaInterna="";
+define('DIRPAGE',"http://{$_SERVER['HTTP_HOST']}/{$PastaInterna}");
+if(substr($_SERVER['DOCUMENT_ROOT'],-1)=='/'){ define('DIRREQ',"{$_SERVER['DOCUMENT_ROOT']}{$PastaInterna}"); } else{ define('DIRREQ',"{$_SERVER['DOCUMENT_ROOT']}/{$PastaInterna}"); }
+
+#Diretórios Específicos
+define('DIRIMG',DIRPAGE."public/img/");
+define('DIRCSS',DIRPAGE."public/css/");
+define('DIRJS',DIRPAGE."public/js/");
+
+#Acesso ao banco de dados
+define('HOST',"localhost");
+define('DB',"sistema");
+define('USER',"root");
+define('PASS',"");
+Após criarmos nosso arquivo config.php, precisamos incluí-lo na nossa index.
+require_once("../config/config.php");
+
+
+Outro (mini3)
+
+<?php
+define('ENVIRONMENT', 'development');
+
+if (ENVIRONMENT == 'development' || ENVIRONMENT == 'dev') {
+    error_reporting(E_ALL);
+    ini_set("display_errors", 1);
+}
+
+define('URL_PUBLIC_FOLDER', 'public');
+define('URL_PROTOCOL', '//');
+define('URL_DOMAIN', $_SERVER['HTTP_HOST']);
+define('URL_SUB_FOLDER', str_replace(URL_PUBLIC_FOLDER, '', dirname($_SERVER['SCRIPT_NAME'])));
+define('URL', URL_PROTOCOL . URL_DOMAIN . URL_SUB_FOLDER);
+
+/**
+ * Configuration for: Database
+ * This is the place where you define your database credentials, database type etc.
+ */
+define('DB_TYPE', 'mysql');
+define('DB_HOST', '127.0.0.1');
+define('DB_NAME', 'app-mvc');
+define('DB_USER', 'root');
+define('DB_PASS', 'root');
+define('DB_CHARSET', 'utf8mb4');
+
+

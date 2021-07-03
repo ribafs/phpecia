@@ -1,0 +1,13 @@
+Tipos de dados do PHP
+
+string
+int/integer
+double
+boolean
+array
+object
+resource - retorno de conexões com bd
+NULL
+
+
+

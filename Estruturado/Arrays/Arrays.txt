@@ -1,0 +1,14 @@
+Array/matriz - é um mapa ou conjunto ordenado de pares de chaves e valores.
+
+Uma chave é como um índice
+Um valor é como uma variável
+
+Array vazio
+
+$ar = array();
+
+Funções nativas do PHP para arrays:
+
+is_array() - checar se uma variável contém um array e retorna true ou false.
+
+https://phpro.org/tutorials/Introduction-To-Arrays.html

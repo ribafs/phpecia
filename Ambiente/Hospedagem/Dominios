@@ -1,0 +1,30 @@
+Como usar um domínio em um site/aplicativo
+
+Um domínio é um apelido para um IP que facilita memorizar
+
+- Primeiro contratamos um serviço, como o registro.br
+- Depois configuramos os dados recebidos do registro.br numa hospedagem. Exemplo: Linode
+- Então aguardamos um certo tempo para que o domínio propague (que pode variar de minutos até a horas  e até 3 dias)
+
+
+Domínio Free
+
+https://www.freenom.com/
+
+Freenom World is a fast and anonymous Public DNS resolver
+
+https://my.freenom.com/clientarea.php?action=domaindetails
+Usei os nameservers da linode
+
+80.80.80.80
+80.80.81.81
+
+
+
+Domínios free, como .cf e ouros não são aceitos em alguns serviços gratuitos como o freehostia.com
+
+Checar propagação de registro
+Mostra em que regiões já propagou e também pelos registros do DNS
+
+https://www.whatsmydns.net/
+

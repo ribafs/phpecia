@@ -1,0 +1,104 @@
+ Basic Of Data Processing
+
+In this tutorial, we would like to introduce the data processing of KoolReport. As you have known, data after being pulled from data source will the piped through various processes until it reaches data store.
+Get start
+
+To use a process, the first step you should do is to declare the full class name of the process on the top of your report file. For example:
+
+use \koolreport\processes\Filter;
+use \koolreport\processes\Grouping;
+use \koolreport\processes\Sort;
+
+Now let find out more about the most used processes
+Filter
+
+You data may need to be filtered, for example:
+
+require_once "../koolreport/core/autoload.php";
+
+use \koolreport\processes\Filter;
+
+class EmployeeList extends \koolreport\KoolReport
+{
+    function settings()
+    {
+        return array(
+            "dataSources"=>array(
+                "mydata"=>array(
+                    'connectionString' => 'mysql:host=localhost;dbname=mydata',
+                    'username' => 'root',
+                    'password' => '',
+                    'charset' => 'utf8',
+                )
+            )
+        )
+    }
+    function setup()
+    {
+        $this->src("mydata")
+        ->query("select id,firstName,lastName,salary from employees")
+        ->pipe(new Filter(array(
+            array("salary",">",3000)
+        )))
+        ->pipe($this->dataStore("high_salary_employees"));
+    }
+}
+
+As you can see from above example, we would like to get the employees who have salary greater than $3000.
+
+If you need to do the "or" operator, you can do:
+
+    ->pipe(new Filter(array(
+        array("firstName","startWith","Peter"),
+        "or",
+        array("firstName","startWith","Marry"),
+    )))
+
+Group
+
+Group is another common process to organize data into group, just like GROUP BY of SQL.
+
+function setup()
+{
+    $this->src("mydata")
+    ->query("select id,product_id,amount from orders")
+    ->pipe(new Group(array(
+        "by"=>"product_id",
+        "sum"=>"amount"
+    )))
+    ->pipe($this->dataStore("orders_by_product"));    
+}
+
+The powerful feature of Group process is that you can group by many fields and sum by many fields as you want
+
+    "by"=>array("product_id","product_size"),
+    "sum"=>array("amount","quantity")
+
+Sort
+
+Sort by its name helps you to sort data in the order you want
+
+function setup()
+{
+    $this->src("mydata")
+    ->query("select id,product_id,amount from orders")
+    ->pipe(new Sort(array(
+        "amount"=>"desc"
+    )))
+    ->pipe($this->dataStore("orders_by_product"));    
+}
+
+Summary
+
+The Filter, Sort and Group are all basic processes that you will use very much in reporting. The combination of above three can help you to solve 60% percent of reporting works.
+
+If you have any question, you may reply to us of this email.
+
+See you in the next tutorial.
+Resources
+
+    Filter
+    Group
+    Sort
+
+<3 koolreport team

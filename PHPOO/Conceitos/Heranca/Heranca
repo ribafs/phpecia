@@ -1,0 +1,85 @@
+// Parent class (base class)
+class Rectangle
+{
+    public $x, $y;
+
+    function __construct($a, $b)
+    {
+        $this->x = $a;
+        $this->y = $b;
+    }
+}
+
+// Child class (derived class)
+class Square extends Rectangle {}
+
+$s = new Square(5,10);
+
+$s->x = 5; $s->y = 10;
+
+
+Static
+
+class MyCircle
+{
+// Instance members (one per object)
+public $r = 10;
+function getArea() {}
+// Static/class members (only one copy)
+static $pi = 3.14;
+static function newArea($a) {}
+}
+
+static function newArea($a)
+{
+return self::$pi * $a * $a;
+// ok
+return MyCircle::$pi * $a * $a; // alternative
+}
+
+class MyCircle
+{
+static $pi = 3.14;
+static function newArea($a)
+{
+return self::$pi * $a * $a;
+}
+}
+echo MyCircle::$pi; // "3.14"
+echo MyCircle::newArea(10); // "314"
+
+function add()
+{
+static $val = 0;
+echo $val++;
+}
+add(); // "0"
+add(); // "1"
+add(); // "2"
+
+
+Tipos
+
+Declarações de tipo ¶
+
+    Nota:
+
+    Declaração de tipos também era conhecida como type hints no PHP 5.
+
+Declarações de tipo permitem que funções requiram que parâmetros sejam de certos tipos ao chamá-los. Se o valor informado no parâmetro tiver um tipo incorreto então um erro é gerado: no PHP 5 será um erro fatal recuperável, enquanto que no PHP 7 irá lançar uma exceção TypeError
+
+Para declarar o tipo o seu nome deve ser adicionado antes no nome do parâmetro. A declaração pode ser feita para aceitar NULL se o valor default do parâmetro for configurado também para NULL.
+Tipos válidos ¶
+Tipo 	Descrição 	Versão PHP Mínima
+Classe/interface 	O parâmetro precisa ser um instanceof da classe ou interface informada. 	PHP 5.0.0
+self 	O parâmetro precisa ser um instanceof da mesma classe do método onde a função está definida. Somente pode ser utilizado em métodos de classe e instância. 	PHP 5.0.0
+array 	O parâmetro precisa ser um array. 	PHP 5.1.0
+callable 	O parâmetro precisa ser um callable válido. 	PHP 5.4.0
+bool 	O parâmetro precisa ser um valor boolean. 	PHP 7.0.0
+float 	O parâmetro precisa ser um número float. 	PHP 7.0.0
+int 	O parâmetro precisa ser um número integer. 	PHP 7.0.0
+string 	O parâmetro precisa ser uma string. 	PHP 7.0.0
+iterable 	O parâmetro precisa ser um array ou um instanceof Traversable. 	PHP 7.1.0
+object 	O parâmetro precisa ser um object. 	PHP 7.2.0
+
+

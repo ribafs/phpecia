@@ -1,0 +1,101 @@
+Formulário em PHP usando o phpMailer
+
+IMPORTANTE:: Estas instruções funcionam com praticamente TODAS versões do PHP.
+
+Efetue o download do phpmailer no endereço: http://forum.itmnetworks.com.br/downloads/phpmailer.zip e descompactar os arquivos em seu computador, depois envie os arquivos via FTP para o mesmo diretório onde vai existir os arquivos do seu formulario ou de seu script que vai enviar o(s) email(s).
+
+Exemplo de código simples para o envio dos dados de um formulário para uma determinada conta de e-mail:
+
+Copie o código abaixo e salve com o nome de formulario.php este é o arquivo do seu formulário.
+
+<!-- Inicio do arquivo formulario.php -->
+<html>
+<head>
+<title>ITM NETWORKS - phpMailer</title>
+</head>
+<body>
+<p align="center"><font face="Arial">Exemplo de uso do phpMailer<br>
+</font>
+</p>
+<form method="POST" action="enviar.php" name="form" target="_self">
+<div align="center">
+<table border="0" width="43%">
+<tr>
+<td width="23%"><font face="Arial">Nome:</font></td>
+<td width="74%"><font face="Arial"><input type="text" name="fromnome" size="20"></font></td>
+</tr>
+<tr>
+<td width="23%"><font face="Arial">E-Mail:</font></td>
+<td width="74%"><font face="Arial"><input type="text" name="fromemail" size="20"></font></td>
+</tr>
+<tr>
+<td width="23%"><font face="Arial">Assunto:</font></td>
+<td width="74%"><font face="Arial"><input type="text" name="assunto" size="20"></font></td>
+</tr>
+<tr>
+<td width="23%" valign="top"><font face="Arial">Mensagem:</font></td>
+<td width="74%"><font face="Arial"><textarea rows="5" name="mensagem" cols="30"></textarea></font></td>
+</tr>
+<tr>
+<td width="23%"></td>
+<td width="74%"><font face="Arial"><input type="submit" value="enviar" name="botao"></font></td>
+</tr>
+</table>
+<p><font face="Arial" size="1"><a target="_self" href="http://www.itmnetworks.com.br">
+<span style="text-decoration: none"><font color="#000000">www.itmnetworks.com.br</font></span></a></font>
+</div>
+</form>
+</body>
+</html>
+<!-- Fim do arquivo formulario.php -->
+
+Copie o código abaixo e salve com o nome de enviar.php este é o arquivo que vai pegar todas as informações do seu formulário e enviar para o email descrito na linha $cMail->AddAddress.
+
+//Inicio do arquivo enviar.php
+<?
+if (!class_exists("phpmailer")) {
+require("PHPMailerAutoload.php");
+}
+$cMail = new PHPMailer();
+$cMail->IsSMTP();
+$cMail->IsHTML(true);
+$cMail->SMTPAuth = true;
+$cMail->Host = "mail.seusite.com.br";
+$cMail->Username = "seuemail@seusite.com.br";
+$cMail->Password = "senhadoseuemail";
+$cMail->From = $_POST["fromemail"];
+$cMail->FromName = $_POST["fromnome"];
+$cMail->AddAddress("emaildestino@dominiodestino.com.br");
+$cMail->Subject = $_POST["assunto"];
+$cMail->Body = $_POST["mensagem"];
+
+if (strpos($_SERVER["HTTP_REFERER"],$_SERVER["HTTP_HOST"])) {
+if(!$cMail->Send()) {
+echo "Erro no envio da mensagem";
+}
+else
+{
+echo "Mensagem enviada com sucesso !!!";
+}
+}
+?>
+//Fim do arquivo enviar.php
+
+Lembre-se que nosso servidor de envio de emails requer autenticação de SMTP entao nao se esqueça de incluir as seguintes linhas em seu código:
+
+$cMail->Username = "seuemail@seusite.com.br";
+$cMail->Password = "suasenhadoemail";
+
+
+Lembre-se também das regras antispam dos servidores da ITM NETWORKS:
+
+- Quando o email de ORIGEM (FROM) for de fora do nosso servidor, o email de DESTINO (AddAddress) deve ser obrigatoriamente de dentro do nosso servidor;
+
+- Quanto o email de DESTINO (AddAddress) for de fora do nosso servidor, o email de ORIGEM (FROM) deve ser obrigatoriamente de dentro do nosso servidor.
+
+IMPORTANTE:: Estas instruções funcionam com praticamente TODAS versões do PHP.
+
+QQ duvida estamos a disposição EXCLUSIVAMENTE para os clientes da ITM NETWORKS em qualquer um dos meios de comunicação disponíveis no endereço http://itm.guru/suporte
+https://forum.itmnetworks.com.br/viewtopic.php?t=473
+
+

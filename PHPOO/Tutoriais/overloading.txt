@@ -1,0 +1,14 @@
+Overloading/Sobrecarga
+
+De métodos e de propriedades
+
+Sobrecarga em PHP provê recursos para "criar" dinamicamente membros e métodos. Estas entidades dinâmicas são processadas via métodos mágicos que podem estabelecer em uma classe para vários tipos de ações.
+
+Os métodos sobrecarregados são invocados quando interagem com membros ou métodos que não foram declarados ou não são visíveis no escopo corrente. O resto desta seção usará os termos "membros inacessíveis" e "métodos inacessíveis" para se referirir a esta combinação de declaração e visibilidade.
+
+Todos os métodos sobrecarregados devem ser definidos como públicos. 
+
+ __set() é executado ao se escrever dados para membros inacessíveis.
+
+__get() é utilizados para ler dados de membros inacessíveis. 
+

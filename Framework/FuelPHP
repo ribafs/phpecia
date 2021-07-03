@@ -1,0 +1,100 @@
+FuelPHP
+
+Download
+
+https://fuelphp.com
+
+Criar pasta fuel
+
+/var/www/html/fuel
+
+Instalar globalmente o oil
+
+curl -L https://get.fuelphp.com/oil | sh
+
+Criar um projeto
+
+cd /var/www/html/fuel
+
+oil create crud
+
+Para tornar os diretórios graváveis
+
+cd crud
+
+oil refine install
+
+Instalar as dependências e atualizar caso existam atualizações
+
+composer update
+
+Chamar pelo navegador
+
+http://localhost/fuel/crud
+
+Existem outras alternativas de instalação
+
+https://fuelphp.com/docs/installation/instructions.html
+
+
+Criar um banco de dados chamado crud e uma tabela chamada students
+
+create table students(
+id int primary key auto_increment,
+name varchar(40),
+email varchar(40)
+);
+
+Configurar o banco no fuel
+
+fuel/app/config/db.php
+
+<?php  
+   return array ( 
+      'development' => array ( 
+         'type'           => 'mysqli', 
+         'connection'     => array ( 
+            'hostname'       => 'localhost', 
+            'port'           => '3306', 
+            'database'       => 'tutorialspoint_bookdb', 
+            'username'       => 'root', 
+            'password'       => 'password', 
+            'persistent'     => false, 
+            'compress'       => false, 
+         ), 
+         'identifier'     => '`', 
+         'table_prefix'   => '', 
+         'charset'        => 'utf8', 
+         'enable_cache'   => true, 
+         'profiling'      => false, 
+         'readonly'       => false, 
+      ),
+      'production' => array ( 
+         'type'           => 'mysqli', 
+         'connection'     => array ( 
+            'hostname'       => 'localhost', 
+            'port'           => '3306', 
+            'database'       => 'tutorialspoint_bookdb', 
+            'username'       => 'root', 
+            'password'       => 'password', 
+            'persistent'     => false, 
+            'compress'       => false, 
+         ), 
+         'identifier'     => '`', 
+         'table_prefix'   => '', 
+         'charset'        => 'utf8', 
+         'enable_cache'   => true, 
+         'profiling'      => false, 
+         'readonly'       => false, 
+      ), 
+   );
+   
+fuel/app/config/config.php
+
+'always_load' => array ( 
+   'packages' => array ( 
+      'orm' 
+   ), 
+), 
+
+   

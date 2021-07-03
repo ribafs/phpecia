@@ -1,0 +1,197 @@
+Upload de arquivos com PHP
+
+Aprenda a fazer o upload de arquivos com PHP e AJAX, utilizando WideImage e Jquery Form Plugin.
+por Lucas Caprio 01/07/2014
+
+Neste artigo vamos aprender como fazer upload de arquivos com PHP. Porém, com alguns recursos adicionais em cada exemplo.
+
+No primeiro exemplo, iremos fazer um upload básico de apenas um arquivo, assim conseguimos pegar o jeito da coisa.
+
+No segundo exemplo, vamos fazer um upload de múltiplas imagens, e utilizaremos a classe WideImage para tratá-las (redimensionar, cortar e salvar).
+
+E por fim, no último exemplo, vamos fazer o upload por AJAX, utilizando o Jquery Form Plugin.
+Upload Básico
+
+Primeiro vamos fazer um upload clássico e rápido de apenas um arquivo. Por ser apenas um exemplo, resolvi escrever o código php na mesma página do HTML, para ficar de simples compreensão, por isso, na action do formulário temos #.
+
+Um dos atributos que não podemos esquecer para fazer upload, é o que seta o enctype ao nosso formulário.
+
+<html>
+<head>
+   <title>Basic Upload</title>
+</head>
+<body>
+   <form action="#" method="POST" enctype="multipart/form-data">
+      <input type="file" name="fileUpload">
+      <input type="submit" value="Enviar">
+   </form>
+</body>
+</html>
+
+<?php
+   if(isset($_FILES['fileUpload']))
+   {
+      date_default_timezone_set("Brazil/East"); //Definindo timezone padrão
+
+      $ext = strtolower(substr($_FILES['fileUpload']['name'],-4)); //Pegando extensão do arquivo
+      $new_name = date("Y.m.d-H.i.s") . $ext; //Definindo um novo nome para o arquivo
+      $dir = 'uploads/'; //Diretório para uploads
+
+      move_uploaded_file($_FILES['fileUpload']['tmp_name'], $dir.$new_name); //Fazer upload do arquivo
+   }
+?>
+
+Agora passamos ao código PHP, primeiro verificamos se o arquivo foi enviado através do isset. Se sim, seguimos para o upload do arquivo.
+
+Primeiro definimos o timezone da aplicação, para podemos usar a função date sem problemas.
+
+Como “boa prática” definimos uma variável com o ano, mês, dia, hora, minuto e segundo e concatenamos com a extensão do arquivo pega acima.
+
+Para finalmente fazer o upload do arquivo, usamos a função move_uploaded_file, passando dois parâmetros, primeiro o nome temporário do arquivo armazenado pelo servidor, e o novo nome do arquivo, já com diretório padrão.
+
+Se você deseja pegar alguma outra informação do arquivo, a variável $_FILES contém algumas outras informações que não são usadas no exemplo, como:
+
+$_FILES[‘fileUpload’][‘name’] O nome original do arquivo no computador do usuário
+
+$_FILES[‘fileUpload’][‘type’] O tipo mime do arquivo, se o browser deu esta informação (ex.: “image/gif”)
+
+$_FILES[‘fileUpload’][‘size’] O tamanho, em bytes, do arquivo
+
+$_FILES[‘fileUpload’][‘tmp_name’] O nome temporário do arquivo, como foi guardado no servidor
+
+$_FILES[‘fileUpload’][‘error’] O código de erro associado a este upload de arquivo (adicionado no PHP 4.2.0)
+Upload Múltiplo
+
+Para o segundo exemplo faremos o upload de múltiplas imagens. Porém, nesse exemplo utilizaremos a classe WideImage, para tratarmos as imagens que foram enviadas.
+
+O segredo do múltiplo upload é a adição do atributo multiple à tag do input type=”file” e adicionar [ ] ao name da tag.
+
+<html>
+<head>
+   <title>Multiple Upload</title>
+</head>
+<body>
+   <form action="#" method="POST" enctype="multipart/form-data">
+      <input type="file" name="fileUpload[]" multiple>
+      <input type="submit" value="Enviar">
+   </form>
+</body>
+</html>
+
+<?php
+   if(isset($_FILES['fileUpload']))
+   {
+      require 'WideImage/WideImage.php'; //Inclui classe WideImage à página
+
+      date_default_timezone_set("Brazil/East");
+
+      $name     = $_FILES['fileUpload']['name']; //Atribui uma array com os nomes dos arquivos à variável
+      $tmp_name = $_FILES['fileUpload']['tmp_name']; //Atribui uma array com os nomes temporários dos arquivos à variável
+
+      $allowedExts = array(".gif", ".jpeg", ".jpg", ".png", ".bmp"); //Extensões permitidas
+
+      $dir = 'uploads/';
+
+      for($i = 0; $i < count($tmp_name); $i++) //passa por todos os arquivos
+      {
+         $ext = strtolower(substr($name[$i],-4));
+
+         if(in_array($ext, $allowedExts)) //Pergunta se a extensão do arquivo, está presente no array das extensões permitidas
+         {
+            $new_name = date("Y.m.d-H.i.s") ."-". $i . $ext;
+
+            $image = WideImage::load($tmp_name[$i]); //Carrega a imagem utilizando a WideImage
+
+            $image = $image->resize(170, 180, 'outside'); //Redimensiona a imagem para 170 de largura e 180 de altura, mantendo sua proporção no máximo possível
+            $image = $image->crop('center', 'center', 170, 180); //Corta a imagem do centro, forçando sua altura e largura
+
+            $image->saveToFile($dir.$new_name); //Salva a imagem
+         }
+      }
+   }
+?>
+
+O código PHP deste exemplo muda um pouco comparado ao primeiro. Como neste exemplo estamos utilizando a classe WideImage, temos que inclui-la ao projeto. Em seguida, colocamos todos os nomes de arquivos enviados dentro da variável $name e todos os nomes temporários dentro da variável $tmp_name.
+
+Para fazer a consistência que iremos salvar apenas imagens, criei uma array de possíveis extensões para imagens. Logo adiante, passamos por cada arquivo dentro do for, e realizamos a pergunta se a extensão do arquivo que estou pegando no for se encontra no array de extensões permitidas, se sim, continuaremos para salva-la no servidor, mas antes, redimensiono a mesma com o WideImage (sem perder a proporção), e depois corto a mesma para ter imagens apenas com as dimensões que forcei.
+Upload com AJAX
+
+Neste último exemplo, vamos utilizar o mesmo código PHP de cima para salvar as imagens, porém, com alguns truques HTML e utilizando o Jquery Form Plugin para fazer o upload via AJAX.
+
+Não repare na utilização de css inline, ou javascript incorporado ao exemplo, procurei o máximo de agilidade possível e foco no ajax.
+
+<html>
+<head>
+   <title>Multiple Upload Ajax</title>
+</head>
+<body>
+   <form id="formImage" style="display:none">
+      <input type="file" id="fileUpload" name="fileUpload[]" multiple onchange="saveImages()">
+   </form>
+
+   <div id="btnFake" style="background:#CCC; width:100px; height:100px; cursor:pointer;"></div>
+
+   <script src="//ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+   <script src="//malsup.github.io/jquery.form.js"></script>
+
+   <script>
+      document.getElementById('btnFake').addEventListener('click', function(){
+         document.getElementById('fileUpload').click();
+      });
+
+      function saveImages()
+      {
+         $('#formImage').ajaxSubmit({
+            url  : 'multiple-upload-ajax.php',
+            type : 'POST'
+         });
+      }
+   </script>
+</body>
+</html>
+
+Criei um botão “personalizado” para não ficarmos com aquele padrão do input type=”file”, que é muito feio, e escondi o form todo porque não usamos ele para mais nada além de fazer upload de imagens. Porém, no javascript eu adiciono um evento de click ao meu btnFake, para quando clicarmos nele, o fileUpload ser clicado também, assim mascaramos o nosso botão de upload.
+
+Na tag do input type=”file” adicionei um novo atributo, o de onchange, para assim que selecionados os arquivos que desejo fazer upload, eles sejam enviados ao servidor, sem a necessidade de previamente clicarmos em outro botão para apenas enviar.
+
+A função saveImages ativa a função ajaxSubmit do plugin jquery form, enviando o formulário completo (no caso o de id formImage), para uma url especificada e com um método de envio do tipo POST.
+
+Como disse mais acima, o código PHP é o mesmo do exemplo anterior:
+
+<?php
+   if(isset($_FILES['fileUpload']))
+   {
+      require 'WideImage/WideImage.php';
+
+      date_default_timezone_set("Brazil/East");
+
+      $name     = $_FILES['fileUpload']['name'];
+      $tmp_name = $_FILES['fileUpload']['tmp_name'];
+
+      $allowedExts = array(".gif", ".jpeg", ".jpg", ".png", ".bmp");
+
+      $dir = 'uploads/';
+
+      for($i = 0; $i < count($tmp_name); $i++)
+      {
+         $ext = strtolower(substr($name[$i],-4));
+
+         if(in_array($ext, $allowedExts))
+         {
+            $new_name = date("Y.m.d-H.i.s") ."-". $i . $ext;
+
+            $image = WideImage::load($tmp_name[$i]);
+
+            $image = $image->resize(170, 180, 'outside');
+            $image = $image->crop('center', 'center', 170, 180);
+
+            $image->saveToFile($dir.$new_name);
+         }
+      }
+   }
+?>
+
+Bom, é isso aí pessoal. Apesar de ser algo simples, muitos quando começam a conhecer PHP tem dúvidas desse tipo.
+
+Espero que todos consigam. Bons estudos!
+https://tableless.com.br/upload-de-arquivos-com-php/

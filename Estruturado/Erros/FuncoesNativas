@@ -1,0 +1,123 @@
+debugar com var_dump é o que há
+
+o php te fornece funções úteis para que você possa descobrir o que diabos anda tirando o seu sono no seu código, e a função var_dump é uma verdadeira mão na roda, se você precisa saber o que contém dentro de um array ou um objeto, var_dump vai imprimir na tela todo o valor desse array ou objeto, coisa que não é possível fazer com echo ou print_r.
+
+além disso, use ini_set(‘display_errors’, ‘On’); e error_reporting(E_ALL); para mostrar todos os erros e avisos da sua aplicação, isto tornará sua vida mais fácil, mas hey! não esqueça de removê-los do seu código depois, e nada de deixar apenas comentado, tire-os por completo! se quiser mais detalhes veja este post do blog da treehouse sobre debugging com php.
+
+    debug_backtrace — Generates a backtrace
+    debug_print_backtrace — Prints a backtrace
+    error_clear_last — Clear the most recent error
+    error_get_last — Get the last occurred error
+    error_log — Send an error message to the defined error handling routines
+    error_reporting — Sets which PHP errors are reported
+    restore_error_handler — Restores the previous error handler function
+    restore_exception_handler — Restores the previously defined exception handler function
+    set_error_handler — Sets a user-defined error handler function
+    set_exception_handler — Sets a user-defined exception handler function
+    trigger_error — Generates a user-level error/warning/notice message
+    user_error — Alias of trigger_error
+
+https://www.php.net/manual/en/ref.errorfunc.php
+
+This example below will cause this error.
+<?php
+class PHPErrorException extends Exception
+{
+    private $context = null;
+    public function __construct
+        ($code, $message, $file, $line, $context = null)
+    {
+        parent::__construct($message, $code);
+        $this->file = $file;
+        $this->line = $line;
+        $this->context = $context;
+    }
+};
+
+function error_handler($code, $message, $file, $line) {
+    throw new PHPErrorException($code, $message, $file, $line);
+}
+
+function exception_handler(Exception $e)
+{   
+    $errors = array(
+        E_USER_ERROR        => "User Error",
+        E_USER_WARNING        => "User Warning",
+        E_USER_NOTICE        => "User Notice",
+        );
+       
+    echo $errors[$e->getCode()].': '.$e->getMessage().' in '.$e->getFile().
+        ' on line '.$e->getLine()."\n";
+    echo $e->getTraceAsString();
+}
+
+set_error_handler('error_handler');
+set_exception_handler('exception_handler');
+
+// Throw exception with an /unkown/ error code.
+throw new Exception('foo', 0);
+?>
+
+
+It is totally possible to use debug_backtrace() inside an error handling function. Here, take a look:
+
+<?php
+set_error_handler('errorHandler');
+
+function errorHandler( $errno, $errstr, $errfile, $errline, $errcontext)
+{
+  echo 'Into '.__FUNCTION__.'() at line '.__LINE__.
+  "\n\n---ERRNO---\n". print_r( $errno, true).
+  "\n\n---ERRSTR---\n". print_r( $errstr, true).
+  "\n\n---ERRFILE---\n". print_r( $errfile, true).
+  "\n\n---ERRLINE---\n". print_r( $errline, true).
+  "\n\n---ERRCONTEXT---\n".print_r( $errcontext, true).
+  "\n\nBacktrace of errorHandler()\n".
+  print_r( debug_backtrace(), true);
+}
+
+function a( )
+{
+  //echo "a()'s backtrace\n".print_r( debug_backtrace(), true);
+  asdfasdf; // oops
+}
+
+function b()
+{
+  //echo "b()'s backtrace\n".print_r( debug_backtrace(), true);
+  a();
+}
+
+b();
+?>
+
+Outputs:
+
+<raw>
+
+Into errorhandler() at line 9
+
+
+$dividendo = 2;
+$divisor = 0;
+
+if($divisor == 0){
+    trigger_error('O divisor não pode ser zero');
+}else{
+    $total = $dividendo/$divisor;
+}
+
+
+Usar isset() ajuda
+
+
+Muito importante a validação de tipos de dados, tamanhos e outros detalhes sobre os dados rececbidos do usuário através de formulários.
+
+
+Convenções do laravel:
+
+CamelCase - classes
+camelCase - propriedades e métodos
+snake_case - funções do PHP
+
+

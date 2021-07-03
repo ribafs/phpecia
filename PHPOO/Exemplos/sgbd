@@ -1,0 +1,14 @@
+Introdução
+SGBD
+SQL
+MySQL
+PostgreSQL
+SQLite
+PHPMyAdmin
+Adminer
+pgAdmin
+Criando um banco de dados
+Importando um script .sql
+Exportando um banco para .sql
+Integrando PHP com o MySQL através do PDO
+- Conexão com o banco

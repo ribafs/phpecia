@@ -1,0 +1,68 @@
+Namespace
+
+app
+    Codechief
+        Filter
+            Filter.php
+        Model
+            User.php
+        init.php
+vendor
+composer.json
+index.php
+README.md    
+
+composer.json
+
+{
+    "autoload": {
+        "psr-4": {
+            "Codechief\\": "app/Codechief"
+        }
+    }
+}
+
+Veja
+
+\NamespaceName\SubnamespaceName\ClassName
+
+Executar
+composer dump-autoload -o
+
+Exemplo
+
+app/Codechief/Model/User.php
+ 
+namespace Codechief\Model;
+
+class User {
+    
+    public function __construct(){
+       
+    }
+
+    public function Display(){
+        echo "I am Codechief";
+    }
+}
+
+your app/Codechief/Filters/Filter.php
+namespace Codechief\Filters;
+use Codechief\Model\User; 
+
+class Filter {
+   
+    public function __construct(){
+       
+    }
+
+    public function GetDataFromUserClass(User $class){
+        return $class->Display();
+    }
+}
+
+No index
+
+require_once __DIR__ . '/../vendor/autoload.php';
+
+

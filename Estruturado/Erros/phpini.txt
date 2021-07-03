@@ -1,0 +1,67 @@
+To enable error reporting in PHP, edit your PHP code file, and add the following lines:
+
+<?php
+error_reporting(E_ALL);
+
+ou
+
+<?php
+ini_set('error_reporting', E_ALL);
+
+To display only the fatal warning and parse errors, use the following:
+
+<?php
+error_reporting(E_ERROR | E_WARNING | E_PARSE);
+
+To exclude a particular error type (NOTICE) from reporting:
+
+<?php
+error_reporting(E_ALL & ~E_NOTICE)
+
+
+Em ambientes de teste
+ini_set('display_errors', 1);
+ini_set('log_errors', 1);
+
+Em produção
+ini_set('display_errors', 0);
+ini_set('log_errors', 1);
+
+//php.ini
+
+error_reporting = E_ALL & ~E_NOTICE
+
+display_errors=On
+
+log_error=On
+
+error_log=my_file.log 
+
+Descrição das principais diretivas do php.ini 
+https://www.php.net/manual/pt_BR/ini.core.php
+
+Open the .htaccess file for editing, and add the following:
+
+php_flag display_startup_errors on
+php_flag display_errors on
+
+
+To turn off or disable error reporting in PHP, set the value to zero. For example, use the code snippet:
+
+<?php
+error_reporting(0);
+
+To display PHP error logs, edit the .htaccess file by adding the following:
+
+php_value error_log logs/all_errors.log
+
+To enable error logging, edit your version of the file and add the following:
+
+ErrorLog “/var/log/apache2/website-name-error.log”
+
+To display PHP error logs, edit the .htaccess file by adding the following:
+
+php_value error_log logs/all_errors.log
+
+https://phoenixnap.com/kb/php-error-reporting
+

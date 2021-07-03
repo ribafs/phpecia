@@ -1,0 +1,283 @@
+Filtros em PHP
+
+<?php
+
+/*** an integer to check ***/
+$int = 'abc1234';
+/*** validate the integer ***/
+echo filter_var($int, FILTER_VALIDATE_INT);
+
+
+/*** an integer to check ***/
+$int = 42;
+/*** lower limit of the int ***/
+$min = 50;
+/*** upper limit of the int ***/
+$max = 100;
+
+/*** validate the integer ***/
+echo filter_var($int, FILTER_VALIDATE_INT, array("min_range"=>$min, "max_range"=>$max));
+
+
+Validate Boolean
+
+/*** test for a boolean value ***/
+echo filter_var("true", FILTER_VALIDATE_BOOLEAN);
+
+
+/*** a simple array ***/
+$array = array(1,2,3,4,5);
+
+/*** test for a boolean value ***/
+echo filter_var(in_array(3, $array), FILTER_VALIDATE_BOOLEAN) ? "TRUE" : "FALSE";
+
+
+Validate Float
+
+/*** an FLOAT value to check ***/
+$float = 22.42;
+
+/*** validate with the FLOAT flag ***/
+if(filter_var($float, FILTER_VALIDATE_FLOAT) === false)
+    {
+    echo "$float is not valid!";
+    }
+else
+    {
+    echo "$float is a valid floating point number";
+    }
+
+
+/*** an array of values ***/
+$array = array(1.2,"1.7","", "-12345.678", "some text", "abcd4.2efgh", array());
+
+/*** validate the array ***/
+$validation_array = filter_var($array, FILTER_VALIDATE_FLOAT, FILTER_REQUIRE_ARRAY);
+
+/*** dump the array of validated data ***/
+var_dump($validation_array);
+
+
+Validate REGEX
+
+/*** the string we wish to match ***/
+$string = "Try to match me";
+
+/*** try to validate with the regex pattern ***/
+if(filter_var($string, FILTER_VALIDATE_REGEXP, array("options"=>array("regexp"=>"/^T(.*)/"))) === false)
+    {
+    /*** if there is no match ***/
+    echo "Sorry, no match";
+    }
+else
+    {
+    /*** if we match the pattern ***/
+    echo "The string begins with T";
+    }
+
+
+Validate a URL
+
+/*** a rfc compliant web address ***/
+$url = "http://www.phpro.org";
+
+/*** try to validate the URL ***/
+if(filter_var($url, FILTER_VALIDATE_URL) === FALSE)
+        {
+        /*** if there is no match ***/
+        echo "Sorry, $url is not valid!";
+        }
+else
+        {
+        /*** if we match the pattern ***/
+        echo "The URL, $url is valid!<br />";
+        }
+
+
+
+    FILTER_FLAG_SCHEME_REQUIRED
+    FILTER_FLAG_HOST_REQUIRED
+    FILTER_FLAG_PATH_REQUIRED
+    FILTER_FLAG_QUERY_REQUIRED
+
+We will begin at the top here and check for flag scheme.
+
+<?php
+
+/*** a non rfc compliant URL ***/
+$url = "index.php";
+
+/*** try to validate the URL ***/
+if(filter_var($url, FILTER_VALIDATE_URL, FILTER_FLAG_SCHEME_REQUIRED) === FALSE)
+        {
+        /*** if there is no match ***/
+        echo "Sorry, $url is not valid!";
+        }
+else
+        {
+        /*** if the URL is valid ***/
+        echo "The URL, $url is valid!";
+        }
+
+
+/*** an IP address ***/
+$ip = "192.168.0.1";
+
+if(filter_var($ip, FILTER_VALIDATE_IP) === FALSE)
+        {
+        echo "$ip is not a valid IP";
+        }
+else
+        {
+        echo "$ip is valid";
+        }
+
+
+Validate Email Address
+
+/*** an email address ***/
+$email = "kevin@foo.bar.net";
+
+/*** try to validate the email ***/
+if(filter_var($email, FILTER_VALIDATE_EMAIL) === FALSE)
+        {
+    /*** if it fails validation ***/
+        echo "$email is invalid";
+        }
+else
+        {
+    /*** if the address passes validation ***/
+        echo "$email is valid";
+        }
+
+
+Sanitize an Email Address
+
+Earlier we saw how to filter and validate an email address. Here we can take the email address and sanitize it. That is, remove illegal or unwanted characters from it. It is surprising the amount of characters that are allowed in a valid email address. They are:
+All letters, digits and $-_.+!*'(),{}|\\^~[]`<>#%";/?:@&=.
+Lets put it to the test.
+<?php
+
+/*** an email address ***/
+$email = "kevin&friends@(foo).ex\\ample.com";
+
+/*** sanitize the email address ***/
+echo filter_var($email, FILTER_SANITIZE_EMAIL);
+
+
+Sanitize an Integer
+
+To sanitize an Integer is simple with the FILTER_SANITIZE_INT filter. This filter strips out all characters except for digits and . + -
+It is simple to use and we no longer need to boggle our minds with regular expressions.
+<?php
+
+/*** an interger ***/
+$int = "abc40def+;2";
+
+/*** sanitize the integer ***/
+echo filter_var($int, FILTER_SANITIZE_NUMBER_INT);
+
+
+Sanitize a Float
+
+Sanitizing a float is a little more playful and as FILTER_SANITIZE_NUMBER_FLOAT filter takes 3 flags.
+
+    FILTER_FLAG_ALLOW_FRACTION
+    FILTER_FLAG_ALLOW_THOUSAND
+    FILTER_FLAG_ALLOW_SCIENTIFIC
+
+These flags are self explanatory and are easy to use as shown below. First we will put the FILTER_SANITIZE_NUMBER_FLOAT filter to the test without any flags.
+<?php
+
+/*** a floating point number ***/
+$float = "abc40.4def+;2";
+
+/*** sanitize the float ***/
+echo filter_var($float, FILTER_SANITIZE_NUMBER_FLOAT);
+
+
+The INPUT Filter
+
+As the name suggests, the input filter gets input from outside our script and can then filter it. The function used for this is the filter_input() function. With this we can validate our variables as the come in from userland and be sure they are dealt with before we start using them. This ensures we have some semblance of a security model in place. If you are not moving to this architecture then you are letting yourself, and your customers, down. The input filter can gather data from several sources.
+
+    INPUT_GET
+    INPUT_POST
+    INPUT_COOKIE
+    INPUT_ENV
+    INPUT_SERVER
+    INPUT_SESSION (Not yet implemented)
+    INPUT_REQUEST (Not yet implemented)
+
+Here follows a simple example of using the filter_input() function to deal with GET variables. Lets assume you have a URL of the the type http://www.example.com?num=7
+Lets see how we can validate this using our input filter.
+<?php
+
+/*** filter the input number from GET ***/
+if(filter_input(INPUT_GET, 'num', FILTER_VALIDATE_INT, array("options" => array("min_range"=>1, "max_range"=>10))) != FALSE)
+        {
+        echo $_GET['num'].' is valid';
+        }
+else
+        {
+        echo 'Invalid number supplied';
+        }
+
+<form method="post">
+<input type="text" name="answer"  value="123bla''h456" />
+<input type="submit" />
+</form>
+<?php
+
+/*** use a callback filter to mysql_real_escape_string ***/
+$answer = filter_input(INPUT_POST, "answer", FILTER_CALLBACK, array("options"=>"mysql_real_escape_string"));
+
+/*** create an sql query ***/
+$sql = "INSERT INTO quiz (answers) VALUES ('{$answer}')";
+
+/*** echo the query ***/
+echo $sql;
+
+
+
+    INPUT_GET
+    INPUT_POST
+    INPUT_COOKIE
+    INPUT_SERVER
+    INPUT_ENV
+    INPUT_SESSION
+    INPUT_REQUEST
+
+
+<form method="post">
+<input type="text" name="name"  value="Kevin" /><br />
+<input type="text" name="age"   value="42" /><br />
+<input type="text" name="email" value="example@phpro.org" /><br />
+<input type="submit" />
+</form>
+<?php
+
+$filters = array(
+   "age"   =>array("filter"=>FILTER_VALIDATE_INT, "flags"=>FILTER_FLAG_ARRAY|FILTER_NULL_ON_FAILURE, "options"=>array("min_range"=>0, "max_range"=>100)),
+   "name"  => FILTER_SANITIZE_SPECIAL_CHARS,
+   "email" => FILTER_SANITIZE_EMAIL,
+   "notset"=> FILTER_VALIDATE_INT
+);
+
+/*** apply the filters to the POST array ***/
+$filtered = filter_input_array(INPUT_POST, $filters);
+
+/*** echo the filtered array members ***/
+echo $filtered['name'] .'<br />'. $filtered['age'] .'<br />'. $filtered['email'].'<br />';
+
+/*** check for the notset variable ***/
+if(filter_has_var(INPUT_POST, "notset") !== false)
+        {
+        echo 'Variable is in filter';
+        }
+else
+        {
+        var_dump($filtered["notset"]);
+        }
+
+
+

@@ -1,0 +1,35 @@
+AggregatedColumn
+
+    Introduction
+    Example
+    Supported Operation
+
+Introduction #
+
+AggregatedColumn are special process help you to calculate the aggregated result of an column and create a new column to store result.
+
+For example, you have a sale_amount column, the AggregatedColumn can help you to calculate the total sale_amount and put result in column name total_sale_amount.
+
+Example #
+
+...
+->pipe(new AggregatedColumn(array(
+    "total_sale_amount"=>array("sum","sale_amount")
+)))
+...
+
+The great thing is now you are capable of calculating percentage of each sale_amount over the total_sale_amount with CalculatedColumn process.
+
+...
+->pipe(new AggregatedColumn(array(
+    "total_sale_amount"=>array("sum","sale_amount")
+)))
+->pipe(new CalculatedColumn(array(
+    "percentage"=>"{sale_amount}*100/{total_sale_amount}"
+)))
+...
+
+Supported Operation #
+
+Beside "sum", AggregatedColumn supports "count", "avg", "min", "max" operation.
+

@@ -1,0 +1,15 @@
+
+
+sudo nano /etc/php/8.0/mods-available/xdebug.ini
+
+zend_extension=xdebug.so
+xdebug.remote_enable = 1
+xdebug.remote_autostart = 1
+xdebug.remote_port=9000
+xdebug.remote_connect_back=true
+xdebug.remote_host=10.0.2.2 #este valor pode mudar, mas é o padrão do Vagrant, corresponde ao IP da máquina host
+
+
+Geralmente as informações do Xdebug são bem claras e logo percebemos o erro. Mas acontece algumas vezes de isso não acontecer assim tão claramente. Nestes casos precisamos ler com atenção e calma as informações mostradas pelo Xdebug, que nos ajudarão a solucionar o problema.
+
+Nem sempre a solução está apontada na faixa em laranja. Ele pode vir indicada logo abaixo.

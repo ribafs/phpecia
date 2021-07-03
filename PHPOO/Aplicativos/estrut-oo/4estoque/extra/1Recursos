@@ -1,0 +1,12 @@
+- CRUD
+- Paginação com bootpag
+- Busca
+- BootStrap 3
+- Função para criar select nos campos relacionados e popular com registros vindos das repestivas tabela, com a opção de trazer o valor
+    default dos registros em telas de update para todas as tabelas, exceto produtos no insert
+- Classes: Connection e uma classe crud para cada tabela do banco
+- Includes: header.php e footer.php
+- Envio de mensagens pela URL e capturando com GET usando alerts do Bootstrap 3
+- Função para captura do diretório atual
+- Função para captura do diretório atual no singular para serem usadas no título de cada tela
+- Mostra a descrição no campo com produto_id em compras, que pode ser repoduzido para os demais cadastros, exceto produtos, que já tem descricao

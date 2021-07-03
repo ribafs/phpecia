@@ -1,0 +1,30 @@
+Construtor : É um método que utiliza o nome reservado __construct() e que não precisa ser chamado da forma convencional, pois é executado automaticamente quando instanciamos um objeto a partir de uma classe. Sua utilização é indicada para rotinas de inicialização. O método construtor se encarrega de executar as ações de inicialização dos objetos, como por exemplo, atribuir valores a suas propriedades.
+
+Construtor da classe Noticia
+
+class Noticia
+{
+    public $titulo;
+    public $texto;
+
+    public function __construct($valor_tit, $valor_txt)
+    {
+        $this->titulo = $valor_tit;
+        $this->texto = $valor_txt;
+    }
+
+Método construtor na subclasse NoticiaPrincipal
+
+class NoticiaPrincipal extends Noticia
+{
+    public $imagem;
+
+    public function __construct($valor_tit, $valor_txt, $valor_img)
+    {
+        parent::__construct($valor_tit, $valor_txt);
+        $this->imagem = $valor_img;
+    }
+
+O método construtor da classe Noticia é herdado e executado automaticamente na subclasse NoticiaPrincipal. Porém, as "características específicas de NoticiaPrincipal não serão inicializadas pelo método construtor da classe pai". Outro detalhe importante: caso a subclasse NoticiaPrincipal tenha declarado um método construtor em sua estrutura, este mesmo método da classe Noticia não será herdado. Nesse caso podemos chamar o método construtor da classe Noticia, através de uma chamada específica: parent::__construct()
+
+

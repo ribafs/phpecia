@@ -1,0 +1,5 @@
+O problema desse tipo de função, Ribamar, são alguns:
+1. Ela assume pra si um monte de coisa que não deveria ser dela; por exemplo: o die, estilo e até o tal print_r. Tipo, não se depura com print_r, var_dump e similares e definitivamente não faz um die no meio da execução da coisa. E, ainda, tipo, se eu estiver rodando o php-cli, aquela folha de estilo serve pra que, exatamente?
+2. Usar esse tipo de função faz o dev adquirir o mau hábito de usar var_dump, print_r e afins para depurar seu código. Esse tipo de coisa, além de ser uma tremenda má prática, pode causar, além de falsos positivos, esquecimentos que levam a vazamentos e aumenta a insegurança da aplicação.
+3. O PHP tem ferramentas de log que seriam melhor aplicadas do que um print_r; error_log é um exemplo.
+4. Não usar uma ferramenta de debug adequada, com seus step into, step out, step over e tal, causa um esforço tão grande, que faz com que o próprio ato de depurar, que deveria ser uma rotina na vida do desenvolvedor, se torne algo tortuoso, que o dev evita e prefere deixar um bug ir pra produção, apenas porque não usou e/ou sabe usar uma ferramenta adequada.

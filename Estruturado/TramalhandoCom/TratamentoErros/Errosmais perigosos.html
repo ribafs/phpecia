@@ -1,0 +1,97 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" dir="ltr" lang="pt-BR">
+<head profile="http://gmpg.org/xfn/11">
+
+    <title>Os 25 erros de programação mais perigosos segundo a SANS | the brain is a machine</title>
+
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8" />
+	<meta name="description" content="geekness, music power and opensource" />
+		
+	<link rel="stylesheet" type="text/css" href="http://core.eti.br/wp-content/themes/byty/style.css" />
+	
+  	<link rel="alternate" type="application/rss+xml" href="http://core.eti.br/feed/" title="the brain is a machine Posts RSS feed" />
+	<link rel="alternate" type="application/rss+xml" href="http://core.eti.br/comments/feed/" title="the brain is a machine Comments RSS feed" />
+	<link rel="pingback" href="http://core.eti.br/xmlrpc.php" />
+	
+<link rel="EditURI" type="application/rsd+xml" title="RSD" href="http://core.eti.br/xmlrpc.php?rsd" />
+<link rel="wlwmanifest" type="application/wlwmanifest+xml" href="http://core.eti.br/wp-includes/wlwmanifest.xml" /> 
+<script type='text/javascript' src='http://core.eti.br/wp-includes/js/jquery/jquery.js?ver=1.2.6'></script>
+
+
+<!-- all in one seo pack 1.4.6.15 [234,299] -->
+<meta name="description" content="Saiu no site da SANS a lista criada com o consenso entre varios profissionais e empresas do ramo de segurança e desenvolvimento descrevendo os 25 erros de" />
+<meta name="keywords" content="desenvolvimento seguro,python,segurança" />
+<!-- /all in one seo pack -->
+<link rel="stylesheet" type="text/css" href="http://core.eti.br/wp-content/plugins/friendfeed-activity-widget/widget.css" />
+				
+	<script type="text/javascript">
+		window.google_analytics_uacct = "UA-758273-1";
+	</script>
+	  <!-- added by plugin Last.Fm Records -->
+  <style type="text/css">
+    #lastfmrecords    { padding: 0px; padding-bottom: 10px; }
+    #lastfmrecords li { list-style-type: none; margin: 0px; padding: 0px; display: inline; }
+    img.cdcover       { height: 50px; width: 50px; margin: 0px 5px 5px 0px; border: 0px; }
+  </style>
+
+	<meta name="now-reading-version" content="4.4.3" />
+	<link rel="stylesheet" type="text/css" media="screen" href="http://core.eti.br/wp-content/plugins/sociable/sociable.css" />
+<style type="text/css">.recentcomments a{display:inline !important;padding: 0 !important;margin: 0 !important;}</style>
+
+</head>
+
+<body class="wordpress y2009 m01 d23 h17 single postid-373 s-y2009 s-m01 s-d22 s-h16 s-category-seguranca s-tag-desenvolvimento-seguro s-tag-python s-tag-seguranca s-author-coredump">
+
+<div id="wrapper" class="hfeed">
+
+				<div class="nav-next"></div>
+			</div>
+
+<div id="single-top" class="aside">
+<ul class="xoxo">
+</ul>
+</div><!-- #single-top .aside -->
+
+			<div id="post-373" class="hentry p1 post publish author-coredump category-seguranca tag-desenvolvimento-seguro tag-python tag-seguranca y2009 m01 d22 h16">
+    			<h1 class="entry-title">Os 25 erros de programação mais perigosos segundo a SANS</h1>
+<div class="entry-meta"><span class="author vcard">By <a class="url fn n" href="http://core.eti.br/author/coredump/" title="View all posts by coredump">coredump</a></span><span class="meta-sep"> | </span><span class="entry-date"><abbr class="published" title="2009-01-22T16:11:36-0200">January 22, 2009</abbr></span></div><!-- .entry-meta -->
+				<div class="entry-content">
+<p>Saiu no site da SANS a lista criada com o consenso entre varios profissionais e empresas do ramo de segurança e desenvolvimento descrevendo os<a href="http://www.sans.org/top25errors/" onclick="javascript:pageTracker._trackPageview('/outbound/article/www.sans.org');"> 25 erros de programação mais perigosos</a> para o desenvolvimento seguro. Eu vou traduzir os nomes e informação básicos mas o melhor é ler <a href="http://www.sans.org/top25errors/" onclick="javascript:pageTracker._trackPageview('/outbound/article/www.sans.org');">o artigo na íntegra</a>, em inglês.</p>
+<p>Os erros estão separados em três categorias: Interação insegura entre componentes, Gerenciamento arriscado de recursos, Defensas porosas.</p>
+<p><strong>Categoria: Interação insegura entre componentes</strong></p>
+<ol>
+<li><strong>Validação Imprópria de Entradas</strong>: Entradas que recebem dados e os aceitam mesmo sem certificar que eles são do tipo/formato esperado.</li>
+<li><strong>Codificação ou Escape Impróprios de Saída</strong>: Saídas que não são codificadas ou escapadas corretamente são a maior fonte de ataques de injeção de código.</li>
+<li><strong>Falha ao Preservar a Estrutura da Busca SQL (conhecido como Injeção de SQL)</strong>: Se os atacantes podem influenciar as procuras SQL do seu programa, então eles podem controlar o seu banco de dados.</li>
+<li><strong>Falha ao Preservar a Estrutura do Código da Página (conhecido como &#8220;Cross-site Scripting&#8221;)</strong>: Assim como o anterior, se os atacantes podem injetar código ou scripts em sua página, eles podem controlar a página.</li>
+<li><strong>Falha ao Preservar a Estrutura de Comandos do Sistema Operacional</strong>: Se você permitir que entradas ilegais sejam passadas para aplicativos do sistema operacional, o atacante pode controlar o servidor.</li>
+<li><strong>Transmissão de Dados Sensíveis em Texto Puro</strong>: Senhas, dados de cartão e qualquer informação considerada sensível deve ser criptografada.</li>
+<li><strong>Falsificação de Requisição Entre Sites</strong>: Um atacante pode criar uma requisição que é enviada a outro site forjando a origem e fazendo o mesmo partir de um usuário inocente, aproveitando credenciais de autenticação e acessos.</li>
+<li><strong>Condição de Corrida</strong>: Atacantes vão sempre procurar por condições de corrida no software para conferir se alguma informação importante não é obtida no processo.</li>
+<li><strong>Vazamento de Informações em Mensagens de Erro</strong>: Atacantes vão procurar por mensagens de erro que descrevam mais que o necessário, como nomes de campos SQL, objetos e bibliotecas sendo utilizadas.</li>
+</ol>
+<p><strong>Categoria: Gerenciamento arriscado de recursos:</strong></p>
+<ol>
+<li><strong>Falha ao Limitar Operações aos Limites de um Buffer de Memória</strong>: O conhecido buffer overflow.</li>
+<li><strong>Controle Externo de Dados Sensíveis</strong>: Informações críticas que são mantidas fora de um banco de dados por questões de performance não deviam ser facilmente acessíveis por atacantes.</li>
+<li><strong>Controle Externo de de Caminho ou Nome de Arquivo</strong>: Quando você usa dados externos para montar um nome de arquivo ou caminho de gravação, você está se arriscando a ser atacado.</li>
+<li><strong>Caminho de Procura Inseguro</strong>: Se o caminho de procura de recursos estiver em algum lugar sob controle de um atacante, bibliotecas ou código pode ser inserido a revelia.</li>
+<li><strong>Falha ao Controlar a Geração de Código</strong>: Caso o atacante consiga influenciar a geração de código dinâmico (se geração de código dinâmico for utilizada no programa) ele poderá controlar todo seu código.</li>
+<li><strong>Download de Código sem Verificação de Integridade</strong>: Se você executa código obtido por download, você confia na fonte. Atacantes podem aproveitar esta confiança.</li>
+<li><strong>Desligamento ou Liberação Impróprias de Recursos</strong>: Arquivos, conexões e classes precisam ser corretamente encerradas.</li>
+<li><strong>Inicialização Imprópria</strong>: Dados, bibliotecas e sistemas inicializados incorretamente podem abrir margens para problemas.</li>
+<li><strong>Cálculos Incorretos</strong>: Quando o atacante tem algum controle sobre as entradas usadas em operações matemáticas, isso pode gerar vulnerabilidades.</li>
+</ol>
+<p><strong>Categoria: Defensas porosas:</strong></p>
+<ol>
+<li><strong>Controle de Acesso Impróprio</strong>: Se você não garante que seus usuários estão fazendo apenas o que deviam, os atacantes irão se aproveitar de sua autenticação.</li>
+<li><strong>Uso de um Algoritmo Criptográfico Quebrado ou Vulnerável</strong>: Utilização de algoritmos fracos ou comprometidos levam a falhas de criptografia e vulnerabilidades.</li>
+<li><strong>Senha no Código</strong>: deixar um usuário e uma senha no próprio código traz inúmeros problemas.</li>
+<li><strong>Permissão de Acesso Insegura para Recurso Crítico</strong>: Configurações, arquivos de dados e bancos de dados devem ter suas permissões de acesso protegidas.</li>
+<li><strong>Uso de Valores Insuficientemente Aleatórios</strong>: Se você usa tipos de segurança que dependem de aleatoriedade, usar um gerador aleatório insuficiente só vai causar problemas.</li>
+<li><strong>Execução com Privilégios Desnecessários</strong>: Se seu programa precisa de privilégios elevados para executar suas funções, ele deve abrir mão destes direitos assim que ele termina de executar as ações que precisavam dos privilégios.</li>
+<li><strong>Aplicação de Segurança do Lado do Servidor pelo Cliente</strong>: Atacantes podem usar engenharia reversa em um cliente de software e escrever seus próprios clientes removendo testes e aplicações de segurança.</li>
+</ol>
+
+</body>
+</html>

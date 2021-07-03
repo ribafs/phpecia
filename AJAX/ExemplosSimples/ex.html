@@ -1,0 +1,12 @@
+<script>
+const BASE_URL = 'https://api.github.com/users'
+const USERNAME = 'ribafs'
+
+fetch(`${BASE_URL}/${USERNAME}`)
+  .then((body) => body.json())
+  .then((data) => {
+    console.log(`O usuário ${data.login} tem ${data.public_repos} repositórios públicos.`)
+  })
+  .catch((error) => console.error('Whoops! Erro:', error.message || error))
+// https://pt.stackoverflow.com/questions/3167/requisi%C3%A7%C3%A3o-ajax-com-javascript-puro-sem-apis/3170
+</script>

@@ -1,0 +1,42 @@
+Alternativas para o Laravel
+
+Laravel 7
+
+composer create-project --prefer-dist laravel/laravel:^7.30 blog
+cd blog
+composer require laravel/ui:^2.4
+php artisan ui bootstrap --auth
+npm install && npm run dev
+npm install vue-template-compiler --save-dev --production=false (opcional)
+npm audit fix --force
+rdb testes
+nano .env
+php artisan migrate
+http://localhost/blog/public/login
+
+https://www.popphp.org/
+
+https://framework.joomla.org/
+https://github.com/joomla/framework.joomla.org
+
+https://github.com/jbroadway/elefant
+
+https://nette.org/
+
+https://www.yiiframework.com/
+
+https://symfony.com/
+
+https://fuelphp.com/
+
+https://leafphp.netlify.app/
+
+CMS
+
+https://backdropcms.org/
+
+https://www.silverstripe.org/
+composer create-project silverstripe/installer my-project
+
+https://www.elefantcms.com/
+https://github.com/jbroadway/elefant

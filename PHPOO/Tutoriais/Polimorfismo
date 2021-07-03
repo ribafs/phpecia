@@ -1,0 +1,76 @@
+Polimorfismo em PHP
+
+Neste tutorial, vamos aprender sobre Polimorfismo (do grego para "muitas formas"), uma convenção de nomenclatura que pode nos ajudar a escrever um código muito mais coerente e fácil de usar. De acordo com o princípio do polimorfismo, métodos em classes diferentes que fazem coisas semelhantes devem ter o mesmo nome.
+
+De acordo com o princípio do polimorfismo, métodos em classes diferentes que fazem coisas semelhantes devem ter o mesmo nome.
+
+Um bom exemplo são as classes que representam formas geométricas (como retângulos, círculos e octógonos) que são diferentes entre si no número de costelas e na fórmula que calcula sua área, mas todas têm em comum uma área que pode ser calculado por um método. O princípio do polimorfismo diz que, neste caso, todos os métodos que calculam a área (e não importa para qual forma ou classe) teriam o mesmo nome.
+
+Por exemplo, podemos chamar o método que calcula a área calcArea () e decidir que colocamos, em cada classe que representa uma forma, um método com este nome que calcula a área de acordo com a forma. Agora, sempre que quisermos calcular a área para as diferentes formas, chamaremos um método com o nome de calcArea () sem ter que prestar muita atenção aos detalhes técnicos de como realmente calcular a área para as diferentes formas. A única coisa que precisaríamos saber é o nome do método que calcula a área.
+
+Como implementar o princípio do polimorfismo?
+
+Para implementar o princípio do polimorfismo, podemos escolher entre classes abstratas e interfaces.
+
+Para garantir que as classes implementem o princípio do polimorfismo, podemos escolher entre uma das duas opções de classes abstratas ou interfaces.
+
+No exemplo dado abaixo, a interface com o nome de Shape confirma todas as classes que a implementam para definir um método abstrato com o nome de calcArea ().
+
+interface Shape {
+  public function calcArea();
+}
+
+De acordo, a classe Circle implementa a interface colocando no método calcArea () a fórmula que calcula a área dos círculos.
+
+class Circle implements Shape {
+  private $radius;
+   
+  public function __construct($radius)
+  {
+    $this->radius = $radius;
+  }
+  
+  // calcArea calculates the area of circles 
+  public function calcArea()
+  {
+    return $this->radius * $this->radius * pi();
+  }
+}
+
+A classe retângulo também implementa a interface Forma, mas define o método calcArea () com uma fórmula de cálculo adequada para retângulos:
+
+class Rectangle implements Shape {
+  private $width;
+  private $height;
+   
+  public function __construct($width, $height)
+  {
+    $this -> width = $width;
+    $this -> height = $height;
+  }
+  
+  // calcArea calculates the area of rectangles   
+  public function calcArea()
+  {
+    return $this -> width * $this -> height;
+  }
+}
+
+Agora, podemos criar objetos das classes concretas:
+
+$circ = new Circle(3);
+$rect = new Rectangle(3,4);
+
+Podemos ter certeza de que todos os objetos calculam a área com o método que tem o nome de calcArea (), seja um objeto retângulo ou um objeto círculo (ou qualquer outra forma), desde que implementem a interface Shape.
+
+Agora, podemos usar os métodos calcArea () para calcular a área das formas:
+
+echo $circ -> calcArea();
+echo $rect -> calcArea();
+
+Resultado:
+
+28.274333882308
+12 
+
+

@@ -1,0 +1,992 @@
+Mini Framework
+
+mini-fw/composer.json
+
+{
+    "name": "ribafs/mini-framework",
+    "description": "MINI FRAMEWORK - an extremely simple MVC PHP application",
+    "type": "project",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Panique",
+            "email": "panique@firemail.de"
+        },
+        {
+            "name": "John Dias",
+            "email": "joaodias@noctus.org"
+        },
+        {
+            "name": "Ribamar FS",
+            "email": "ribafs@gmail.com"
+        }
+    ],
+	"minimum-stability": "stable",
+    "require": {
+
+    },
+    "autoload":
+    {
+        "psr-4":
+        {
+            "Mini\\" : "src/"
+        }
+    }
+}
+
+
+mini-fw/.htaccess
+
+# This file redirect all requests ro public/ directory and enable mod_rewrite
+RewriteEngine on
+RewriteRule ^(.*) public/$1 [L]
+
+
+mini-fw/public/.htaccess
+
+# Necessary to prevent problems when using a controller named "index" and having a root index.php
+# more here: http://httpd.apache.org/docs/2.2/content-negotiation.html
+Options -MultiViews
+
+# Activates URL rewriting (like myproject.com/controller/action/1/2/3)
+RewriteEngine On
+
+# Prevent people from looking directly into folders
+Options -Indexes
+
+# If the following conditions are true, then rewrite the URL:
+# If the requested filename is not a directory,
+RewriteCond %{REQUEST_FILENAME} !-d
+# and if the requested filename is not a regular file that exists,
+RewriteCond %{REQUEST_FILENAME} !-f
+# and if the requested filename is not a symbolic link,
+RewriteCond %{REQUEST_FILENAME} !-l
+# then rewrite the URL in the following way:
+# Take the whole request filename and provide it as the value of a
+# "url" query parameter to index.php. Append any query string from
+# the original URL as further query parameters (QSA), and stop
+# processing this .htaccess file (L).
+RewriteRule ^(.+)$ index.php?url=$1 [QSA,L]
+
+
+mini-fw/public/index.php
+
+<?php
+
+/**
+ * MINI-FRAMEWORK - an extremely simple PHP MVC application
+ *
+ * @package mini
+ * @author Panique
+ * @link http://www.php-mini.com
+ * @link https://github.com/panique/mini/
+ * @license http://opensource.org/licenses/MIT MIT License
+ */
+
+/**
+ * Now MINI-FRAMEWORK work with namespaces + composer's autoloader (PSR-4)
+ *
+ * @author Joao Vitor Dias <joaodias@noctus.org>
+ *
+ * For more info about namespaces plase @see http://php.net/manual/en/language.namespaces.importing.php
+ */
+
+require __DIR__ . '/../src/bootstrap.php';
+
+
+mini-fw/public/
+			/css
+			/images
+			/js
+
+
+mini-fw/src/config/config.php
+
+<?php
+
+/**
+ * Configuration
+ *
+ * For more info about constants please @see http://php.net/manual/en/function.define.php
+ */
+
+/**
+ * Configuration for: Error reporting
+ * Useful to show every little problem during development, but only show hard errors in production
+ */
+define('ENVIRONMENT', 'development');
+
+if (ENVIRONMENT == 'development' || ENVIRONMENT == 'dev') {
+    error_reporting(E_ALL);
+    ini_set('display_errors', '1');
+}
+
+/**
+ * Configuration for: URL
+ * Here we auto-detect your applications URL and the potential sub-folder. Works perfectly on most servers and in local
+ * development environments (like WAMP, MAMP, etc.). Don't touch this unless you know what you do.
+ *
+ * URL_PUBLIC_FOLDER:
+ * The folder that is visible to public, users will only have access to that folder so nobody can have a look into
+ * "/application" or other folder inside your application or call any other .php file than index.php inside "/public".
+ *
+ * URL_PROTOCOL:
+ * The protocol. Don't change unless you know exactly what you do. This defines the protocol part of the URL, in older
+ * versions of MINI it was 'http://' for normal HTTP and 'https://' if you have a HTTPS site for sure. Now the
+ * protocol-independent '//' is used, which auto-recognized the protocol.
+ *
+ * URL_DOMAIN:
+ * The domain. Don't change unless you know exactly what you do.
+ * If your project runs with http and https, change to '//'
+ *
+ * URL_SUB_FOLDER:
+ * The sub-folder. Leave it like it is, even if you don't use a sub-folder (then this will be just "/").
+ *
+ * URL:
+ * The final, auto-detected URL (build via the segments above). If you don't want to use auto-detection,
+ * then replace this line with full URL (and sub-folder) and a trailing slash.
+ */
+
+define('URL_PUBLIC_FOLDER', 'public');
+define('URL_PROTOCOL', '//');
+define('URL_DOMAIN', $_SERVER['HTTP_HOST']);
+define('URL_SUB_FOLDER', str_replace(URL_PUBLIC_FOLDER, '', dirname($_SERVER['SCRIPT_NAME'])));
+define('URL', URL_PROTOCOL . URL_DOMAIN . URL_SUB_FOLDER);
+// Controller and action defaults - a ser implementado na Router
+define('CONTROLLER', array('customers','index'));
+define('APP_TITTLE', 'Mini Framework');
+
+/**
+ * Configuration for: Database
+ * This is the place where you define your database credentials, database type etc.
+ */
+define('DB_TYPE', 'mysql'); // mysql or pgsql
+define('DB_HOST', '127.0.0.1');
+define('DB_NAME', 'mini-fw');
+define('DB_USER', 'root');
+define('DB_PASS', 'root');
+define('DB_PORT', '3306');// 3306 or 5432
+define('DB_CHARSET', 'utf8mb4');
+
+
+mini-fw/src/bootstrap.php
+
+<?php
+
+/**
+ * MVC-APP - an extremely simple naked PHP application
+ *
+ * @package mvc
+ * @author Panique
+ * @link http://www.php-mini.com
+ * @link https://github.com/panique/mini/
+ * @license http://opensource.org/licenses/MIT MIT License
+ */
+
+/**
+ * Now MVC-APP work with namespaces + composer's autoloader (PSR-4)
+ *
+ * @author Joao Vitor Dias <joaodias@noctus.org>
+ *
+ * For more info about namespaces plase @see http://php.net/manual/en/language.namespaces.importing.php
+ */
+
+// set a constant that holds the project's folder path, like "/var/www/html/mini-fw".
+// DIRECTORY_SEPARATOR adds a slash to the end of the path
+define('ROOT', dirname(__DIR__) . DIRECTORY_SEPARATOR);
+
+// set a constant that holds the project's 'src' folder, like '/var/www/html/mini-fw/src'.
+define('APP', ROOT . 'src' . DIRECTORY_SEPARATOR);
+
+// This is the auto-loader for Composer-dependencies (to load tools into your project).
+require_once ROOT . 'vendor/autoload.php';
+
+// load application config (error reporting etc.)
+require_once APP . 'config/config.php';
+
+// load application class
+use Mini\Core\Router;
+
+// start the application
+$app = new Router();
+
+
+mini-fw/src/Controller/CustomersController.php
+
+<?php
+
+/**
+ * Class CustomersController
+ * This is a demo Controller class.
+ *
+ * If you want, you can use multiple Models or Controllers.
+ *
+ */
+
+declare(strict_types = 1);
+
+namespace Mini\Controller;
+use Mini\Model\CustomersModel;
+use Mini\View\CustomersView;
+
+class CustomersController
+{
+
+    /**
+     * PAGE: index
+     * This method handles what happens when you move to http://localhost/mini-fw/customers/index
+     */
+    public function index()
+    {
+		// View customers/index send request to Router, it request CustomersContoller/index, it request model Customer/getAllCustomers,
+		// it response to CustomersContoller/index, it response to View customers/index finally
+        // Instance new Model (Customers)
+        $Customer = new CustomersModel();
+        // getting all customers and amount of customers to use in view customers/index
+        $customers = $Customer->getAllCustomers();
+        $amount_of_customers = $Customer->getAmountOfCustomers();
+
+       // load views. within the views we can echo out $customers and $amount_of_customers easily
+		$view = new CustomersView();
+		$view->index('customers','index',$customers,$amount_of_customers);
+    }
+
+    /**
+     * ACTION: add
+     * This method handles what happens when you move to http://localhost/mini-fw/customers/add
+     * IMPORTANT: This is not a normal page, it's an ACTION. This is where the "add a customer" form on customer s/index
+     * directs the user after the form submit. This method handles all the POST data from the form and then redirects
+     * the user back to customer s/index via the last line: header(...)
+     * This is an example of how to handle a POST request.
+     */
+    public function add()
+    {
+        // if we have POST data to create a new customer entry. If button 'submit_add_customer' in view customers/index has clicked
+        if (isset($_POST['submit_add_customer'])) {
+            // Instance new Model (Customers)
+            $Customer = new CustomersModel();
+            // do add() in model/Customer.php
+            $Customer->add($_POST['name'], $_POST['email'],  $_POST['birthday']);
+	        // where to go after Customer has been added
+	        header('location: ' . URL . 'customers/index');	
+        }
+
+        // load views. within the views we can echo out $customer easily
+		$view = new CustomersView();
+		$view->add('customers','add');
+    }
+
+    /**
+     * ACTION: delete
+     * This method handles what happens when you move to http://localhost/mini-fw/customers/delete
+     * IMPORTANT: This is not a normal page, it's an ACTION. This is where the "delete a customer" button on customers/index
+     * directs the user after the click. This method handles all the data from the GET request (in the URL!) and then
+     * redirects the user back to customers/index via the last line: header(...)
+     * This is an example of how to handle a GET request.
+     * @param int $customer_id Id of the to-delete  customer
+     */
+    public function delete($customer_id)
+    {
+		// View customers/index send request to Router, it request CustomersContoller/delete, it request model Customer/delete,
+		// it response to CustomersContoller/delete, it response/redirect to View customers/index finally
+
+        // if we have an id of a customer that should be deleted
+        if (isset($customer_id)) {
+            // Instance new Model (Customers)
+            $Customer = new CustomersModel();
+            // do delete() in model/model.php
+            $Customer->delete($customer_id);
+        }
+
+        // where to go after customer has been deleted
+        header('location: ' . URL . 'customers/index');
+    }
+
+     /**
+     * ACTION: edit
+     * This method handles what happens when you move to http://localhost/mini-fw/customers/edit
+     * @param int $customer_id Id of the to-edit customer
+     */
+    public function edit($customer_id)
+    {
+        // if we have an id of a customer that should be edited
+        if (isset($customer_id)) {
+            // Instance new Model (Customers)
+            $Customer = new CustomersModel();
+	        $customers = $Customer->getAllCustomers();
+
+            // do getCustomer() in model/model.php
+            $customer = $Customer->getCustomer($customer_id);
+
+            // If the customer wasn't found, then it would have returned false, and we need to display the error page
+            if ($customer === false) {
+                $page = new \Mini\Controller\ErrorController();
+                $page->index();
+            } else {
+                // load views. within the views we can echo out $customer easily
+				$view = new CustomersView();
+				$view->edit('customers','edit',$customers, $customer);
+            }
+        } else {
+            // redirect user to Customers index page (as we don't have a customer_id)
+            header('location: ' . URL . 'customers/index');
+        }
+    }
+
+    /**
+     * ACTION: update
+     * This method handles what happens when you move to http://localhost/mini-fw/customers/update
+     * IMPORTANT: This is not a normal page, it's an ACTION. This is where the "update a customer" form on customers/edit
+     * directs the user after the form submit. This method handles all the POST data from the form and then redirects
+     * the user back to customers/index via the last line: header(...)
+     * This is an example of how to handle a POST request.
+     */
+    public function update()
+    {
+        // if we have POST data to create a new customer entry
+        if (isset($_POST['submit_update_customer'])) {
+            // Instance new Model (Customers)
+            $Customer = new CustomersModel();
+            // do update() from model/model.php
+            $Customer->update($_POST['name'], $_POST['email'],  $_POST['birthday'], $_POST['customer_id']);
+        }
+
+        // where to go after customer has been added
+        header('location: ' . URL . 'customers/index');
+    }
+}
+
+
+mini-fw/src/Controller/ErrorController.php
+
+<?php
+
+/**
+ * Class Error
+ *
+ */
+
+declare(strict_types = 1);
+
+namespace Mini\Controller;
+
+class ErrorController
+{
+  
+  /**
+     * PAGE: index
+     * This method handles the error page that will be shown when a page is not found
+     */
+    public function index($controller = null, $action = null)
+    {
+        // load views
+        require APP . 'template/_templates/header.php';
+        require APP . 'template/error/index.php';
+        require APP . 'template/_templates/footer.php';
+    }
+}
+
+
+mini-fw/src/Controller/HomeController.php
+
+<?php
+
+/**
+ * Class HomeController
+ *
+ *
+ */
+
+declare(strict_types = 1);
+
+namespace Mini\Controller;
+
+class HomeController
+{
+    /**
+     * PAGE: index
+     * This method handles what happens when you move to http://localhost/mini-fw/home/index (which is the default page btw)
+     */
+    public function index()
+    {
+        // load views
+        require APP . 'template/_templates/header.php';
+        require APP . 'template/home/index.php';
+        require APP . 'template/_templates/footer.php';
+    }
+
+}
+
+
+mini-fw/src/Controller/ProductsController.php
+
+
+mini-fw/src/Core/Model.php
+
+<?php
+
+declare(strict_types = 1);
+
+namespace Mini\Core;
+use PDO;
+
+class Model
+{
+    /**
+     * @var null Database Connection
+     */
+    public $db = null;
+
+    /**
+     * Whenever model is created, open a database connection.
+     */
+    function __construct()
+    {
+        try {
+            self::openDatabaseConnection();
+        } catch (\PDOException $e) {
+            exit('Database connection could not be established.');
+        }
+    }
+
+    /**
+     * Open the database connection with the credentials from application/config/config.php
+     */
+    private function openDatabaseConnection()
+    {
+        // set the (optional) options of the PDO connection. in this case, we set the fetch mode to
+        // "objects", which means all results will be objects, like this: $result->user_name !
+        // For example, fetch mode FETCH_ASSOC would return results like this: $result["user_name] !
+        // @see http://www.php.net/manual/en/pdostatement.fetch.php
+        $options = array(PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_OBJ, PDO::ATTR_ERRMODE => PDO::ERRMODE_WARNING);
+
+        // generate a database connection, using the PDO connector
+        // @see http://net.tutsplus.com/tutorials/php/why-you-should-be-using-phps-pdo-for-database-access/
+		$dsn = DB_TYPE . ':host=' . DB_HOST . ';port ='. DB_PORT . ';dbname=' . DB_NAME;// . $databaseEncodingenc;
+        $this->db = new PDO($dsn , DB_USER, DB_PASS, $options);
+
+    }
+}
+
+
+mini-fw/src/Core/Router.php
+
+<?php
+/** For more info about namespaces plase @see http://php.net/manual/en/language.namespaces.importing.php */
+
+declare(strict_types = 1);
+
+namespace Mini\Core;
+
+class Router
+{
+    /** @var null The controller */
+    private $urlController = null;
+
+    /** @var null The method (of the above controller), often also named "action" */
+    private $urlAction = null;
+
+    /** @var array URL parameters */
+    private $urlParams = array();
+
+    /**
+     * "Start" the application:
+     * Analyze the URL elements and calls the according controller/method or the fallback
+     */
+    public function __construct()
+    {
+        // create array with URL parts in $url
+        $this->splitUrl();
+
+        // check for controller: no controller given ? then load start-page
+        if (!$this->urlController) {
+			// if none controller is found call HomeController with index action
+            $page = new \Mini\Controller\HomeController();
+            $page->index();
+
+		// if encounter a controller
+        } elseif (file_exists(APP . 'Controller/' . ucfirst($this->urlController) . 'Controller.php')) {
+            // here we did check for controller: does such a controller exist ?
+
+            // if so, then load this file and create this controller
+            // like \Mini\Controller\CustomersController
+            $controller = '\\Mini\\Controller\\' . ucfirst($this->urlController) . 'Controller';
+            $this->urlController = new $controller();
+
+            // check for method: does such a method exist in the controller ?
+			// if exists method and if is callable method
+            if (method_exists($this->urlController, $this->urlAction) && is_callable(array($this->urlController, $this->urlAction))) {
+                
+				// check if params is d'ont empty
+                if (!empty($this->urlParams)) {
+                    // if exists Call the method and pass arguments to it
+                    call_user_func_array(array($this->urlController, $this->urlAction), $this->urlParams);
+                } else {
+                    // If no parameters are given, just call the method without parameters, like $this->home->method();
+                    $this->urlController->{$this->urlAction}();
+                }
+
+			// if none method is found
+            } else {
+                if (strlen($this->urlAction) == 0) {
+                    // no action defined: call the default index() method of a selected controller
+                    $this->urlController->index();
+
+				// otherwise fire ErrorController
+                } else {
+					$action = $this->urlAction;
+					$contr = explode('\\',$controller);// Capture ucfirst($this->urlController) in [3]
+                    $page = new \Mini\Controller\ErrorController();
+                    $page->index($contr[3],$action);
+                }
+            }
+
+		// if none controller is found fire ErrorController
+        } else {
+			$controller = $this->urlController;
+			$action = $this->urlAction;
+            $page = new \Mini\Controller\ErrorController();
+            $page->index(ucfirst($controller).'Controller',$action);
+        }
+    }
+
+    /**
+     * Get and split the URL
+     */
+    private function splitUrl()
+    {
+		// check if url is isset
+        if (isset($_GET['url'])) {
+
+            // split URL
+            $url = trim($_GET['url'], '/');
+            $url = filter_var($url, FILTER_SANITIZE_URL);
+            $url = explode('/', $url);
+
+            // Put URL parts into according properties
+            // By the way, the syntax here is just a short form of if/else, called "Ternary Operators"
+            // @see http://davidwalsh.name/php-shorthand-if-else-ternary-operators
+            $this->urlController = isset($url[0]) ? $url[0] : null;
+            $this->urlAction = isset($url[1]) ? $url[1] : 'index';// null
+
+            // Remove controller and action from the split URL
+            unset($url[0], $url[1]);
+
+            // Rebase array keys and store the URL params
+            $this->urlParams = array_values($url);
+
+            // For DEBUGGING uncomment lines below if you have problems with the URL
+            // echo 'Controller: ' . ucfirst($this->urlController) . '<br>';
+            // echo 'Action: ' . $this->urlAction . '<br>';
+            // echo 'Parameters: ' . print_r($this->urlParams, true) . '<br>';
+        }
+    }
+}
+
+
+mini-fw/src/Libs/Helper.php
+
+<?php
+
+declare(strict_types = 1);
+
+namespace Mini\Libs;
+
+class Helper
+{
+    /**
+     * debugPDO
+     *
+     * Shows the emulated SQL query in a PDO statement. What it does is just extremely simple, but powerful:
+     * It combines the raw query and the placeholders. For sure not really perfect (as PDO is more complex than just
+     * combining raw query and arguments), but it does the job.
+     *
+     * @author Panique
+     * @param string $raw_sql
+     * @param array $parameters
+     * @return string
+     */
+    static public function debugPDO($raw_sql, $parameters) {
+
+        $keys = array();
+        $values = $parameters;
+
+        foreach ($parameters as $key => $value) {
+
+            // check if named parameters (':param') or anonymous parameters ('?') are used
+            if (is_string($key)) {
+                $keys[] = '/' . $key . '/';
+            } else {
+                $keys[] = '/[?]/';
+            }
+
+            // bring parameter into human-readable format
+            if (is_string($value)) {
+                $values[$key] = ''' . $value . '''; // Before "'"
+            } elseif (is_array($value)) {
+                $values[$key] = implode(',', $value);
+            } elseif (is_null($value)) {
+                $values[$key] = 'NULL';
+            }
+        }
+
+        /*
+        echo '<br> [DEBUG] Keys:<pre>';
+        print_r($keys);
+
+        echo '<br>[DEBUG] Values: ';
+        print_r($values);
+        echo '</pre>';
+        */
+        $raw_sql = preg_replace($keys, $values, $raw_sql, 1, $count);
+        return $raw_sql;
+    }
+}
+
+
+mini-fw/src/Model/CustomersModel.php
+
+<?php
+
+/**
+ * Class Customer s
+ * This is a demo Model class.
+ *
+ */
+
+declare(strict_types = 1);
+
+namespace Mini\Model;
+
+use Mini\Core\Model;
+use Mini\Libs\Helper;
+
+class CustomersModel extends Model
+{
+
+    /**
+     * Get all customers from database
+     */
+    public function getAllCustomers()
+    {
+        $sql = 'SELECT id, name, email, birthday FROM customers ORDER BY id DESC';
+        $query = $this->db->prepare($sql);
+        $query->execute();
+
+        // fetchAll() is the PDO method that gets all result rows, here in object-style because we defined this in
+        // core/controller.php! If you prefer to get an associative array as the result, then do
+        // $query->fetchAll(PDO::FETCH_ASSOC); or change core/controller.php's PDO options to
+        // $options = array(PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_ASSOC ...
+
+        return $query->fetchAll();
+    }
+
+    /**
+     * Add a customer to database
+     * TODO put this explanation into readme and remove it from here
+     * Please note that it's not necessary to "clean" our input in any way. With PDO all input is escaped properly
+     * automatically. We also don't use strip_tags() etc. here so we keep the input 100% original (so it's possible
+     * to save HTML and JS to the database, which is a valid use case). Data will only be cleaned when putting it out
+     * in the views (see the views for more info).
+     * @param string $name Name
+     * @param string $email E-amil
+     * @param string $birthday Birthday
+     */
+    public function add($name, $email, $birthday)
+    {
+        $sql = 'INSERT INTO customers (name, email, birthday) VALUES (:name, :email, :birthday)';
+        $query = $this->db->prepare($sql);
+        $parameters = array(':name' => $name, ':email' => $email, ':birthday' => $birthday);
+
+        // UNCOMMENT THE LINE BALOW, useful for debugging: you can see the SQL behind above construction by using:
+        // echo '[ PDO DEBUG ]: ' . Helper::debugPDO($sql, $parameters);  exit();
+
+        $query->execute($parameters);
+    }
+
+    /**
+     * Delete a customer in the database
+     * Please note: this is just an example! In a real application you would not simply let everybody
+     * add/update/delete stuff!
+     * @param int $customer_id Id of  customer
+     */
+    public function delete($customer_id)
+    {
+        $sql = 'DELETE FROM customers WHERE id = :customer_id';
+        $query = $this->db->prepare($sql);
+        $parameters = array(':customer_id' => $customer_id);
+
+        // useful for debugging: you can see the SQL behind above construction by using:
+        // echo '[ PDO DEBUG ]: ' . Helper::debugPDO($sql, $parameters);  exit();
+
+        $query->execute($parameters);
+    }
+
+    /**
+     * Get a customer from database
+     * @param integer $customer_id
+     */
+    public function getCustomer($customer_id)
+    {
+        $sql = 'SELECT id, name, email, birthday FROM customers WHERE id = :customer_id LIMIT 1';
+        $query = $this->db->prepare($sql);
+        $parameters = array(':customer_id' => $customer_id);
+
+        // useful for debugging: you can see the SQL behind above construction by using:
+        // echo '[ PDO DEBUG ]: ' . Helper::debugPDO($sql, $parameters);  exit();
+
+        $query->execute($parameters);
+
+        // fetch() is the PDO method that get exactly one result
+        return ($query->rowcount() ? $query->fetch() : false);
+    }
+
+    /**
+     * Update a customer in database
+     * // TODO put this explaination into readme and remove it from here
+     * Please note that it's not necessary to "clean" our input in any way. With PDO all input is escaped properly
+     * automatically. We also don't use strip_tags() etc. here so we keep the input 100% original (so it's possible
+     * to save HTML and JS to the database, which is a valid use case). Data will only be cleaned when putting it out
+     * in the views (see the views for more info).
+     * @param string $name Name
+     * @param string $temail E-mail
+     * @param string $birthday Birthday
+     * @param int $customer_id Id
+     */
+    public function update($name, $email, $birthday, $customer_id)
+    {
+        $sql = 'UPDATE customers SET name = :name, email = :email, birthday = :birthday WHERE id = :customer_id';
+        $query = $this->db->prepare($sql);
+        $parameters = array(':name' => $name, ':email' => $email, ':birthday' => $birthday, ':customer_id' => $customer_id);
+
+        // useful for debugging: you can see the SQL behind above construction by using:
+        // echo '[ PDO DEBUG ]: ' . Helper::debugPDO($sql, $parameters);  exit();
+
+        $query->execute($parameters);
+    }
+
+    /**
+     * Get simple "stats". This is just a simple demo to show
+     * how to use more than one model in a controller (see application/controller/customres.php for more)
+     */
+    public function getAmountOfCustomers()
+    {
+        $sql = 'SELECT COUNT(id) AS amount_of_customers FROM customers';
+        $query = $this->db->prepare($sql);
+        $query->execute();
+
+        // fetch() is the PDO method that get exactly one result
+
+        return $query->fetch()->amount_of_customers;
+    }
+}
+
+
+mini-fw/src/Model/ProductsModel.php
+
+
+mini-fw/src/View/CustomersView.php
+
+<?php
+// Used in methods from controllers to views
+
+declare(strict_types = 1);
+
+namespace Mini\View;
+
+class CustomersView
+{
+
+	public function index($controller, $action, $customers, $amount_of_customers){
+
+        require APP . 'template/_templates/header.php';
+        require APP . 'template/'.$controller.'/'.$action.'.php';
+        require APP . 'template/_templates/footer.php';
+	}
+
+	public function edit($controller, $action, $customers, $customer){
+
+        require APP . 'template/_templates/header.php';
+        require APP . 'template/'.$controller.'/'.$action.'.php';
+        require APP . 'template/_templates/footer.php';
+	}
+
+	public function add($controller, $action){
+
+        require APP . 'template/_templates/header.php';
+        require APP . 'template/'.$controller.'/'.$action.'.php';
+        require APP . 'template/_templates/footer.php';
+	}
+
+}
+
+
+mini-fw/src/View/ProductsView.php
+
+
+mini-fw/src/template
+			/customers
+			/products
+			/error
+			/home
+			/_templates
+
+
+mini-fw/src/template/customers/add.php
+
+<div class="container">
+    <h2 class="text-center">Customers</h2>
+    <!--<b>You are in the View: src/template/customers/add.php (everything in this box comes from that file)</b><br>-->
+    <!-- add customer form -->
+    <div>
+        <br>
+        <form action="<?php echo URL; ?>customers/add" method="POST">   
+        <table class="table table-hover table-stripped">
+            <tr><td><label>Name</label></td>
+            <td><input class="form-control" type="text" name="name" value="" required /></td></tr>
+            <td><label>E-mail</label></td>
+            <td><input class="form-control" type="email" name="email" value="" required /></td></tr>
+            <td><label>Birthday</label></td>
+            <td><input class="form-control" type="date" name="birthday" value="" /></td></tr>
+            <tr><td></td><td><input type="submit" name="submit_add_customer" value="Add Customer" class="btn btn-primary btn-sm"/></td></tr>
+		</table>
+        </form>
+    </div>
+</div>
+
+
+mini-fw/src/template/customers/edit.php
+
+<div class="container">
+    <h2 class="text-center">Customers</h2>
+    <!--<h5>You are in the View: src/tempalte/customers/edit.php (everything in this box comes from that file)</h5>-->
+    <!-- add customer form -->
+    <div>
+		<br><br>
+
+        <form action="<?php echo URL; ?>customers/update" method="POST">   
+        <table class="table table-hover table-stripped">
+            <tr><td><label>Name</label></td>
+            <td><input class="form-control" type="text" name="name" value="<?php echo htmlspecialchars($customer->name, ENT_QUOTES, 'UTF-8'); ?>" required autofocus/></td></tr>
+            <td><label>E-mail</label></td>
+            <td><input class="form-control" type="email" name="email" value="<?php echo htmlspecialchars($customer->email, ENT_QUOTES, 'UTF-8'); ?>" required /></td></tr>
+            <td><label>Birthday</label></td>
+            <td><input class="form-control" type="date" name="birthday" value="<?php echo htmlspecialchars($customer->birthday, ENT_QUOTES, 'UTF-8'); ?>" /></td></tr>
+            <input type="hidden" name="customer_id" value="<?php echo htmlspecialchars($customer->id, ENT_QUOTES, 'UTF-8'); ?>" />
+            <tr><td></td><td><input type="submit" name="submit_update_customer" value="Update Customer" class="btn btn-primary btn-sm"/></td></tr>
+		</table>
+        </form>
+    </div>
+</div>
+<br><br><br>
+
+
+mini-fw/src/template/customers/index.php
+
+<div class="container">
+    <h2 class="text-center">Customers</h2>
+    <!--<b>You are in the View: src/template/customers/index.php (everything in this box comes from that file)</b><br>-->
+    <!-- main content output -->
+
+	<a class="btn btn-primary btn-sm" href="<?=URL . 'customers/add'; ?>">Add Customer</a>
+
+    <div>
+        <br>        
+        <b>List of customers (data from model)</b><div class="text-right"><b>Amount of customers: <?php echo $amount_of_customers; ?></b></div>
+        <table class="table table-hover table-stripped">
+            <thead>
+            <tr class="bg-gray">
+                <td><b>ID</b></td>
+                <td><b>Name</b></td>
+                <td><b>E-mail</b></td>
+                <td><b>Birthday</b></td>
+                <td colspan="2" align="center">ACTIONS</td>
+            </tr>
+            </thead>
+            <tbody>
+            <?php foreach ($customers as $customer) { ?>
+                <tr>
+                    <td><?php if (isset($customer->id)) echo htmlspecialchars($customer->id, ENT_QUOTES, 'UTF-8'); ?></td>
+                    <td><?php if (isset($customer->name)) echo htmlspecialchars($customer->name, ENT_QUOTES, 'UTF-8'); ?></td>
+                    <td><?php if (isset($customer->email)) echo htmlspecialchars($customer->email, ENT_QUOTES, 'UTF-8'); ?></td>
+                    <td><?php if (isset($customer->birthday)) echo htmlspecialchars($customer->birthday, ENT_QUOTES, 'UTF-8'); ?></td>
+                    <td><a href="<?php echo URL . 'customers/delete/' . htmlspecialchars($customer->id, ENT_QUOTES, 'UTF-8'); ?>">delete</a></td>
+                    <td><a href="<?php echo URL . 'customers/edit/' . htmlspecialchars($customer->id, ENT_QUOTES, 'UTF-8'); ?>">edit</a></td>
+                </tr>
+            <?php } ?>
+            </tbody>
+        </table>
+    </div>
+</div>
+
+
+mini-fw/src/template/error/index.php
+
+<br><br>
+<div class="container text-danger">
+    <h3 align="center">This controller and/or action <b>( <?=$controller.'/'.$action?> )</b> does not exists.</h3>
+</div>
+<br><br><br><br>
+
+
+mini-fw/src/template/home/index.php
+
+<div class="container text-center">
+	<br><br>
+    <h2>Home</h2>
+	<br><br><br>
+    <!--<b>You are in the View: application/view/home/index.php (everything in the box comes from this file)</b><br>-->
+    <p>This is the start homepage.</p>
+</div>
+<br><br><br><br><br>
+
+
+mini-fw/src/template/products
+
+
+mini-fw/src/template/_templates/footer.php
+
+<div class="container bg-gray">
+    <div align="center">
+        Find <a href="https://github.com/panique/mini3">MINI3 on GitHub</a>.
+        If you like the mini3 project, support it by <a href="http://tracking.rackspace.com/SH1ES" target="_blank">using Rackspace</a> as your hoster [affiliate link].
+    </div>
+</div>
+</body>
+</html>
+
+
+mini-fw/src/template/_templates/header.php
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title><?=APP_TITTLE?></title>
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- CSS from BootStrap -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+        integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+        <link href="<?php echo URL; ?>css/custom.css" rel="stylesheet">                
+</head>
+<body>
+    <div align="center"><h1><?=APP_TITTLE?></h1></div>
+	<a href="<?php echo URL; ?>/public/images/mvc.png"><img class="center-img" src="<?php echo URL; ?>/public/images/mvc.png"></a>
+	<div class="container">
+		<!-- MENU -->
+		<nav class="navbar-expand bg-dark navbar-dark">
+			<ul class="navbar-nav justify-content-center">
+			  <li class="nav-item">
+				<a class="nav-link" href="<?php echo URL; ?>">Home</a>
+			  </li>
+			  <li class="nav-item">
+				<a class="nav-link" href="<?php echo URL; ?>customers">Customers</a>
+			  </li>
+			  <li class="nav-item">
+				<a class="nav-link" href="<?php echo URL; ?>products">Products</a>
+			  </li>
+			</ul>
+		</nav>
+	</div>

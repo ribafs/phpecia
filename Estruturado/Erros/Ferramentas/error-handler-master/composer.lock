@@ -1,0 +1,59 @@
+{
+    "_readme": [
+        "This file locks the dependencies of your project to a known state",
+        "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
+        "This file is @generated automatically"
+    ],
+    "content-hash": "2b4f89be14e51b1866301d6853437552",
+    "packages": [
+        {
+            "name": "tayron/exceptions",
+            "version": "1.0.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/tayron/exceptions.git",
+                "reference": "7217dd0aaf5b7b39f9d69b51de40be40c571719c"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/tayron/exceptions/zipball/7217dd0aaf5b7b39f9d69b51de40be40c571719c",
+                "reference": "7217dd0aaf5b7b39f9d69b51de40be40c571719c",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.3"
+            },
+            "type": "classe-utilitaria",
+            "autoload": {
+                "psr-4": {
+                    "Tayron\\exceptions\\": "\\"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "authors": [
+                {
+                    "name": "Tayron Miranda",
+                    "email": "dev@tayron.com.br"
+                }
+            ],
+            "description": "Classe para tratamento de exceções",
+            "homepage": "https://github.com/tayron/exceptions",
+            "support": {
+                "issues": "https://github.com/tayron/exceptions/issues",
+                "source": "https://github.com/tayron/exceptions/tree/1.0.0"
+            },
+            "time": "2017-06-09T18:17:16+00:00"
+        }
+    ],
+    "packages-dev": [],
+    "aliases": [],
+    "minimum-stability": "stable",
+    "stability-flags": [],
+    "prefer-stable": false,
+    "prefer-lowest": false,
+    "platform": {
+        "php": ">=5.3"
+    },
+    "platform-dev": [],
+    "plugin-api-version": "2.0.0"
+}
