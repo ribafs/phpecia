@@ -1,11 +1,15 @@
 Trabalhando com arquivos em PHP
+
+O PHP tem muitos e bons recursos para trabalharmos com arquivos, pastas e permissões deles. E conhecer isso é importante na criação de programas.
+
+Precisamos lembrar que o PHP trabalha com o sistema de arquivos sob os cuidados do Apache, Nginx ou outro servidor web suportado. E o PHP com suas funções somente pode fazer o que o servidor web puder fazer. Lembrar que o servidor web somente pode manipular arquivos e pastas na pasta web. No Xampp é no htdocs, nos linux em geral é na pasta /var/www/html.
+
 criado por Caio Filipini em 14/09/2002 1:57pm
 Ao trabalhar com arquivos, no mínimo duas operações devem ser realizadas: abrir e fechar o arquivo. Programadores que conhecem a linguagem C e já trabalharam com arquivos se sentirão em casa.
 
 Para abrir um arquivo, precisamos utilizar a função fopen(), que tem a seguinte sintaxe:
 
 fopen(filename, mode, [use_include_path]);
-
 
 filename: pode ser simplesmente um nome, ou um caminho completo. Exemplos: “arquivo.txt”, “./arquivo.dat”, “/data/data.txt”.
 
